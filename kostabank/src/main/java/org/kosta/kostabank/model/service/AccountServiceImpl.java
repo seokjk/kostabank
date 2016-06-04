@@ -1,8 +1,11 @@
 package org.kosta.kostabank.model.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.kosta.kostabank.model.dao.AccountDAO;
+import org.kosta.kostabank.model.vo.AccountTypeVO;
 import org.kosta.kostabank.model.vo.AccountVO;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +20,14 @@ public class AccountServiceImpl implements AccountService {
 		vo.setAccountNo(accountNo);
 		System.out.println(vo);
 		accountDAO.createAccount(vo);		
+	}
+	public AccountVO findAccountByAccountNum(String accountNo){
+		return accountDAO.findAccountByAccountNum(accountNo);
+	}
+	public List<AccountTypeVO> findAccountByAccountName(){
+		return accountDAO.findAccountByAccountName();
+	}
+	public int findMinMoney(String accountName){
+		return accountDAO.findMinMoney(accountName);
 	}
 }
