@@ -8,7 +8,7 @@
 <c:otherwise>
 <a href="${initParam.root}home.bank">KANG BANK</a>
 계좌생성 &nbsp;
-계좌이체 &nbsp;
+<a href="${initParam.root}transfer_view.bank">계좌이체</a> &nbsp;
 <a href="secure_view.bank">보안카드</a>&nbsp;
 계좌종류 &nbsp;
 </c:otherwise>
