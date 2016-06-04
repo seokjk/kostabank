@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="accountType">
+	<insert id = "createAccountType">
+	insert into kangbank_account_type(accountName,accountType,accountExplanation,minMoney) 
+	values(#{accountName},#{accountType},#{accountExplanation},#{minMoney})
+	</insert>
+	<insert id = "createAccountRates">
+	insert into kangbank_account_rates(accountName,rates,term) values(#{accountTypeVO.accountName},#{rates},#{term})
+	</insert>
+</mapper>

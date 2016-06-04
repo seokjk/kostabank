@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="account">
+ <insert id="createAccount" >
+ 	insert into kangbank_account(accountNo,accountName,issueDate,accountPass,balance,email,tel) values(#{accountNo},#{accountTypeVO.accountName},sysdate,#{accountPass},#{balance},#{customerVO.email}
+ 	, (select tel from kangbank_customer where email =#{customerVO.email}))
+ </insert>
+ <select id ="findAccountByAccountNum" resultType="accountVO">
+ 	select a.accountNo,t.accountName,t.accountType,a.issueDate,a.accountPass,a.balance,a.email,a.tel from kangbank_account a, kangbank_account_Type t where a.accountName=t.accountName and accountNo=#{value}
+ </select>
+ <select id="findAccountByAccountName" resultType="accountTypeVO">
+ 	select accountName,accountType,accountExplanation,minMoney from kangbank_account_Type
+ </select>
+ <select id="findMinMoney" resultType="int">
+ select minMoney from kangbank_accountType where accountName=#{value}
+ </select>
+</mapper>
