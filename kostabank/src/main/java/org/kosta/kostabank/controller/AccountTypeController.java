@@ -18,8 +18,8 @@ public class AccountTypeController {
 	}
 	@RequestMapping("accountType_CreateAccountType.bank")
 	public String createAccountType(AccountTypeVO accountTypeVO, AccountRatesVO accountRatesVO, String accountName){
-		accountRatesVO.setAccountTypeVO(new AccountTypeVO(accountName));
+		System.out.println(accountRatesVO+" "+accountTypeVO);
 		accountTypeService.createAccountType(accountTypeVO, accountRatesVO);
-		return "redirect:.bank";
+		return "redirect:accountTypeList.bank";
 	}
 }
