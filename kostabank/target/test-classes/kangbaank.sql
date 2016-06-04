@@ -109,4 +109,20 @@ insert into kangbank_account_rates(accountSeq, rates, term, accountName)
 values(kangbank_rates_seq.nextval, 1.2, 12, 'Kosta수퍼정기예금');
 insert into kangbank_account_rates(accountSeq, rates, term, accountName)
 values(kangbank_rates_seq.nextval, 2.5, 24, 'Kosta수퍼정기예금');
+accountSeq number PRIMARY KEY,
+rates number default 0,
+term number default 0,
+accountName varchar2(100) not null,
 
+select t.accountName,t.accountType,t.accountExplanation,t.minMoney,r.rates,r.term,r.accountSeq from(
+select accountName,accountType,accountExplanation,minMoney,rates,term,ceil(rownum/5) as page from
+KANGBANK_ACCOUNT_TYPE
+)
+t, KANGBANK_ACCOUNT_RATES r where t.accountName=r.accountName
+and page=1
+select b.no,b.title,b.time_posted,b.hits,b.id,m.name from (
+			select no,title,time_posted,hits,ceil(rownum/5) as page,id from (
+					select no,title,to_char(time_posted,'YYYY.MM.DD') as time_posted,
+					hits,id from spring_board_inst  order by no desc
+		     )
+       ) b,spring_member m where b.id=m.id and page=#{pageNo}

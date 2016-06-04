@@ -26,7 +26,7 @@ public String createAccount(AccountVO vo,String accountName){
 	vo.setAccountName(new AccountTypeVO(accountName));
 	System.out.println(vo);
 	accountService.createAccount(vo);
-	return "redirect:findAccountByAccountNum.bank?accountNo="+vo.getAccountNo();
+	return "redirect:home.bank";
 }
 @RequestMapping("findAccountByAccountNum.bank")
 public ModelAndView findAccountByAccountNum(String accountNo){
