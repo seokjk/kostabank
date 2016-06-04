@@ -2,16 +2,16 @@ package org.kosta.kostabank.model.vo;
 
 public class AccountVO {
 	private String accountNo;
-	private String accountType;
+	private AccountTypeVO accountTypeVO;
 	private String issueDate;
 	private int accountPass;
 	private int balance;
 	private CustomerVO customerVO;
-	public AccountVO(String accountNo, String accountType, String issueDate,
+	public AccountVO(String accountNo, AccountTypeVO accountTypeVO, String issueDate,
 			int accountPass, int balance, CustomerVO customerVO) {
 		super();
 		this.accountNo = accountNo;
-		this.accountType = accountType;
+		this.accountTypeVO = accountTypeVO;
 		this.issueDate = issueDate;
 		this.accountPass = accountPass;
 		this.balance = balance;
@@ -26,11 +26,11 @@ public class AccountVO {
 	public void setAccountNo(String accountNo) {
 		this.accountNo = accountNo;
 	}
-	public String getAccountType() {
-		return accountType;
+	public AccountTypeVO getAccountTypeVO() {
+		return accountTypeVO;
 	}
-	public void setAccountType(String accountType) {
-		this.accountType = accountType;
+	public void setAccountName(AccountTypeVO accountTypeVO) {
+		this.accountTypeVO = accountTypeVO;
 	}
 	public String getIssueDate() {
 		return issueDate;
@@ -58,8 +58,8 @@ public class AccountVO {
 	}
 	@Override
 	public String toString() {
-		return "AccountVO [accountNo=" + accountNo + ", accountType="
-				+ accountType + ", issueDate=" + issueDate + ", account_pass="
+		return "AccountVO [accountNo=" + accountNo + ", accountName="
+				+ accountTypeVO + ", issueDate=" + issueDate + ", account_pass="
 				+ accountPass + ", balance=" + balance + ", customerVO="
 				+ customerVO + "]";
 	}

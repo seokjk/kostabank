@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-iiii
+당신의 계좌 : ${result.accountNo}
 </body>
 </html>

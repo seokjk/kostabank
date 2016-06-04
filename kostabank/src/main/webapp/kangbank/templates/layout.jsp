@@ -5,12 +5,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>kang bank</title>
+<title>css를 이용한 layout</title>
 <script type="text/javascript" src="${initParam.root}resources/jquery-1.12.4.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${initParam.root}kangbank/kangcss/home.css">
 </head>
 <body>
-<div id="container"> 
+<div id="container">
 	<div id="header"><tiles:insertAttribute name="header" /></div>
 	<div id="left"><tiles:insertAttribute name="left" /></div>
 	<div id="main"><tiles:insertAttribute name="main" /></div>
