@@ -7,9 +7,9 @@
 </c:when>
 <c:otherwise>
 <a href="${initParam.root}home.bank">KANG BANK</a>
-계좌생성 &nbsp;
+<a href = "passwordCheck.bank">계좌 만들기</a>&nbsp;
 <a href="${initParam.root}transfer_view.bank">계좌이체</a> &nbsp;
 <a href="secure_view.bank">보안카드</a>&nbsp;
-계좌종류 &nbsp;
+<a href = "accountTypeList.bank">계좌종류 &nbsp;</a>
 </c:otherwise>
 </c:choose>
