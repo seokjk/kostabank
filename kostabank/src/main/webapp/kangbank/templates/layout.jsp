@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="${initParam.root}kangbank/kangcss/home.css">
 </head>
 <body>
-<div id="container">
+<div id="container"> 
 	<div id="header"><tiles:insertAttribute name="header" /></div>
 	<div id="left"><tiles:insertAttribute name="left" /></div>
 	<div id="main"><tiles:insertAttribute name="main" /></div>
