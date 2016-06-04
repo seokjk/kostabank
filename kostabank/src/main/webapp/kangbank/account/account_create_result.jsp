@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-git 테스트
+당신의 계좌 : ${result.accountNo}
 </body>
 </html>

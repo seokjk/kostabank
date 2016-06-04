@@ -1,21 +1,28 @@
 package org.kosta.kostabank.controller;
 
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.kosta.kostabank.model.service.AccountService;
 import org.kosta.kostabank.model.service.CustomerService;
+import org.kosta.kostabank.model.vo.AccountTypeVO;
 import org.kosta.kostabank.model.vo.CustomerVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class CustomerController {
 	@Resource
 	private CustomerService customerService;
+	@Resource
+	private AccountService accountService;
 	@RequestMapping("{viewId}.bank")
 	public String showView(@PathVariable String viewId){
 		System.out.println("@PathVariable:"+viewId);
@@ -72,6 +79,35 @@ public class CustomerController {
 		} else {
 			HttpSession session = request.getSession();
 			session.setAttribute("email", findVO.getEmail());
+		}
+		return flag;
+	}
+	@RequestMapping("passwordCheck.bank")
+	public String passwordCheckRedirect(){
+		return "account_passCheck";
+	}
+	@RequestMapping(value="memberCreateAccount.bank")
+	public ModelAndView memberCreateAccount(HttpServletRequest request){
+		HttpSession session = request.getSession(false);
+		CustomerVO cvo = (CustomerVO) session.getAttribute("loginInfo");
+		List<AccountTypeVO> typeList= accountService.findAccountByAccountName();
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("tlist",typeList);
+		session.setAttribute("cvo", cvo);
+		mv.setViewName("account_create");
+		return mv;
+		
+	}
+	@RequestMapping("checkMemberPass.bank")
+	@ResponseBody
+	public boolean passwordCheck(HttpServletRequest request, String checkPass){
+		System.out.println("입력 비밀 번호 : " + checkPass);
+		boolean flag = false;
+		HttpSession session = request.getSession(false);
+		CustomerVO loginInfo = (CustomerVO)session.getAttribute("loginInfo");
+		System.out.println("원래 비밀번호 : " + loginInfo.getPassword());
+		if(loginInfo.getPassword().equals(checkPass)){
+			flag=true;
 		}
 		return flag;
 	}

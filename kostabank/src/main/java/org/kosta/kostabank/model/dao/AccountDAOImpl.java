@@ -1,7 +1,10 @@
 package org.kosta.kostabank.model.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
+import org.kosta.kostabank.model.vo.AccountTypeVO;
 import org.kosta.kostabank.model.vo.AccountVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -16,5 +19,15 @@ private SqlSessionTemplate template;
 @Override
 public void createAccount(AccountVO vo){
 	template.insert("account.createAccount",vo);
+}
+public AccountVO findAccountByAccountNum(String accountNo){
+	System.out.println("들어가냐?"+accountNo);
+	return template.selectOne("account.findAccountByAccountNum",accountNo);
+}
+public List<AccountTypeVO> findAccountByAccountName(){
+	return template.selectList("account.findAccountByAccountName");
+}
+public int findMinMoney(String accountName){
+	return template.selectOne("account.findMinMoney",accountName);
 }
 }
