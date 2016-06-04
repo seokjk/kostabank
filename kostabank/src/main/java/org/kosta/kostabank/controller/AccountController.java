@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class AccountController {
 @Resource
 private AccountService accountService;
-
+ //아아아아아
 @RequestMapping("createAccount.bank")
 public String createAccount(AccountVO vo,String accountName){
 	System.out.println(accountName);
