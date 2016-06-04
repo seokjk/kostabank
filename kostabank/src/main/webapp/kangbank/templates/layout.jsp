@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>css를 이용한 layout</title>
+<title>KANG BANK</title>
 <script type="text/javascript" src="${initParam.root}resources/jquery-1.12.4.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${initParam.root}kangbank/kangcss/home.css">
 </head>
