@@ -17,36 +17,50 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AccountController {
-@Resource
-private AccountService accountService;
- //아아아아아
-@RequestMapping("createAccount.bank")
-public String createAccount(AccountVO vo,String accountName){
-	System.out.println(accountName);
-	vo.setAccountName(new AccountTypeVO(accountName));
-	System.out.println(vo);
-	accountService.createAccount(vo);
-	return "redirect:home.bank";
-}
-@RequestMapping("findAccountByAccountNum.bank")
-public ModelAndView findAccountByAccountNum(String accountNo){
-	System.out.println(accountNo);
-	AccountVO avo = accountService.findAccountByAccountNum(accountNo);
-	System.out.println(avo);
-	return new ModelAndView("account_create_result","result",avo);
-}
-@RequestMapping("minMoneyShow.bank")
-@ResponseBody
-public int findMinMoney(String accountName){
-	int minMoney = accountService.findMinMoney(accountName);
-	if(minMoney==0){
-		minMoney=0;
+	@Resource
+	private AccountService accountService;
+
+	// 아아아아아
+	@RequestMapping("createAccount.bank")
+	public String createAccount(AccountVO vo, String accountName) {
+		System.out.println(accountName);
+		vo.setAccountName(new AccountTypeVO(accountName));
+		System.out.println(vo);
+		accountService.createAccount(vo);
+		return "redirect:home.bank";
 	}
-	return minMoney;
-}
-@RequestMapping("accountTypeList.bank")
-public ModelAndView accountTypeList(){
-	List<AccountTypeVO> rlist = accountService.findAccountByAccountName();
-	return new ModelAndView("account_Type","rlist",rlist);
-}
+
+	@RequestMapping("findAccountByAccountNum.bank")
+	public ModelAndView findAccountByAccountNum(String accountNo) {
+		System.out.println(accountNo);
+		AccountVO avo = accountService.findAccountByAccountNum(accountNo);
+		System.out.println(avo);
+		return new ModelAndView("account_create_result", "result", avo);
+	}
+
+	@RequestMapping("minMoneyShow.bank")
+	@ResponseBody
+	public int findMinMoney(String accountName) {
+		int minMoney = accountService.findMinMoney(accountName);
+		if (minMoney == 0) {
+			minMoney = 0;
+		}
+		return minMoney;
+	}
+
+	@RequestMapping("accountTypeList.bank")
+	public ModelAndView accountTypeList() {
+		List<AccountTypeVO> rlist = accountService.findAccountByAccountName();
+		return new ModelAndView("account_Type", "rlist", rlist);
+	}
+	
+	//계좌 전체 리스트 조회
+	@RequestMapping("accountTotalList.bank")
+	public ModelAndView accountTotalList(String email, HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		CustomerVO vo = (CustomerVO) session.getAttribute("loginInfo");
+		email = vo.getEmail();
+		List<AccountVO> list = accountService.accountTotalList(email);
+		return new ModelAndView("account_total_list","accountTotalList",list);
+	}
 }
