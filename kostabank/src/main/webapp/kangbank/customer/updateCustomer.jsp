@@ -29,7 +29,7 @@
 </script>
 <c:if test="${sessionScope.loginInfo != null }">
 	${sessionScope.loginInfo.name }님 회원정보수정
-	<form name="updateForm" action="customer_updateCustomerResult.bank">
+	<form id="updateForm" name="updateForm" action="customer_updateCustomerResult.bank">
 		<input type="hidden" name="email" value="${sessionScope.loginInfo.email }">
 		<table border="1">
 			<tr>
