@@ -20,6 +20,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		set balance=balance-#{balance}
 		where accountNo=#{accountNo} and accountPass=#{accountPass}
 	</update>
+	
+	<select id="findAccountNoByEmail"  parameterType="string" resultType="HashMap">
+	 	select k.accountNo from kangbank_account k , kangbank_customer c
+	 	where k.email=c.email and c.email=#{email} and accountName='Kosta종합통장'
+	</select>
 
 	
 </mapper>
