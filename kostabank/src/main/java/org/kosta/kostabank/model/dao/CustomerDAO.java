@@ -13,7 +13,7 @@ public interface CustomerDAO {
 	CustomerVO findId(CustomerVO vo);
 
 	int tempPassword(CustomerVO vo);
-
+	//회원정보수정결과
 	int updateCustomerResult(CustomerVO vo);
 
 }
