@@ -4,6 +4,9 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="account">
+<resultMap type="accountVO" id="accountTypeRM">
+		<id property="accountTypeVO.accountName" column="accountName"/>
+</resultMap>
  <insert id="createAccount" >
  	insert into kangbank_account(accountNo,accountName,issueDate,accountPass,balance,email,tel) values(#{accountNo},#{accountTypeVO.accountName},sysdate,#{accountPass},#{balance},#{customerVO.email}
  	, (select tel from kangbank_customer where email =#{customerVO.email}))
