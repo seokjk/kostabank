@@ -14,4 +14,6 @@ public interface CustomerDAO {
 
 	int tempPassword(CustomerVO vo);
 
+	int updateCustomerResult(CustomerVO vo);
+
 }
