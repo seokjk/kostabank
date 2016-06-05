@@ -34,11 +34,11 @@
 		<table border="1">
 			<tr>
 				<td>비밀번호</td>
-				<td><input type="text" name="password" id="password"></td>
+				<td><input type="password" name="password" id="password"></td>
 			</tr>
 			<tr>
 				<td>비밀번호확인</td>
-				<td><input type="text" name="passCheck" id="passCheck"></td>
+				<td><input type="password" name="passCheck" id="passCheck"></td>
 			</tr>
 			<tr>
 				<td>주소</td>
