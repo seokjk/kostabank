@@ -125,14 +125,24 @@ public class CustomerController {
 	}
 		
 	//정보수정
-	@RequestMapping("customer_updateCustomerResult.bank")
-	public String updateCustomerResult(CustomerVO vo, HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		vo = (CustomerVO) session.getAttribute("loginInfo");
-		customerService.updateCustomerResult(vo);
-		session.setAttribute("loginInfo", vo);
-		System.out.println(vo);
-		return "customer_updateCustomerResult";
-	}
+		@RequestMapping("customer_updateCustomerResult.bank")
+		public String updateCustomerResult(CustomerVO vo, HttpServletRequest request) {
+			HttpSession session = request.getSession(false);
+			CustomerVO vo1 = (CustomerVO) session.getAttribute("loginInfo");
+			//System.out.println(vo1);
+			if(vo == null) {
+				return "home.bank";
+			} else {
+				vo.setName(vo1.getName());
+				vo.setBirth(vo1.getBirth());
+				vo.setTel(vo1.getTel());
+				vo.setSecurity_card(vo1.getSecurity_card());
+				System.out.println("업데이트");
+				customerService.updateCustomerResult(vo);
+				session.setAttribute("loginInfo", vo);
+				System.out.println(vo);
+				return "customer_updateCustomerResult";
+			}
+		}
 
 }
