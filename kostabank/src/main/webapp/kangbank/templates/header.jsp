@@ -11,5 +11,6 @@
 <a href="${initParam.root}transfer_view.bank">계좌이체</a> &nbsp;
 <a href="secure_view.bank">보안카드</a>&nbsp;
 <a href = "accountTypeList.bank">계좌종류 &nbsp;</a>
+<a href="accountTotalList.bank">계좌조회</a> &nbsp;
 </c:otherwise>
 </c:choose>
