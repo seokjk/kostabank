@@ -29,5 +29,9 @@ public class CustomerServiceImpl implements CustomerService {
 	public int tempPassword(CustomerVO vo) {
 		 return customerDAO.tempPassword(vo);
 	}
-
+	//회원정보결과
+	@Override
+	public int updateCustomerResult(CustomerVO vo) {
+		return customerDAO.updateCustomerResult(vo);
+	}
 }
