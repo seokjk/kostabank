@@ -15,6 +15,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	select accountName,accountType,accountExplanation,minMoney from kangbank_account_Type
  </select>
  <select id="findMinMoney" resultType="int">
- select minMoney from kangbank_accountType where accountName=#{value}
+ select minMoney from kangbank_account_type where accountName=#{value}
  </select>
+ <!-- 전체계좌조회 -->
+	<select id="accountTotalList" resultMap="accountTypeRM">
+		select accountNo, to_char(issueDate, 'yyyy.mm.dd') as issueDate, accountName, balance from KANGBANK_ACCOUNT where email=#{value}
+	</select>
 </mapper>
