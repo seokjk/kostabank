@@ -31,7 +31,7 @@ $(document).ready(function() {
 </c:when>
 <c:otherwise>
 ${sessionScope.loginInfo.name}님 환영합니다<br>
-<a href = "customerLogout.bank">로그아웃</a><br>
+<a href = "customerLogout.bank">로그아웃</a> / 
 <a href= "customer_updatePassCheck.bank">회원정보수정</a><br>
 <a href = "accountType_reday.bank">상품 만들기</a><br>
 </c:otherwise>
