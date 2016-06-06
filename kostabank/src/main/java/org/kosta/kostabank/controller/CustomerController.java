@@ -111,5 +111,38 @@ public class CustomerController {
 		}
 		return flag;
 	}
+	
+	//비밀번호 체크 페이지
+	@RequestMapping("customer_updatePassCheck.bank")
+	public String updatePassCheck() {
+		return "customer_updatePassCheck";
+	}
+		
+	//비밀번호 업데이트 화면
+	@RequestMapping("customer_updateCustomer.bank")
+	public String updateCustomer() {
+		return "customer_updateCustomer";
+	}
+		
+	//정보수정
+		@RequestMapping("customer_updateCustomerResult.bank")
+		public String updateCustomerResult(CustomerVO vo, HttpServletRequest request) {
+			HttpSession session = request.getSession(false);
+			CustomerVO vo1 = (CustomerVO) session.getAttribute("loginInfo");
+			//System.out.println(vo1);
+			if(vo == null) {
+				return "home.bank";
+			} else {
+				vo.setName(vo1.getName());
+				vo.setBirth(vo1.getBirth());
+				vo.setTel(vo1.getTel());
+				vo.setSecurity_card(vo1.getSecurity_card());
+				System.out.println("업데이트");
+				customerService.updateCustomerResult(vo);
+				session.setAttribute("loginInfo", vo);
+				System.out.println(vo);
+				return "customer_updateCustomerResult";
+			}
+		}
 
 }

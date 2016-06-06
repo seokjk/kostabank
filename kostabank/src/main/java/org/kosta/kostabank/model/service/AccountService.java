@@ -10,4 +10,5 @@ public interface AccountService {
 	public AccountVO findAccountByAccountNum(String accountNo);
 	public List<AccountTypeVO> findAccountByAccountName();
 	public int findMinMoney(String accountName);
+	List<AccountVO> accountTotalList(String email);
 }

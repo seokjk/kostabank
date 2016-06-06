@@ -17,6 +17,8 @@ private AccountTypeDAO accountTypeDAO;
 @Override
 public void createAccountType(AccountTypeVO accountTypeVO, AccountRatesVO accountRatesVO){
 	accountTypeDAO.createAccountType(accountTypeVO);
+	System.out.println(accountTypeVO.getAccountName());
+	accountRatesVO.setAccountTypeVO(new AccountTypeVO(accountTypeVO.getAccountName()));
 	accountTypeDAO.createAccountRates(accountRatesVO);
 }
 }

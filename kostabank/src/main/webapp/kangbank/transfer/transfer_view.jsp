@@ -10,12 +10,10 @@
 <script type="text/javascript"> 
 
 $(document).ready(function(){
-	$().keyup(function(){
-		
-	});
+
 	
 	$("#transferForm").submit(function(){
-    	var account=$(":input[name='account']").val().trim();
+    	var account=$(":input[name='account']").val();
     	var password=$(":input[name='password']").val().trim();
     	var money=$(":input[name='money']").val().trim();
     	var bank=$(":input[name='bank']").val().trim();
@@ -49,7 +47,7 @@ $(document).ready(function(){
     
     
 </script>
-<form action="transfer_result.bank" method="post" id = "transferForm" name = "transferForm">
+<form action="transfer_empty.bank" method="post" id = "transferForm" name = "transferForm">
 	<h2>계좌이체</h2>
 	<input type = "hidden" name = "choose">
 	<table border=1>
@@ -59,20 +57,12 @@ $(document).ready(function(){
 	<tr>
 		<td>출금계좌번호</td>
 		<td>
-<%-- 		 	<c:if test="${empty sessionScope.loginInfo}">
-		 		<select name="account">
-		 		<c:forEach items="${sessionScope.loginInfo.accountNo}" var="list" >
-		 			
-		 		</c:forEach>
-
-		 			<option value="">계좌선택</option>
-		 			
-    				<option value="학생">학생</option>
-		 		</select>
- 			</c:if>    --%>
-
-			<input type = "text" name = "account" id="account">
-			
+			<select name="no">
+				<option value="" >계좌선택</option>
+				<c:forEach items="" var="account">
+					<option value="account.accountNo">${account.accountNo}</option>
+				</c:forEach>
+			</select>			
 		</td>
 	</tr>
 	<tr>
@@ -85,7 +75,16 @@ $(document).ready(function(){
 		<td colspan=2 align="center">입금정보</td>
 	</tr>
 	<tr>
-		<td>입금은행</td><td>캉뱅</td>
+		<td>입금은행</td>
+		<td>
+			<select name="bank">
+				<option value="">은행선택</option>
+				<option value="학생">캉뱅</option>
+				<option value="문뱅">문뱅</option>
+				<option value="소뱅">소뱅</option>
+				<option value="지뱅">지뱅</option>
+			</select>
+		</td>
 	</tr>
 	<tr>
 		<td>입금계좌번호</td><td><input type = "text" name = "otherAccount" id = "otherAccount"></td>

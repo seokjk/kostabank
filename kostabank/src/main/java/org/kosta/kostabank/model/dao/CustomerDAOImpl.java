@@ -29,5 +29,9 @@ public class CustomerDAOImpl implements CustomerDAO {
 	public int tempPassword(CustomerVO vo) {
 		return template.update("customer.tempPassword", vo);
 	}
-
+	//회원정보수정결과
+	@Override
+	public int updateCustomerResult(CustomerVO vo) {
+		return template.update("customer.updateCustomerResult", vo);
+	}
 }

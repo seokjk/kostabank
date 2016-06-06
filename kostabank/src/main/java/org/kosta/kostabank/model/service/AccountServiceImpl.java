@@ -30,4 +30,9 @@ public class AccountServiceImpl implements AccountService {
 	public int findMinMoney(String accountName){
 		return accountDAO.findMinMoney(accountName);
 	}
+	//전체계좌조회
+	@Override
+	public List<AccountVO> accountTotalList(String email) {
+		return accountDAO.accountTotalList(email);
+	}
 }
