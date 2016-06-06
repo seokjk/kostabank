@@ -21,4 +21,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<update id="tempPassword" parameterType="customerVO">
  		update kangbank_customer set password = #{password} where email = #{email}
  	</update>
+ 	<update id="updateCustomerResult" parameterType="customerVO">
+ 		update kangbank_customer set password=#{password}, address=#{address} 
+		where email=#{email}
+ 	</update>
 </mapper>

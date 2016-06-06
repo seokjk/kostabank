@@ -13,7 +13,7 @@
                 <a href="#">예금조회</a>
               </li>
               <li>
-                <a href="#">계좌이체</a>
+                <a href="${initParam.root}transfer_view.bank">계좌이체</a>
               </li>
               <li class="보안센터">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
