@@ -63,6 +63,14 @@ $(document).ready(function(){
 
 
 <body>
+<c:choose>
+<c:when test="${empty loginInfo}">
+<script type ="text/javascript">
+alert("로그인을 하셔야만 이용가능합니다");
+location.href="home.bank";
+</script>
+</c:when>
+</c:choose>
   <form id = "consentForm">
   <textarea cols = "100" rows = "20" readonly="readonly">
 ◎ 개인 정보 수집 동의
