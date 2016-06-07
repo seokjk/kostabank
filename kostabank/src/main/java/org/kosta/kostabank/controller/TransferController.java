@@ -89,7 +89,6 @@ public class TransferController {
 	@ResponseBody
 	public JSONObject transferSecureCardCheck(String f, String s, String dlf, String dl, String tka, String tk, HttpServletRequest request) throws IOException{
 		HttpSession session = request.getSession(false);
-		System.out.println(" zz");
 		CustomerVO cvo = (CustomerVO) session.getAttribute("loginInfo");
 		JSONObject obj=new JSONObject();
 		System.out.println("");
