@@ -126,3 +126,41 @@ select b.no,b.title,b.time_posted,b.hits,b.id,m.name from (
 					hits,id from spring_board_inst  order by no desc
 		     )
        ) b,spring_member m where b.id=m.id and page=#{pageNo}
+       
+       
+------------------보안카드--------------------
+create table secure_card(
+   no number primary key,
+   one varchar2(4) not null,
+   two varchar2(4) not null,
+   three varchar2(4) not null,
+   four varchar2(4) not null,
+   five varchar2(4) not null,
+   six varchar2(4) not null,
+   seven varchar2(4) not null,
+   eight varchar2(4) not null,
+   nine varchar2(4) not null,
+   ten varchar2(4) not null,
+   eleven varchar2(4) not null,
+   twelve varchar2(4) not null,
+   thirteen varchar2(4) not null,
+   fourteen varchar2(4) not null,
+   fifteen varchar2(4) not null,
+   sixteen varchar2(4) not null,
+   seventeen varchar2(4) not null,
+   eighteen varchar2(4) not null,
+   nineteen varchar2(4) not null,
+   twenty varchar2(4) not null,
+   twenty_one varchar2(4) not null,
+   twenty_two varchar2(4) not null,
+   twenty_three varchar2(4) not null,
+   twenty_four varchar2(4) not null,
+   twenty_five varchar2(4) not null,
+   twenty_six varchar2(4) not null,
+   twenty_seven varchar2(4) not null,
+   twenty_eight varchar2(4) not null,
+   twenty_nine varchar2(4) not null,
+   thirty varchar2(4) not null
+)
+drop table secure_card;
+create sequence secure_card_seq;
