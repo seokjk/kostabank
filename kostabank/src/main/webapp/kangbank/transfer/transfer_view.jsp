@@ -47,7 +47,7 @@ $(document).ready(function(){
     
     
 </script>
-<form action="transfer_empty.bank" method="post" id = "transferForm" name = "transferForm">
+<form action="transfer_result.bank" method="post" id = "transferForm" name = "transferForm">
 	<h2>계좌이체</h2>
 	<input type = "hidden" name = "choose">
 	<table border=1>
