@@ -42,7 +42,7 @@
 			</tr>
 			<tr>
 				<td>주소</td>
-				<td><input type="text" name="address" id="address"></td>
+				<td><input type="text" name="address" id="address" value="${sessionScope.loginInfo.address}"></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
