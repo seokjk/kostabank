@@ -14,6 +14,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <select id ="findAccountByAccountNum" resultType="accountVO">
  	select a.accountNo,t.accountName,t.accountType,a.issueDate,a.accountPass,a.balance,a.email,a.tel from kangbank_account a, kangbank_account_Type t where a.accountName=t.accountName and accountNo=#{value}
  </select>
+  <!-- paging을 위한 쿼리문 -->
+ <select id="findAccountByAccountNamePaging" resultType="accountTypeVO" parameterType="map">
+ select accountName,accountType,accountExplanation,minMoney from (
+select accountName,accountType,accountExplanation,minMoney,ceil(rownum/#{numberOfContent}) as page from(
+select accountName,accountType,accountExplanation,minMoney from KANGBANK_ACCOUNT_TYPE order by accountName desc))
+where page=#{page}
+ </select>
+ 
+ <!-- 계좌 생성시 ajax로 가져오는 리스트 목록 -->
  <select id="findAccountByAccountName" resultType="accountTypeVO">
  	select accountName,accountType,accountExplanation,minMoney from kangbank_account_Type
  </select>
