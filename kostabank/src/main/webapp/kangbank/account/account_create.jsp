@@ -108,7 +108,7 @@ location.href="home.bank";
 <td>E-Mail</td><td><input type = "email" name="customerVO.email" id="customerVO.email" value = "${cvo.email}" readonly="readonly"></td></tr>
 <tr>
 <td>
-계좌 비밀번호</td><td><input type ="password" name="accountPass"></td></tr>
+계좌 비밀번호</td><td><input type ="password" name="accountPass" size="4"></td></tr>
 <tr>
 <td>
 계좌 종류</td><td><select name="accountName" id="accountName">
