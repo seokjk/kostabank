@@ -21,7 +21,9 @@ select accountName,accountType,accountExplanation,minMoney,ceil(rownum/#{numberO
 select accountName,accountType,accountExplanation,minMoney from KANGBANK_ACCOUNT_TYPE order by accountName desc))
 where page=#{page}
  </select>
- 
+ <select id="totalContent" resultType="int">
+		select count(*) from kangbank_account_type
+	</select>
  <!-- 계좌 생성시 ajax로 가져오는 리스트 목록 -->
  <select id="findAccountByAccountName" resultType="accountTypeVO">
  	select accountName,accountType,accountExplanation,minMoney from kangbank_account_Type
