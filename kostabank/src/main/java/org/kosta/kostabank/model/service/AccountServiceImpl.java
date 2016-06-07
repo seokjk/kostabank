@@ -1,18 +1,24 @@
 package org.kosta.kostabank.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.kosta.kostabank.model.dao.AccountDAO;
 import org.kosta.kostabank.model.vo.AccountTypeVO;
 import org.kosta.kostabank.model.vo.AccountVO;
+import org.kosta.kostabank.model.vo.ListVO;
+import org.kosta.kostabank.model.vo.PagingBean;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AccountServiceImpl implements AccountService {
-	@Resource
+	@Resource(name="accountDAOImpl")
 	private AccountDAO accountDAO;
+	@Resource(name="pagingConfig")
+	private Map<String,Integer> pagingConfig;
 	public void createAccount(AccountVO vo){
 		int randomVal=(int)(Math.random()* 9999)+1000;
 		int randomValSe=(int)(Math.random() * 999)+100;
@@ -23,6 +29,17 @@ public class AccountServiceImpl implements AccountService {
 	}
 	public AccountVO findAccountByAccountNum(String accountNo){
 		return accountDAO.findAccountByAccountNum(accountNo);
+	}
+	//페이징
+	public ListVO findAccountByAccountNamePaging(int page){
+		HashMap<String,Integer> paramMap=new HashMap<String,Integer>();
+		paramMap.put("page", page);
+		paramMap.put("numberOfContent", pagingConfig.get("numberOfContent"));
+		List<AccountTypeVO> list=accountDAO.findAccountByAccountNamePaging(paramMap);
+		int total=accountDAO.totalContent();
+		PagingBean paging=new PagingBean(total,page,pagingConfig);
+		ListVO lvo=new ListVO(list,paging);
+		return lvo;
 	}
 	public List<AccountTypeVO> findAccountByAccountName(){
 		return accountDAO.findAccountByAccountName();
