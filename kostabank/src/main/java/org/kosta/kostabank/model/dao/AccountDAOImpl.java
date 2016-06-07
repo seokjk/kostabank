@@ -1,6 +1,7 @@
 package org.kosta.kostabank.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -33,6 +34,10 @@ public class AccountDAOImpl implements AccountDAO {
 	public List<AccountTypeVO> findAccountByAccountName() {
 		return template.selectList("account.findAccountByAccountName");
 	}
+	//페이징 리스트
+		public List<AccountTypeVO> findAccountByAccountNamePaging(Map<String,Integer> pagingConfig) {
+			return template.selectList("account.findAccountByAccountNamePaging",pagingConfig);
+		}
 
 	public int findMinMoney(String accountName) {
 		return template.selectOne("account.findMinMoney", accountName);
