@@ -5,11 +5,13 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- springmvc22 팩키지 이하의 모든 어노테이션 명시 클래스를 객체로 생성하되 @Controller 명시된 컨트롤러 
@@ -49,4 +51,13 @@
 	            </props>
 		</property>
 </bean>
+<!-- 페이징을 위한 설정 -->
+<util:map id="pagingConfig">	
+	<entry key="numberOfContent">
+		<value type="int">10</value>
+	</entry>
+	<entry key="numberOfPage">
+		<value type="int">5</value>
+	</entry>
+</util:map>
 </beans>
