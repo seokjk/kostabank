@@ -20,6 +20,6 @@ public class AccountTypeController {
 	public String createAccountType(AccountTypeVO accountTypeVO, AccountRatesVO accountRatesVO, String accountName){
 		System.out.println(accountRatesVO+" "+accountTypeVO);
 		accountTypeService.createAccountType(accountTypeVO, accountRatesVO);
-		return "redirect:accountTypeList.bank";
+		return "redirect:accountTypeList.bank?page=1";
 	}
 }
