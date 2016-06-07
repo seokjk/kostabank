@@ -6,6 +6,16 @@
 		location.href="home.bank";
 	</script>
  	</c:if>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#home").click(function(){
+			location.href="home.bank";
+		});
+		$("#transfer_view").click(function(){
+			location.href="transfer_view.bank";
+		});
+	});
+</script>
  	
 아래와 같은 내용으로 이체가 정상적으로 처리되었습니다.!
 <hr>
@@ -22,7 +32,8 @@
 		</tr>
 	</tbody>
 </table>
-<a href="${initparam.root}home.bank">홈으로</a>
+<input type="button"  value="홈"  id="home">
+<input type="button"  value="추가이체" id="transfer_view">
 
 
 

@@ -1,8 +1,12 @@
 package org.kosta.kostabank.model.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.kosta.kostabank.model.dao.TransferDAO;
+import org.kosta.kostabank.model.vo.AccountVO;
+import org.kosta.kostabank.model.vo.CustomerVO;
 import org.kosta.kostabank.model.vo.TransferVO;
 import org.springframework.stereotype.Service;
 
@@ -12,35 +16,28 @@ public class TransferServiceImpl implements TransferService {
 	private TransferDAO transferDAO;
 	
 	/* (non-Javadoc)
-	 * @see org.kosta.kostabank.model.service.TransferService#transfer(org.kosta.kostabank.model.vo.TransferVO)
+	 * @see org.kosta.kostabank.model.service.TransferService#transfer(org.kosta.kostabank.model.vo.AccountVO, org.kosta.kostabank.model.vo.CustomerVO, int)
 	 */
 	@Override
-	public int transfer(TransferVO tvo){
-		return transferDAO.transfer(tvo);
+	public void transfer(AccountVO avo, CustomerVO cvo, int money){
+		//int balance = transferDAO.checkBal(money);
+		//System.out.println(balance);
+		transferDAO.deposit(money);
+		transferDAO.withdraw(money);
+		
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.kosta.kostabank.model.service.TransferService#checkBal(org.kosta.kostabank.model.vo.TransferVO)
-	 */
+
 	@Override
-	public int checkBal(TransferVO tvo){
-		return transferDAO.checkBal(tvo);
+	public List<TransferVO> findAccount(){
+		return transferDAO.findAccount();
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.kosta.kostabank.model.service.TransferService#deposit(org.kosta.kostabank.model.vo.TransferVO)
-	 */
 	@Override
-	public int deposit(TransferVO tvo){
-		return transferDAO.deposit(tvo);
+	public int checkPw(int accountPass){
+		return transferDAO.checkPw(accountPass);
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.kosta.kostabank.model.service.TransferService#withdraw(org.kosta.kostabank.model.vo.TransferVO)
-	 */
 	@Override
-	public int withdraw(TransferVO tvo){
-		return transferDAO.withdraw(tvo);
+	public int checkBal(String myaccountNo){
+		return transferDAO.checkBal(myaccountNo);
 	}
 
 	

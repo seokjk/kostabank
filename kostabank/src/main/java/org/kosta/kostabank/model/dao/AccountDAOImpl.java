@@ -43,4 +43,20 @@ public class AccountDAOImpl implements AccountDAO {
 	public List<AccountVO> accountTotalList(String email) {
 		return template.selectList("account.accountTotalList", email);
 	}
+	//전체계좌중에 이체가능계좌조회
+		@Override
+		public List<AccountVO> accountList(String email) {
+			return template.selectList("account.accountList", email);
+		}
+		//계좌번호로 계좌정보 가져오기
+		@Override
+		public AccountVO accountAll(String accountNo){
+			return template.selectOne("account.accountAll",accountNo);
+		}
+		// 계좌조회
+		@Override
+		public AccountVO checkAccount(AccountVO avo){
+			return template.selectOne("account.checkAccount",avo);
+		}
+	
 }

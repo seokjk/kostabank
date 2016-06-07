@@ -1,5 +1,7 @@
 package org.kosta.kostabank.model.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.kosta.kostabank.model.vo.TransferVO;
@@ -12,37 +14,40 @@ public class TransferDAOImpl implements TransferDAO {
 	private SqlSessionTemplate template;
 	
 	/* (non-Javadoc)
-	 * @see org.kosta.kostabank.model.dao.TransferDAO#deposit(org.kosta.kostabank.model.vo.TransferVO)
+	 * @see org.kosta.kostabank.model.dao.TransferDAO#deposit(int)
 	 */
 	@Override
-	public int deposit(TransferVO tvo){
-		return template.update("transfer.deposit",tvo);
+	public int deposit(int money){
+		return template.update("transfer.deposit",money);
 	}
 	
+
 	/* (non-Javadoc)
-	 * @see org.kosta.kostabank.model.dao.TransferDAO#withdraw(org.kosta.kostabank.model.vo.TransferVO)
+	 * @see org.kosta.kostabank.model.dao.TransferDAO#withdraw(int)
 	 */
 	@Override
-	public int withdraw(TransferVO tvo){
-		return template.update("transfer.withdraw",tvo);
+	public int withdraw(int money){
+		return template.update("transfer.withdraw",money);
 	}
 	
+
 
 	/* (non-Javadoc)
 	 * @see org.kosta.kostabank.model.dao.TransferDAO#checkBal(org.kosta.kostabank.model.vo.TransferVO)
 	 */
 	@Override
-	public int checkBal(TransferVO tvo){
-		return template.selectOne("transfer.checkBal",tvo);
+	public int checkBal(String myaccountNo){
+		return template.selectOne("transfer.checkBal",myaccountNo);
 	}
-	
-	
-	/* (non-Javadoc)
-	 * @see org.kosta.kostabank.model.dao.TransferDAO#transfer(org.kosta.kostabank.model.vo.TransferVO)
-	 */
+
+
 	@Override
-	public int transfer(TransferVO tvo){
-		return template.selectOne("transfer.transfer",tvo);
+	public List<TransferVO> findAccount(){
+		return template.selectList("transfer.findAccount");
+	}
+	@Override
+	public int checkPw(int accountPass){
+		return template.selectOne("transfer.checkPw",accountPass);
 	}
 	
 

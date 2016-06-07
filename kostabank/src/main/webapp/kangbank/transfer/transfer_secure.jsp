@@ -56,8 +56,34 @@
 	});
 </script>
 	
+이체정보
+<hr>
+<table border=1>
+	<thead>
+		<tr>
+			<td>출금계좌</td>
+			<td>입금은행</td>
+			<td>입금계좌</td>
+			<td>받는분</td>
+			<td>이체금액</td>
+		</tr>
+	</thead>
+	<tbody>
 
-<br><br>
+			<tr>
+				<td>${sessionScope.tvo.account}</td>
+				<td>${sessionScope.tvo.bank}</td>
+				<td>${sessionScope.tvo.otheraccountNo}</td>
+				<td>${sessionScope.tvo.otheraccountName}</td>
+				<td>${sessionScope.tvo.money}</td>
+			</tr>
+
+		
+	</tbody>
+</table>
+※고객님이 입력하신 이체정보입니다.<br>
+    최종거래 전에 입금 은행 계좌번호와 이체금액, 받는분 성함을 다시 확인하여 주시기 바랍니다. 
+<hr>
 <table border="1">
 	<tr ><td colspan="10">KANGBANK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO.12345678</td></tr>
 	<c:forEach begin="1" end="6" step="1">

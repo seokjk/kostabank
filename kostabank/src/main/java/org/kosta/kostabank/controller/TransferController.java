@@ -1,6 +1,7 @@
 package org.kosta.kostabank.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import net.sf.json.JSONObject;
 import org.kosta.kostabank.model.service.AccountService;
 import org.kosta.kostabank.model.service.SecureCardService;
 import org.kosta.kostabank.model.service.TransferService;
+import org.kosta.kostabank.model.vo.AccountVO;
 import org.kosta.kostabank.model.vo.CustomerVO;
 import org.kosta.kostabank.model.vo.SecureCardVO;
 import org.kosta.kostabank.model.vo.TransferVO;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class TransferController {
 	@Resource
@@ -27,24 +30,59 @@ public class TransferController {
 	@Resource
 	private SecureCardService securecardService;
 	
-	@RequestMapping(value="transfer_empty")
-	public String empty(){
+	@RequestMapping("transfer_view.bank")
+	public ModelAndView transferview(String email, HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		CustomerVO vo = (CustomerVO) session.getAttribute("loginInfo");
+		List<AccountVO> list = accountService.accountList(vo.getEmail());
+		return new ModelAndView("transfer_view","accountList",list);
+	}
+	
+	@RequestMapping("transfer_transfer.bank")
+	public ModelAndView transfer_transfer(HttpServletRequest request,TransferVO tvo){
+		HttpSession session = request.getSession(false);
+		session.setAttribute("tvo", tvo);
+		System.out.println(tvo);
+		AccountVO  s = accountService.accountAll(tvo.getOtheraccountNo());
+		System.out.println("다른계좌="+s);
+		CustomerVO c = s.getCustomerVO();
+		System.out.println("인간="+c);
+		
+		
+		
+		return new ModelAndView("transfer_secure","tvo",tvo);
+	}
+	@RequestMapping("transfer_secure.bank")
+	public String transfer_secure(){
+		
 		return "transfer_result";
 	}
-	
-	@RequestMapping(value = "transfer_result.bank")
-	public String transfer(HttpServletRequest request, TransferVO tvo){
-/*		int balance = transferService.checkBal(tvo);
-		System.out.println(balance);
-		System.out.println(tvo);*/
-		return "transfer_empty";
+		
+	@RequestMapping("checkBalance.bank")
+	@ResponseBody
+	public int checkBal(HttpServletRequest request, String myaccountNo){
+		HttpSession session = request.getSession(false);
+		CustomerVO vo = (CustomerVO) session.getAttribute("loginInfo");
+		List<AccountVO> list = accountService.accountList(vo.getEmail());
+		myaccountNo = request.getParameter("account"); // 선택한 계좌
+		System.out.println("선택한계좌="+myaccountNo);
+		AccountVO  s = accountService.accountAll(myaccountNo);
+		System.out.println("계좌="+s);
+		int balance = s.getBalance();
+		System.out.println("잔액="+balance);
+		return balance; 
 	}
-/*	@RequestMapping("transfer_checkbal.bank")
 	
-	public int checkBal(TransferVO tvo){
-		int balance= transferService.checkBal(tvo);
-		return "transfer_empty";
-	}*/
+	@RequestMapping("checkPassword.bank")
+	@ResponseBody
+	public boolean checkPassword(AccountVO avo){
+		AccountVO vo = accountService.checkAccount(avo);
+		boolean flag=true;
+		if(vo==null){
+			flag=false;
+		}
+		return flag;
+	}
 	
 	int cnt=1;
 	@RequestMapping(value="transferSecureCardCheck.bank",method=RequestMethod.POST)

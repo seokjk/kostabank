@@ -35,4 +35,18 @@ public class AccountServiceImpl implements AccountService {
 	public List<AccountVO> accountTotalList(String email) {
 		return accountDAO.accountTotalList(email);
 	}
+	//전체계좌중 이체가능계좌만 조회
+	@Override
+	public List<AccountVO> accountList(String email) {
+		return accountDAO.accountList(email);
+	}
+	@Override
+	public AccountVO accountAll(String accountNo){
+		return accountDAO.accountAll(accountNo);
+	}
+	@Override
+	public AccountVO checkAccount(AccountVO avo){
+		return accountDAO.checkAccount(avo);
+	}
+	
 }

@@ -1,35 +1,19 @@
 package org.kosta.kostabank.model.dao;
 
+import java.util.List;
+
 import org.kosta.kostabank.model.vo.TransferVO;
 
 public interface TransferDAO {
 
-	/**
-	 * 입금
-	 * @param tvo
-	 * @return
-	 */
-	public abstract int deposit(TransferVO tvo);
+	public abstract int deposit(int money);
 
-	/**
-	 * 출금
-	 * @param tvo
-	 * @return
-	 */
-	public abstract int withdraw(TransferVO tvo);
+	public abstract int withdraw(int money);
 
-	/**
-	 * 잔액조회
-	 * @param tvo
-	 * @return
-	 */
-	public abstract int checkBal(TransferVO tvo);
+	public abstract int checkBal(String myaccountNo);
 
-	/**
-	 * 계좌이체
-	 * @param tvo
-	 * @return
-	 */
-	public abstract int transfer(TransferVO tvo);
+	List<TransferVO> findAccount();
+
+	int checkPw(int accountPass);
 
 }

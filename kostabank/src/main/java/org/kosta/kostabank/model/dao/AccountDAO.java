@@ -12,5 +12,8 @@ public interface AccountDAO {
 	public List<AccountTypeVO> findAccountByAccountName();
 	public int findMinMoney(String accountName);
 	List<AccountVO> accountTotalList(String email);
+	List<AccountVO> accountList(String email);
+	AccountVO accountAll(String accountNo);
+	AccountVO checkAccount(AccountVO avo);
 
 }

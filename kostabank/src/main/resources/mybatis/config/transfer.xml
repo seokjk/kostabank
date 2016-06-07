@@ -4,9 +4,10 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="transfer">
-	<select id="checkBal" parameterType="transferVO" resultType="transferVO">
-		select balance from kangbank_account 
-		where accountno=#{accountno} 
+
+	<select id="checkBal" parameterType="string" resultType="Integer" >
+		select a.balance from kangbank_account a,kangbank_customer c
+		where a.email=c.email and accountNo=#{value}
 	</select>
 	
 	<update id="deposit" parameterType="transferVO">
@@ -20,11 +21,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		set balance=balance-#{balance}
 		where accountNo=#{accountNo} and accountPass=#{accountPass}
 	</update>
-	
-	<select id="findAccountNoByEmail"  parameterType="string" resultType="HashMap">
-	 	select k.accountNo from kangbank_account k , kangbank_customer c
-	 	where k.email=c.email and c.email=#{email} and accountName='Kosta종합통장'
-	</select>
 
 	
 </mapper>

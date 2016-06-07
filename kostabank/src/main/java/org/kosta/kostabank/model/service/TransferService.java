@@ -1,15 +1,19 @@
 package org.kosta.kostabank.model.service;
 
+import java.util.List;
+
+import org.kosta.kostabank.model.vo.AccountVO;
+import org.kosta.kostabank.model.vo.CustomerVO;
 import org.kosta.kostabank.model.vo.TransferVO;
 
 public interface TransferService {
 
-	public abstract int transfer(TransferVO tvo);
+	public abstract void transfer(AccountVO avo, CustomerVO cvo, int money);
 
-	public abstract int checkBal(TransferVO tvo);
+	List<TransferVO> findAccount();
 
-	public abstract int deposit(TransferVO tvo);
+	int checkPw(int accountPass);
 
-	public abstract int withdraw(TransferVO tvo);
+	int checkBal(String myaccountNo);
 
 }
