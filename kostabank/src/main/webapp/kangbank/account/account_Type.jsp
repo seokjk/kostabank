@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+ <div class="container">
 <table border="1">
 <tr>
 <td>계좌 이름</td>
@@ -15,7 +16,7 @@
 <td>상품 설명</td>
 <td>최저액</td>
 </tr>
-<c:forEach items="${rlist}" var="c">
+<c:forEach items="${requestScope.lvo.accountTypeList}" var="c">
 <tr>
 <td>${c.accountName}</td>
 <td>${c.accountType}</td>
@@ -24,6 +25,8 @@
 <tr>
 </c:forEach>
 </table>
+</div>
+ <div class="container">
 <%-- 코드를 줄이기 위해 pb 변수에 pagingBean을 담는다. --%>
 	<c:set var="pb" value="${requestScope.lvo.pagingBean}"></c:set>
 	<!-- 
@@ -33,7 +36,7 @@
 				   	    hint)   startPageOfPageGroup-1 하면 됨 		 
 	 -->      
 	<c:if test="${pb.previousPageGroup}">
-	<a href="list.do?pageNo=${pb.startPageOfPageGroup-1}">
+	<a href="accountTypeList.bank?page=${pb.startPageOfPageGroup-1}">
 	<!-- <img src="img/left_arrow_btn.gif"> -->
 	◀&nbsp; </a>	
 	</c:if>
@@ -48,7 +51,7 @@
 	end="${pb.endPageOfPageGroup}">
 	<c:choose>
 	<c:when test="${pb.nowPage!=i}">
-	<a href="list.do?pageNo=${i}">${i}</a> 
+	<a href="accountTypeList.bank?page=${i}">${i}</a> 
 	</c:when>
 	<c:otherwise>
 	${i}
@@ -63,8 +66,9 @@
 				   	    hint)   endPageOfPageGroup+1 하면 됨 		 
 	 -->   
 	<c:if test="${pb.nextPageGroup}">
-	<a href="list.do?pageNo=${pb.endPageOfPageGroup+1}">
+	<a href="accountTypeList.bank?page=${pb.endPageOfPageGroup+1}">
 	▶<!-- <img src="img/right_arrow_btn.gif"> --></a>
 	</c:if>
+	</div>
 </body>
 </html>
