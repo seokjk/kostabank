@@ -10,6 +10,7 @@ import org.kosta.kostabank.model.service.AccountService;
 import org.kosta.kostabank.model.vo.AccountTypeVO;
 import org.kosta.kostabank.model.vo.AccountVO;
 import org.kosta.kostabank.model.vo.CustomerVO;
+import org.kosta.kostabank.model.vo.ListVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AccountController {
-	@Resource
+	@Resource(name="accountServiceImpl")
 	private AccountService accountService;
 
 	// 아아아아아
@@ -27,7 +28,7 @@ public class AccountController {
 		vo.setAccountName(new AccountTypeVO(accountName));
 		System.out.println(vo);
 		accountService.createAccount(vo);
-		return "redirect:home.bank";
+		return "redirect:findAccountByAccountNum.bank?accountNo="+vo.getAccountNo();
 	}
 
 	@RequestMapping("findAccountByAccountNum.bank")
@@ -49,9 +50,10 @@ public class AccountController {
 	}
 
 	@RequestMapping("accountTypeList.bank")
-	public ModelAndView accountTypeList() {
-		List<AccountTypeVO> rlist = accountService.findAccountByAccountName();
-		return new ModelAndView("account_Type", "rlist", rlist);
+	public ModelAndView accountTypeList(int page) {
+		System.out.println(page);
+		ListVO lvo = accountService.findAccountByAccountNamePaging(page);
+		return new ModelAndView("account_Type", "lvo", lvo);
 	}
 	
 	//계좌 전체 리스트 조회
