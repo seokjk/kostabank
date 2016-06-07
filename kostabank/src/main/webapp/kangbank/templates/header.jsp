@@ -78,7 +78,15 @@
          <div class="col-md-12">
             <ul class="lead nav navbar-nav navbar-right">
                <li class="active"><a href="#">KANG BANK</a></li>
-               <li><a href="accountTotalList.bank">예금조회</a></li>
+               <li><a href = "ccountTypeList.bank?page=1">상품 정보</a></li>
+                     <li class="계좌"><a href="#" class="dropdown-toggle"
+                  data-toggle="dropdown" role="button" aria-expanded="false">계좌정보
+                     <i class="fa fa-caret-down"></i>
+               </a>
+                  <ul class="dropdown-menu" role="menu">
+                     <li><a href="passwordCheck.bank">계좌 생성</a></li>
+                      <li><a href="accountTotalList.bank">예금조회</a></li>
+                  </ul></li>
                <li><a href="${initParam.root}transfer_view.bank">계좌이체</a></li>
                <li class="보안센터"><a href="#" class="dropdown-toggle"
                   data-toggle="dropdown" role="button" aria-expanded="false">보안센터
