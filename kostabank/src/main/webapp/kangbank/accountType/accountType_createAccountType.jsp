@@ -15,11 +15,7 @@
 <td>상품 이름</td><td><input type = "text" name = "accountName"></td>
 </tr>
 <tr>
-<td>상품 종류</td><td><select name = "accountType"><option value=""></option>
-<option value="적금">적금</option>
-<option value="예금">예금</option>
-<option value="자녀출생기념적금">자녀출생기념적금</option>
-</select></td>
+<td>상품 종류</td><td><input type ="text" name = "accountType"></td>
 </tr>
 <tr>
 <td>상품 설명</td><td> <textarea name = "accountExplanation" cols = "22" rows = "20"></textarea></td>
@@ -44,6 +40,7 @@
 <c:forEach begin="1" end = "5" var = "i">
 <option value="${i}">${i}</option>
 </c:forEach>
+<option value="10">10</option>
 </select></td></tr>
 <tr>
 <td>계약기간</td>
