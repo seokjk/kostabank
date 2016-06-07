@@ -12,6 +12,7 @@ public interface AccountDAO {
 	public AccountVO findAccountByAccountNum(String accountNo);
 	public List<AccountTypeVO> findAccountByAccountNamePaging(Map<String,Integer> pagingConfig);
 	public List<AccountTypeVO> findAccountByAccountName();
+	public int totalContent();
 	public int findMinMoney(String accountName);
 	List<AccountVO> accountTotalList(String email);
 	List<AccountVO> accountList(String email);

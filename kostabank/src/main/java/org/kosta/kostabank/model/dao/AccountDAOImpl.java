@@ -38,6 +38,9 @@ public class AccountDAOImpl implements AccountDAO {
 		public List<AccountTypeVO> findAccountByAccountNamePaging(Map<String,Integer> pagingConfig) {
 			return template.selectList("account.findAccountByAccountNamePaging",pagingConfig);
 		}
+		public int totalContent(){
+			return template.selectOne("account.totalContent");
+		}
 
 	public int findMinMoney(String accountName) {
 		return template.selectOne("account.findMinMoney", accountName);
