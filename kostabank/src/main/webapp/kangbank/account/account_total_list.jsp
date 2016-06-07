@@ -10,7 +10,18 @@
 	</tr>
 	<c:forEach var="accountTotalList" items="${requestScope.accountTotalList }">
 		<tr>
-			<td><a href="#">${accountTotalList.accountNo }</a></td>
+			<td><a href="#">${accountTotalList.accountNo }</a><br>
+			<form>
+					<input type="button" value="상세내역" id="detailBtn">
+			</form>
+			<script type="text/javascript">
+	$(document).ready(function(){
+	$("#detailBtn").click(function(){
+		location.href="deal_dealDetailByDate.bank?accountNo=${accountTotalList.accountNo }";
+	});
+});
+			</script>
+			</td>		
 			<td>
 				${accountTotalList.accountTypeVO.accountName } <br>
 				신규일 : ${accountTotalList.issueDate }
