@@ -29,4 +29,27 @@
 			value="org.springframework.web.servlet.view.tiles2.TilesView" />
 		<property name="order" value="0" />
 	</bean>
+	<!-- 파일업로드 설정 -->
+<bean id="multipartResolver" 
+class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<property name="defaultEncoding" value="utf-8"/>
+	<!-- 아래는 파일사이즈 제한시 사용한다  -->
+	<!-- <property name="maxUploadSize" value="5*1024*1024"/> -->	
+</bean>
+<!-- 파일업로드 경로 설정 -->
+<!-- 개발시 사용하는 경로 , 운영시에는 WAS 경로로 수정한다
+	  운영시 경로는 
+	  C:\\java-kosta\\WAS\\spring-tomcat\\webapps\\springmvc26\\upload\\
+ -->
+<bean id="uploadPath" class="java.lang.String">
+	<constructor-arg  
+value="C:\\java-kosta\\WAS\\Final-tomcat-7.0.68\\webapps\\kostabank\\kangbank\\upload\\"/>
+</bean>
+<!-- 파일 다운로드를 위한 설정 -->
+<bean name="downloadView" class="org.kosta.kostabank.controller.DownloadView"/>
+<!-- 파일 다운로드 서비스를 위해 ViewResolver를 추가한다 -->
+<bean id="beanNameViewResolver" 
+class="org.springframework.web.servlet.view.BeanNameViewResolver">
+	<property name="order" value="1"/>
+</bean>
 </beans>
