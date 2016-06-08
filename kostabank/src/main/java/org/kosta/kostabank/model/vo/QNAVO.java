@@ -8,25 +8,46 @@ public class QNAVO {
 	private String qnaType;
 	private CustomerVO customerVO;
 	private String qnaContent;
-	private MultipartFile qnaFileAddress;
+	private String qnaFileAddress;
+	private MultipartFile uploadFile;
 	private String qnaTime;
 	
 	public QNAVO() {
 		super();
 	}
+
+	public String getQnaFileAddress() {
+		return qnaFileAddress;
+	}
+
+	public void setQnaFileAddress(String qnaFileAddress) {
+		this.qnaFileAddress = qnaFileAddress;
+	}
+
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
+	}
+
 	public QNAVO(String qnaTitle, String qnaType, CustomerVO customerVO,
-			String qnaContent, MultipartFile qnaFileAddress, String qnaTime) {
+			String qnaContent, String qnaFileAddress, MultipartFile uploadFile,
+			String qnaTime) {
 		super();
 		this.qnaTitle = qnaTitle;
 		this.qnaType = qnaType;
 		this.customerVO = customerVO;
 		this.qnaContent = qnaContent;
 		this.qnaFileAddress = qnaFileAddress;
+		this.uploadFile = uploadFile;
 		this.qnaTime = qnaTime;
 	}
+
 	public QNAVO(int qnaNo, String qnaTitle, String qnaType,
-			CustomerVO customerVO, String qnaContent,
-			MultipartFile qnaFileAddress, String qnaTime) {
+			CustomerVO customerVO, String qnaContent, String qnaFileAddress,
+			MultipartFile uploadFile, String qnaTime) {
 		super();
 		this.qnaNo = qnaNo;
 		this.qnaTitle = qnaTitle;
@@ -34,8 +55,10 @@ public class QNAVO {
 		this.customerVO = customerVO;
 		this.qnaContent = qnaContent;
 		this.qnaFileAddress = qnaFileAddress;
+		this.uploadFile = uploadFile;
 		this.qnaTime = qnaTime;
 	}
+
 	public String getQnaTime() {
 		return qnaTime;
 	}
@@ -72,18 +95,6 @@ public class QNAVO {
 	public void setQnaContent(String qnaContent) {
 		this.qnaContent = qnaContent;
 	}
-	public MultipartFile getQnaFileAddress() {
-		return qnaFileAddress;
-	}
-	public void setQnaFileAddress(MultipartFile qnaFileAddress) {
-		this.qnaFileAddress = qnaFileAddress;
-	}
-	@Override
-	public String toString() {
-		return "QNAVO [qnaNo=" + qnaNo + ", qnaTitle=" + qnaTitle
-				+ ", qnaType=" + qnaType + ", customerVO=" + customerVO
-				+ ", qnaContent=" + qnaContent + ", qnaFileAddress="
-				+ qnaFileAddress + ", qnaTime=" + qnaTime + "]";
-	}
+	
 	
 }
