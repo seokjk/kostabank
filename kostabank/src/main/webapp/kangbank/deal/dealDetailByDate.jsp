@@ -42,7 +42,7 @@ $(document).ready(function(){
 		        	  $("#ed").val("");
 					return false;
 	          }
-	});//ed change
+	});//ed change 
 	$("#chekcBtn1").click(function(){
 		var startDay = $("#sd").val();
 		var endDay = $("#ed").val();
