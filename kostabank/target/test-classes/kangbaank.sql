@@ -13,6 +13,11 @@ create table kangbank_customer(
    constraint pk_customer primary key(email,tel)
 );
 
+insert into KANGBANK_CUSTOMER(email, password, name, birth, tel, address)
+values('leekorea2k@hanmail.net','1234','유소현','921128','01071504106','의왕');
+insert into KANGBANK_CUSTOMER(email, password, name, birth, tel, address)
+values('dkdkdk@nate.net','1234','아아아','921128','01071504107','의왕');
+
 
 
 -------------계좌 테이블 관련-------------
@@ -38,8 +43,15 @@ CONSTRAINT FK_kangbank_customer FOREIGN KEY
 
 
 
+insert into KANGBANK_ACCOUNT(accountNo,issueDate,accountPass,balance,email,tel,accountName)
+values('12345',sysdate, 1234, 1000,'leekorea2k@hanmail.net','01071504106','Kosta종합통장');
+
+
+
 -------------계좌 종류 테이블 관련-------------
 drop table kangbank_account_type;
+alter table kangbank_account_type rename column Name to accountName;
+select * from kangbank_account_type;
 
 --kangbank_account_type
 --name, accountType, accountExplanation, minMoney
@@ -109,10 +121,6 @@ insert into kangbank_account_rates(accountSeq, rates, term, accountName)
 values(kangbank_rates_seq.nextval, 1.2, 12, 'Kosta수퍼정기예금');
 insert into kangbank_account_rates(accountSeq, rates, term, accountName)
 values(kangbank_rates_seq.nextval, 2.5, 24, 'Kosta수퍼정기예금');
-accountSeq number PRIMARY KEY,
-rates number default 0,
-term number default 0,
-accountName varchar2(100) not null,
 
 select t.accountName,t.accountType,t.accountExplanation,t.minMoney,r.rates,r.term,r.accountSeq from(
 select accountName,accountType,accountExplanation,minMoney,rates,term,ceil(rownum/5) as page from
@@ -164,3 +172,35 @@ create table secure_card(
 )
 drop table secure_card;
 create sequence secure_card_seq;
+
+-------------거래내역------------------
+drop table kangbank_deal_detail
+create table kangbank_deal_detail(
+   dealNo number primary key,
+   accountNo varchar2(100) not null,
+   otherAccountNo varchar2(100) not null,
+   dealType varchar2(100) not null,
+   amountOfMoney number not null,
+   dealDate date not null,
+   constraint fk_kangbank_account foreign key (accountNo) references kangbank_account(accountNo)
+)
+
+create sequence dealNo_seq;
+drop sequence dealNo_seq;
+
+
+insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate)
+values(dealNo_seq.nextval, '12345','12346','deposit',1000,sysdate);
+insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate)
+values(dealNo_seq.nextval, '12345','12346','deposit',1000,sysdate);
+
+
+
+
+
+
+
+
+
+
+

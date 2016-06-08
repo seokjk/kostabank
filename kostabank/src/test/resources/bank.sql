@@ -16,9 +16,9 @@ create table kangbank_customer(
 );
 update KANGBANK_CUSTOMER set password='1234' where email='leekorea2k@hanmail.net';
 insert into KANGBANK_CUSTOMER(email, password, name, birth, tel, address)
-values('leekorea2k@hanmail.net',1234,'유소현','921128','01071504106','의왕');
+values('leekorea2k@hanmail.net','1234','유소현','921128','01071504106','의왕');
 insert into KANGBANK_CUSTOMER(email, password, name, birth, tel, address)
-values('dkdkdk@nate.net',1234,'아아아','921128','01071504107','의왕');
+values('dkdkdk@nate.net','1234','아아아','921128','01071504107','의왕');
 
 --kangbank_account_type
 --name, accountType, accountExplanation, minMoney

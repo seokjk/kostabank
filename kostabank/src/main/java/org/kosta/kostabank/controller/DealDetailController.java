@@ -42,7 +42,7 @@ public class DealDetailController {
 		dvo.setAccountNo(accountNo);
 		System.out.println(startDay);
 		List<DealDetailVO> list = dealDetailService.getDetail(dvo);
-		//System.out.println(endDay);
+		System.out.println(endDay);
 		/*ModelAndView mav = new ModelAndView();
 		mav.addObject("list",list);
 		mav.setViewName("deal_dealDetailByDate_result");*/

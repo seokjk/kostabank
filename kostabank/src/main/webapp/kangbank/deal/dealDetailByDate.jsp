@@ -48,7 +48,6 @@ $(document).ready(function(){
 		var endDay = $("#ed").val();
 		//var DayGap=endDay-startDay;
 		var accountNo = <%=request.getParameter("accountNo")%>;
-	
 		alert(accountNo);
 		$.ajax({
 			type:"POST",
@@ -67,7 +66,6 @@ $(document).ready(function(){
 					html+="<td>"+"출금"+"</td>";
 					html+="<td>"+"거래일"+"</td></tr>";
 				$.each(data, function(index, deal){
-					
 					html+="<tr><td>"+ deal.dealNo +"</td>";				
 					html+="<td>"+ deal.otherAccountNo +"</td>";	
 					//html+="<td>"+ deal.accountNo +"</td>";			
@@ -97,7 +95,7 @@ $(document).ready(function(){
 	$("#dateForm :input[name=termInfo]").click(function(){
 		var gapChecked= $("#dateForm :input[name=termInfo]:checked").val();
 		//alert(gapChecked);
-		var accountNo = <%=request.getParameter("accountNo")%>;
+		var accountNo = "<%=request.getParameter("accountNo")%>";
 		$.ajax({
 			type:"POST",
 			url:"dealDetailByDate_result2.bank",
@@ -145,10 +143,12 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
+
 ==${param.accountNo} 거래 내역==
 
 <br><br>
-조회설정<br>
+조회설정
+
 <form action="checking_dealDetailByDate.bank" id="dateForm">
 <input type="date" name="startDate" id="sd"> ~  <input type="date" name="endDate" id="ed">
 <select name="transferType">
@@ -156,7 +156,9 @@ $(document).ready(function(){
     <option value="deposit">입금</option>
     <option value="withdraw">출금</option>
 </select>
+
 <input type="button" value="조회" id = "chekcBtn1">
+
 <br>
 <input type="radio" name="termInfo" value="today">당일
 <input type="radio" name="termInfo" value="oneMonth">1개월
@@ -164,7 +166,6 @@ $(document).ready(function(){
 <input type="radio" name="termInfo" value="sixMonth">6개월
 <input type="radio" name="termInfo" value="oneYear">1년
 
-<br><br>
 <span id="viewDetail"></span>
 </form>
 </body>

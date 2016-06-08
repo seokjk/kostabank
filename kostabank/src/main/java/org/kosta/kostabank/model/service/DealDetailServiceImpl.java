@@ -1,5 +1,6 @@
 package org.kosta.kostabank.model.service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,7 +19,19 @@ public class DealDetailServiceImpl implements DealDetailService{
 	private DealDetailDAO dealDetailDAO;
 	@Override
 	public List<DealDetailVO> getDetail(DealDetailVO dealDetailVO){
-		
+		String end = dealDetailVO.getEndDay();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date end1;
+		try {
+			end1 = sdf.parse(end);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(end1);
+			cal.add(Calendar.DATE, 1);
+			String endDay = sdf.format(cal.getTime());
+			dealDetailVO.setEndDay(endDay);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		return dealDetailDAO.getDetail(dealDetailVO);
 	}
 	@Override
@@ -30,10 +43,6 @@ public class DealDetailServiceImpl implements DealDetailService{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		Calendar cal = Calendar.getInstance();
-	/*	int year = cal.get(cal.YEAR);
-		System.out.println(year);
-		int month = cal.get(cal.MONTH);
-		System.out.println(month);*/
 		cal.setTime(today);
 		cal.add(Calendar.DATE, 1);
 		Date d = cal.getTime();

@@ -24,7 +24,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		select *
  		from kangbank_deal_detail
  		where dealDate between #{startDay} and #{endDay} and accountNo=#{accountNo}
- 		
  	</select>
  	 <!-- <select id="getDetailByGap" parameterType="dealDetailVO" resultType="dealDetailVO">
  		select *

@@ -11,16 +11,8 @@
 	<c:forEach var="accountTotalList" items="${requestScope.accountTotalList }">
 		<tr>
 			<td><a href="#">${accountTotalList.accountNo }</a><br>
-			<form>
-					<input type="button" value="상세내역" id="detailBtn">
-			</form>
-			<script type="text/javascript">
-	$(document).ready(function(){
-	$("#detailBtn").click(function(){
-		location.href="deal_dealDetailByDate.bank?accountNo=${accountTotalList.accountNo }";
-	});
-});
-			</script>
+					<!-- <input type="button" value="상세내역" id="detailBtn"> -->
+					<a href="deal_dealDetailByDate.bank?accountNo=${accountTotalList.accountNo }">상세내역</a>
 			</td>		
 			<td>
 				${accountTotalList.accountTypeVO.accountName } <br>
