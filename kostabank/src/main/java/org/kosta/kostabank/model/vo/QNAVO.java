@@ -9,9 +9,24 @@ public class QNAVO {
 	private CustomerVO customerVO;
 	private String qnaContent;
 	private MultipartFile qnaFileAddress;
+	private String qnaTime;
+	
+	public QNAVO() {
+		super();
+	}
+	public QNAVO(String qnaTitle, String qnaType, CustomerVO customerVO,
+			String qnaContent, MultipartFile qnaFileAddress, String qnaTime) {
+		super();
+		this.qnaTitle = qnaTitle;
+		this.qnaType = qnaType;
+		this.customerVO = customerVO;
+		this.qnaContent = qnaContent;
+		this.qnaFileAddress = qnaFileAddress;
+		this.qnaTime = qnaTime;
+	}
 	public QNAVO(int qnaNo, String qnaTitle, String qnaType,
 			CustomerVO customerVO, String qnaContent,
-			MultipartFile qnaFileAddress) {
+			MultipartFile qnaFileAddress, String qnaTime) {
 		super();
 		this.qnaNo = qnaNo;
 		this.qnaTitle = qnaTitle;
@@ -19,18 +34,13 @@ public class QNAVO {
 		this.customerVO = customerVO;
 		this.qnaContent = qnaContent;
 		this.qnaFileAddress = qnaFileAddress;
+		this.qnaTime = qnaTime;
 	}
-	public QNAVO(String qnaTitle, String qnaType, CustomerVO customerVO,
-			String qnaContent, MultipartFile qnaFileAddress) {
-		super();
-		this.qnaTitle = qnaTitle;
-		this.qnaType = qnaType;
-		this.customerVO = customerVO;
-		this.qnaContent = qnaContent;
-		this.qnaFileAddress = qnaFileAddress;
+	public String getQnaTime() {
+		return qnaTime;
 	}
-	public QNAVO() {
-		super();
+	public void setQnaTime(String qnaTime) {
+		this.qnaTime = qnaTime;
 	}
 	public int getQnaNo() {
 		return qnaNo;
@@ -73,7 +83,7 @@ public class QNAVO {
 		return "QNAVO [qnaNo=" + qnaNo + ", qnaTitle=" + qnaTitle
 				+ ", qnaType=" + qnaType + ", customerVO=" + customerVO
 				+ ", qnaContent=" + qnaContent + ", qnaFileAddress="
-				+ qnaFileAddress + "]";
+				+ qnaFileAddress + ", qnaTime=" + qnaTime + "]";
 	}
 	
 }
