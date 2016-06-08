@@ -9,8 +9,8 @@ create table kangbank_qna(
 	email varchar2(100) not null,
 	tel varchar2(100) not null,
 	qna_content clob not null,
-	qna_fileAddress varchar2(100)	
-	
+	qna_fileAddress varchar2(100),
+	qna_time date not null
 )
 
 ALTER TABLE kangbank_qna ADD
@@ -20,5 +20,7 @@ CONSTRAINT kangbank_customer_fk FOREIGN KEY
 
 select*from kangbank_qna
 
-insert into kangbank_qna(qna_no,qna_title,qna_type,email,tel,qna_content,qna_fileAddress)
-values(kangbank_qna_seq.nextval,'잉여 하네요 ㅡㅡ','계좌이체오류','sungyounet@naver.com','01041982978','장난하나요','c\\java')
+select
+
+insert into kangbank_qna(qna_no,qna_title,qna_type,email,tel,qna_content,qna_fileAddress,qna_time)
+values(kangbank_qna_seq.nextval,'잉여 하네요 ㅡㅡ','계좌이체오류','sungyounet@naver.com','01041982978','장난하나요','c\\java',sysdate)
