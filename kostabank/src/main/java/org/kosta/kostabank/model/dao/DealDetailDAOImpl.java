@@ -21,7 +21,7 @@ public class DealDetailDAOImpl implements DealDetailDAO {
 	/*	@Override
 	public List<DealDetailVO> getDetailByGap(String gapChecked) {
 		return sqlSessionTemplate.selectList("deal.getDetailByGap", gapChecked);
-	}*/
+	}*///
 }
 
 

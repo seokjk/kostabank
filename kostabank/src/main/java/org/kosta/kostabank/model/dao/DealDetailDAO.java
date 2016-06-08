@@ -9,5 +9,5 @@ public interface DealDetailDAO {
 	List<DealDetailVO> getDetail(DealDetailVO dealDetailVO);
 
 	//List<DealDetailVO> getDetailByGap(String gapChecked);
-
+//
 }

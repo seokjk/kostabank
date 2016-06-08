@@ -46,16 +46,16 @@ $(document).ready(function(){
 	$("#chekcBtn1").click(function(){
 		var startDay = $("#sd").val();
 		var endDay = $("#ed").val();
-		//var DayGap=endDay-startDay;
 		var accountNo = <%=request.getParameter("accountNo")%>;
-		alert(accountNo);
+		var dealType = $("#dateForm :input[name=transferType]").val();
 		$.ajax({
 			type:"POST",
 			url:"dealDetailByDate_result.bank",
 			data:  {
 				startDay : startDay,
 				endDay : endDay,
-				accountNo : accountNo
+				accountNo : accountNo,
+				dealType : dealType
 			  },
 			dataType:"json",   
 			success:function(data){

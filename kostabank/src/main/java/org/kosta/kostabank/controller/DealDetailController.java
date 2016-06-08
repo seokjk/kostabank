@@ -24,6 +24,7 @@ public class DealDetailController {
 		mav.addObject("accountNo",accountNo);
 		return mav;
 	}*/
+	//
 	@RequestMapping(value="dealDetailByDate.bank", method = RequestMethod.POST)
 	public ModelAndView dealDetailByDate(HttpServletRequest request){
 		String accountNo = request.getParameter("accountNo");
