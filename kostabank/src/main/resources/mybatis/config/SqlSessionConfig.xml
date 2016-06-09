@@ -21,6 +21,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<mapper resource="mybatis/config/secure.xml"/>
 	<mapper resource="mybatis/config/deal.xml"/>
 	<mapper resource="mybatis/config/qna.xml"/>
+	<mapper resource="mybatis/config/notice.xml"/>
 	</mappers>
 </configuration>
 
