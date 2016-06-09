@@ -102,7 +102,7 @@
                      <i class="fa fa-caret-down"></i>
                </a>
                   <ul class="dropdown-menu" role="menu">
-                     <li><a href="notice_list.bank">공지사항</a></li>
+                     <li><a href="#">공지사항</a></li>
                      <li><a href="QNA.bank">Q & A</a></li>
                      <li><a href="#">자주 묻는 질문</a></li>
                   </ul></li>
