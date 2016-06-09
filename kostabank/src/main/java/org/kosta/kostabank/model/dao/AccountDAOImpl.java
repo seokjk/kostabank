@@ -66,5 +66,9 @@ public class AccountDAOImpl implements AccountDAO {
 		public AccountVO checkAccount(AccountVO avo){
 			return template.selectOne("account.checkAccount",avo);
 		}
+		@Override
+		public AccountVO checkOtherAccount(String accountNo){
+			return template.selectOne("checkOtherAccount",accountNo);
+		}
 	
 }

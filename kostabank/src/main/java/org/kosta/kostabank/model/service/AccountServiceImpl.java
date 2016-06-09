@@ -65,5 +65,9 @@ public class AccountServiceImpl implements AccountService {
 	public AccountVO checkAccount(AccountVO avo){
 		return accountDAO.checkAccount(avo);
 	}
+	@Override
+	public AccountVO checkOtherAccount(String accountNo){
+		return accountDAO.checkOtherAccount(accountNo);
+	}
 	
 }

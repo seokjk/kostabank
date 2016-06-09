@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<script type="text/javascript" src="resources/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="${initParam.root}resources/jquery-1.12.4.min.js"></script>
 <c:if test="${empty sessionScope.loginInfo}">
 	<script type="text/javascript">
 		location.href = "home.bank";
@@ -10,58 +10,76 @@
 
 <script type="text/javascript">
 	$(document).ready(function() { 
-		/*비밀번호체크*/
-		$("#transferForm :input[name='myaccountPass']").keyup(function(){
-
-
+		
+		/*form 입력란*/
+		$("#transferForm").submit(function(){
+			var passCheck=false;
+			var otherAccountCheck=false;
+			
+			/*계좌확인*/
+			$.ajax({
+				type:"post",
+				url:"checkOtherAccount.bank",
+				data:"otheraccountNo="+$("#otheraccountNo").val(),
+				async:false,
+				success:function(name){
+					if(name==""){
+						alert("보낼 계좌가 없습니다.");
+						otherAccountCheck=true;
+						return false;
+					}
+			}
+			});
+			
+			/*비밀번호체크*/
 			$.ajax({
 				type:"post",
 				url:"checkPassword.bank",
 				data:"accountPass="+$("#myaccountPass").val()+"&accountNo="+$("#account").val(),
+				async:false,
 				success:function(flag){
-					if(flag==true){
-						$("#passwordView").html("Correct").css("background","green");
-					}else{
-						$("#passwordView").html("False").css("background","red");
-					}
-
-					
-			}
-				
+					if(!flag){
+						alert("비밀번호가 틀립니다.");
+						passCheck=true;
+						return false;
+					}	
+				}
 			});
-		});
-	
-		/*form 입력란*/
-		$("#transferForm").submit(function(){
 			
-			if ($("#transferForm :input[name='account']").val().trim()=="") {
+			
+			if ($(":input[name='account']").val().trim()=="") {
 				alert("출금계좌번호를 선택하세요");
 				return false;
 			}
-			if ($("#transferForm :input[name='myaccountPass']").val().trim()=="") {
+			if ($(":input[name='myaccountPass']").val().trim()=="") {
 				alert("계좌비밀번호를 입력하세요");
 				return false;
 			}
-			if ($("#transferForm :input[name='myaccountPass']").val().trim().length()!=4) {
+
+ 			if ($(":input[name='myaccountPass']").val().trim().length!=4) {
 				alert("계좌비밀번호는 4자리입니다.");
 				return false;
-			}
-			if ($("#transferForm :input[name='money']").val().trim()=="") {
+			} 
+			if ($(":input[name='money']").val().trim()=="") {
 				alert("이체금액을 입력하세요");
 				return false;
-			}
-			if ($("#transferForm :input[name='bank']").val().trim()=="") {
+			} 
+			if ($(":input[name='bank']").val()=="") {
 				alert("입금은행을 입력하세요");
 				return false;
 			}
-			if ($("#transferForm :input[name='otheraccountNo']").val().trim()=="") {
+			if ($(":input[name='otheraccountNo']").val().trim()=="") {
 				alert("입금계좌번호를 입력하세요");
 				return false;
 			}
-			if($("#passwordView").html()=="false"){
-				alert("11111111");
+			
+			if(passCheck){
+				return false;
 			}
-
+			if(otherAccountCheck){
+				return false;
+			}
+			
 		});
 		
 		
@@ -84,6 +102,7 @@
 							money=$(this).val().trim();
 							if(money>jsonData){
 								alert("이체 가능한 금액을 넣어주세요.");
+								$("#transferForm :input[name='money']").val("");
 								return false;
 							}
 						});
@@ -115,15 +134,12 @@
 		</tr>
 		<tr>
 			<td>계좌비밀번호</td>
-			<td><input type="password" name="myaccountPass" id="myaccountPass" size=1>
-					<span id="passwordView"></span>
+			<td><input type="password" name="myaccountPass" id="myaccountPass" size=3>
 			</td>
 		</tr>
 		<tr>
 			<td>이체금액</td>
-			<td><input type="text" name="money" id="money">
-					<br><span id="moneyView"></span>
-			</td>
+			<td><input type="text" name="money" id="money"></td>
 		</tr>
 		<tr>
 			<td colspan=2 align="center">입금정보</td>

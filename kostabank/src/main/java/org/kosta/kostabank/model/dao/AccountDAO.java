@@ -18,5 +18,6 @@ public interface AccountDAO {
 	List<AccountVO> accountList(String email);
 	AccountVO accountAll(String accountNo);
 	AccountVO checkAccount(AccountVO avo);
+	AccountVO checkOtherAccount(String accountNo);
 
 }

@@ -6,6 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="account">
 <resultMap type="accountVO" id="accountTypeRM">
 		<id property="accountTypeVO.accountName" column="accountName"/>
+		<id property="customerVO.name" column="name"/>
 </resultMap>
  <insert id="createAccount" >
  	insert into kangbank_account(accountNo,accountName,issueDate,accountPass,balance,email,tel) values(#{accountNo},#{accountTypeVO.accountName},sysdate,#{accountPass},#{balance},#{customerVO.email}
@@ -49,6 +50,11 @@ where page=#{page}
 	<select id="checkAccount"  resultType="accountVO">
 		select balance, accountPass from kangbank_account
 		where accountNo=#{accountNo} and accountPass=#{accountPass}
+	</select>
+	
+	<select id="checkOtherAccount" resultMap="accountTypeRM">
+		select a.accountNo, a.balance, c.name from kangbank_account a, kangbank_customer c
+		where a.email=c.email and  accountNo=#{value}
 	</select>
 	
 </mapper>

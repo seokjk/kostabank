@@ -14,6 +14,7 @@
 			}
 		}
 %>	
+<script type="text/javascript" src="${initParam.root}resources/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#cancle").click(function(){
@@ -38,7 +39,7 @@
 		              		location.href="${initParam.root}home.bank";
 		              	}else if(result.address=="transfer_ok"){
 		              		alert("이체성공!");
-		              		location.href="${initParam.root}home.bank";
+		              		location.href="${initParam.root}transfer_result.bank";
 		              	}else if(result.address=="transfernum_fail"){
 		              		alert("오류횟수 5번 이체실패");
 		              		location.href="home.bank";
@@ -74,7 +75,7 @@
 				<td>${sessionScope.tvo.account}</td>
 				<td>${sessionScope.tvo.bank}</td>
 				<td>${sessionScope.tvo.otheraccountNo}</td>
-				<td>${sessionScope.tvo.otheraccountName}</td>
+				<td>${name}</td>
 				<td>${sessionScope.tvo.money}</td>
 			</tr>
 
@@ -123,7 +124,7 @@
 	</tr>
 </table>
 <br><br>
-<input type="button" id="transfer"value="이체실행">&nbsp;&nbsp;&nbsp;<input type="button" id="cancle" value="이체취소">
+<input type="button" id="transfer" value="이체실행">&nbsp;&nbsp;&nbsp;<input type="button" id="cancle" value="이체취소">
 </form>
 
 

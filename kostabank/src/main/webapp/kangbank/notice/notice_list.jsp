@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript" src="resources/jquery-1.12.4.min.js"></script>
-<link rel="stylesheet" href="${initParam.root}kangbank/notice/notice.css" type="text/css">
+<link rel="stylesheet" href="${initParam.root}kangbank/kangcss/notice.css" type="text/css">
 
 
 <script type="text/javascript">
