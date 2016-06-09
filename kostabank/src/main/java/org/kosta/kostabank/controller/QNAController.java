@@ -29,12 +29,14 @@ public class QNAController {
 	@RequestMapping(value="QNAPosting.bank", method=RequestMethod.POST)
 	public String qnaPosting(QNAVO vo){
 		System.out.println(vo.getUploadFile().getOriginalFilename());
-		vo.setQnaFileAddress("C:\\java-kosta\\WAS\\Final-tomcat-7.0.68\\webapps\\kostabank\\kangbank\\upload\\"+vo.getUploadFile().getOriginalFilename());
+		vo.setQnaFileAddress("kangbank/upload/"+vo.getUploadFile().getOriginalFilename());
 		MultipartFile file = vo.getUploadFile();
 		if(file.isEmpty()==false){
 			System.out.println(vo);
 			qnaService.qnaPosting(vo);
 			File uploadFile = new File(uploadPath+file.getOriginalFilename());
+			System.out.println("경로: "+uploadPath);
+			System.out.println(uploadFile);
 			try {
 				file.transferTo(uploadFile);
 				System.out.println(uploadPath+"에 파일 업로드");
@@ -46,13 +48,24 @@ public class QNAController {
 				e.printStackTrace();
 			}
 		}
-	
 		
-		return "redirect:qnaListRoad.bank?page=1";
+		return "redirect:showContent.bank?qnaFileAddress="+file.getOriginalFilename()+"&qnaNo="+vo.getQnaNo();
 	}
 	@RequestMapping("qnaListRoad.bank")
 	public ModelAndView qnaListRoad(int page){
 		QNAListVO qnaListVO = qnaService.qnaList(page);
 		return new ModelAndView("qna_list","lvo",qnaListVO);
+	}
+	@RequestMapping("showContent.bank")
+	public ModelAndView showContent(int qnaNo,String qnaFileAddress){
+		System.out.println(qnaNo);
+		QNAVO vo = qnaService.showContent(qnaNo);
+		System.out.println(vo.getQnaFileAddress());
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("qvo", vo);
+		mv.addObject("fileName",qnaFileAddress);
+		System.out.println(qnaFileAddress);
+		mv.setViewName("qna_showContent");
+		return mv;
 	}
 }
