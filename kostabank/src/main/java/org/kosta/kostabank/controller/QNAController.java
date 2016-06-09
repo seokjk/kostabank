@@ -28,11 +28,9 @@ public class QNAController {
 	}
 	@RequestMapping(value="QNAPosting.bank", method=RequestMethod.POST)
 	public String qnaPosting(QNAVO vo){
-		System.out.println(vo.getUploadFile().getOriginalFilename());
 		vo.setQnaFileAddress("kangbank/upload/"+vo.getUploadFile().getOriginalFilename());
 		MultipartFile file = vo.getUploadFile();
 		if(file.isEmpty()==false){
-			System.out.println(vo);
 			qnaService.qnaPosting(vo);
 			File uploadFile = new File(uploadPath+file.getOriginalFilename());
 			System.out.println("경로: "+uploadPath);
@@ -58,13 +56,10 @@ public class QNAController {
 	}
 	@RequestMapping("showContent.bank")
 	public ModelAndView showContent(int qnaNo,String qnaFileAddress){
-		System.out.println(qnaNo);
 		QNAVO vo = qnaService.showContent(qnaNo);
-		System.out.println(vo.getQnaFileAddress());
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("qvo", vo);
 		mv.addObject("fileName",qnaFileAddress);
-		System.out.println(qnaFileAddress);
 		mv.setViewName("qna_showContent");
 		return mv;
 	}
