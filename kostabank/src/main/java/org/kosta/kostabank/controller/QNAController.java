@@ -24,7 +24,7 @@ public class QNAController {
 	//QNA로 보내주는 기능
 	@RequestMapping("QNA.bank")
 	public String roadQNA(){
-		return "qna_create";
+		return "qna_insert";
 	}
 	@RequestMapping(value="QNAPosting.bank", method=RequestMethod.POST)
 	public String qnaPosting(QNAVO vo){
@@ -52,7 +52,7 @@ public class QNAController {
 	@RequestMapping("qnaListRoad.bank")
 	public ModelAndView qnaListRoad(int page){
 		QNAListVO qnaListVO = qnaService.qnaList(page);
-		return new ModelAndView("qna_list","lvo",qnaListVO);
+		return new ModelAndView("qna_board","lvo",qnaListVO);
 	}
 	@RequestMapping("showContent.bank")
 	public ModelAndView showContent(int qnaNo,String qnaFileAddress){
