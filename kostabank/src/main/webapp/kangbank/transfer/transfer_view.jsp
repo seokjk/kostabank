@@ -134,7 +134,7 @@
 		</tr>
 		<tr>
 			<td>계좌비밀번호</td>
-			<td><input type="password" name="myaccountPass" id="myaccountPass" size=3>
+			<td><input type="password" name="myaccountPass" id="myaccountPass" size=4>
 			</td>
 		</tr>
 		<tr>
