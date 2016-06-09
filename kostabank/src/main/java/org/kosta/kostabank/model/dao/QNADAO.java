@@ -12,5 +12,7 @@ public interface QNADAO {
 	public abstract void qnaPosting(QNAVO vo);
 	
 	public int totalContent();
+	
+	public QNAVO showContent(int qnaNo);
 
 }

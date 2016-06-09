@@ -29,4 +29,7 @@ private SqlSessionTemplate template;
 	public int totalContent(){
 		return template.selectOne("qna.totalContent");
 	}
+	public QNAVO showContent(int qnaNo){
+		return template.selectOne("qna.showContent",qnaNo);
+	}
 }
