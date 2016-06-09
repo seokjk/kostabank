@@ -17,6 +17,9 @@ $(document).ready(function(){
 			
 		}if($("#consentForm :radio[name=consent]:checked").val()=="unassent"){
 			alert("동의 하지 않으면 계좌를 생성 할 수 없습니다.");
+			if(confirm("홈으로 돌아가시겠습니까?")){
+				location.href="home.bank";
+			}
 		}
 	});
 	$("#conBtn").click(function(){
