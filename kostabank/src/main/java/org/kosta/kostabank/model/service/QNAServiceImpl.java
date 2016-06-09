@@ -44,4 +44,7 @@ public void qnaPosting(QNAVO vo){
 	System.out.println(vo);
 	qnaDAO.qnaPosting(vo);
 }
+public QNAVO showContent(int qnaNo){
+	return qnaDAO.showContent(qnaNo);
+}
 }

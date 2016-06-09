@@ -10,5 +10,7 @@ public interface QNAService {
 
 	//질문 등록
 	public abstract void qnaPosting(QNAVO vo);
+	
+	public QNAVO showContent(int qnaNo);
 
 }
