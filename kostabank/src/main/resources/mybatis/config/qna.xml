@@ -12,14 +12,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="qnaTitle" column="qna_title"/>
 		<result property="qnaType" column="qna_type"/>
 		<result property="qnaContent" column="qna_content"/>
-		<result property="qnaFileAddress" column="qnaFileAddress"/>
+		<result property="qnaFileAddress" column="qna_FileAddress"/>
 		<result property="qnaTime" column="qna_time"/>
 	</resultMap>
 	<select id="qnaList" resultMap="qnaRM">
-	select q.qna_no,q.qna_title,q.qna_type,c.email,c.tel,c.name,q.qna_time from (
-			select qna_no,qna_title,qna_time,qna_type,ceil(rownum/#{numberOfContent}) as page,email,tel from (
+	select q.qna_no,q.qna_title,q.qna_type,c.email,c.tel,c.name,q.qna_time,q.qna_fileAddress from (
+			select qna_no,qna_title,qna_time,qna_type,ceil(rownum/#{numberOfContent}) as page,email,tel,qna_fileAddress from (
 					select qna_no,qna_title,to_char(qna_time,'YYYY.MM.DD') as qna_time,
-					qna_type,email,tel from kangbank_qna  order by qna_no desc
+					qna_type,email,tel,qna_fileAddress from kangbank_qna  order by qna_no desc
 		     )
        ) q,kangbank_customer c where q.email=c.email and page=#{page}
 	</select>
@@ -32,5 +32,10 @@ values(#{qnaNo},#{qnaTitle},#{qnaType},#{customerVO.email},#{customerVO.tel},#{q
 	</insert>
 	<select id="totalContent" resultType="int">
 	select count(*) from kangbank_qna
+	</select>
+	
+	<select id ="showContent" resultMap="qnaRM">
+	select q.qna_no,q.qna_title,q.qna_type,c.email,c.tel,c.name,q.qna_content,q.qna_fileAddress,q.qna_time
+from kangbank_qna q,kangbank_customer c where q.email=c.email and q.qna_no=#{value}
 	</select>
 </mapper>
