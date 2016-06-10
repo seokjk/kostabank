@@ -64,4 +64,4 @@
 	<c:if test="${pb.nextPageGroup}">
 	<a href="#">
 	▶<!-- <img src="img/right_arrow_btn.gif"> --></a>
-	</c:if>			 
+	</c:if>		
