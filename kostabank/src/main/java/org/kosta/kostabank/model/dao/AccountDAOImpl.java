@@ -90,5 +90,17 @@ public class AccountDAOImpl implements AccountDAO {
 	public int deposit(AccountVO avo) {
 		return template.update("account.deposit", avo);
 	}
+	
+	//계좌 일수, 잔액 합계 
+	@Override
+	public int scheduled() {
+		return template.update("account.scheduled");
+	}
+	
+	//금리달 금리계산
+	@Override
+	public int ratesMonth(int month) {
+		return template.update("account.ratesMonth", month);
+	}
 
 }
