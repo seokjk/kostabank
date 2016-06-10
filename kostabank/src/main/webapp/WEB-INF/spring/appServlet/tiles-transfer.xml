@@ -14,7 +14,6 @@
 	<definition name="transfer_*" extends="home">
 		<put-attribute name="main" value="/kangbank/transfer/transfer_{1}.jsp"/>
 	</definition>
-
 </tiles-definitions>
 
 

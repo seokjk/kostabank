@@ -59,5 +59,12 @@
 	<entry key="numberOfPage">
 		<value type="int">5</value>
 	</entry>
+<!-- 	<entry key="numOfCont">
+		<value type="String">10</value>
+	</entry>
+	<entry key="numOfPaging">
+		<value type="String">5</value>
+	</entry> -->
 </util:map>
+
 </beans>

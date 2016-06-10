@@ -46,6 +46,9 @@ CONSTRAINT FK_kangbank_customer FOREIGN KEY
 insert into KANGBANK_ACCOUNT(accountNo,issueDate,accountPass,balance,email,tel,accountName)
 values('12345',sysdate, 1234, 1000,'leekorea2k@hanmail.net','01071504106','Kosta종합통장');
 
+insert into KANGBANK_ACCOUNT(accountNo,issueDate,accountPass,balance,email,tel,accountName)
+values('12346',sysdate, 1234, 1000,'leekorea2k@hanmail.net','01071504106','Kosta종합통장');
+
 
 
 -------------계좌 종류 테이블 관련-------------
@@ -195,12 +198,26 @@ insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amount
 values(dealNo_seq.nextval, '12345','12346','deposit',1000,sysdate);
 
 
+select dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate from (
+select dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate,ceil(rownum/5) as page from(
+select dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate from kangbank_deal_detail order by dealNo asc))
+where page='1' and
+	dealDate between '2016-06-05' and '2016-06-08' and accountNo='12345'
+
+
+	select dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate
+	from (
+	select
+	dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate,ceil(rownum/5)
+	as page from(
+	select dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate from
+	kangbank_deal_detail 
+	where dealDate between '2016-06-05' and '2016-06-08' and accountNo='12345'
+	order by dealNo asc))
+	where page='1';
 
 
 
-
-
-
-
-
-
+select count(*)
+ 		from kangbank_deal_detail
+ 		where dealDate between '2016-06-05' and '2016-06-08' and accountNo='12345'

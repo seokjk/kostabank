@@ -23,7 +23,6 @@ public class PagingBean {
 	/**
 	 * 한 페이지에서 보여줄 게시물 수 
 	 */
-	
 	private int numberOfContentPerPage;
 	/**
 	 * 한 페이지 그룹내 페이지 수 

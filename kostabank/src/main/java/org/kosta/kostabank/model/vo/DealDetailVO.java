@@ -51,9 +51,6 @@ public class DealDetailVO {
 
 	
 
-	
-
-
 	public int getDealNo() {
 		return dealNo;
 	}

@@ -4,30 +4,62 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="deal">
- 	<select id="customerLogin" parameterType="customerVO" resultType="customerVO">
- 		select * from kangbank_customer where email = #{email} and password = #{password}
- 	</select>
- 	<insert id="customerRegister" parameterType="customerVO">
- 		insert into kangbank_customer(email, password, name, birth, tel, address)
-		values(#{email}, #{password}, #{name}, #{birth}, #{tel}, #{address})
- 	</insert>
- 	<select id="checkEmail" parameterType="string" resultType="customerVO">
- 		select * from kangbank_customer where email = #{email}
- 	</select>
- 	<select id="findId" parameterType="customerVO" resultType="customerVO">
- 		select * from kangbank_customer where name = #{name} and birth = #{birth} and tel = #{tel}
- 	</select>
- 	<update id="tempPassword" parameterType="customerVO">
- 		update kangbank_customer set password = #{password} where email = #{email}
- 	</update>
+ 
  	<select id="getDetail" parameterType="dealDetailVO" resultType="dealDetailVO">
  		select *
  		from kangbank_deal_detail
  		where dealDate between #{startDay} and #{endDay} and accountNo=#{accountNo}
  	</select>
- 	 <!-- <select id="getDetailByGap" parameterType="dealDetailVO" resultType="dealDetailVO">
+ 	
+ 	  <select id="getDetailByType" parameterType="dealDetailVO" resultType="dealDetailVO">
  		select *
  		from kangbank_deal_detail
- 		where dealDate between #{startDay} and #{endDay} 
- 	</select>  -->
+ 		where dealDate between #{startDay} and #{endDay} and accountNo=#{accountNo}
+ 		and dealType=#{dealType}
+ 	</select>
+
+	<select id="getDetailPaging" parameterType="hashmap"
+		resultType="dealDetailVO">
+		select
+		dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate
+		from (
+		select
+		dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate,ceil(rownum/10)
+		as page from(
+		select
+		dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate from
+		kangbank_deal_detail
+		where dealDate between #{startDay} and #{endDay} and accountNo=#{accountNo}
+		order by dealNo asc))
+		where page='1'
+	</select>
+
+	<select id="getDetailByTypePaging" parameterType="hashmap"
+		resultType="dealDetailVO">
+		select dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate
+		from (
+		select
+		dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate,ceil(rownum/#{numberOfContent})
+		as page from(
+		select
+		dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate from
+		kangbank_deal_detail
+		where dealDate between #{startDay} and #{endDay} and accountNo=#{accountNo}
+		and dealType=#{dealType}
+		order by dealNo asc))
+		where page=#{page}
+	</select>
+ 	
+ 	<select id="numberOfContent" parameterType="dealDetailVO" resultType="int">
+ 		select count(*)
+ 		from kangbank_deal_detail
+ 		where dealDate between #{startDay} and #{endDay} and accountNo=#{accountNo}
+ 	</select>
+ 	
+ 	 	<select id="totalContentByType" parameterType="dealDetailVO" resultType="int">
+ 		select count(*)
+ 		from kangbank_deal_detail
+ 		where dealDate between #{startDay} and #{endDay} and accountNo=#{accountNo}
+ 		and dealType=#{dealType}
+ 	</select>
 </mapper>
