@@ -21,5 +21,7 @@ public interface AccountDAO {
 	AccountVO checkOtherAccount(String accountNo);
 	int withdraw(AccountVO avo);
 	int deposit(AccountVO avo);
+	int scheduled();
+	int ratesMonth(int month);
 
 }
