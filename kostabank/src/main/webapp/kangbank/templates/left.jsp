@@ -58,7 +58,7 @@ $(document).ready(function() {
 <c:otherwise>
 ${sessionScope.loginInfo.name}님 환영합니다<br>
 <body onload = "countDown()">
-남은시간:<input type = "text" id = "timeText" size=5><br>
+남은시간:<input type = "text" id = "timeText" size=4><br>
 </body>
 <a href = "customerLogout.bank">로그아웃</a> / 
 <a href= "customer_updatePassCheck.bank">회원정보수정</a><br>
