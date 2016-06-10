@@ -69,5 +69,13 @@ public class AccountServiceImpl implements AccountService {
 	public AccountVO checkOtherAccount(String accountNo){
 		return accountDAO.checkOtherAccount(accountNo);
 	}
+	@Override
+	public int withdraw(AccountVO avo){
+		return accountDAO.withdraw(avo);
+	}
+	@Override
+	public int deposit(AccountVO avo){
+		return accountDAO.deposit(avo);
+	}
 	
 }

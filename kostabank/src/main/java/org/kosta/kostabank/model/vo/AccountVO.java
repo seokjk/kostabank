@@ -20,6 +20,12 @@ public class AccountVO {
 	public AccountVO() {
 		super();
 	}
+	
+	public AccountVO(String accountNo, int balance) {
+		super();
+		this.accountNo = accountNo;
+		this.balance = balance;
+	}
 	public String getAccountNo() {
 		return accountNo;
 	}

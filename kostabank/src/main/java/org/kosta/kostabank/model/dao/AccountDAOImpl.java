@@ -34,13 +34,17 @@ public class AccountDAOImpl implements AccountDAO {
 	public List<AccountTypeVO> findAccountByAccountName() {
 		return template.selectList("account.findAccountByAccountName");
 	}
-	//페이징 리스트
-		public List<AccountTypeVO> findAccountByAccountNamePaging(Map<String,Integer> pagingConfig) {
-			return template.selectList("account.findAccountByAccountNamePaging",pagingConfig);
-		}
-		public int totalContent(){
-			return template.selectOne("account.totalContent");
-		}
+
+	// 페이징 리스트
+	public List<AccountTypeVO> findAccountByAccountNamePaging(
+			Map<String, Integer> pagingConfig) {
+		return template.selectList("account.findAccountByAccountNamePaging",
+				pagingConfig);
+	}
+
+	public int totalContent() {
+		return template.selectOne("account.totalContent");
+	}
 
 	public int findMinMoney(String accountName) {
 		return template.selectOne("account.findMinMoney", accountName);
@@ -51,24 +55,40 @@ public class AccountDAOImpl implements AccountDAO {
 	public List<AccountVO> accountTotalList(String email) {
 		return template.selectList("account.accountTotalList", email);
 	}
-	//전체계좌중에 이체가능계좌조회
-		@Override
-		public List<AccountVO> accountList(String email) {
-			return template.selectList("account.accountList", email);
-		}
-		//계좌번호로 계좌정보 가져오기
-		@Override
-		public AccountVO accountAll(String accountNo){
-			return template.selectOne("account.accountAll",accountNo);
-		}
-		// 계좌조회
-		@Override
-		public AccountVO checkAccount(AccountVO avo){
-			return template.selectOne("account.checkAccount",avo);
-		}
-		@Override
-		public AccountVO checkOtherAccount(String accountNo){
-			return template.selectOne("checkOtherAccount",accountNo);
-		}
-	
+
+	// 전체계좌중에 이체가능계좌조회
+	@Override
+	public List<AccountVO> accountList(String email) {
+		return template.selectList("account.accountList", email);
+	}
+
+	// 계좌번호로 계좌정보 가져오기
+	@Override
+	public AccountVO accountAll(String accountNo) {
+		return template.selectOne("account.accountAll", accountNo);
+	}
+
+	// 계좌조회
+	@Override
+	public AccountVO checkAccount(AccountVO avo) {
+		return template.selectOne("account.checkAccount", avo);
+	}
+
+	@Override
+	public AccountVO checkOtherAccount(String accountNo) {
+		return template.selectOne("checkOtherAccount", accountNo);
+	}
+
+	// 출금
+	@Override
+	public int withdraw(AccountVO avo) {
+		return template.update("account.withdraw", avo);
+	}
+
+	// 입금
+	@Override
+	public int deposit(AccountVO avo) {
+		return template.update("account.deposit", avo);
+	}
+
 }

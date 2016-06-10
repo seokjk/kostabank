@@ -48,7 +48,7 @@ public class TransferController {
 		System.out.println("no="+no);
 		AccountVO a = accountService.checkOtherAccount(no);
 
-		System.out.println("다른계좌tr=" + a);
+		System.out.println("다른계좌TR=" + a);
 		String name=a.getCustomerVO().getName();
 		System.out.println("받는사람: "+name);
 		mv.addObject("name", name);
@@ -57,11 +57,40 @@ public class TransferController {
 
 		return mv;
 	}
-
-	@RequestMapping("transfer_secure.bank")
-	public String transfer_secure() {
-
-		return "transfer_result";
+	//이체결과를 보여주는 곳(실제 수행)
+	@RequestMapping("transfer_result.bank")
+	public ModelAndView transfer_result(HttpServletRequest request,TransferVO tvo, AccountVO avo) {
+		HttpSession session = request.getSession(false);
+		ModelAndView mv = new ModelAndView();
+		
+		CustomerVO vo = (CustomerVO) session.getAttribute("loginInfo");
+		System.out.println("result쪽cvo="+vo);
+		
+		TransferVO tvo2 = (TransferVO) session.getAttribute("tvo");
+		System.out.println("이체테이블="+tvo2);
+		System.out.println("출금계좌="+tvo2.getaccount());
+		System.out.println("입금계좌="+tvo2.getOtheraccountNo());
+		System.out.println("이체금액="+tvo2.getMoney());
+		AccountVO dv = accountService.accountAll(tvo2.getaccount());
+		System.out.println("출금계좌정보="+dv);
+		int m = dv.getBalance();
+		System.out.println("출금계좌의 잔액="+m); //여기까지나옴
+		// 임시 출금쪽 temp 를 만들어줘서 수행
+		AccountVO temp = new AccountVO(tvo2.getaccount(),tvo2.getMoney());
+		accountService.withdraw(temp);
+		AccountVO myavo = accountService.checkOtherAccount(tvo2.getaccount());
+		System.out.println("출금계좌에서 이체후 잔액="+myavo.getBalance());
+		
+		//임시 입금쪽 temp
+		AccountVO temp2 = new AccountVO(tvo2.getOtheraccountNo(),tvo2.getMoney());
+		accountService.deposit(temp2);
+		AccountVO youavo = accountService.checkOtherAccount(tvo2.getOtheraccountNo());
+		System.out.println("입금계좌에서 이체후 잔액="+youavo.getBalance());
+		
+		mv.addObject("afterMoney",myavo.getBalance());
+		mv.addObject("youName",youavo.getCustomerVO().getName());
+		mv.setViewName("transfer_result");
+		return mv;
 	}
  
 	@RequestMapping("checkBalance.bank")
@@ -83,7 +112,6 @@ public class TransferController {
 	@ResponseBody
 	public String checkOtherAccount(HttpServletRequest request, AccountVO avo) {
 		HttpSession session = request.getSession(false);
-		System.out.println("1111111111111111111111111111111");
 
 		AccountVO a = accountService.checkOtherAccount(request.getParameter("otheraccountNo"));
 		System.out.println("다른계좌=" + a);
@@ -100,7 +128,6 @@ public class TransferController {
 	public boolean checkPassword(AccountVO avo) {
 		System.out.println("ck");
 		AccountVO vo = accountService.checkAccount(avo);
-		System.out.println("98");
 		boolean flag = true;
 		if (vo == null) {
 			flag = false;

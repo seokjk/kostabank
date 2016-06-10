@@ -47,7 +47,7 @@
 			});
 			
 			
-			if ($(":input[name='account']").val().trim()=="") {
+			if ($(":input[name='account']").val().trim()=="" && $(":input[name='account']").val()==null) {
 				alert("출금계좌번호를 선택하세요");
 				return false;
 			}
@@ -64,7 +64,7 @@
 				alert("이체금액을 입력하세요");
 				return false;
 			} 
-			if ($(":input[name='bank']").val()=="") {
+			if ($(":input[name='bank']").val()=="" && $(":input[name='bank']").val()==null ) {
 				alert("입금은행을 입력하세요");
 				return false;
 			}
@@ -95,7 +95,6 @@
 				dataType:"json",
 				success:function(jsonData){
 						$("#balanceView").html("현재 잔액은 "+jsonData);
-						
 						/*잔액vs이체금액*/
 						$("#transferForm :input[name='money']").keyup(function(){
 							var money="";
@@ -106,10 +105,10 @@
 								return false;
 							}
 						});
-						
 				}
 			}); 
 		});
+
 	});
 </script>
 
@@ -134,7 +133,7 @@
 		</tr>
 		<tr>
 			<td>계좌비밀번호</td>
-			<td><input type="password" name="myaccountPass" id="myaccountPass" size=4>
+			<td><input type="password" name="myaccountPass" id="myaccountPass" size=3>
 			</td>
 		</tr>
 		<tr>

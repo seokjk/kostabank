@@ -29,7 +29,12 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>
+			<td>${sessionScope.tvo.account}</td>
+			<td>${sessionScope.tvo.bank}</td>
+			<td>${sessionScope.tvo.otheraccountNo}</td>
+			<td>${youName}</td>
+			<td>${sessionScope.tvo.money}</td>
+			 <td>${afterMoney}</td>
 		</tr>
 	</tbody>
 </table>

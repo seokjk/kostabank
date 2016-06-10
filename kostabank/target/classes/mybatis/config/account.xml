@@ -57,4 +57,16 @@ where page=#{page}
 		where a.email=c.email and  accountNo=#{value}
 	</select>
 	
+	<update id="deposit" parameterType="accountVO">
+		update kangbank_account 
+		set balance=balance+#{balance}
+		where accountNo=#{accountNo}
+	</update>
+	
+	<update id="withdraw" parameterType="accountVO">
+		update kangbank_account 
+		set balance=balance-#{balance}
+		where accountNo=#{accountNo}
+	</update>
+	
 </mapper>
