@@ -180,4 +180,19 @@ select sysdate from dual;
 select to_char(dealDate-3, 'MM-DD-YYYY HH24:MI:SS') from kangbank_deal_detail
 select add_months(dealDate, -12) from kangbank_deal_detail;
 
+--계좌주 출력
+select 
+
+
+
+
+
+
+
+
+
+
+
+
+
 

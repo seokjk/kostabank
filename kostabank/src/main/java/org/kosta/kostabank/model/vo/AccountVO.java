@@ -6,6 +6,7 @@ public class AccountVO {
 	private String issueDate;
 	private int accountPass;
 	private int balance;
+	private int balanceAvg;
 	private CustomerVO customerVO;
 	public AccountVO(String accountNo, AccountTypeVO accountTypeVO, String issueDate,
 			int accountPass, int balance, CustomerVO customerVO) {
@@ -17,8 +18,27 @@ public class AccountVO {
 		this.balance = balance;
 		this.customerVO = customerVO;
 	}
+	public AccountVO(String accountNo, AccountTypeVO accountTypeVO,
+			String issueDate, int accountPass, int balance, int balanceAvg,
+			CustomerVO customerVO) {
+		super();
+		this.accountNo = accountNo;
+		this.accountTypeVO = accountTypeVO;
+		this.issueDate = issueDate;
+		this.accountPass = accountPass;
+		this.balance = balance;
+		this.balanceAvg = balanceAvg;
+		this.customerVO = customerVO;
+	}
+
 	public AccountVO() {
 		super();
+	}
+	
+	public AccountVO(String accountNo, int balance) {
+		super();
+		this.accountNo = accountNo;
+		this.balance = balance;
 	}
 	public String getAccountNo() {
 		return accountNo;
@@ -56,6 +76,17 @@ public class AccountVO {
 	public void setCustomerVO(CustomerVO customerVO) {
 		this.customerVO = customerVO;
 	}
+	
+	public int getBalanceAvg() {
+		return balanceAvg;
+	}
+	public void setBalanceAvg(int balanceAvg) {
+		this.balanceAvg = balanceAvg;
+	}
+	public void setAccountTypeVO(AccountTypeVO accountTypeVO) {
+		this.accountTypeVO = accountTypeVO;
+	}
+	
 	@Override
 	public String toString() {
 		return "AccountVO [accountNo=" + accountNo + ", accountName="

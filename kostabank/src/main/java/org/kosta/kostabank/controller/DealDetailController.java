@@ -91,11 +91,22 @@ public class DealDetailController {
 		 int page = 1;
 		 System.out.println(11);
 		 DealListVO dvo = dealDetailService.getDetailPaging(dealDetailVO, page);
-		 //System.out.println(dvo);
 		 System.out.println("66");
-		 
 		 mav.addObject("dvo", dvo);
 		 mav.setViewName("deal_dealDetailByDate_result");
+		return mav;
+	}
+	@RequestMapping("dealDetailByDate_result2.bank")
+	public ModelAndView dealDetailByDate_result2(String gapChecked, String dealType, String accountNo){
+		ModelAndView mav = new ModelAndView();
+		DealDetailVO dealDetailVO = new DealDetailVO();
+		dealDetailVO.setAccountNo(accountNo);
+		dealDetailVO.setDealType(dealType);
+		int page=1;
+		DealListVO dvo = dealDetailService.getDetailByGapPaging(gapChecked, dealDetailVO, page);
+		 System.out.println("66");
+		 mav.addObject("dvo", dvo);
+		 mav.setViewName("deal_dealDetailByDate_result2");
 		return mav;
 	}
 }

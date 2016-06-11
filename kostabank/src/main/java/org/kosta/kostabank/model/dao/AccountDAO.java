@@ -18,5 +18,10 @@ public interface AccountDAO {
 	List<AccountVO> accountList(String email);
 	AccountVO accountAll(String accountNo);
 	AccountVO checkAccount(AccountVO avo);
+	AccountVO checkOtherAccount(String accountNo);
+	int withdraw(AccountVO avo);
+	int deposit(AccountVO avo);
+	int scheduled();
+	int ratesMonth(int month);
 
 }

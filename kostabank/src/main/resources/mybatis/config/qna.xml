@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qna">
+	<resultMap type="qNAVO" id="qnaRM">
+		<result property="customerVO.name" column="name" />
+		<result property="customerVO.email" column="email" />
+		<result property="customerVO.tel" column="tel" />
+		<result property="qnaNo" column="qna_no"/>
+		<result property="qnaTitle" column="qna_title"/>
+		<result property="qnaType" column="qna_type"/>
+		<result property="qnaContent" column="qna_content"/>
+		<result property="qnaFileAddress" column="qna_FileAddress"/>
+		<result property="qnaTime" column="qna_time"/>
+	</resultMap>
+	<select id="qnaList" resultMap="qnaRM">
+	select q.qna_no,q.qna_title,q.qna_type,c.email,c.tel,c.name,q.qna_time,q.qna_fileAddress from (
+			select qna_no,qna_title,qna_time,qna_type,ceil(rownum/#{numberOfContent}) as page,email,tel,qna_fileAddress from (
+					select qna_no,qna_title,to_char(qna_time,'YYYY.MM.DD') as qna_time,
+					qna_type,email,tel,qna_fileAddress from kangbank_qna  order by qna_no desc
+		     )
+       ) q,kangbank_customer c where q.email=c.email and page=#{page}
+	</select>
+	<insert id ="qnaPosting" parameterType="qNAVO">
+	<selectKey keyProperty="qnaNo" resultType="int" order="BEFORE">
+		select kangbank_qna_seq.nextval from dual 
+	</selectKey>
+	insert into kangbank_qna(qna_no,qna_title,qna_type,email,tel,qna_content,qna_fileAddress,qna_time)
+values(#{qnaNo},#{qnaTitle},#{qnaType},#{customerVO.email},#{customerVO.tel},#{qnaContent},#{qnaFileAddress},sysdate)
+	</insert>
+	<select id="totalContent" resultType="int">
+	select count(*) from kangbank_qna
+	</select>
+	
+	<select id ="showContent" resultMap="qnaRM">
+	select q.qna_no,q.qna_title,q.qna_type,c.email,c.tel,c.name,q.qna_content,q.qna_fileAddress,q.qna_time
+from kangbank_qna q,kangbank_customer c where q.email=c.email and q.qna_no=#{value}
+	</select>
+</mapper>

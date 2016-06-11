@@ -32,7 +32,7 @@
 				   	    hint)   startPageOfPageGroup-1 하면 됨 		 
 	 -->      
 	<c:if test="${pb.previousPageGroup}">
-	<a href="#">
+	<a href="dealDetailByDate_result.bank?page=${pb.startPageOfPageGroup-1}">
 	<!-- <img src="img/left_arrow_btn.gif"> -->
 	◀&nbsp; </a>	
 	</c:if>
@@ -47,7 +47,7 @@
 	end="${pb.endPageOfPageGroup}">
 	<c:choose>
 	<c:when test="${pb.nowPage!=i}">
-	<a href="#">${i}</a> 
+	<a href="dealDetailByDate_result.bank?page=${i}">${i}</a> 
 	</c:when>
 	<c:otherwise>
 	${i}
@@ -62,6 +62,6 @@
 				   	    hint)   endPageOfPageGroup+1 하면 됨 		 
 	 -->   
 	<c:if test="${pb.nextPageGroup}">
-	<a href="#">
+	<a href="dealDetailByDate_result.bank?page=${pb.endPageOfPageGroup+1}">
 	▶<!-- <img src="img/right_arrow_btn.gif"> --></a>
 	</c:if>		

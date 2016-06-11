@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script type="text/javascript" src="${initParam.root}resources/jquery-1.12.4.min.js"></script>
  	<c:if test="${empty sessionScope.loginInfo}">
  	<script type="text/javascript">
 		location.href="home.bank";
@@ -28,12 +29,18 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td></td> <td></td> <td></td> <td></td> <td></td> <td></td>
+			<td>${sessionScope.tvo.account}</td>
+			<td>${sessionScope.tvo.bank}</td>
+			<td>${sessionScope.tvo.otheraccountNo}</td>
+			<td>${youName}</td>
+			<td>${sessionScope.tvo.money}</td>
+			 <td>${afterMoney}</td>
 		</tr>
 	</tbody>
 </table>
 <input type="button"  value="홈"  id="home">
 <input type="button"  value="추가이체" id="transfer_view">
+
 
 
 

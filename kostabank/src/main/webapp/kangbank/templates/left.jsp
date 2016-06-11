@@ -17,6 +17,32 @@ $(document).ready(function() {
 		}	});
 });
 </script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+   <script type="text/javascript">
+      var i = 9;
+      var j = 59;
+      function countDown(){
+         if(j == -1){
+            j = 59;
+         }
+         if(j == 0){
+            i = i-1;
+         }
+         if(j < 10){
+            $("#timeText").val("0"+i+":0"+j);
+         } else{
+            $("#timeText").val("0"+i+":"+j);
+         }
+         j = j-1;
+         if(i == 0 && j == 0){
+        	 alert("장시간 미접속으로 인하여 로그아웃되셨습니다.");
+            location.href="customerLogout.bank";
+         } else {
+            setTimeout("countDown()",1000);
+         }
+      }
+   </script>
+
 <c:choose>
 <c:when test="${empty sessionScope.loginInfo}">
 	<form action="customerLogin.bank" method = "post" id = "loginForm">
@@ -31,6 +57,9 @@ $(document).ready(function() {
 </c:when>
 <c:otherwise>
 ${sessionScope.loginInfo.name}님 환영합니다<br>
+<body onload = "countDown()">
+남은시간:<input type = "text" id = "timeText" size=4><br>
+</body>
 <a href = "customerLogout.bank">로그아웃</a> / 
 <a href= "customer_updatePassCheck.bank">회원정보수정</a><br>
 <a href = "accountType_reday.bank">상품 만들기</a><br>

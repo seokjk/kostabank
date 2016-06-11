@@ -14,6 +14,13 @@
 			}
 		}
 %>	
+<c:if test="${empty sessionScope.loginInfo}">
+	<script type="text/javascript">
+		location.href = "home.bank";
+	</script>
+</c:if>
+	
+<script type="text/javascript" src="${initParam.root}resources/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#cancle").click(function(){
@@ -37,8 +44,10 @@
 		              		alert("보안카드가 존재하지 않습니다");
 		              		location.href="${initParam.root}home.bank";
 		              	}else if(result.address=="transfer_ok"){
+		              		
 		              		alert("이체성공!");
-		              		location.href="${initParam.root}home.bank";
+		              		location.href="${initParam.root}transfer_result.bank";
+		              		
 		              	}else if(result.address=="transfernum_fail"){
 		              		alert("오류횟수 5번 이체실패");
 		              		location.href="home.bank";
@@ -58,7 +67,7 @@
 	
 이체정보
 <hr>
-<table border=1>
+<table border="1" >
 	<thead>
 		<tr>
 			<td>출금계좌</td>
@@ -69,20 +78,20 @@
 		</tr>
 	</thead>
 	<tbody>
-
 			<tr>
 				<td>${sessionScope.tvo.account}</td>
 				<td>${sessionScope.tvo.bank}</td>
 				<td>${sessionScope.tvo.otheraccountNo}</td>
-				<td>${sessionScope.tvo.otheraccountName}</td>
+				<td>${name}</td>
 				<td>${sessionScope.tvo.money}</td>
 			</tr>
-
-		
 	</tbody>
 </table>
+<p style="color:red;,font-weight: bold;">
 ※고객님이 입력하신 이체정보입니다.<br>
     최종거래 전에 입금 은행 계좌번호와 이체금액, 받는분 성함을 다시 확인하여 주시기 바랍니다. 
+</p>
+
 <hr>
 <table border="1">
 	<tr ><td colspan="10">KANGBANK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO.12345678</td></tr>
@@ -123,7 +132,7 @@
 	</tr>
 </table>
 <br><br>
-<input type="button" id="transfer"value="이체실행">&nbsp;&nbsp;&nbsp;<input type="button" id="cancle" value="이체취소">
+<input type="button" id="transfer" value="이체실행">&nbsp;&nbsp;&nbsp;<input type="button" id="cancle" value="이체취소">
 </form>
 
 

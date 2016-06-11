@@ -6,6 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="account">
 <resultMap type="accountVO" id="accountTypeRM">
 		<id property="accountTypeVO.accountName" column="accountName"/>
+		<id property="customerVO.name" column="name"/>
 </resultMap>
  <insert id="createAccount" >
  	insert into kangbank_account(accountNo,accountName,issueDate,accountPass,balance,email,tel) values(#{accountNo},#{accountTypeVO.accountName},sysdate,#{accountPass},#{balance},#{customerVO.email}
@@ -51,4 +52,46 @@ where page=#{page}
 		where accountNo=#{accountNo} and accountPass=#{accountPass}
 	</select>
 	
+	<select id="checkOtherAccount" resultMap="accountTypeRM">
+		select a.accountNo, a.balance, c.name from kangbank_account a, kangbank_customer c
+		where a.email=c.email and  accountNo=#{value}
+	</select>
+	
+	<update id="deposit" parameterType="accountVO">
+		update kangbank_account 
+		set balance=balance+#{balance}
+		where accountNo=#{accountNo}
+	</update>
+	
+	<update id="withdraw" parameterType="accountVO">
+		update kangbank_account 
+		set balance=balance-#{balance}
+		where accountNo=#{accountNo}
+	</update>
+	
+	<!-- 일수, 잔액합계 -->
+	<update id="scheduled">
+		update kangbank_account set dateCount=(dateCount+1), balanceSum = (balanceSum+balance)
+	</update>
+	
+	<!-- 입출금이자유로운통장 금리적용 -->
+	<update id="ratesMonth">
+		update kangbank_account A 
+		set A.balance=(A.balance+ceil((A.balanceSum/A.dateCount)*
+			(select C.rates
+			 from	(select ratesMonth, rates, accountSeq
+			 		 from kangbank_account_rates) C,
+						 (select accountNo, accountSeq 
+						  from kangbank_rates_info) B
+						  where C.accountSeq = B.accountSeq and accountNo=A.accountNo))), 
+			A.dateCount=0, A.balanceSum=0
+		where (select F.ratesMonth
+			   from(select D.accountName, D.accountType, E.accountSeq, E.accountName, E.ratesMonth
+			    	from (select accountName, accountType 
+			 	  	    from kangbank_account_type) D, 
+				        kangbank_account_rates E
+			 	    where D.accountName = E.accountName) F,
+			   kangbank_rates_info G
+			   where F.accountSeq = G.accountSeq and G.accountNo = A.accountNo and F.accountType='입출금이자유로운예금')=#{value}
+	</update>
 </mapper>

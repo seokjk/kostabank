@@ -249,6 +249,88 @@ public class DealDetailServiceImpl implements DealDetailService{
 		//return dealDetailDAO.getDetail(dealDetailVO);
 	}*/
 	@Override
+	public DealListVO getDetailByGapPaging(String gapChecked, DealDetailVO dealDetailVO,int page){
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		String page1 = String.valueOf(page);
+		String numberOfContent = String.valueOf(pagingConfig.get("numberOfContent"));
+		paramMap.put("page", page1);
+		paramMap.put("numberOfContent", numberOfContent);
+		paramMap.put("accountNo", dealDetailVO.getAccountNo());
+		
+		Date today = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(today);
+		cal.add(Calendar.DATE, 1);
+		Date d = cal.getTime();
+		String endDay = sdf.format(d);
+		System.out.println("today" + endDay);
+		dealDetailVO.setEndDay(endDay);
+		paramMap.put("endDay", dealDetailVO.getEndDay());
+		if(gapChecked.equals("today")){
+			cal.setTime(today);
+			cal.add(Calendar.DATE, 0);
+			String startDay = sdf.format(cal.getTime());
+			System.out.println("startDay" + startDay);
+			dealDetailVO.setStartDay(startDay);
+			paramMap.put("startDay", dealDetailVO.getStartDay());
+		}else if (gapChecked.equals("oneMonth")) {
+			cal.setTime(today);
+			cal.add(Calendar.MONTH, -1);
+			String startDay = sdf.format(cal.getTime());
+			System.out.println("startDay" + startDay);
+			dealDetailVO.setStartDay(startDay);
+			paramMap.put("startDay", dealDetailVO.getStartDay());
+		}else if (gapChecked.equals("threeMonth")) {
+			cal.setTime(today);
+			cal.add(Calendar.MONTH, -3);
+			String startDay = sdf.format(cal.getTime());
+			System.out.println("startDay" + startDay);
+			dealDetailVO.setStartDay(startDay);
+			paramMap.put("startDay", dealDetailVO.getStartDay());
+		}else if (gapChecked.equals("sixMonth")) {
+			cal.setTime(today);
+			cal.add(Calendar.MONTH, -6);
+			String startDay = sdf.format(cal.getTime());
+			System.out.println("startDay" + startDay);
+			dealDetailVO.setStartDay(startDay);
+			paramMap.put("startDay", dealDetailVO.getStartDay());
+		}else if(gapChecked.equals("oneYear")){
+			cal.setTime(today);
+			cal.add(Calendar.YEAR, -1);
+			String startDay = sdf.format(cal.getTime());
+			System.out.println("startDay" + startDay);
+			dealDetailVO.setStartDay(startDay);
+			paramMap.put("startDay", dealDetailVO.getStartDay());
+		}
+		String dealType = dealDetailVO.getDealType();
+		System.out.println(dealType);
+		if(dealDetailVO.getDealType().equals("deposit")||dealDetailVO.getDealType().equals("withdraw")){
+			//System.out.println("뀨뀨");
+			System.out.println(paramMap);
+			List<DealDetailVO> list = dealDetailDAO.getDetailByTypePaging(paramMap);
+			System.out.println(list);
+			int total=dealDetailDAO.numberOfContentByType(dealDetailVO);
+			PagingBean paging=new PagingBean(total,page,pagingConfig);
+			DealListVO dvo=new DealListVO(list,paging);
+			return dvo;
+		}
+		System.out.println(paramMap);
+
+		List<DealDetailVO> list = dealDetailDAO.getDetailPaging(paramMap);
+		System.out.println(1);
+		System.out.println(list);
+		int total=dealDetailDAO.numberOfContent(dealDetailVO);
+		System.out.println(total);
+		PagingBean paging=new PagingBean(total,page,pagingConfig);
+		DealListVO dvo=new DealListVO(list,paging);
+		System.out.println("되는거야?");
+		System.out.println(dvo);
+		return dvo;
+	
+	}
+	@Override
 	public int numberOfContent(DealDetailVO dealDetailVO){
 		return dealDetailDAO.numberOfContent(dealDetailVO);
 	}

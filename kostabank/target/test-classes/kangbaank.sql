@@ -221,3 +221,16 @@ where page='1' and
 select count(*)
  		from kangbank_deal_detail
  		where dealDate between '2016-06-05' and '2016-06-08' and accountNo='12345'
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		

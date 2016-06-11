@@ -134,7 +134,7 @@ $(document).ready(function(){
 
 		}//success function 
 		});//ajax*/
-		location.href="deal_dealDetailByDate_result2.bank?gapChecked="+$("#dateForm :input[name=termInfo]").val()+"&dealType="+$("#dateForm :input[name=dealType]").val()+"&accountNo=accountNo"
+		location.href="dealDetailByDate_result2.bank?gapChecked="+$("#dateForm :input[name=termInfo]").val()+"&dealType="+$("#dateForm :input[name=dealType]").val()+"&accountNo="+"<%=request.getParameter("accountNo")%>"
 	});//form click2
 });//document
 </script>
