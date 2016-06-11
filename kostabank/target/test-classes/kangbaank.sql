@@ -176,7 +176,7 @@ create table secure_card(
 drop table secure_card;
 create sequence secure_card_seq;
 
--------------거래내역------------------
+-------------------거래내역----------------------
 drop table kangbank_deal_detail
 create table kangbank_deal_detail(
    dealNo number primary key,
@@ -191,11 +191,44 @@ create table kangbank_deal_detail(
 create sequence dealNo_seq;
 drop sequence dealNo_seq;
 
-
 insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate)
 values(dealNo_seq.nextval, '12345','12346','deposit',1000,sysdate);
 insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate)
 values(dealNo_seq.nextval, '12345','12346','deposit',1000,sysdate);
+insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate)
+values(dealNo_seq.nextval, '12345','12346','deposit',1000,sysdate);
+insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate)
+values(dealNo_seq.nextval, '12345','12346','deposit',1000,sysdate);
+insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate)
+values(dealNo_seq.nextval, '12345','12346','deposit',1000,sysdate);
+insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate)
+values(dealNo_seq.nextval, '12345','12346','deposit',1000,sysdate);
+insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate)
+values(dealNo_seq.nextval, '12345','12346','deposit',1000,sysdate);
+insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate)
+values(dealNo_seq.nextval, '12345','12346','deposit',1000,sysdate);
+insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate)
+values(dealNo_seq.nextval, '12345','12346','deposit',1000,sysdate);
+insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate)
+values(dealNo_seq.nextval, '12345','12346','deposit',1000,sysdate);
+insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate)
+values(dealNo_seq.nextval, '12345','12346','deposit',1000,sysdate);
+insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate)
+values(dealNo_seq.nextval, '12345','12346','deposit',1000,sysdate);
+insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate)
+values(dealNo_seq.nextval, '12345','12346','deposit',1000,sysdate);
+insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate)
+values(dealNo_seq.nextval, '12345','12346','withdraw',1000,sysdate);
+insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate)
+values(dealNo_seq.nextval, '12345','12346','withdraw',1000,sysdate);
+insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate)
+values(dealNo_seq.nextval, '12345','12346','withdraw',1000,sysdate);
+insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate)
+values(dealNo_seq.nextval, '12345','12346','withdraw',1000,sysdate);
+insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate)
+values(dealNo_seq.nextval, '12345','12346','withdraw',1000,sysdate);
+insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate)
+values(dealNo_seq.nextval, '12345','12346','withdraw',1000,sysdate);
 
 
 select dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate from (
@@ -203,7 +236,6 @@ select dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate,ceil(rown
 select dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate from kangbank_deal_detail order by dealNo asc))
 where page='1' and
 	dealDate between '2016-06-05' and '2016-06-08' and accountNo='12345'
-
 
 	select dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate
 	from (
@@ -216,12 +248,11 @@ where page='1' and
 	order by dealNo asc))
 	where page='1';
 
-
-
 select count(*)
  		from kangbank_deal_detail
  		where dealDate between '2016-06-05' and '2016-06-08' and accountNo='12345'
- 		
+ 
+ select 
  		
  		
  		

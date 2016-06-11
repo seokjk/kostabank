@@ -24,6 +24,5 @@ public interface DealDetailService {
 
 		int numberOfContentByType(DealDetailVO dealDetailVO);
 
-		DealListVO getDetailByGapPaging(String gapChecked,
-				DealDetailVO dealDetailVO, int page);
+		DealListVO getDetailByGapPaging(String gapChecked,DealDetailVO dealDetailVO, int page);
 }

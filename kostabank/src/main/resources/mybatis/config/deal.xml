@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		kangbank_deal_detail
 		where dealDate between #{startDay} and #{endDay} and accountNo=#{accountNo}
 		order by dealNo asc))
-		where page='1'
+		where page=#{page}
 	</select>
 
 	<select id="getDetailByTypePaging" parameterType="hashmap"
@@ -56,7 +56,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		where dealDate between #{startDay} and #{endDay} and accountNo=#{accountNo}
  	</select>
  	
- 	 	<select id="totalContentByType" parameterType="dealDetailVO" resultType="int">
+ 	 	<select id="numberOfContentByType" parameterType="dealDetailVO" resultType="int">
  		select count(*)
  		from kangbank_deal_detail
  		where dealDate between #{startDay} and #{endDay} and accountNo=#{accountNo}

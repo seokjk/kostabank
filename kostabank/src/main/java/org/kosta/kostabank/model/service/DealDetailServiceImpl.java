@@ -116,12 +116,14 @@ public class DealDetailServiceImpl implements DealDetailService{
 			e.printStackTrace();
 		}
 		System.out.println("아아아아아");
-		
+		String dealType = dealDetailVO.getDealType();
 		if(dealDetailVO.getDealType().equals("deposit")||dealDetailVO.getDealType().equals("withdraw")){
+			paramMap.put("dealType", dealType);
 			System.out.println(paramMap);
 			List<DealDetailVO> list = dealDetailDAO.getDetailByTypePaging(paramMap);
 			System.out.println(list);
 			int total=dealDetailDAO.numberOfContentByType(dealDetailVO);
+			System.out.println(total);
 			PagingBean paging=new PagingBean(total,page,pagingConfig);
 			DealListVO dvo=new DealListVO(list,paging);
 			return dvo;
@@ -305,19 +307,22 @@ public class DealDetailServiceImpl implements DealDetailService{
 			paramMap.put("startDay", dealDetailVO.getStartDay());
 		}
 		String dealType = dealDetailVO.getDealType();
-		System.out.println(dealType);
+		System.out.println("dealType:"+dealType);
 		if(dealDetailVO.getDealType().equals("deposit")||dealDetailVO.getDealType().equals("withdraw")){
-			//System.out.println("뀨뀨");
+			System.out.println("타입있음");
+			paramMap.put("dealType", dealType);
 			System.out.println(paramMap);
+
 			List<DealDetailVO> list = dealDetailDAO.getDetailByTypePaging(paramMap);
 			System.out.println(list);
 			int total=dealDetailDAO.numberOfContentByType(dealDetailVO);
 			PagingBean paging=new PagingBean(total,page,pagingConfig);
 			DealListVO dvo=new DealListVO(list,paging);
+			System.out.println(dvo);
 			return dvo;
 		}
 		System.out.println(paramMap);
-
+		System.out.println("타입없음");
 		List<DealDetailVO> list = dealDetailDAO.getDetailPaging(paramMap);
 		System.out.println(1);
 		System.out.println(list);

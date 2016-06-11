@@ -30,6 +30,7 @@ public class DealDetailDAOImpl implements DealDetailDAO {
 	}
 	@Override
 	public List<DealDetailVO> getDetailByTypePaging(HashMap<String, String> paramMap) {
+		System.out.println("타입 페이징 sql전");
 		return sqlSessionTemplate.selectList("deal.getDetailByTypePaging", paramMap);
 	} 
 	@Override

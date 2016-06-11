@@ -99,7 +99,7 @@ $(document).ready(function(){
 	
 	$("#dateForm :input[name=termInfo]").click(function(){
 		var accountNo = "<%=request.getParameter("accountNo")%>";
-		var gapChecked= $("#dateForm :input[name=termInfo]:checked").val();
+		//var gapChecked= $("#dateForm :input[name=termInfo]:checked").val();
 		var dealType = $("#dateForm :input[name=dealType]:checked").val();
 /* 		$.ajax({
 			type:"POST",
@@ -134,7 +134,7 @@ $(document).ready(function(){
 
 		}//success function 
 		});//ajax*/
-		location.href="dealDetailByDate_result2.bank?gapChecked="+$("#dateForm :input[name=termInfo]").val()+"&dealType="+$("#dateForm :input[name=dealType]").val()+"&accountNo="+"<%=request.getParameter("accountNo")%>"
+		location.href="dealDetailByDate_result2.bank?gapChecked="+$("#dateForm :input[name=termInfo]:checked").val()+"&dealType="+$("#dateForm :input[name=dealType]").val()+"&accountNo="+"<%=request.getParameter("accountNo")%>"
 	});//form click2
 });//document
 </script>
@@ -145,12 +145,13 @@ $(document).ready(function(){
 조회설정
 <form action="dealDetailByDate_result.bank" id="dateForm">
 <input type="hidden" name="accountNo" value="${param.accountNo}">
-<input type="date" name="startDay" id="sd"> ~  <input type="date" name="endDay" id="ed">
 <select name="dealType">
    <option value="both" selected="selected">입/출금</option>
     <option value="deposit">입금</option>
     <option value="withdraw">출금</option>
 </select>
+<br>
+<input type="date" name="startDay" id="sd"> ~  <input type="date" name="endDay" id="ed">
 <input type="submit" value="조회" id = "chekcBtn1">
 <br>
 <input type="radio" name="termInfo" value="today">당일
@@ -159,9 +160,6 @@ $(document).ready(function(){
 <input type="radio" name="termInfo" value="sixMonth">6개월
 <input type="radio" name="termInfo" value="oneYear">1년
 <span id="viewDetail"></span>
-
-
-		
 </form>
 </body>
 </html>
