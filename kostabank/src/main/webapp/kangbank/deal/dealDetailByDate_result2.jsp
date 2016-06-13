@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
       <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
-  <table border='1'>
+<table border='1'>
 <tr><td>No</td>
 <td>이체 계좌번호</td>
 <td>입금</td>
@@ -25,8 +24,6 @@
 </c:forEach>
 </table>
 <%-- 코드를 줄이기 위해 pb 변수에 pagingBean을 담는다. --%>
-
-	
 	<c:set var="pb" value="${requestScope.dvo.pagingBean}"></c:set>
 	<!-- 
 			step2 1) 이전 페이지 그룹이 있으면 이미지 보여준다. (img/left_arrow_btn.gif)
