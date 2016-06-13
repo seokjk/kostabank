@@ -12,12 +12,12 @@
 <td>${list.otherAccountNo}</td>
 <c:choose>
 <c:when test="${list.dealType=='deposit'}">
-<td>입금</td>
+<td>${list.amountOfMoney}</td>
 <td></td>
 </c:when>
 <c:otherwise>
 <td></td>
-<td>출금</td>
+<td>${list.amountOfMoney}</td>
 </c:otherwise>
 </c:choose>
 <td>${list.dealDate}</td></tr>

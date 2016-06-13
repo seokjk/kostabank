@@ -240,11 +240,8 @@ select count(*)
  		from kangbank_deal_detail
  		where dealDate between '2016-06-05' and '2016-06-08' and accountNo='12345'
  
- select 
- 		
- 		
  
- 			select
+ 		select
 		dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate
 		from (
 		select
@@ -257,7 +254,9 @@ select count(*)
 		order by dealNo asc))
 		where page='3'
  		
- 		
- 		
+ 	
+		
+ 		select email,tel from kangbank_account ka,
+ 		select otherAccountNo from kangbank_deal_detail kd where dealDate='2016-06-07'
  		
  		
