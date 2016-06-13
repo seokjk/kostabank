@@ -14,9 +14,9 @@ create table kangbank_customer(
 );
 
 insert into KANGBANK_CUSTOMER(email, password, name, birth, tel, address)
-values('leekorea2k@hanmail.net','1234','유소현','921128','01071504106','의왕');
+values('leekorea2k@hanmail.net','1234','유소현','921128','1111','의왕');
 insert into KANGBANK_CUSTOMER(email, password, name, birth, tel, address)
-values('dkdkdk@nate.net','1234','아아아','921128','01071504107','의왕');
+values('dkdkdk@nate.net','1234','아아아','921128','1111','의왕');
 
 
 
@@ -42,12 +42,12 @@ CONSTRAINT FK_kangbank_customer FOREIGN KEY
 ) REFERENCES kangbank_customer (email,tel)
 
 
+insert into KANGBANK_ACCOUNT(accountNo,issueDate,accountPass,balance,email,tel,accountName)
+values('12345',sysdate, 1234, 1000,'leekorea2k@hanmail.net','1111','Kosta종합통장');
 
 insert into KANGBANK_ACCOUNT(accountNo,issueDate,accountPass,balance,email,tel,accountName)
-values('12345',sysdate, 1234, 1000,'leekorea2k@hanmail.net','01071504106','Kosta종합통장');
+values('12346',sysdate, 1234, 1000,'leekorea2k@hanmail.net','1111','Kosta종합통장');
 
-insert into KANGBANK_ACCOUNT(accountNo,issueDate,accountPass,balance,email,tel,accountName)
-values('12346',sysdate, 1234, 1000,'leekorea2k@hanmail.net','01071504106','Kosta종합통장');
 
 
 
@@ -191,6 +191,10 @@ create table kangbank_deal_detail(
 create sequence dealNo_seq;
 drop sequence dealNo_seq;
 
+delete from kangbank_deal_detail
+delete from kangbank_customer
+delete from kangbank_account
+
 
 insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate)
 values(dealNo_seq.nextval, '12345','12346','deposit',1000,sysdate);
@@ -254,9 +258,23 @@ select count(*)
 		order by dealNo asc))
 		where page='3'
  		
- 	
-		
- 		select email,tel from kangbank_account ka,
- 		select otherAccountNo from kangbank_deal_detail kd where dealDate='2016-06-07'
+		select ka.email, ka.tel, ka.accountNo 
+		from
+ 		kangbank_account ka,
+    	kangbank_deal_detail kd
+ 		where ka.accountNo=kd.otherAccountNo and kd.dealDate='2016-06-11'
+ 		
+ 		select *  from kangbank_deal_detail where to_char(dealDate,'yyyymmdd hh24:mi:ss')='20160611 09:53:21.0'
+ 		
+ 		select to_char(dealDate,'yyyymmdd hh24:mi:ss') from kangbank_deal_detail
+ 		
+ 		select 
+ 		select *
+		from
+ 		kangbank_account ka,
+    	kangbank_deal_detail kd
+ 		where ka.accountNo=kd.otherAccountNo
+ 		
+ 		update kangbank_customer set tel='0107' where name='유소현'
  		
  		
