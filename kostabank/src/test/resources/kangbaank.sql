@@ -13,10 +13,6 @@ create table kangbank_customer(
    constraint pk_customer primary key(email,tel)
 );
 
-insert into KANGBANK_CUSTOMER(email, password, name, birth, tel, address)
-values('leekorea2k@hanmail.net','1234','유소현','921128','1111','의왕');
-insert into KANGBANK_CUSTOMER(email, password, name, birth, tel, address)
-values('dkdkdk@nate.net','1234','아아아','921128','1111','의왕');
 
 
 
@@ -232,11 +228,11 @@ where page='1' and
 	select dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate
 	from (
 	select
-	dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate,ceil(rownum/5)
+	dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate,ceil(rownum/10)
 	as page from(
 	select dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate from
 	kangbank_deal_detail 
-	where dealDate between '2016-06-05' and '2016-06-08' and accountNo='12345'
+	where dealDate between '2016-06-05' and '2016-06-14' and accountNo='12345'
 	order by dealNo asc))
 	where page='1';
 
@@ -268,13 +264,65 @@ select count(*)
  		
  		select to_char(dealDate,'yyyymmdd hh24:mi:ss') from kangbank_deal_detail
  		
- 		select 
- 		select *
+ 	
+ 		
+ 		--이름뽑기 쿼리--
+ 		select name
+ 		from
+ 		(select ka.accountNo, ka.issueDate, ka.accountPass, ka.balance, ka.email, ka.tel, ka.accountName, 
+ 				   kd.dealNo, kd.otheraccountNo
 		from
  		kangbank_account ka,
     	kangbank_deal_detail kd
- 		where ka.accountNo=kd.otherAccountNo
+ 		where ka.accountNo=kd.otherAccountNo) A,
+ 		(select kc.email, kc.password, kc.name, kc.birth, kc.tel, kc.address, kc.security_card,
+ 				  ka.accountNo, ka.issueDate, ka.accountPass, ka.balance, ka.accountName
+ 		from kangbank_customer kc,
+ 				kangbank_account ka
+ 		where kc.email=ka.email and kc.tel=ka.tel
+ 		)B
+ 		where B.email=A.email and A.tel=B.tel and A.accountNo=B.accountNo
  		
- 		update kangbank_customer set tel='0107' where name='유소현'
+ 	
+ 		
+ 		select ka.accountNo
+ 		from
+ 		(select ka.accountNo, ka.issueDate, ka.accountPass, ka.balance, ka.email, ka.tel, ka.accountName, 
+ 				   kd.dealNo, kd.accountNo, kd.otheraccountNo
+		from
+ 		kangbank_account ka,
+    	kangbank_deal_detail kd
+ 		where ka.accountNo=kd.otherAccountNo) A,
+ 		(
+ 		from kangbank_customer kc,
+ 				kangbank_account ka
+ 		where kc.email=ka.email and kc.tel=ka.tel
+ 		)B
+ 		where A.email=B.email
+
+ 		create table kangbank_customer(
+   email varchar2(100) not null,
+   password varchar2(100) not null,
+   name varchar2(100) not null,
+   birth varchar2(100) not null,
+   tel varchar2(100) not null,
+   address varchar2(100) not null,
+   security_card varchar2(100) default 0,
+   constraint pk_customer primary key(email,tel)
+);
+ 		
+ 		
+ 	   where f.email='leekorea2k@hanmail.net'
+ 		
+ 	create table kangbank_account(
+   accountNo varchar2(100) primary key,
+   issueDate date not null,
+   accountPass number not null,
+   balance number not null,
+   email varchar2(100) not null,
+   tel varchar2(100) not null,
+   accountName varchar2(100) not null,
+   constraint fk_accountName foreign key (accountName) references kangbank_account_Type
+)
  		
  		
