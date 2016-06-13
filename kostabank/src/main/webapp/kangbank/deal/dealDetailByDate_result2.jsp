@@ -25,6 +25,8 @@
 </c:forEach>
 </table>
 <%-- 코드를 줄이기 위해 pb 변수에 pagingBean을 담는다. --%>
+
+	
 	<c:set var="pb" value="${requestScope.dvo.pagingBean}"></c:set>
 	<!-- 
 			step2 1) 이전 페이지 그룹이 있으면 이미지 보여준다. (img/left_arrow_btn.gif)
@@ -33,7 +35,7 @@
 				   	    hint)   startPageOfPageGroup-1 하면 됨 		 
 	 -->      
 	<c:if test="${pb.previousPageGroup}">
-	<a href="#">
+	<a href="dealDetailByDate_result2.bank?page=${pb.startPageOfPageGroup-1}&accountNo=<%=request.getParameter("accountNo")%>&dealType=<%=request.getParameter("dealType")%>&gapChecked=<%=request.getParameter("gapChecked")%>">
 	<!-- <img src="img/left_arrow_btn.gif"> -->
 	◀&nbsp; </a>	
 	</c:if>
@@ -48,7 +50,9 @@
 	end="${pb.endPageOfPageGroup}">
 	<c:choose>
 	<c:when test="${pb.nowPage!=i}">
-	<a href="#">${i}</a> 
+	<a href="dealDetailByDate_result2.bank?page=${i}&accountNo=<%=request.getParameter("accountNo")%>&dealType=<%=request.getParameter("dealType")%>&gapChecked=<%=request.getParameter("gapChecked")%>">
+	${i}
+	</a>
 	</c:when>
 	<c:otherwise>
 	${i}
@@ -63,6 +67,6 @@
 				   	    hint)   endPageOfPageGroup+1 하면 됨 		 
 	 -->   
 	<c:if test="${pb.nextPageGroup}">
-	<a href="#">
+	<a href="dealDetailByDate_result2.bank?page=${pb.endPageOfPageGroup+1}&accountNo=<%=request.getParameter("accountNo")%>&dealType=<%=request.getParameter("dealType")%>&gapChecked=<%=request.getParameter("gapChecked")%>">
 	▶<!-- <img src="img/right_arrow_btn.gif"> --></a>
-	</c:if>			
+	</c:if>	

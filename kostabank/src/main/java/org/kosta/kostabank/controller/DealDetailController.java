@@ -77,30 +77,32 @@ public class DealDetailController {
 		return mav;
 	}*/
 	@RequestMapping("dealDetailByDate_result.bank")
-	public ModelAndView dealDetailByDate_result(String accountNo,String startDay, String endDay, String dealType){
+	public ModelAndView dealDetailByDate_result(String accountNo,String startDay, String endDay, String dealType,String page){
 		 ModelAndView mav = new ModelAndView();
 		 DealDetailVO dealDetailVO = new DealDetailVO();
 		 dealDetailVO.setAccountNo(accountNo);
 		 dealDetailVO.setDealType(dealType);
 		 dealDetailVO.setStartDay(startDay);
 		 dealDetailVO.setEndDay(endDay);
-		 int page = 1;
+		 //int page = 1;
 		 System.out.println(11);
-		 DealListVO dvo = dealDetailService.getDetailPaging(dealDetailVO, page);
+		 
+		 DealListVO dvo = dealDetailService.getDetailPaging(dealDetailVO, Integer.parseInt(page));
 		 System.out.println("66");
 		 mav.addObject("dvo", dvo);
 		 mav.setViewName("deal_dealDetailByDate_result");
 		return mav;
 	}
 	@RequestMapping("dealDetailByDate_result2.bank")
-	public ModelAndView dealDetailByDate_result2(String gapChecked, String dealType, String accountNo){
+	public ModelAndView dealDetailByDate_result2(String gapChecked, String dealType, String accountNo,String page){
 		ModelAndView mav = new ModelAndView();
 		DealDetailVO dealDetailVO = new DealDetailVO();
 		dealDetailVO.setAccountNo(accountNo);
 		dealDetailVO.setDealType(dealType);
-		int page=1;
-		DealListVO dvo = dealDetailService.getDetailByGapPaging(gapChecked, dealDetailVO, page);
+		System.out.println("되라아아아아아");
+		DealListVO dvo = dealDetailService.getDetailByGapPaging(gapChecked, dealDetailVO, Integer.parseInt(page));
 		 System.out.println("66");
+		 System.out.println("dkdkdkdkdk");
 		 mav.addObject("dvo", dvo);
 		 mav.setViewName("deal_dealDetailByDate_result2");
 		return mav;

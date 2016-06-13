@@ -134,7 +134,7 @@ $(document).ready(function(){
 
 		}//success function 
 		});//ajax*/
-		location.href="dealDetailByDate_result2.bank?gapChecked="+$("#dateForm :input[name=termInfo]:checked").val()+"&dealType="+$("#dateForm :input[name=dealType]").val()+"&accountNo="+"<%=request.getParameter("accountNo")%>"
+		location.href="dealDetailByDate_result2.bank?gapChecked="+$("#dateForm :input[name=termInfo]:checked").val()+"&dealType="+$("#dateForm :input[name=dealType]").val()+"&accountNo="+"<%=request.getParameter("accountNo")%>"+"&page=1"
 	});//form click2
 });//document
 </script>
@@ -153,6 +153,7 @@ $(document).ready(function(){
 <br>
 <input type="date" name="startDay" id="sd"> ~  <input type="date" name="endDay" id="ed">
 <input type="submit" value="조회" id = "chekcBtn1">
+<input type="hidden" name="page" value="1">
 <br>
 <input type="radio" name="termInfo" value="today">당일
 <input type="radio" name="termInfo" value="oneMonth">1개월

@@ -24,7 +24,9 @@
 </c:forEach>
 </table>
 <%-- 코드를 줄이기 위해 pb 변수에 pagingBean을 담는다. --%>
- <c:set var="pb" value="${requestScope.dvo.pagingBean}"></c:set>
+
+	
+	<c:set var="pb" value="${requestScope.dvo.pagingBean}"></c:set>
 	<!-- 
 			step2 1) 이전 페이지 그룹이 있으면 이미지 보여준다. (img/left_arrow_btn.gif)
 				   		페이징빈의 previousPageGroup 이용 
@@ -32,14 +34,10 @@
 				   	    hint)   startPageOfPageGroup-1 하면 됨 		 
 	 -->      
 	<c:if test="${pb.previousPageGroup}">
-	<a href="dealDetailByDate_result.bank?page=${pb.startPageOfPageGroup-1}&accountNo=<%=request.getParameter("accountNo")%>
-	&dealType=<%=request.getParameter("dealType")%>&startDay=<%=request.getParameter("startDay")%>&endDay=<%=request.getParameter("endDay")%>">
+	<a href="dealDetailByDate_result.bank?page=${pb.startPageOfPageGroup-1}&accountNo=<%=request.getParameter("accountNo")%>&dealType=<%=request.getParameter("dealType")%>&startDay=<%=request.getParameter("startDay")%>&endDay=<%=request.getParameter("endDay")%>">
 	<!-- <img src="img/left_arrow_btn.gif"> -->
 	◀&nbsp; </a>	
 	</c:if>
-	
-	
-	
 	<!-- step1. 1)현 페이지 그룹의 startPage부터 endPage까지 forEach 를 이용해 출력한다
 				   2) 현 페이지가 아니면 링크를 걸어서 서버에 요청할 수 있도록 한다.
 				      현 페이지이면 링크를 처리하지 않는다.  
@@ -51,8 +49,9 @@
 	end="${pb.endPageOfPageGroup}">
 	<c:choose>
 	<c:when test="${pb.nowPage!=i}">
-	<a href="dealDetailByDate_result.bank?page=${i}&accountNo=<%=request.getParameter("accountNo")%>
-	&dealType=<%=request.getParameter("dealType")%>&startDay=<%=request.getParameter("startDay")%>&endDay=<%=request.getParameter("endDay")%>">${i}</a> 
+	<a href="dealDetailByDate_result.bank?page=${i}&accountNo=<%=request.getParameter("accountNo")%>&dealType=<%=request.getParameter("dealType")%>&startDay=<%=request.getParameter("startDay")%>&endDay=<%=request.getParameter("endDay")%>">
+	${i}
+	</a>
 	</c:when>
 	<c:otherwise>
 	${i}
@@ -67,7 +66,6 @@
 				   	    hint)   endPageOfPageGroup+1 하면 됨 		 
 	 -->   
 	<c:if test="${pb.nextPageGroup}">
-	<a href="dealDetailByDate_result.bank?page=${pb.endPageOfPageGroup+1}&accountNo=<%=request.getParameter("accountNo")%>
-	&dealType=<%=request.getParameter("dealType")%>&startDay=<%=request.getParameter("startDay")%>&endDay=<%=request.getParameter("endDay")%>">
+	<a href="dealDetailByDate_result.bank?page=${pb.endPageOfPageGroup+1}&accountNo=<%=request.getParameter("accountNo")%>&dealType=<%=request.getParameter("dealType")%>&startDay=<%=request.getParameter("startDay")%>&endDay=<%=request.getParameter("endDay")%>">
 	▶<!-- <img src="img/right_arrow_btn.gif"> --></a>
-	</c:if>		
+	</c:if>
