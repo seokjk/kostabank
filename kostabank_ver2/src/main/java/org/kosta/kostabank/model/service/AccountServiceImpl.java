@@ -20,8 +20,8 @@ public class AccountServiceImpl implements AccountService {
 	@Resource(name="pagingConfig")
 	private Map<String,Integer> pagingConfig;
 	public void createAccount(AccountVO vo){
-		int randomVal=(int)(Math.random()* 9999)+1000;
-		int randomValSe=(int)(Math.random() * 999)+100;
+		int randomVal=(int)(Math.random()* 8999)+1000;
+		int randomValSe=(int)(Math.random() * 899)+100;
 		String accountNo = "219-"+randomVal+"-"+randomValSe+"-26";
 		vo.setAccountNo(accountNo);
 		System.out.println(vo);
