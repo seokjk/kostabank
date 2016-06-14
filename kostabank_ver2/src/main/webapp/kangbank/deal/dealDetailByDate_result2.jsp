@@ -40,7 +40,7 @@ $(document).ready(function(){
 	});//ed change 
 	
 	var accountNo = "<%=request.getParameter("accountNo")%>";
-	$("#chekcBtn1").submit(function(){
+	$("#dateForm").submit(function(){
 		 var startDay = $("#sd").val();
 		var endDay = $("#ed").val();
 		var dealType = $("#dateForm :input[name=dealType]").val();
@@ -55,80 +55,14 @@ $(document).ready(function(){
 			alert("계좌조회 시작일은 마감일보다 늦을수 없습니다");
 			return false;
 		}
-		/*$.ajax({
-			type:"POST",
-			url:"dealDetailByDate_result.bank",
-			data:  {
-				startDay : startDay,
-				endDay : endDay,
-				accountNo : accountNo,
-				dealType : dealType
-			  },
-			dataType:"json",   
-			success:function(data){
-					var html="<table border='1'>";
-					html+="<tr><td>"+"No"+"</td>";
-					html+="<td>"+"이체 계좌번호"+"</td>";
-					html+="<td>"+"입금"+"</td>";
-					html+="<td>"+"출금"+"</td>";
-					html+="<td>"+"거래일"+"</td></tr>";
-				$.each(data, function(index, deal){
-					html+="<tr><td>"+ deal.dealDetailList.DealDetailVO.dealNo +"</td>";				
-					html+="<td>"+ deal.otherAccountNo +"</td>";	
-					
-					if(deal.dealType=="deposit"){
-						html+="<td>입금</td>";	
-						html+="<td>"+""+"</td>";
-					}else if(deal.dealType=="withdraw"){
-						html+="<td>"+ " "+"</td>";	
-						html+="<td>출금</td>";
-					}
-					html+="<td>"+ deal.dealDate +"</td></tr>";					
-				})
-				html+="</table>";
-				$("#viewDetail").html(html);
-			}//success function
-		});//ajax */
-		//location.herf="deal_dealDetailByDate_result.bank?startDay=startDay&endDay=endDay&dealType=dealType&accountNo=accountNo";
+		
 	});//form click1
 	
 	$("#dateForm :input[name=termInfo]").click(function(){
 		var accountNo = "<%=request.getParameter("accountNo")%>";
 		//var gapChecked= $("#dateForm :input[name=termInfo]:checked").val();
 		var dealType = $("#dateForm :input[name=dealType]:checked").val();
-/* 		$.ajax({
-			type:"POST",
-			url:"dealDetailByDate_result2.bank",
-			data:  {
-				gapChecked : gapChecked,
-				accountNo : accountNo,
-				dealType : $("#dateForm :input[name=transferType]").val()
-			  },
-			dataType:"json",   
-			success:function(data){
-				var html="<table border='1'>";
-				html+="<tr><td>"+"No"+"</td>";
-				html+="<td>"+"이체 계좌번호"+"</td>";
-				html+="<td>"+"입금"+"</td>";
-				html+="<td>"+"출금"+"</td>";
-				html+="<td>"+"거래일"+"</td></tr>";
-			$.each(data, function(index, deal){
-				html+="<tr><td>"+ deal.dealNo +"</td>";				
-				html+="<td>"+ deal.otherAccountNo +"</td>";	
-				if(deal.dealType=="deposit"){
-					html+="<td>입금</td>";	
-					html+="<td>"+""+"</td>";
-				}else if(deal.dealType=="withdraw"){
-					html+="<td>"+ " "+"</td>";	
-					html+="<td>출금</td>";
-				}
-				html+="<td>"+ deal.dealDate +"</td></tr>";					
-			})
-			html+="</table>";
-			$("#viewDetail").html(html);
 
-		}//success function 
-		});//ajax*/
 		location.href="dealDetailByDate_result2.bank?gapChecked="+$("#dateForm :input[name=termInfo]:checked").val()+"&dealType="+$("#dateForm :input[name=dealType]").val()+"&accountNo="+"<%=request.getParameter("accountNo")%>"+"&page=1"
 	});//form click2
 });//document
