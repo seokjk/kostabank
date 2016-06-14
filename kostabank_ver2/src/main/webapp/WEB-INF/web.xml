@@ -5,15 +5,11 @@
   </welcome-file-list>
   <context-param>
     <param-name>root</param-name>
-    <param-value>/kostabank/</param-value>
+    <param-value>/kostabank_ver2/</param-value>
   </context-param>
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>/WEB-INF/spring/root-context.xml</param-value>
-  </context-param>
-  <context-param>
-    <param-name>root</param-name>
-    <param-value>/kostabank/</param-value>
   </context-param>
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
