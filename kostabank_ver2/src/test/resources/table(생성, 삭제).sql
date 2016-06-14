@@ -15,13 +15,13 @@ drop sequence secure_card_seq;
 drop table secure_card;
 -- QnA --
 drop sequence kangbank_qna_seq;
-drop kangbank_notice;
+drop table kangbank_notice;
 -- 공지사항 --
 drop sequence kangbank_notice_seq;
-drop kangbank_qna;
+drop table kangbank_qna;
 -- 자주묻는질문 --
 drop sequence question_seq;
-drop question;
+drop table question;
 -- 거래내역 --
 drop sequence dealNo_seq;
 drop table kangbank_deal_detail;
