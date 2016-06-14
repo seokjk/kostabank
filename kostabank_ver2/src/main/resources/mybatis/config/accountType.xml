@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="accountType">
+	<resultMap type="accountRatesVO" id="accountRatesRM">
+		<result property="accountTypeVO.accountName" column="accountName" />
+	</resultMap>
+
+	<insert id = "createAccountType">
+	insert into kangbank_account_type(accountName,accountType,accountExplanation,minMoney) 
+	values(#{accountName},#{accountType},#{accountExplanation},#{minMoney})
+	</insert>
+	<insert id = "createAccountRates">
+	<selectKey keyProperty="accountSeq" resultType="int" order="BEFORE">
+		select kangbank_rates_seq.nextval from dual
+	</selectKey>
+	insert into kangbank_account_rates(accountSeq,accountName,rates,term) values(#{accountSeq},#{accountTypeVO.accountName},#{rates},#{term})
+	</insert>
+</mapper>

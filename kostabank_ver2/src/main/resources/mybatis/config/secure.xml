@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="secure">
+	<!-- 보안카드를 가지고있는지에 대해 여부 조사 -->
+
+ 	<insert id="registerSecureCard" parameterType="secureCardVO">
+ 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			select secure_card_seq.nextval from dual
+		</selectKey>
+ 		insert into secure_card values(#{no},#{one},#{two},#{three},#{four},#{five},#{six},#{seven},#{eight},#{nine},#{ten},#{eleven},#{twelve},#{thirteen},#{fourteen},#{fifteen},#{sixteen},#{seventeen},#{eighteen},#{nineteen},#{twenty},#{twenty_one},#{twenty_two},#{twenty_three},#{twenty_four},#{twenty_five},#{twenty_six},#{twenty_seven},#{twenty_eight},#{twenty_nine},#{thirty})
+ 	</insert>
+ 	
+ 	<!--  보안카드 일련번호 customer에 입력 -->
+ 	<update id="updateSecurityCard" parameterType="secureCardVO">
+ 		update kangbank_customer set security_card=#{no} where email=#{email}
+ 	</update>
+ 	
+ 	<!-- 보안카드 번호 -->
+ 	<select id="selectSecureCard" parameterType="string" resultType="secureCardVO" >
+ 		select * from secure_card where no=#{value}
+ 	</select>
+ 	
+ 	<!-- 보안카드 재발급 -->
+ 	<update id="updateSecureCard" parameterType="secureCardVO">
+ 		update secure_card set one=#{one}, two=#{two}, three=#{three}, four=#{four}, five=#{five}, six=#{six}, seven=#{seven}, eight=#{eight}, nine=#{nine}, ten=#{ten}, eleven=#{eleven}, twelve=#{twelve}, thirteen=#{thirteen}, fourteen=#{fourteen}, fifteen=#{fifteen}, sixteen=#{sixteen}, seventeen=#{seventeen}, eighteen=#{eighteen},nineteen=#{nineteen},twenty=#{twenty},twenty_one=#{twenty_one},twenty_two=#{twenty_two},twenty_three=#{twenty_three},twenty_four=#{twenty_four},twenty_five=#{twenty_five},twenty_six=#{twenty_six},twenty_seven=#{twenty_seven},twenty_eight=#{twenty_eight},twenty_nine=#{twenty_nine},thirty=#{thirty} where no=#{no}
+ 	</update>
+ 	
+ 	<!-- 보안카드 삭제 -->
+ 	<delete id="deleteSecureCard" parameterType="string">
+ 		delete from secure_card where no=#{value}
+ 	</delete>
+ 	
+ 	<!-- 보안카드 삭제시 customer테이블 security_card 0으로 setting -->
+ 	<update id="deleteupdateSecureCard" parameterType="string">
+ 		update kangbank_customer set security_card=0 where email=#{value}
+ 	</update>
+</mapper>

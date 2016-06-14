@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="account">
+<resultMap type="accountVO" id="accountTypeRM">
+		<id property="accountTypeVO.accountName" column="accountName"/>
+		<id property="customerVO.name" column="name"/>
+</resultMap>
+ <insert id="createAccount" >
+ 	insert into kangbank_account(accountNo,accountName,issueDate,accountPass,balance,email,tel) values(#{accountNo},#{accountTypeVO.accountName},sysdate,#{accountPass},#{balance},#{customerVO.email}
+ 	, (select tel from kangbank_customer where email =#{customerVO.email}))
+ </insert>
+ <select id ="findAccountByAccountNum" resultType="accountVO">
+ 	select a.accountNo,t.accountName,t.accountType,a.issueDate,a.accountPass,a.balance,a.email,a.tel from kangbank_account a, kangbank_account_Type t where a.accountName=t.accountName and accountNo=#{value}
+ </select>
+  <!-- paging을 위한 쿼리문 -->
+ <select id="findAccountByAccountNamePaging" resultType="accountTypeVO" parameterType="map">
+ select accountName,accountType,accountExplanation,minMoney from (
+select accountName,accountType,accountExplanation,minMoney,ceil(rownum/#{numberOfContent}) as page from(
+select accountName,accountType,accountExplanation,minMoney from KANGBANK_ACCOUNT_TYPE order by accountName desc))
+where page=#{page}
+ </select>
+ <select id="totalContent" resultType="int">
+		select count(*) from kangbank_account_type
+	</select>
+ <!-- 계좌 생성시 ajax로 가져오는 리스트 목록 -->
+ <select id="findAccountByAccountName" resultType="accountTypeVO">
+ 	select accountName,accountType,accountExplanation,minMoney from kangbank_account_Type
+ </select>
+ <select id="findMinMoney" resultType="int">
+ select minMoney from kangbank_account_type where accountName=#{value}
+ </select>
+ <!-- 전체계좌조회 -->
+	<select id="accountTotalList" resultMap="accountTypeRM">
+		select accountNo, to_char(issueDate, 'yyyy.mm.dd') as issueDate, accountName, balance from KANGBANK_ACCOUNT where email=#{value}
+	</select>
+	<!-- 전체계좌중이체가능계좌조회 -->
+	<select id="accountList" resultMap="accountTypeRM">
+		select accountNo, accountName, balance from KANGBANK_ACCOUNT 
+		where email=#{value} and accountName='Kosta종합통장'
+	</select>
+	
+	<select id="accountAll" resultMap="accountTypeRM">
+		select * from kangbank_account
+		where accountNo=#{value}
+	</select>
+	
+	<select id="checkAccount"  resultType="accountVO">
+		select balance, accountPass from kangbank_account
+		where accountNo=#{accountNo} and accountPass=#{accountPass}
+	</select>
+	
+	<select id="checkOtherAccount" resultMap="accountTypeRM">
+		select a.accountNo, a.balance, c.name from kangbank_account a, kangbank_customer c
+		where a.email=c.email and  accountNo=#{value}
+	</select>
+	
+	<update id="deposit" parameterType="accountVO">
+		update kangbank_account 
+		set balance=balance+#{balance}
+		where accountNo=#{accountNo}
+	</update>
+	
+	<update id="withdraw" parameterType="accountVO">
+		update kangbank_account 
+		set balance=balance-#{balance}
+		where accountNo=#{accountNo}
+	</update>
+	
+	<!-- 일수, 잔액합계 -->
+	<update id="scheduled">
+		update kangbank_account set dateCount=(dateCount+1), balanceSum = (balanceSum+balance)
+	</update>
+	
+	<!-- 입출금이자유로운통장 금리적용 -->
+	<update id="ratesMonth">
+		update kangbank_account A 
+		set A.balance=(A.balance+ceil((A.balanceSum/A.dateCount)*
+			(select C.rates
+			 from	(select ratesMonth, rates, accountSeq
+			 		 from kangbank_account_rates) C,
+						 (select accountNo, accountSeq 
+						  from kangbank_rates_info) B
+						  where C.accountSeq = B.accountSeq and accountNo=A.accountNo))), 
+			A.dateCount=0, A.balanceSum=0
+		where (select F.ratesMonth
+			   from(select D.accountName, D.accountType, E.accountSeq, E.accountName, E.ratesMonth
+			    	from (select accountName, accountType 
+			 	  	    from kangbank_account_type) D, 
+				        kangbank_account_rates E
+			 	    where D.accountName = E.accountName) F,
+			   kangbank_rates_info G
+			   where F.accountSeq = G.accountSeq and G.accountNo = A.accountNo and F.accountType='입출금이자유로운예금')=#{value}
+	</update>
+</mapper>

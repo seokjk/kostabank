@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+타일즈 설정파일
+-->
+ <!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<!--  
+		컨트롤러에서 반환하는 ModelAndView 의 setViewName(name)이 아래의 definition name과 일치하면
+		include된 타일즈 화면이 응답된다
+ -->
+<tiles-definitions>
+	<!-- 상속받아 변경 부분만 재정의한다 
+		  shop_* : 컨트롤러에서 반환하는 view name이 shop_ 으로 시작하면 아래의 타일즈 설정으로 응답하도록 한다
+		  * 에 해당하는 정보는 (1)로 전달받을 수 있다
+	-->
+	 
+	 <!-- 보안카드 -->
+	<definition name="question_*" extends="home">
+		<put-attribute name="main" value="/kangbank/question/question_{1}.jsp"/>
+	</definition>
+</tiles-definitions>
+
+
+
+
+
+
