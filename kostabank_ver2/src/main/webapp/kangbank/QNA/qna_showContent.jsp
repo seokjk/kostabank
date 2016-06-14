@@ -7,12 +7,16 @@ $(document).ready(function(){
 	$("#listBtn").click(function(){
 		location.href="qnaListRoad.bank?page=1&email=${qvo.customerVO.email}";
 	});
+	$("#subBoardBtn").click(function(){
+		location.href="qnaRePostingRoad.bank?qnaNo=${qvo.qnaNo}&qnaType=${qvo.qnaType}";
+	});
 });
 
 </script>
 <br>
 <h2>Q & A</h2>
 <br><br>
+<form method = "post" action = "rePosting.bank" id = "rePostingForm">
 <table id="qnatable">
 <tr>
 <td>글번호 : ${qvo.qnaNo}</td><td>이름 : ${qvo.customerVO.name} </td>
@@ -36,3 +40,4 @@ $(document).ready(function(){
 </td>
 </tr>
 </table>
+</form>
