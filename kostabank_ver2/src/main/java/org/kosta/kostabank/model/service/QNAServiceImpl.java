@@ -26,7 +26,6 @@ private Map<String,Integer> pagingConfig;
 public QNAListVO qnaList(int page,String email){
 	HashMap<String, String> paramMap = new HashMap<String, String>();
 	String numOfCont = String.valueOf(pagingConfig.get("numberOfContent"));
-	System.out.println(numOfCont);
 	String pageValue = String.valueOf(page);
 	paramMap.put("page", pageValue);
 	paramMap.put("numOfCont", numOfCont);
@@ -43,11 +42,13 @@ public QNAListVO qnaList(int page,String email){
  */
 @Override
 public void qnaPosting(QNAVO vo){
-	System.out.println(vo+"어어어");
 	qnaDAO.qnaPosting(vo);
 }
 public QNAVO showContent(int qnaNo){
-	System.out.println("1"+qnaNo);
 	return qnaDAO.showContent(qnaNo);
+}
+
+public void rePosting(QNAVO vo){
+	qnaDAO.rePosting(vo);
 }
 }
