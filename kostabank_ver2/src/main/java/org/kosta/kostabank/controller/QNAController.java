@@ -27,18 +27,14 @@ public class QNAController {
 	}
 	@RequestMapping(value="QNAPosting.bank", method=RequestMethod.POST)
 	public String qnaPosting(QNAVO vo){
-		System.out.println(vo+"들어가냐");
 		vo.getCustomerVO().setEmail(vo.getCustomerVO().getEmail().trim());
 		vo.setQnaFileAddress("kangbank/upload/"+vo.getUploadFile().getOriginalFilename());
 		MultipartFile file = vo.getUploadFile();
 		if(!file.isEmpty()){
 			qnaService.qnaPosting(vo);
 			File uploadFile = new File(uploadPath+file.getOriginalFilename());
-			System.out.println("경로: "+uploadPath);
-			System.out.println(uploadFile);
 			try {
 				file.transferTo(uploadFile);
-				System.out.println(uploadPath+"에 파일 업로드");
 			} catch (IllegalStateException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -53,20 +49,28 @@ public class QNAController {
 	}
 	@RequestMapping("qnaListRoad.bank")
 	public ModelAndView qnaListRoad(int page,String email){
-		System.out.println(email);
 		QNAListVO qnaListVO = qnaService.qnaList(page,email);
-		System.out.println(qnaListVO);
 		return new ModelAndView("qna_board","lvo",qnaListVO);
 	}
 	@RequestMapping("showContent.bank")
 	public ModelAndView showContent(int qnaNo){
-		System.out.println("333");
-		System.out.println(qnaNo);
 		QNAVO vo = qnaService.showContent(qnaNo);
-		System.out.println(vo);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("qvo", vo);
 		mv.setViewName("qna_showContent");
 		return mv;
+	}
+	@RequestMapping("qnaRePostingRoad.bank")
+	public ModelAndView qnaRepostingRoad(int qnaNo,String qnaType){
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("qnaNo", qnaNo);
+		mv.addObject("qnaType", qnaType);
+		mv.setViewName("qna_BoardRe");
+		return mv;
+	}
+	@RequestMapping(value="rePosting.bank",method=RequestMethod.POST)
+	public String rePosting(QNAVO vo){
+		qnaService.rePosting(vo);
+		return "redirect:showContent.bank?qnaNo="+vo.getQnaNo();
 	}
 }
