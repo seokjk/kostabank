@@ -47,38 +47,30 @@ public class TransferController {
 		HttpSession session = request.getSession(false);
 		ModelAndView mv = new ModelAndView();
 		session.setAttribute("tvo", tvo);
-		System.out.println(tvo);
 		String no = tvo.getOtheraccountNo();
-		System.out.println("no="+no);
 		AccountVO a = accountService.checkOtherAccount(no);
-
 		System.out.println("다른계좌TR=" + a);
 		String name=a.getCustomerVO().getName();
 		System.out.println("받는사람: "+name);
 		mv.addObject("name", name);
 		mv.addObject("tvo",tvo);
-		mv.setViewName("transfer_secure");
-
+		mv.setViewName("redirect:transfer_secure.bank");
 		return mv;
 	}
+	
 	//이체결과를 보여주는 곳(실제 수행)
 	@RequestMapping("transfer_result.bank")
 	public ModelAndView transfer_result(HttpServletRequest request,TransferVO tvo, AccountVO avo) {
 		HttpSession session = request.getSession(false);
 		ModelAndView mv = new ModelAndView();
-		
 		CustomerVO vo = (CustomerVO) session.getAttribute("loginInfo");
 		System.out.println("result쪽cvo="+vo);
-		
 		TransferVO tvo2 = (TransferVO) session.getAttribute("tvo");
-		System.out.println("이체테이블="+tvo2);
 		System.out.println("출금계좌="+tvo2.getaccount());
 		System.out.println("입금계좌="+tvo2.getOtheraccountNo());
 		System.out.println("이체금액="+tvo2.getMoney());
 		AccountVO dv = accountService.accountAll(tvo2.getaccount());
 		System.out.println("출금계좌정보="+dv);
-		int m = dv.getBalance();
-		System.out.println("출금계좌의 잔액="+m); //여기까지나옴
 		// 임시 출금쪽 temp 를 만들어줘서 수행
 		AccountVO temp = new AccountVO(tvo2.getaccount(),tvo2.getMoney());
 		accountService.withdraw(temp);
@@ -92,8 +84,6 @@ public class TransferController {
 		ddvo.setAmountOfMoney(tvo2.getMoney());//이체금액
 		System.out.println("ddvo="+ddvo);
 		dealDetailService.insertTransDetail(ddvo);
-		
-		
 		//임시 입금쪽 temp
 		AccountVO temp2 = new AccountVO(tvo2.getOtheraccountNo(),tvo2.getMoney());
 		accountService.deposit(temp2);
@@ -101,17 +91,15 @@ public class TransferController {
 		System.out.println("입금계좌에서 이체후 잔액="+youavo.getBalance());
 		
 		DealDetailVO ddvo2 = new DealDetailVO();
-		
 		ddvo2.setAccountNo(tvo2.getOtheraccountNo()); //내계좌
 		ddvo2.setOtherAccountNo(tvo2.getaccount());//상대계좌
 		ddvo2.setDealType("deposit");//입금인지 출금인지
 		ddvo2.setAmountOfMoney(tvo2.getMoney());//이체금액
 		System.out.println("ddvo2="+ddvo2);
 		dealDetailService.insertTransDetail(ddvo2);
-		
 		mv.addObject("afterMoney",myavo.getBalance());
 		mv.addObject("youName",youavo.getCustomerVO().getName());
-		mv.setViewName("transfer_result");
+		mv.setViewName("redirect:transfer_result.bank");
 		return mv;
 	}
  
@@ -122,11 +110,8 @@ public class TransferController {
 		CustomerVO vo = (CustomerVO) session.getAttribute("loginInfo");
 		List<AccountVO> list = accountService.accountList(vo.getEmail());
 		myaccountNo = request.getParameter("account"); // 선택한 계좌
-		System.out.println("선택한계좌=" + myaccountNo);
 		AccountVO s = accountService.accountAll(myaccountNo);
-		System.out.println("내 계좌=" + s);
 		int balance = s.getBalance();
-		System.out.println("잔액=" + balance);
 		return balance;
 	}
 
@@ -134,9 +119,7 @@ public class TransferController {
 	@ResponseBody
 	public String checkOtherAccount(HttpServletRequest request, AccountVO avo) {
 		HttpSession session = request.getSession(false);
-
 		AccountVO a = accountService.checkOtherAccount(request.getParameter("otheraccountNo"));
-		System.out.println("다른계좌=" + a);
 		String name=null;
 		if (a != null &&a.getCustomerVO().getName() != null) {
 			name = a.getCustomerVO().getName();
@@ -144,11 +127,9 @@ public class TransferController {
 		return name;
 	}
 
-	
 	@RequestMapping("checkPassword.bank")
 	@ResponseBody
 	public boolean checkPassword(AccountVO avo) {
-		System.out.println("ck");
 		AccountVO vo = accountService.checkAccount(avo);
 		boolean flag = true;
 		if (vo == null) {
@@ -157,7 +138,6 @@ public class TransferController {
 		return flag;
 	}
 
-	
 	int cnt = 1;
 	@RequestMapping(value = "transferSecureCardCheck.bank", method = RequestMethod.POST)
 	@ResponseBody

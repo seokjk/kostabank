@@ -11,34 +11,72 @@
 
 <script type="text/javascript">
 	$(document).ready(function() { 
+
+		/*잔액표시*/
+		var balanceView;
+		var bartemp;
+		balanceView = document.getElementById("balanceView");
+		$("#account").change(function(){
+			var a= $("#account").val();
+			if(a==""){
+				alert("계좌를 선택해주세요!!!");
+				return false;
+			}else{
+				$.ajax({
+					type:"post",
+					url:"checkBalance.bank",
+					data:"account="+$("#account").val(),
+					dataType:"json",
+					success:function(jsonData){
+							$("#balanceView").html("현재 잔액은 "+jsonData);
+							bartemp = jsonData;
+							
+					}
+				}); 
+			}
+			
+			/*잔액vs이체금액*/
+			$("#transferForm :input[name='money']").keyup(function(){
+				var money="";
+				money=$(this).val().trim();
+				if(money>bartemp){
+					alert("이체 가능한 금액을 넣어주세요.");
+					$("#transferForm :input[name='money']").val("");
+					return false;
+				}
+			});
+ 			
+		});
 		
 		/*form 입력란*/
 		$("#transferForm").submit(function(){
 			var passCheck=false;
 			var otherAccountCheck=false;
+			var accountCheck=false;
+			
 			/*계좌확인*/
-	         $.ajax({
-	            type:"post",
-	            url:"checkOtherAccount.bank",
-	            data:"otheraccountNo="+$("#otheraccountNo").val(),
-	            async:false,
-	            success:function(name){
-	               if(name==""){
-	                  alert("보낼 계좌가 없습니다.");
-	                  otherAccountCheck=true;
-	                  return false;
-	               }else{
-	                  otherAccountCheck=false;
-	               }
-	               if ($(":input[name='otheraccountNo']").val().trim()==$(":input[name='account']").val().trim()) {
-	                  alert("자기자신에게 이체를 할 수 없습니다.");
-	                  otherAccountCheck=true;
-	                  return false;
-	               }else{
-	                  otherAccountCheck=false;
-	               }         
-	            }
-	         });
+			$.ajax({
+				type:"post",
+				url:"checkOtherAccount.bank",
+				data:"otheraccountNo="+$("#otheraccountNo").val(),
+				async:false,
+				success:function(name){
+					if(name==""){
+						alert("보낼 계좌가 없습니다.");
+						otherAccountCheck=true;
+						return false;
+					}else{
+						otherAccountCheck=false;
+					}
+					if ($(":input[name='otheraccountNo']").val().trim()==$(":input[name='account']").val().trim()) {
+						alert("자기자신에게 이체를 할 수 없습니다.");
+						otherAccountCheck=true;
+						return false;
+					}else{
+						otherAccountCheck=false;
+					}			
+				}
+			});
 			
 			/*비밀번호체크*/
 			$.ajax({
@@ -55,16 +93,17 @@
 				}
 			});
 			
-			
-			if ($(":input[name='account']").val().trim()=="" && $(":input[name='account']").val()==null) {
+			if ($(":input[name='account']").val().trim()=="") {
 				alert("출금계좌번호를 선택하세요");
+				account=true;
 				return false;
+			}else{
+				account=false;
 			}
 			if ($(":input[name='myaccountPass']").val().trim()=="") {
 				alert("계좌비밀번호를 입력하세요");
 				return false;
 			}
-
  			if ($(":input[name='myaccountPass']").val().trim().length!=4) {
 				alert("계좌비밀번호는 4자리입니다.");
 				return false;
@@ -81,50 +120,18 @@
 				alert("입금계좌번호를 입력하세요");
 				return false;
 			}
-			
 			if(passCheck){
 				return false;
 			}
 			if(otherAccountCheck){
 				return false;
 			}
-			
+			if(accountCheck){
+				return false;
+			}
+
 		});
 		
-		
-		/*잔액표시*/
-	      var balanceView;
-	      balanceView = document.getElementById("balanceView");
-	      $("#account").change(function(){
-	         var a= $("#account").val();
-	         if(a==""){
-	            alert("계좌를 선택해주세요!!!");
-	            return false;
-	         }else{
-	            $.ajax({
-	               type:"post",
-	               url:"checkBalance.bank",
-	               data:"account="+$("#account").val(),
-	               dataType:"json",
-	               async:false,
-	               success:function(jsonData){
-	                     $("#balanceView").html("현재 잔액은 "+jsonData);
-	                     /*잔액vs이체금액*/
-	                     $("#transferForm :input[name='money']").keyup(function(){
-	                        var money="";
-	                        money=$(this).val().trim();
-	                        if(money>jsonData){
-	                           alert("이체 가능한 금액을 넣어주세요.");
-	                           $("#transferForm :input[name='money']").val("");
-	                           return false;
-	                        }
-	                     });
-	               }
-	            }); 
-	         }
-	          
-	      });
-
 	});
 </script>
 
@@ -181,4 +188,3 @@
 	<br> <br><br>
 	<input type="submit" id="securecheckBtn" value="보안카드확인">
 </form>
-

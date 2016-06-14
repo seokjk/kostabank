@@ -151,7 +151,6 @@ public class CustomerController {
 		public String updateCustomerResult(CustomerVO vo, HttpServletRequest request) {
 			HttpSession session = request.getSession(false);
 			CustomerVO vo1 = (CustomerVO) session.getAttribute("loginInfo");
-			//System.out.println(vo1);
 			if(vo == null) {
 				return "home.bank";
 			} else {

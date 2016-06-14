@@ -18,7 +18,6 @@ public class DealDetailController {
 	@RequestMapping(value="dealDetailByDate.bank", method = RequestMethod.POST)
 	public ModelAndView dealDetailByDate(HttpServletRequest request){
 		String accountNo = request.getParameter("accountNo");
-		System.out.println(1);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("accountNo", accountNo);
 		mav.setViewName("deal_dealDetailByDate.bank");
@@ -33,11 +32,9 @@ public class DealDetailController {
 		 dealDetailVO.setDealType(dealType);
 		 dealDetailVO.setStartDay(startDay);
 		 dealDetailVO.setEndDay(endDay);
-		 //int page = 1;
 		 System.out.println(11);
 		 
 		 DealListVO dvo = dealDetailService.getDetailPaging(dealDetailVO, Integer.parseInt(page));
-		 System.out.println("66");
 		 mav.addObject("dvo", dvo);
 		 mav.setViewName("deal_dealDetailByDate_result");
 		return mav;
@@ -48,10 +45,7 @@ public class DealDetailController {
 		DealDetailVO dealDetailVO = new DealDetailVO();
 		dealDetailVO.setAccountNo(accountNo);
 		dealDetailVO.setDealType(dealType);
-		System.out.println("되라아아아아아");
 		DealListVO dvo = dealDetailService.getDetailByGapPaging(gapChecked, dealDetailVO, Integer.parseInt(page));
-		 System.out.println("66");
-		 System.out.println("dkdkdkdkdk");
 		 mav.addObject("dvo", dvo);
 		 mav.setViewName("deal_dealDetailByDate_result2");
 		return mav;
