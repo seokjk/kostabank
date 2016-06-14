@@ -90,7 +90,7 @@
 	 -->   
 	<c:if test="${pb.nextPageGroup}">
 	<a href="list.do?pageNo=${pb.endPageOfPageGroup+1}">
-	▶<!-- <img src="img/right_arrow_btn.gif"> --></a>
+	▶</a>
 	</c:if>
 	</p>
 
