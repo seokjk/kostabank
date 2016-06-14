@@ -24,7 +24,6 @@ private SqlSessionTemplate template;
 	@Override
 	// QNA를 포스팅하는 기능.
 	public void qnaPosting(QNAVO vo){
-		System.out.println(vo+"왜죠?");
 		template.insert("qna.qnaPosting",vo);
 	}
 	public int totalContent(String email){
@@ -33,5 +32,8 @@ private SqlSessionTemplate template;
 	public QNAVO showContent(int qnaNo){
 		System.out.println("2"+qnaNo);
 		return template.selectOne("qna.showContent",qnaNo);
+	}
+	public void rePosting(QNAVO vo){
+		template.insert("qna.rePosting",vo);
 	}
 }
