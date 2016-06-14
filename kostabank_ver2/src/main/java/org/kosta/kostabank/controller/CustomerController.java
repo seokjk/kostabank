@@ -36,15 +36,21 @@ public class CustomerController {
 		CustomerVO loginInfo = customerService.customerLogin(vo);
 		CustomerVO emailFail = customerService.emailFail(vo);
 		ModelAndView mv = new ModelAndView();
-		int failCount = customerService.failCount(vo);
-		if(loginInfo != null && failCount <= 3) {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginInfo", loginInfo);
-			mv.setViewName("redirect:home.bank");
-		} else if(emailFail == null){
-			mv.setViewName("kangbank/login/email_fail");
+		if(loginInfo != null) {
+			int failCount = customerService.failCount(vo);
+			if(failCount <= 3) {
+				HttpSession session = request.getSession();
+				session.setAttribute("loginInfo", loginInfo);
+				mv.setViewName("redirect:home.bank");
+			} else {
+				mv.setViewName("redirect:loginFailCount.bank?email="+email1);
+			}
 		} else {
-			mv.setViewName("redirect:loginFailCount.bank?email="+email1);
+			if(emailFail == null) {
+				mv.setViewName("kangbank/login/email_fail");
+			} else {
+				mv.setViewName("redirect:loginFailCount.bank?email="+email1);
+			}
 		}
 		return mv;
 	}
