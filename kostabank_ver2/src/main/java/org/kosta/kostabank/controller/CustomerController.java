@@ -36,7 +36,8 @@ public class CustomerController {
 		CustomerVO loginInfo = customerService.customerLogin(vo);
 		CustomerVO emailFail = customerService.emailFail(vo);
 		ModelAndView mv = new ModelAndView();
-		if(loginInfo != null) {
+		int failCount = customerService.failCount(vo);
+		if(loginInfo != null && failCount <= 3) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginInfo", loginInfo);
 			mv.setViewName("redirect:home.bank");
@@ -55,12 +56,8 @@ public class CustomerController {
 		ModelAndView mv = new ModelAndView();
 		customerService.loginFailCount(vo);
 		int failCount = customerService.failCount(vo);
-		if(failCount>=4) {
-			mv.setViewName("redirect:find_passwordview.bank");
-		} else {
-			mv.setViewName("kangbank/login/login_fail");
-			mv.addObject("failCount", failCount);
-		}
+		mv.setViewName("kangbank/login/login_fail");
+		mv.addObject("failCount", failCount);
 		return mv;
 	}
 	@RequestMapping(value = "customerLogout.bank")
@@ -147,23 +144,23 @@ public class CustomerController {
 	}
 		
 	//정보수정
-		@RequestMapping("customer_updateCustomerResult.bank")
-		public String updateCustomerResult(CustomerVO vo, HttpServletRequest request) {
-			HttpSession session = request.getSession(false);
-			CustomerVO vo1 = (CustomerVO) session.getAttribute("loginInfo");
-			if(vo == null) {
-				return "home.bank";
-			} else {
-				vo.setName(vo1.getName());
-				vo.setBirth(vo1.getBirth());
-				vo.setTel(vo1.getTel());
-				vo.setSecurity_card(vo1.getSecurity_card());
-				System.out.println("업데이트");
-				customerService.updateCustomerResult(vo);
-				session.setAttribute("loginInfo", vo);
-				System.out.println(vo);
-				return "customer_updateCustomerResult";
-			}
+	@RequestMapping("customer_updateCustomerResult.bank")
+	public String updateCustomerResult(CustomerVO vo, HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		CustomerVO vo1 = (CustomerVO) session.getAttribute("loginInfo");
+		if(vo == null) {
+			return "home.bank";
+		} else {
+			vo.setName(vo1.getName());
+			vo.setBirth(vo1.getBirth());
+			vo.setTel(vo1.getTel());
+			vo.setSecurity_card(vo1.getSecurity_card());
+			System.out.println("업데이트");
+			customerService.updateCustomerResult(vo);
+			session.setAttribute("loginInfo", vo);
+			System.out.println(vo);
+			return "customer_updateCustomerResult";
 		}
+	}
 
 }
