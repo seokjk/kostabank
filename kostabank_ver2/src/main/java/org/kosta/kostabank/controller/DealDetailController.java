@@ -24,58 +24,7 @@ public class DealDetailController {
 		mav.setViewName("deal_dealDetailByDate.bank");
 		return mav;
 	}
-/*	@RequestMapping(value="dealDetailByDate_result.bank", method = RequestMethod.POST)
-	@ResponseBody
-		public Object dealDetailByDate_result(DealDetailVO dealDetailVO){
-    List<DealDetailVO> list = dealDetailService.getDetail(dealDetailVO);
-		System.out.println(list);
-		return dealDetailService.getDetail(dealDetailVO);
-	}
-	@RequestMapping(value="dealDetailByDate_result2.bank", method = RequestMethod.POST)
-	@ResponseBody
-	public Object dealDetailByDate_result2(String gapChecked, DealDetailVO dealDetailVO){
-		System.out.println(1);
-		List<DealDetailVO> list = dealDetailService.getDetailByGap(gapChecked);
-		DealDetailVO dvo = new DealDetailVO();
-		return dealDetailService.getDetailByGap(gapChecked, dealDetailVO);
-	}*/
-/*	@RequestMapping(value="dealDetailByDate_result.bank", method = RequestMethod.POST)
-	@ResponseBody
-		public Object dealDetailByDate_result(DealDetailVO dealDetailVO){
-    List<DealDetailVO> list = dealDetailService.getDetail(dealDetailVO);
-		System.out.println(list);
-		System.out.println(211111);
-		int page = 1;
-		//System.out.println("page" + page);
-		System.out.println("detailVO"+dealDetailVO);
-		DealListVO dvo = dealDetailService.getDetail(dealDetailVO,page);
-		System.out.println(dvo);
-		return dealDetailService.getDetail(dealDetailVO,page);
-	}*/
-/*	@RequestMapping(value="dealDetailByDate_result2.bank", method = RequestMethod.POST)
-	@ResponseBody
-	public Object dealDetailByDate_result2(String gapChecked, DealDetailVO dealDetailVO){
-		System.out.println(1);
-		List<DealDetailVO> list = dealDetailService.getDetailByGap(gapChecked);
-		DealDetailVO dvo = new DealDetailVO();
-		return dealDetailService.getDetailByGap(gapChecked, dealDetailVO);
-	}*/
-/*	@RequestMapping("dealDetailByDate_result.bank")
-	public ModelAndView dealDetailByDate_result(String accountNo,String startDay, String endDay, String dealType){
-		 ModelAndView mav = new ModelAndView();
-		 DealDetailVO dealDetailVO = new DealDetailVO();
-		 dealDetailVO.setAccountNo(accountNo);
-		 dealDetailVO.setDealType(dealType);
-		 dealDetailVO.setStartDay(startDay);
-		 dealDetailVO.setEndDay(endDay);
-		 System.out.println(11);
-		 List<DealDetailVO> list = dealDetailService.getDetail(dealDetailVO);
-		 System.out.println(list);
-		 System.out.println("66");
-		 mav.addObject("list", list);
-		 mav.setViewName("deal_dealDetailByDate_result");
-		return mav;
-	}*/
+
 	@RequestMapping("dealDetailByDate_result.bank")
 	public ModelAndView dealDetailByDate_result(String accountNo,String startDay, String endDay, String dealType,String page){
 		 ModelAndView mav = new ModelAndView();

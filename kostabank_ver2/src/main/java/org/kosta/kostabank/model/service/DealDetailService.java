@@ -7,13 +7,6 @@ import org.kosta.kostabank.model.vo.DealListVO;
 //
 public interface DealDetailService {
 
-	//List<DealDetailVO> getDetail(DealDetailVO dealDetailVO);
-
-	//List<DealDetailVO> getDetailByGap(String gapChecked, DealDetailVO dealDetailVO);
-
-	//DealListVO getDetail(DealDetailVO dealDetailVO, String page);
-
-	//DealListVO getDetail(DealDetailVO dealDetailVO, int page);
 
 		List<DealDetailVO> getDetail(DealDetailVO dealDetailVO);
 

@@ -75,7 +75,6 @@ $(document).ready(function(){
 ${param.accountNo} 거래 내역
 <hr>
 </p>
-
 <h4>조회설정</h4><br>
 <form action="dealDetailByDate_result.bank" id="dateForm">
 <input type="hidden" name="accountNo" value="${param.accountNo}">
