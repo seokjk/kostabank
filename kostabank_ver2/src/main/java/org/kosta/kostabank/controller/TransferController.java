@@ -39,8 +39,6 @@ public class TransferController {
 		HttpSession session = request.getSession(false);
 		CustomerVO vo = (CustomerVO) session.getAttribute("loginInfo");
 		List<AccountVO> list = accountService.accountList(vo.getEmail());
-		System.out.println("list"+list);
-
 		return new ModelAndView("transfer_view", "accountList", list);
 	}
 
