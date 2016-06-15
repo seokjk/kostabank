@@ -87,6 +87,14 @@ public class SecureCardServiceImpl implements SecureCardService {
 		dao.deleteupdateSecurity_card(vo.getEmail());
 		vo.setSecurity_card("0");
 	}
+	@Override
+	public void secureCardFail(String security_card) {
+		dao.secureCardFail(security_card);
+	}
+	@Override
+	public void secureCardOK(String security_card) {
+		dao.secureCardOK(security_card);
+	}
 	
 	
 
