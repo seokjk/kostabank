@@ -1,5 +1,4 @@
 package org.kosta.kostabank.model.vo;
-
 public class SavingsVO {  
 	private AccountVO accountVO;
 	private String automaticNo;
@@ -64,5 +63,4 @@ public class SavingsVO {
 				+ ", monthlyPayment=" + monthlyPayment + ", transferBoolean="
 				+ transferBoolean + ", paybackNo=" + paybackNo + "]";
 	}
-	
 }
