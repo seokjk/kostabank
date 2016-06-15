@@ -51,4 +51,7 @@ public QNAVO showContent(int qnaNo){
 public void rePosting(QNAVO vo){
 	qnaDAO.rePosting(vo);
 }
+public void deleteRe(int qnaNo){
+	qnaDAO.deleteRe(qnaNo);
+}
 }
