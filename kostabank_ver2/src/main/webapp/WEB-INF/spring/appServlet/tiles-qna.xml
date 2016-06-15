@@ -19,6 +19,7 @@
 	<!-- 계좌생성 -->
 	<definition name="qna_*" extends="home">
 		<put-attribute name="main" value="/kangbank/QNA/qna_{1}.jsp"/>
+		<put-attribute name="left" value="/kangbank/templates/left_board.jsp"/>
 	</definition>
 	 
 	 
