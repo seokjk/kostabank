@@ -18,6 +18,6 @@ private SqlSessionTemplate template;
 	 */
 	@Override
 	public List<AccountTypeVO> savingsProductlist(String accountType){
-		return template.selectList("savingsProductlist",accountType);
+		return template.selectList("savings.savingsProductlist",accountType);
 	}
 }
