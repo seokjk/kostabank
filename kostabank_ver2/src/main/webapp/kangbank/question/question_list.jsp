@@ -50,7 +50,7 @@
 <h3>${listVO.list[0].section}</h3><br>
 <div id="questiondiv">
 	<table id="questiontable">
-		<tr><td>번호</td><td>제목</td><td>조회수</td></tr>
+		<tr><td width="10%">번호</td><td width="80%">제목</td><td>조회수</td width="10%"></tr>
 		<%int num=1; %>
 		<c:forEach items="${listVO.list}" var="list">
 			<tr>
