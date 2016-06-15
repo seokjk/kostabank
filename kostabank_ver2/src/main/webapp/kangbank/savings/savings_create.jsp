@@ -20,43 +20,33 @@ $(document).ready(function(){
 		}
 	});
 	$("#conBtn").click(function(){
-		if($("#createForm :input[name=accountPass]").val()==""){
+		if($("#createForm :input[name=savingsPass]").val()==""){
 			alert("패스워드를 입력해주세요");
 			return false;
-		}if($("#createForm :input[name=accountPass]").val().length!=4){
+		}if($("#createForm :input[name=savingsPass]").val().length!=4){
 			alert("패스워드는 4자리여야 합니다");
 			$("#createForm :input[name=accountPass]").val("");
 			return false;
-		}if(parseInt($("#createView").html())>$("#createForm :input[name=balance]").val()){
-			alert("최소금액보다 작습니다.");
-			$("#createForm :input[name=balance]").val("");
+		}if($("#createForm :input[name=automaticNo]").val()==""){
+			alert("자동이체 계좌번호를 선택해주세요");
 			return false;
-		}if(isNaN($("#createForm :input[name=accountPass]").val())){
-			alert("비밀번호는 숫자 4자리로만 입력 할 수 있습니다.");
-			$("#createForm :input[name=accountPass]").val("");
+		}if($("#createForm :input[name=savingsTerm]").val()==""){
+			alert("계약기간을 선택해주세요");
 			return false;
-		}if(isNaN($("#createForm :input[name=balance]").val())){
-			alert("숫자로 입력하십시오.");
-			$("#createForm :input[name=balance]").val("");
+		}if($("#createForm :input[name=savingsRate]").val()==""){
+			alert("금리를 선택해주세요");
 			return false;
-		}if($("#createForm :input[name=balance]").val()==""){
-			alert("기본금을 입력해주십시오.(0원 일시 0원으로 입력하세요)");
+		}if($("#createForm :input[name=monthlyPayment]").val()==""){
+			alert("월당 이체금액을 입력해주세요");
+			return false;
+		}if($("#createForm :input[name=paybackNo]").val()==""){
+			alert("환급 계좌를 선택해주세요");
 			return false;
 		}
 		
-	});
-	$("#accountName").change(function(){
-		$.ajax({
-			type:"post",
-			url:"minMoneyShow.bank",
-			data:"accountName="+$("#accountName").val(),
-			dataType:"json",
-			success:function(minMoney){
-				$("#createView").html(minMoney);
-				$("#createForm :input[name=balance]").val(minMoney);
-			}
-		});
-	});
+		//..
+	});//conBtn.click
+
 });
 </script>
 <body>
