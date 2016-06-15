@@ -31,9 +31,9 @@
 			<td align="center">${sessionScope.tvo.account}</td>
 			<td align="center">${sessionScope.tvo.bank}</td>
 			<td align="center">${sessionScope.tvo.otheraccountNo}</td>
-			<td align="center">${youName}</td>
+			<td align="center">${param.youName}</td>
 			<td align="center">${sessionScope.tvo.money}</td>
-			 <td align="center">${afterMoney}</td>
+			 <td align="center">${param.afterMoney}</td>
 		</tr>
 
 </table><br><br>
