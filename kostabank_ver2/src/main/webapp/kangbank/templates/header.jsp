@@ -91,7 +91,7 @@
                       <li><a href = "accountTypeList.bank?page=1">상품 정보</a></li>
                      <li><a href="#">입출금 상품</a></li>
                      <li><a href="savings.bank?accountType=적금">적금 상품</a></li>
-                     <li><a href="#">대출 상품</a></li>
+                     <li><a href="laonNameList.bank">대출 상품</a></li>
                   </ul></li>
                      <li class="계좌"><a href="#" class="dropdown-toggle"
                   data-toggle="dropdown" role="button" aria-expanded="false">계좌정보
