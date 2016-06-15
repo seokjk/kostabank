@@ -68,7 +68,10 @@ create table secure_card(
    twenty_nine varchar2(4) not null,
    thirty varchar2(4) not null
 );
+
 insert into secure_card values(0,'0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000');
+ALTER TABLE secure_card ADD (secure_card_fail number default 0); 
+
 select * from secure_card
 -- 계정 --
 create table kangbank_customer(
