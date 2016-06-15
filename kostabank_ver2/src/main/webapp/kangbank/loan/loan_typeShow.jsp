@@ -16,7 +16,8 @@
 	              str+="<tr><td>설명</td><td>"+result.accountExplanation+"</td></tr>";
 	              str+="<tr><td>최고한도</td><td>"+result.maximumMoney+"</td></tr>";
 	              str+="<tr><td>최고기간</td><td>"+result.term+"</td></tr>";
-	              str+="<tr><td>추가이자</td><td>"+result.additionalRates+"</td></tr></table>";
+	              str+="<tr><td>추가이자</td><td>"+result.additionalRates+"</td></tr></table><br>";
+	              str+="<input type='button' id='loan' value='대출하기'>";
 	              $("#loanTable").html(str);
 	            }
 	         });
