@@ -25,6 +25,13 @@ drop table question;
 -- 거래내역 --
 drop sequence dealNo_seq;
 drop table kangbank_deal_detail;
+-- 대출 --
+drop table kangbank_loan;
+-- 대출금리 --
+drop sequence loanRateSeq;
+drop table kangbank_loan_rates;
+--적금
+drop table kangbank_savings;
 ---------- 테이블 생성 ----------
 -- 보안 카드 --
 create sequence secure_card_seq;
@@ -179,8 +186,17 @@ create table kangbank_deal_detail(
    dealDate date not null,
    constraint fk_kangbank_account foreign key (accountNo) references kangbank_account(accountNo)
 )
+
+-- 대출금리 --
+create sequence loanRateSeq;
+create table kangbank_loan_rates(
+   loanRateSeq number primary key,
+   additionalRates number not null,
+   accountSeq number not null,
+   constraint fk_kangbank_account_rates foreign key(accountSeq) references kangbank_account_rates(accountSeq)
+)
+
 -- 대출 --
-drop table kangbank_loan
 create table kangbank_loan(
    loanAccountNo varchar2(100) primary key,
    inAccountNo varchar2(100) not null,
@@ -191,18 +207,6 @@ create table kangbank_loan(
    loanRateSeq number not null,
    constraint fk_kangbank_account2 foreign key(loanAccountNo) references kangbank_account(accountNo),
    constraint fk_kangbank_loan_rates foreign key(loanRateSeq) references kangbank_loan_rates(loanRateSeq)
-)
-
--- 대출금리 --
-drop sequence loanRateSeq;
-create sequence loanRateSeq;
-drop kangbank_loan_rates
-create table kangbank_loan_rates(
-   loanRateSeq number primary key,
-   additionalRates number not null,
-   maximumMoney number not null,
-   accountSeq number not null,
-   constraint fk_kangbank_account_rates foreign key(accountSeq) references kangbank_account_rates(accountSeq)
 )
 
 --적금
@@ -217,3 +221,4 @@ create table kangbank_savings(
    constraint fk_savings_no foreign key(accountNo) references kangbank_account(accountNo),
    constraint fk_rates foreign key(accountSeq) references kangbank_account_rates(accountSeq)
 )
+
