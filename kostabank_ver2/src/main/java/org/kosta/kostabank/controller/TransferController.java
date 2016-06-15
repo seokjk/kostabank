@@ -25,56 +25,51 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class TransferController {
-   @Resource
-   private TransferService transferService;
-   @Resource
-   private AccountService accountService;
-   @Resource
-   private SecureCardService securecardService;
-   @Resource
-   private DealDetailService dealDetailService;
-   
-   @RequestMapping("transfer_view.bank")
-   public ModelAndView transferview(String email, HttpServletRequest request) {
-      HttpSession session = request.getSession(false);
-      CustomerVO vo = (CustomerVO) session.getAttribute("loginInfo");
-      List<AccountVO> list = accountService.accountList(vo.getEmail());
-      return new ModelAndView("transfer_view", "accountList", list);
-   }
+	@Resource
+	private TransferService transferService;
+	@Resource
+	private AccountService accountService;
+	@Resource
+	private SecureCardService securecardService;
+	@Resource
+	private DealDetailService dealDetailService;
+	
+	@RequestMapping("transfer_view.bank")
+	public ModelAndView transferview(String email, HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		CustomerVO vo = (CustomerVO) session.getAttribute("loginInfo");
+		List<AccountVO> list = accountService.accountList(vo.getEmail());
+		return new ModelAndView("transfer_view", "accountList", list);
+	}
 
-   @RequestMapping("transfer_transfer.bank")
-   public ModelAndView transfer_transfer(HttpServletRequest request,TransferVO tvo) {
-      HttpSession session = request.getSession(false);
-      ModelAndView mv = new ModelAndView();
-      session.setAttribute("tvo", tvo);
-      System.out.println(tvo);
-      String no = tvo.getOtheraccountNo();
-      System.out.println("no="+no);
-      AccountVO a = accountService.checkOtherAccount(no);
+	@RequestMapping("transfer_transfer.bank")
+	public ModelAndView transfer_transfer(HttpServletRequest request,TransferVO tvo) {
+		HttpSession session = request.getSession(false);
+		ModelAndView mv = new ModelAndView();
+		session.setAttribute("tvo", tvo);
+		System.out.println(tvo);
+		String no = tvo.getOtheraccountNo();
+		System.out.println("no="+no);
+		AccountVO a = accountService.checkOtherAccount(no);
 
-      System.out.println("다른계좌TR=" + a);
-      String name=a.getCustomerVO().getName();
-      System.out.println("받는사람: "+name);
-      mv.addObject("name", name);
-      mv.addObject("tvo",tvo);
-      mv.setViewName("redirect:transfer_secure.bank");
+		System.out.println("다른계좌TR=" + a);
+		String name=a.getCustomerVO().getName();
+		System.out.println("받는사람: "+name);
+		mv.addObject("name", name);
+		mv.addObject("tvo",tvo);
+		mv.setViewName("redirect:transfer_secure.bank");
+
 		return mv;
 	}
-   
 	//이체결과를 보여주는 곳(실제 수행)
-	@RequestMapping("transfer_ing.bank")
+	@RequestMapping("transfer_result.bank")
 	public ModelAndView transfer_result(HttpServletRequest request,TransferVO tvo, AccountVO avo) {
 		HttpSession session = request.getSession(false);
 		ModelAndView mv = new ModelAndView();
 		
 		CustomerVO vo = (CustomerVO) session.getAttribute("loginInfo");
-		System.out.println("result쪽cvo="+vo);
 		
 		TransferVO tvo2 = (TransferVO) session.getAttribute("tvo");
-		System.out.println("이체테이블="+tvo2);
-		System.out.println("출금계좌="+tvo2.getaccount());
-		System.out.println("입금계좌="+tvo2.getOtheraccountNo());
-		System.out.println("이체금액="+tvo2.getMoney());
 		AccountVO dv = accountService.accountAll(tvo2.getaccount());
 		System.out.println("출금계좌정보="+dv);
 		long m = dv.getBalance();
@@ -114,92 +109,92 @@ public class TransferController {
 		mv.setViewName("redirect:transfer_result.bank");
 		return mv;
 	}
-
  
-   @RequestMapping("checkBalance.bank")
-   @ResponseBody
-   public long checkBal(HttpServletRequest request, String myaccountNo) {
-      HttpSession session = request.getSession(false);
-      CustomerVO vo = (CustomerVO) session.getAttribute("loginInfo");
-      List<AccountVO> list = accountService.accountList(vo.getEmail());
-      myaccountNo = request.getParameter("account"); // 선택한 계좌
-      System.out.println("선택한계좌=" + myaccountNo);
-      AccountVO s = accountService.accountAll(myaccountNo);
-      System.out.println("내 계좌=" + s);
-      long balance = s.getBalance();
-      System.out.println("잔액=" + balance);
-      return balance;
-   }
+	@RequestMapping("checkBalance.bank")
+	@ResponseBody
+	public long checkBal(HttpServletRequest request, String myaccountNo) {
+		HttpSession session = request.getSession(false);
+		CustomerVO vo = (CustomerVO) session.getAttribute("loginInfo");
+		List<AccountVO> list = accountService.accountList(vo.getEmail());
+		myaccountNo = request.getParameter("account"); // 선택한 계좌
+		System.out.println("선택한계좌=" + myaccountNo);
+		AccountVO s = accountService.accountAll(myaccountNo);
+		System.out.println("내 계좌=" + s);
+		long balance = s.getBalance();
+		System.out.println("잔액=" + balance);
+		return balance;
+	}
 
-   @RequestMapping("checkOtherAccount.bank")
-   @ResponseBody
-   public String checkOtherAccount(HttpServletRequest request, AccountVO avo) {
-      HttpSession session = request.getSession(false);
+	@RequestMapping("checkOtherAccount.bank")
+	@ResponseBody
+	public String checkOtherAccount(HttpServletRequest request, AccountVO avo) {
+		HttpSession session = request.getSession(false);
 
-      AccountVO a = accountService.checkOtherAccount(request.getParameter("otheraccountNo"));
-      System.out.println("다른계좌=" + a);
-      String name=null;
-      if (a != null &&a.getCustomerVO().getName() != null) {
-         name = a.getCustomerVO().getName();
-      }
-      return name;
-   }
+		AccountVO a = accountService.checkOtherAccount(request.getParameter("otheraccountNo"));
+		System.out.println("다른계좌=" + a);
+		String name=null;
+		if (a != null &&a.getCustomerVO().getName() != null) {
+			name = a.getCustomerVO().getName();
+		}
+		return name;
+	}
 
-   
-   @RequestMapping("checkPassword.bank")
-   @ResponseBody
-   public boolean checkPassword(AccountVO avo) {
-      System.out.println("ck");
-      AccountVO vo = accountService.checkAccount(avo);
-      boolean flag = true;
-      if (vo == null) {
-         flag = false;
-      }
-      return flag;
-   }
+	
+	@RequestMapping("checkPassword.bank")
+	@ResponseBody
+	public boolean checkPassword(AccountVO avo) {
+		System.out.println("ck");
+		AccountVO vo = accountService.checkAccount(avo);
+		boolean flag = true;
+		if (vo == null) {
+			flag = false;
+		}
+		return flag;
+	}
 
-   
-   int cnt = 1;
-   @RequestMapping(value = "transferSecureCardCheck.bank", method = RequestMethod.POST)
-   @ResponseBody
-   public JSONObject transferSecureCardCheck(String f, String s, String dlf,
-         String dl, String tka, String tk, HttpServletRequest request)
-         throws IOException {
-      HttpSession session = request.getSession(false);
-      CustomerVO cvo = (CustomerVO) session.getAttribute("loginInfo");
-      JSONObject obj = new JSONObject();
-      System.out.println("");
-      if (cvo.getSecurity_card().equals("0")) {
-         obj.put("address", "noexistsecurecard");
-      } else {
-         SecureCardVO scvo = securecardService.selectSecureCard(cvo
-               .getSecurity_card());
-         String[] array = { scvo.getOne(), scvo.getTwo(), scvo.getThree(),
-               scvo.getFour(), scvo.getFive(), scvo.getSix(),
-               scvo.getSeven(), scvo.getEight(), scvo.getNine(),
-               scvo.getTen(), scvo.getEleven(), scvo.getTwelve(),
-               scvo.getThirteen(), scvo.getFourteen(), scvo.getFifteen(),
-               scvo.getSixteen(), scvo.getSeventeen(), scvo.getEighteen(),
-               scvo.getNineteen(), scvo.getTwenty(), scvo.getTwenty_one(),
-               scvo.getTwenty_three(), scvo.getTwenty_three(),
-               scvo.getTwenty_four(), scvo.getTwenty_five(),
-               scvo.getTwenty_six(), scvo.getTwenty_seven(),
-               scvo.getTwenty_eight(), scvo.getTwenty_nine(),
-               scvo.getThirty() };
-         String first_check = array[Integer.parseInt(f) - 1];
-         String second_check = array[Integer.parseInt(s) - 1];
-         if (first_check.substring(0, 2).equals(dlf + dl)
-               && second_check.substring(2, 4).equals(tka + tk)) {
-            obj.put("address", "transfer_ok");
-         } else if (cnt == 5) {
-            obj.put("address", "transfernum_fail");
-            cnt = 1;
-         } else {
-            obj.put("cnt", cnt++);
-            obj.put("address", "transfer_fail");
-         }
-      }
-      return obj;
-   }
+	@RequestMapping(value = "transferSecureCardCheck.bank", method = RequestMethod.POST)
+	@ResponseBody
+	public JSONObject transferSecureCardCheck(String f, String s, String dlf,
+			String dl, String tka, String tk, HttpServletRequest request)
+			throws IOException {
+		HttpSession session = request.getSession(false);
+		CustomerVO cvo = (CustomerVO) session.getAttribute("loginInfo");
+		JSONObject obj = new JSONObject();
+		if (cvo.getSecurity_card().equals("0")) {
+			obj.put("address", "noexistsecurecard");
+		} else {
+			SecureCardVO scvo = securecardService.selectSecureCard(cvo.getSecurity_card());
+			String[] array = { scvo.getOne(), scvo.getTwo(), scvo.getThree(),
+					scvo.getFour(), scvo.getFive(), scvo.getSix(),
+					scvo.getSeven(), scvo.getEight(), scvo.getNine(),
+					scvo.getTen(), scvo.getEleven(), scvo.getTwelve(),
+					scvo.getThirteen(), scvo.getFourteen(), scvo.getFifteen(),
+					scvo.getSixteen(), scvo.getSeventeen(), scvo.getEighteen(),
+					scvo.getNineteen(), scvo.getTwenty(), scvo.getTwenty_one(),
+					scvo.getTwenty_three(), scvo.getTwenty_three(),
+					scvo.getTwenty_four(), scvo.getTwenty_five(),
+					scvo.getTwenty_six(), scvo.getTwenty_seven(),
+					scvo.getTwenty_eight(), scvo.getTwenty_nine(),
+					scvo.getThirty() };
+			String first_check = array[Integer.parseInt(f) - 1];
+			String second_check = array[Integer.parseInt(s) - 1];
+			if (first_check.substring(0, 2).equals(dlf + dl)
+					&& second_check.substring(2, 4).equals(tka + tk)) {
+				securecardService.secureCardOK(cvo.getSecurity_card());
+				obj.put("address", "transfer_ok");
+			}else if(scvo.getSecure_card_fail()==4){
+				obj.put("address", "transfernum_fail");
+			}
+			else {
+				securecardService.secureCardFail(cvo.getSecurity_card());
+				SecureCardVO scvo2 = securecardService.selectSecureCard(cvo.getSecurity_card());
+				obj.put("cnt", scvo2.getSecure_card_fail());
+				obj.put("address", "transfer_fail");
+			}
+		}
+		return obj;
+	}
+	
+
 
 }
