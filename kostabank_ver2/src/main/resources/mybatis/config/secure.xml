@@ -37,4 +37,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<update id="deleteupdateSecureCard" parameterType="string">
  		update kangbank_customer set security_card=0 where email=#{value}
  	</update>
+ 	
+ 		<update id="secureCardFail" parameterType="string">
+ 		update secure_card set secure_card_fail = secure_card_fail+1 where no=#{value}
+ 	</update>
+ 	
+ 	<update id="secureCardOK" parameterType="string">
+ 		update secure_card set secure_card_fail = 0 where no=#{value}
+ 	</update>
 </mapper>
