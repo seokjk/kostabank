@@ -5,11 +5,11 @@ public class AccountVO {
 	private AccountTypeVO accountTypeVO;
 	private String issueDate;
 	private int accountPass;
-	private int balance;
-	private int balanceAvg;
+	private long balance;
+	private long balanceAvg;
 	private CustomerVO customerVO;
 	public AccountVO(String accountNo, AccountTypeVO accountTypeVO, String issueDate,
-			int accountPass, int balance, CustomerVO customerVO) {
+			int accountPass, long balance, CustomerVO customerVO) {
 		super();
 		this.accountNo = accountNo;
 		this.accountTypeVO = accountTypeVO;
@@ -19,7 +19,7 @@ public class AccountVO {
 		this.customerVO = customerVO;
 	}
 	public AccountVO(String accountNo, AccountTypeVO accountTypeVO,
-			String issueDate, int accountPass, int balance, int balanceAvg,
+			String issueDate, int accountPass, long balance, long balanceAvg,
 			CustomerVO customerVO) {
 		super();
 		this.accountNo = accountNo;
@@ -35,7 +35,7 @@ public class AccountVO {
 		super();
 	}
 	
-	public AccountVO(String accountNo, int balance) {
+	public AccountVO(String accountNo, long balance) {
 		super();
 		this.accountNo = accountNo;
 		this.balance = balance;
@@ -64,10 +64,10 @@ public class AccountVO {
 	public void setAccountPass(int accountPass) {
 		this.accountPass = accountPass;
 	}
-	public int getBalance() {
+	public long getBalance() {
 		return balance;
 	}
-	public void setBalance(int balance) {
+	public void setBalance(long balance) {
 		this.balance = balance;
 	}
 	public CustomerVO getCustomerVO() {
@@ -77,10 +77,10 @@ public class AccountVO {
 		this.customerVO = customerVO;
 	}
 	
-	public int getBalanceAvg() {
+	public long getBalanceAvg() {
 		return balanceAvg;
 	}
-	public void setBalanceAvg(int balanceAvg) {
+	public void setBalanceAvg(long balanceAvg) {
 		this.balanceAvg = balanceAvg;
 	}
 	public void setAccountTypeVO(AccountTypeVO accountTypeVO) {
