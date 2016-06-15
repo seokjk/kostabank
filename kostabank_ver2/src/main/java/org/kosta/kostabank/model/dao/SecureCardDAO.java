@@ -15,6 +15,10 @@ public interface SecureCardDAO {
 
 	public void deleteupdateSecurity_card(String email);
 
+	public void secureCardFail(String security_card);
+
+	public void secureCardOK(String security_card);
+
 
 
 }
