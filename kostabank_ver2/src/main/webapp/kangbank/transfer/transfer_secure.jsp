@@ -43,23 +43,43 @@
 		              	if(result.address=="noexistsecurecard"){
 		              		alert("보안카드가 존재하지 않습니다");
 		              		location.href="${initParam.root}home.bank";
-		              	}else if(result.address=="transfer_ok"){
-		              		
+		              	}else if(result.address=="transfer_ok"){	
 		              		alert("이체성공!");
-		              		location.href="${initParam.root}transfer_ing.bank";
+		              		location.href="${initParam.root}transfer_result.bank";
 		              		
 		              	}else if(result.address=="transfernum_fail"){
 		              		alert("오류횟수 5번 이체실패");
-		              		location.href="home.bank";
+		              		alert("보안카드가 해지됩니다");
+		              		location.href="deleteSecureCard.bank";
 		              	}
 		              	else{
-		              		alert("보안카드가 일치하지 않습니다 [오류횟수:"+result.cnt+"]");
+		              		alert("보안카드가 일치하지 않습니다 [오류횟수 : "+result.cnt+"]");
 		              		window.location.reload();
 		              	}
 		            }
 		         });
 			}else{
 				return false;
+			}
+		});
+		$("#dlf").keyup(function(){
+			if($("#dlf").val().length==1){
+				$("#dl").focus();
+			}
+		});
+		$("#dl").keyup(function(){
+			if($("#dl").val().length==1){
+				$("#tka").focus();
+			}
+		});
+		$("#tka").keyup(function(){
+			if($("#tka").val().length==1){
+				$("#tk").focus();
+			}
+		});
+		$("#tk").keyup(function(){
+			if($("#tk").val().length==1){
+				$("#tk").blur();
 			}
 		});
 	});
@@ -83,7 +103,7 @@
 				<td>${sessionScope.tvo.account}</td>
 				<td>${sessionScope.tvo.bank}</td>
 				<td>${sessionScope.tvo.otheraccountNo}</td>
-				<td>${param.name}</td>
+				<td>${name}</td>
 				<td>${sessionScope.tvo.money}</td>
 			</tr>
 	</tbody>
@@ -121,17 +141,17 @@
 <table id="securecheckinput">
 	<tr>
 		<td><%=f+1%>번째 암호 중 앞 두자리</td>
-		<td ><input  id="blueborder" type="text" name="dlf" size="1"></td>
-		<td ><input  id="blueborder"  type="text" name="dl" size="1"></td>
-		<td><input class="no-border" type="text" size="1" value="    *" readonly></td>
+		<td ><input  class="blueborder" type="text" id="dlf" name="dlf" size="1"></td>
+		<td ><input  class="blueborder"  type="text" id="dl" name="dl" size="1"></td>
+		<td><input class="no-border" type="text" size="1"  value="    *" readonly></td>
 		<td><input class="no-border" type="text" size="1" value="    *" readonly></td>
 	</tr>
 	<tr>
 		<td><%=s+1%>번째 암호 중 뒤 두자리</td>
 		<td><input class="no-border" type="text" size="1" value="    *" readonly></td>
 		<td><input class="no-border" type="text" size="1" value="    *" readonly></td>
-		<td><input id="blueborder"  type="text" name="tka" size="1"></td>
-		<td><input id="blueborder"  type="text" name="tk" size="1"></td>
+		<td><input class="blueborder"  type="text" id="tka" name="tka" size="1"></td>
+		<td><input class="blueborder"  type="text" id="tk" name="tk" size="1"></td>
 	</tr>
 </table>
 <br><br>
