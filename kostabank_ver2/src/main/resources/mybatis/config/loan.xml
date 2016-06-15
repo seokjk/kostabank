@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="loan">
+	<!-- 대출 계좌 이름 리스트 -->
+	<select id="loanNameList" resultType="String">
+		select accountName from kangbank_account_type where accountType='대출'
+	</select>
+	<!-- 대출 계좌 전체 리스트 -->
+	<select id="loanList" resultType="loanAccountVO">
+		select C.AccountName, C.accountExplanation, C.maximumMoney, C.rates, C.term, D.additionalRates
+		from (select A.accountName, A.accountExplanation, A.maximumMoney, B.rates, B.term, B.accountSeq
+			from (select accountName, accountExplanation, minMoney as maximumMoney 
+				from kangbank_account_type 
+				where accountType='대출') A, kangbank_account_rates B
+			where A.accountName = B.accountName) C, kangbank_loan_rates D
+		where C.accountSeq = D.accountSeq and C.accountName=#{value}
+	</select>
+</mapper>
