@@ -77,7 +77,7 @@ public class TransferController {
 		System.out.println("이체금액="+tvo2.getMoney());
 		AccountVO dv = accountService.accountAll(tvo2.getaccount());
 		System.out.println("출금계좌정보="+dv);
-		int m = dv.getBalance();
+		long m = dv.getBalance();
 		System.out.println("출금계좌의 잔액="+m); //여기까지나옴
 		// 임시 출금쪽 temp 를 만들어줘서 수행
 		AccountVO temp = new AccountVO(tvo2.getaccount(),tvo2.getMoney());
@@ -117,7 +117,7 @@ public class TransferController {
  
 	@RequestMapping("checkBalance.bank")
 	@ResponseBody
-	public int checkBal(HttpServletRequest request, String myaccountNo) {
+	public long checkBal(HttpServletRequest request, String myaccountNo) {
 		HttpSession session = request.getSession(false);
 		CustomerVO vo = (CustomerVO) session.getAttribute("loginInfo");
 		List<AccountVO> list = accountService.accountList(vo.getEmail());
@@ -125,7 +125,7 @@ public class TransferController {
 		System.out.println("선택한계좌=" + myaccountNo);
 		AccountVO s = accountService.accountAll(myaccountNo);
 		System.out.println("내 계좌=" + s);
-		int balance = s.getBalance();
+		long balance = s.getBalance();
 		System.out.println("잔액=" + balance);
 		return balance;
 	}
