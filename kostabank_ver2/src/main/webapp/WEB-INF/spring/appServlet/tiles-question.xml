@@ -19,8 +19,16 @@
 	 <!-- 보안카드 -->
 	<definition name="question_*" extends="home">
 		<put-attribute name="main" value="/kangbank/question/question_{1}.jsp"/>
+		<put-attribute name="left" value="/kangbank/templates/left_board.jsp"/>
 	</definition>
 </tiles-definitions>
+
+
+
+
+
+
+
 
 
 
