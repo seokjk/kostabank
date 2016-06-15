@@ -13,8 +13,8 @@
 	<!-- 계좌이체 -->
 	<definition name="notice_*" extends="home">
 		<put-attribute name="main" value="/kangbank/notice/notice_{1}.jsp"/>
+		<put-attribute name="left" value="/kangbank/templates/left_board.jsp"/>
 	</definition>
-
 </tiles-definitions>
 
 
