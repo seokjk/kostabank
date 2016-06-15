@@ -6,66 +6,77 @@
 <script type="text/javascript" src="resources/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#createForm").hide();
-	$("#createBtn").click(function(){
-		if($("#consentForm :radio[name=consent]:checked").val()=="assent"){
-		if(confirm("계좌를 생성 하시겠습니까?")){
-						$("#consentForm").hide();
-						$("#createForm").show();
-		}
-			
-			
-		}if($("#consentForm :radio[name=consent]:checked").val()=="unassent"){
-			alert("동의 하지 않으면 계좌를 생성 할 수 없습니다.");
-			if(confirm("홈으로 돌아가시겠습니까?")){
-				location.href="home.bank";
-			}
-		}
-	});
-	$("#conBtn").click(function(){
-		if($("#createForm :input[name=accountPass]").val()==""){
-			alert("패스워드를 입력해주세요");
-			return false;
-		}if($("#createForm :input[name=accountPass]").val().length!=4){
-			alert("패스워드는 4자리여야 합니다");
-			$("#createForm :input[name=accountPass]").val("");
-			return false;
-		}if(parseInt($("#createView").html())>$("#createForm :input[name=balance]").val()){
-			alert("최소금액보다 작습니다.");
-			$("#createForm :input[name=balance]").val("");
-			return false;
-		}if(isNaN($("#createForm :input[name=accountPass]").val())){
-			alert("비밀번호는 숫자 4자리로만 입력 할 수 있습니다.");
-			$("#createForm :input[name=accountPass]").val("");
-			return false;
-		}if(isNaN($("#createForm :input[name=balance]").val())){
-			alert("숫자로 입력하십시오.");
-			$("#createForm :input[name=balance]").val("");
-			return false;
-		}if($("#createForm :input[name=balance]").val()==""){
-			alert("기본금을 입력해주십시오.(0원 일시 0원으로 입력하세요)");
-			return false;
-		}
-		
-	});
-	$("#accountName").change(function(){
-		$.ajax({
-			type:"post",
-			url:"minMoneyShow.bank",
-			data:"accountName="+$("#accountName").val(),
-			dataType:"json",
-			success:function(minMoney){
-				$("#createView").html(minMoney);
-				$("#createForm :input[name=balance]").val(minMoney);
-			
-			}
-		});
-	});
+   $("#createForm").hide();
+   $("#createBtn").click(function(){
+      if($("#consentForm :radio[name=consent]:checked").val()=="assent"){
+      if(confirm("계좌를 생성 하시겠습니까?")){
+                  $("#consentForm").hide();
+                  $("#createForm").show();
+      }
+         
+         
+      }if($("#consentForm :radio[name=consent]:checked").val()=="unassent"){
+         alert("동의 하지 않으면 계좌를 생성 할 수 없습니다.");
+         if(confirm("홈으로 돌아가시겠습니까?")){
+            location.href="home.bank";
+         }
+      }
+   });
+   $("#conBtn").click(function(){
+      if($("#createForm :input[name=accountPass]").val()==""){
+         alert("패스워드를 입력해주세요");
+         return false;
+      }if($("#createForm :input[name=accountPass]").val().length!=4){
+         alert("패스워드는 4자리여야 합니다");
+         $("#createForm :input[name=accountPass]").val("");
+         return false;
+      }if(parseInt($("#createView").html())>$("#createForm :input[name=balance]").val()){
+         alert("최소금액보다 작습니다.");
+         $("#createForm :input[name=balance]").val("");
+         return false;
+      }if(isNaN($("#createForm :input[name=accountPass]").val())){
+         alert("비밀번호는 숫자 4자리로만 입력 할 수 있습니다.");
+         $("#createForm :input[name=accountPass]").val("");
+         return false;
+      }if(isNaN($("#createForm :input[name=balance]").val())){
+         alert("숫자로 입력하십시오.");
+         $("#createForm :input[name=balance]").val("");
+         return false;
+      }if($("#createForm :input[name=balance]").val()==""){
+         alert("기본금을 입력해주십시오.(0원 일시 0원으로 입력하세요)");
+         return false;
+      }
+      
+   });
+   $("#accountName").change(function(){
+      $.ajax({
+         type:"post",
+         url:"minMoneyShow.bank",
+         data:"accountName="+$("#accountName").val(),
+         dataType:"json",
+         success:function(minMoney){
+            $("#createView").html(minMoney);
+            $("#createForm :input[name=balance]").val(minMoney);
+         
+         }
+      });
+   });
+   $("#term").change(function(){
+      $.ajax({
+         type:"post",
+         url:"ratesSelectByTerm.bank",
+         data:"term="+$("#term").val(),
+         dataType:"json",
+         success:function(rates){
+            alert(rates);
+         }
+      });
+   });
 });
 </script>
 
 
-<body>
+
 <c:choose>
 <c:when test="${empty loginInfo}">
 <script type ="text/javascript">
@@ -126,6 +137,19 @@ location.href="home.bank";
 <td>기본금</td><td><input type = "text" name = "balance"></td>
 </tr>
 <tr>
+<tr>
+<td>계약기간</td><td><select name = "term" id="term">
+<option value = "" selected="selected">기간선택</option>
+<c:forEach items="${ratestList}" var = "r">
+<option value="${r.term}">${r.term}</option>
+</c:forEach>
+</select></td>
+<td>금리
+<span id="showRates"></span>
+<!-- <input type = "text" name="rates" size="2" readonly="readonly"> -->
+%</td>
+</tr>
+<tr>
 <td>
 <input type ="submit" id = "conBtn" value="가입">
 </td>
@@ -133,7 +157,6 @@ location.href="home.bank";
 최소금액:
 <span id = "createView"></span>
 </td>
+</tr>
 </table>
 </form>
-</body>
-</html>

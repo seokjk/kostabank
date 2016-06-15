@@ -17,3 +17,5 @@ insert into kangbank_account_rates(accountSeq, rates, term, accountName, ratesMo
 values(kangbank_rates_seq.nextval, 1.2, 12, 'kang수퍼정기예금',6);
 insert into kangbank_account_rates(accountSeq, rates, term, accountName, ratesMonth)
 values(kangbank_rates_seq.nextval, 2.5, 24, 'kang수퍼정기예금',6);
+
+

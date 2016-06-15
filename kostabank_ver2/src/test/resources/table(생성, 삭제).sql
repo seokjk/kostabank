@@ -15,7 +15,7 @@ drop sequence secure_card_seq;
 drop table secure_card;
 -- QnA --
 drop sequence kangbank_qna_seq;
-drop kangbank_notice;
+drop table kangbank_notice;
 -- 공지사항 --
 drop sequence kangbank_notice_seq;
 drop kangbank_qna;
@@ -38,7 +38,7 @@ create table kangbank_customer(
    loginFailCount number default 0,
    constraint pk_customer primary key(email,tel)
 );
-
+insert into KANGBANK_CUSTOMER(email,password,name,birth,tel,address) values('leekorea2k@hanmail.net','1234','아앙','111111','1111','판교')
 -- 계좌 종류 --
 create table kangbank_account_type(
 accountName varchar2(100) PRIMARY KEY,
@@ -124,6 +124,7 @@ create table secure_card(
 
 -- 공지사항 --
 create sequence kangbank_notice_seq;
+drop table kangbank_notice
 create table kangbank_notice(
 	no number primary key,
 	title varchar2(50) not null,
@@ -165,7 +166,6 @@ create table question(
 	hits number default 0,
 	section varchar2(100) not null
 )
-
 -- 거래내역 --
 create sequence dealNo_seq;
 create table kangbank_deal_detail(
