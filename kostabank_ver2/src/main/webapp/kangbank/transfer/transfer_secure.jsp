@@ -155,7 +155,7 @@
 	</tr>
 </table>
 <br><br>
-<input type="button" id="transferBtn" value="이체실행">&nbsp;&nbsp;&nbsp;<input type="button" id="cancle" value="이체취소">
+<input type="button" id="transferBtn" value="이체실행">&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" id="cancle" value="이체취소">
 </form>
 
 
