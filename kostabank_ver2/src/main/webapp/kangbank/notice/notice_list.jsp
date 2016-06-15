@@ -13,11 +13,11 @@
 <br><br>
 <table id="notice">
 		<tr id="tr">
-			<td align="center">NO</td>
-			<td align="center">제목</td>
-			<td align="center">이름</td>
-			<td align="center">작성일</td>
-			<td align="center">HIT</td>
+			<td width="8%" align="center">NO</td>
+			<td width="60%" align="center">제목</td>
+			<td width="10%" align="center">이름</td>
+			<td width="14%" align="center">작성일</td>
+			<td width="8%" align="center">HIT</td>
 			</tr>
 			<%-- ${sessionScope.loginInfo.name.equals(${nvo.customerVO.name })}	 --%>
 		<c:forEach var="nvo" items="${requestScope.nlvo.noticeList}">	
@@ -93,6 +93,9 @@
 	▶</a>
 	</c:if>
 	</p>
+
+
+
 
 
 
