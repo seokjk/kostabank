@@ -35,9 +35,11 @@ $(document).ready(function(){
 <tr>
 <td colspan="2">${qvo.qnaTitle}</td>
 </tr>
+<c:if test="${qvo.qnaFileAddress != 'kangbank/upload/'}">
 <tr>
 <td colspan="3"><pre>${qvo.qnaContent}</pre><br><img src="${initParam.root}${qvo.qnaFileAddress}"></td>
 </tr>
+</c:if>
 <tr>
 <td colspan="3" align="center">
 <input type = "button" id= "listBtn" value = "목록" >
