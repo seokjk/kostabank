@@ -49,4 +49,7 @@ from kangbank_qna q,kangbank_customer c where q.email = c.email and q.qna_no=#{v
 	insert into kangbank_qna(qna_no,qna_refNo,qna_replyNo,qna_level,qna_title,qna_type,email,tel,qna_content,qna_fileAddress,qna_time)
 values(kangbank_qna_seq.nextval,#{qnaNo},#{qnaNo},1,#{qnaTitle},#{qnaType},#{customerVO.email},#{customerVO.tel},#{qnaContent},'null',sysdate)
 	</insert>
+	<delete id="deleteRe">
+	delete from kangbank_qna where qna_no=#{value}
+	</delete>
 </mapper>
