@@ -23,6 +23,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<mapper resource="mybatis/config/qna.xml"/>
 	<mapper resource="mybatis/config/notice.xml"/>
 	<mapper resource="mybatis/config/question.xml"/>
+	<mapper resource="mybatis/config/savings.xml"/>
 	</mappers>
 </configuration>
 
