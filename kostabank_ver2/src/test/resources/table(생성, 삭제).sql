@@ -206,7 +206,7 @@ create table kangbank_loan(
    outAccountNo varchar2(100) not null,
    repayTerm number not null,
    stayTerm number not null,
-   overdue number not null,
+   overdue number default 0,
    loanRateSeq number not null,
    constraint fk_kangbank_account2 foreign key(loanAccountNo) references kangbank_account(accountNo),
    constraint fk_kangbank_loan_rates foreign key(loanRateSeq) references kangbank_loan_rates(loanRateSeq)
