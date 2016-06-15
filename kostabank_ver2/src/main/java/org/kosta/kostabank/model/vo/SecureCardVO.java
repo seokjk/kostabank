@@ -34,6 +34,8 @@ public class SecureCardVO {
 	private String twenty_nine;
 	private String thirty;
 	private String email;
+	private int secure_card_fail;
+	
 	public SecureCardVO() {
 		super();
 	}
@@ -171,6 +173,64 @@ public class SecureCardVO {
 		this.thirty = thirty;
 		this.email = email;
 	}
+	
+	
+	
+	
+
+	public SecureCardVO(int no, String one, String two, String three,
+			String four, String five, String six, String seven, String eight,
+			String nine, String ten, String eleven, String twelve,
+			String thirteen, String fourteen, String fifteen, String sixteen,
+			String seventeen, String eighteen, String nineteen, String twenty,
+			String twenty_one, String twenty_two, String twenty_three,
+			String twenty_four, String twenty_five, String twenty_six,
+			String twenty_seven, String twenty_eight, String twenty_nine,
+			String thirty, String email, int secure_card_fail) {
+		super();
+		this.no = no;
+		this.one = one;
+		this.two = two;
+		this.three = three;
+		this.four = four;
+		this.five = five;
+		this.six = six;
+		this.seven = seven;
+		this.eight = eight;
+		this.nine = nine;
+		this.ten = ten;
+		this.eleven = eleven;
+		this.twelve = twelve;
+		this.thirteen = thirteen;
+		this.fourteen = fourteen;
+		this.fifteen = fifteen;
+		this.sixteen = sixteen;
+		this.seventeen = seventeen;
+		this.eighteen = eighteen;
+		this.nineteen = nineteen;
+		this.twenty = twenty;
+		this.twenty_one = twenty_one;
+		this.twenty_two = twenty_two;
+		this.twenty_three = twenty_three;
+		this.twenty_four = twenty_four;
+		this.twenty_five = twenty_five;
+		this.twenty_six = twenty_six;
+		this.twenty_seven = twenty_seven;
+		this.twenty_eight = twenty_eight;
+		this.twenty_nine = twenty_nine;
+		this.thirty = thirty;
+		this.email = email;
+		this.secure_card_fail = secure_card_fail;
+	}
+	
+	public int getSecure_card_fail() {
+		return secure_card_fail;
+	}
+
+	public void setSecure_card_fail(int secure_card_fail) {
+		this.secure_card_fail = secure_card_fail;
+	}
+
 	public int getNo() {
 		return no;
 	}
