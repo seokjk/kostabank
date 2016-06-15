@@ -4,8 +4,8 @@ public class SavingsVO {
 	private String automaticNo;
 	private AccountRatesVO accountRatesVO;
 	private int monthlyPayment;
-	public int transferBoolean;
-	public String paybackNo;
+	private int transferBoolean;
+	private String paybackNo;
 	public SavingsVO(AccountVO accountVO, String automaticNo,
 			AccountRatesVO accountRatesVO, int monthlyPayment,
 			int transferBoolean, String paybackNo) {

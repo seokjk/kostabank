@@ -11,10 +11,8 @@ $(document).ready(function(){
 		if($("#consentForm :radio[name=consent]:checked").val()=="assent"){
 		if(confirm("계좌를 생성 하시겠습니까?")){
 						$("#consentForm").hide();
-						$("#createForm").show();
-		}
-			
-			
+	 					$("#createForm").show();
+		}	
 		}if($("#consentForm :radio[name=consent]:checked").val()=="unassent"){
 			alert("동의 하지 않으면 계좌를 생성 할 수 없습니다.");
 			if(confirm("홈으로 돌아가시겠습니까?")){

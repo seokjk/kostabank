@@ -43,10 +43,20 @@ $(document).ready(function(){
 			alert("환급 계좌를 선택해주세요");
 			return false;
 		}
-		
-		//..
+		$("#savingsTerm").change(function(){
+			$.ajax({
+				type:"post",
+				url:"rateByTerm.bank",
+				data:"savingsTerm="+$("#savingsTerm").val(),
+				dataType:"json",
+				success:function(rateData){
+					$("#savingsRate").html(rateData);
+					//$("#createForm :input[name=balance]").val(minMoney);
+				}
+			});
+		});//savingsTerm.change
 	});//conBtn.click
-
+	$()
 });
 </script>
 <body>
@@ -113,7 +123,7 @@ location.href="home.bank";
  </select>
  </td></tr>
  <tr>
- <td>금리<input type="text" name="savingsRate"></td>
+ <td>금리<span id="savingsRate">%</span></td>
  </tr>
  <tr>
  <td>월당 이체 금액<input type="text" name="monthlyPayment"></td>
