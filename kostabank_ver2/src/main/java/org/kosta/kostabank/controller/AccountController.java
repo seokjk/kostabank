@@ -51,7 +51,6 @@ public class AccountController {
 
 	@RequestMapping("accountTypeList.bank")
 	public ModelAndView accountTypeList(int page) {
-		System.out.println(page);
 		ListVO lvo = accountService.findAccountByAccountNamePaging(page);
 		return new ModelAndView("account_Type", "lvo", lvo);
 	}

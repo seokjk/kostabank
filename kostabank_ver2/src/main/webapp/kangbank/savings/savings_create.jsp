@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="resources/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
@@ -11,8 +10,8 @@ $(document).ready(function(){
 		if($("#consentForm :radio[name=consent]:checked").val()=="assent"){
 		if(confirm("계좌를 생성 하시겠습니까?")){
 						$("#consentForm").hide();
-	 					$("#createForm").show();
-		}	
+						$("#createForm").show();
+		}
 		}if($("#consentForm :radio[name=consent]:checked").val()=="unassent"){
 			alert("동의 하지 않으면 계좌를 생성 할 수 없습니다.");
 			if(confirm("홈으로 돌아가시겠습니까?")){
@@ -21,48 +20,45 @@ $(document).ready(function(){
 		}
 	});
 	$("#conBtn").click(function(){
-		if($("#createForm :input[name=accountPass]").val()==""){
+		if($("#createForm :input[name=savingsPass]").val()==""){
 			alert("패스워드를 입력해주세요");
 			return false;
-		}if($("#createForm :input[name=accountPass]").val().length!=4){
+		}if($("#createForm :input[name=savingsPass]").val().length!=4){
 			alert("패스워드는 4자리여야 합니다");
 			$("#createForm :input[name=accountPass]").val("");
 			return false;
-		}if(parseInt($("#createView").html())>$("#createForm :input[name=balance]").val()){
-			alert("최소금액보다 작습니다.");
-			$("#createForm :input[name=balance]").val("");
+		}if($("#createForm :input[name=automaticNo]").val()==""){
+			alert("자동이체 계좌번호를 선택해주세요");
 			return false;
-		}if(isNaN($("#createForm :input[name=accountPass]").val())){
-			alert("비밀번호는 숫자 4자리로만 입력 할 수 있습니다.");
-			$("#createForm :input[name=accountPass]").val("");
+		}if($("#createForm :input[name=savingsTerm]").val()==""){
+			alert("계약기간을 선택해주세요");
 			return false;
-		}if(isNaN($("#createForm :input[name=balance]").val())){
-			alert("숫자로 입력하십시오.");
-			$("#createForm :input[name=balance]").val("");
+		}if($("#createForm :input[name=savingsRate]").val()==""){
+			alert("금리를 선택해주세요");
 			return false;
-		}if($("#createForm :input[name=balance]").val()==""){
-			alert("기본금을 입력해주십시오.(0원 일시 0원으로 입력하세요)");
+		}if($("#createForm :input[name=monthlyPayment]").val()==""){
+			alert("월당 이체금액을 입력해주세요");
+			return false;
+		}if($("#createForm :input[name=paybackNo]").val()==""){
+			alert("환급 계좌를 선택해주세요");
 			return false;
 		}
-		
-	});
-	$("#accountName").change(function(){
-		$.ajax({
-			type:"post",
-			url:"minMoneyShow.bank",
-			data:"accountName="+$("#accountName").val(),
-			dataType:"json",
-			success:function(minMoney){
-				$("#createView").html(minMoney);
-				$("#createForm :input[name=balance]").val(minMoney);
-			
-			}
-		});
-	});
+		$("#savingsTerm").change(function(){
+			$.ajax({
+				type:"post",
+				url:"rateByTerm.bank",
+				data:"savingsTerm="+$("#savingsTerm").val(),
+				dataType:"json",
+				success:function(rateData){
+					$("#savingsRate").html(rateData);
+					//$("#createForm :input[name=balance]").val(minMoney);
+				}
+			});
+		});//savingsTerm.change
+	});//conBtn.click
+	$()
 });
 </script>
-
-
 <body>
 <br>
 <h2>계좌생성</h2>
@@ -107,36 +103,35 @@ location.href="home.bank";
   </p>
   <input type = "button" id = "createBtn" value="이  동">
   </form>
- <!-- method = "post"  -->
-<form method = "post" action = "createAccount.bank" id = "createForm">
- <table  id="createaccounttable">
+ <form>
+ <table>
  <tr>
-<td align="center" width="20%">E-Mail</td><td><input class="no-border"  size="55" type = "email" name="customerVO.email" id="customerVO.email" value = "${cvo.email}" readonly="readonly"></td></tr>
-<tr>
-<td align="center" width="20%">
-계좌 비밀번호</td><td><input class="no-border"  type ="password" name="accountPass" size="55"></td></tr>
-<tr>
-<td align="center" width="20%">
-계좌 종류</td><td><select name="accountName" id="accountName"  class="no-border" >
-<option class="no-border" value=""></option>
-<c:forEach items="${tlist}" var="c">
-<option value="${c.accountName}">${c.accountName}</option>
-</c:forEach>
-</select>
-</td>
+ <td>패스워드<input type="password" name="savingsPass"></td>
+ </tr>
+ <tr>
+ <td>자동이체 계좌번호<input type="text" name="automaticNo"></td>
+ </tr>
+ <tr>
+ <td>적금이름<input type="text" name="savingsName"></td>
+ </tr>
+ <tr>
+ <td>계약기간<select name="savingsTerm">
+ <option value="">기간 선택</option>
+ <c:forEach items="${savingsList }" var="c">
+ <option value="${c.savingsAccountNo }">${c.savingsAccountNo }</option>
+ </c:forEach>
+ </select>
+ </td></tr>
+ <tr>
+ <td>금리<span id="savingsRate">%</span></td>
+ </tr>
+ <tr>
+ <td>월당 이체 금액<input type="text" name="monthlyPayment"></td>
+ </tr>
+ <tr>
+ <td>환급 계좌번호<input type="text" name="paybackNo"></td>
 </tr>
-<tr>
-<td align="center" width="20%">기본금</td><td><input class="no-border" type = "text" name = "balance" size="55"></td>
-</tr>
-<tr>
-<td  align="center" >
-<input class="no-border" type ="submit" id = "conBtn" value="가입">
-</td>
-<td>
-최소금액:
-<span id = "createView"></span>
-</td>
-</table>
-</form>
+ </table>
+ </form>
 </body>
 </html>
