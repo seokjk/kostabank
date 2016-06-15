@@ -82,7 +82,7 @@
          <div class="col-md-12">
             <ul class="lead nav navbar-nav navbar-right">
                <li class="active"><a href="home.bank">KANG BANK</a></li>
-              
+  
                 <li class="상품정보"><a href="#" class="dropdown-toggle"
                   data-toggle="dropdown" role="button" aria-expanded="false">상품정보
                      <i class="fa fa-caret-down"></i>
@@ -114,7 +114,7 @@
                <li class="게시판"><a href="#" class="dropdown-toggle"
                   data-toggle="dropdown" role="button" aria-expanded="false">게시판
                      <i class="fa fa-caret-down"></i>
-               </a>
+               </a>	
                   <ul class="dropdown-menu" role="menu">
                      <li><a href="notice_list.bank">공지사항</a></li>
                      <li><a href="QNA.bank">Q & A</a></li>
