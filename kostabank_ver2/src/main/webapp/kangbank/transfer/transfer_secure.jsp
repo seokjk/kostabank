@@ -83,7 +83,7 @@
 				<td>${sessionScope.tvo.account}</td>
 				<td>${sessionScope.tvo.bank}</td>
 				<td>${sessionScope.tvo.otheraccountNo}</td>
-				<td>${name}</td>
+				<td>${param.name}</td>
 				<td>${sessionScope.tvo.money}</td>
 			</tr>
 	</tbody>
