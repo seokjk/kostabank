@@ -73,4 +73,9 @@ public class QNAController {
 		qnaService.rePosting(vo);
 		return "redirect:showContent.bank?qnaNo="+vo.getQnaNo();
 	}
+	@RequestMapping("deleteRe.bank")
+	public String deleteRe(int qnaNo,String email){
+		qnaService.deleteRe(qnaNo);
+		return "redirect:qnaListRoad.bank?page=1&email="+email;
+	}
 }
