@@ -14,5 +14,9 @@ public interface QNADAO {
 	public int totalContent(String email);
 	
 	public QNAVO showContent(int qnaNo);
+	
+	public void rePosting(QNAVO vo);
+	
+	public void deleteRe(int qnaNo);
 
 }

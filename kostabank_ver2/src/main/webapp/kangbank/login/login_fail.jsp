@@ -8,8 +8,13 @@
 </head>
 <body>
 <script type="text/javascript">
-alert("로그인 ${requestScope.failCount}회 실패입니다.");
-location.href = "home.bank";
+if("${requestScope.failCount}" <= 3) {
+	alert("로그인 ${requestScope.failCount}회 실패입니다.");
+	location.href = "home.bank";
+} else {
+	alert("로그인 3회이상 실패입니다.");
+	location.href = "find_passwordview.bank";
+}
 </script>
 </body>
 </html>

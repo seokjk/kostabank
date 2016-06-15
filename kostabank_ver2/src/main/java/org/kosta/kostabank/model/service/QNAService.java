@@ -12,5 +12,9 @@ public interface QNAService {
 	public abstract void qnaPosting(QNAVO vo);
 	
 	public QNAVO showContent(int qnaNo);
+	
+	public void rePosting(QNAVO vo);
+	
+	public void deleteRe(int qnaNo);
 
 }

@@ -79,10 +79,15 @@
 			});
 			
 			/*비밀번호체크*/
+			if($("#myaccountPass").val()==""){
+				var myaccountPass="1";
+			}else{
+				var myaccountPass=$("#myaccountPass").val();
+			} 
 			$.ajax({
 				type:"post",
 				url:"checkPassword.bank",
-				data:"accountPass="+$("#myaccountPass").val()+"&accountNo="+$("#account").val(),
+				data:"accountPass="+myaccountPass+"&accountNo="+$("#account").val(),
 				async:false,
 				success:function(flag){
 					if(!flag){

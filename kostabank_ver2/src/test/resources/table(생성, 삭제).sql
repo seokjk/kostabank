@@ -18,14 +18,51 @@ drop sequence kangbank_qna_seq;
 drop table kangbank_notice;
 -- 공지사항 --
 drop sequence kangbank_notice_seq;
-drop kangbank_qna;
+drop table kangbank_qna;
 -- 자주묻는질문 --
 drop sequence question_seq;
-drop question;
+drop table question;
 -- 거래내역 --
 drop sequence dealNo_seq;
 drop table kangbank_deal_detail;
 ---------- 테이블 생성 ----------
+-- 보안 카드 --
+create sequence secure_card_seq;
+create table secure_card(
+   no number primary key,
+   one varchar2(4) not null,
+   two varchar2(4) not null,
+   three varchar2(4) not null,
+   four varchar2(4) not null,
+   five varchar2(4) not null,
+   six varchar2(4) not null,
+   seven varchar2(4) not null,
+   eight varchar2(4) not null,
+   nine varchar2(4) not null,
+   ten varchar2(4) not null,
+   eleven varchar2(4) not null,
+   twelve varchar2(4) not null,
+   thirteen varchar2(4) not null,
+   fourteen varchar2(4) not null,
+   fifteen varchar2(4) not null,
+   sixteen varchar2(4) not null,
+   seventeen varchar2(4) not null,
+   eighteen varchar2(4) not null,
+   nineteen varchar2(4) not null,
+   twenty varchar2(4) not null,
+   twenty_one varchar2(4) not null,
+   twenty_two varchar2(4) not null,
+   twenty_three varchar2(4) not null,
+   twenty_four varchar2(4) not null,
+   twenty_five varchar2(4) not null,
+   twenty_six varchar2(4) not null,
+   twenty_seven varchar2(4) not null,
+   twenty_eight varchar2(4) not null,
+   twenty_nine varchar2(4) not null,
+   thirty varchar2(4) not null
+);
+insert into secure_card values(0,'0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000');
+select * from secure_card
 -- 계정 --
 create table kangbank_customer(
    email varchar2(100) not null,
@@ -86,41 +123,6 @@ create table kangbank_rates_info(
 	constraint fk_ratesInfoSeq foreign key(accountSeq) references kangbank_account_rates(accountSeq)
 );
 
--- 보안 카드 --
-create sequence secure_card_seq;
-create table secure_card(
-   no number primary key,
-   one varchar2(4) not null,
-   two varchar2(4) not null,
-   three varchar2(4) not null,
-   four varchar2(4) not null,
-   five varchar2(4) not null,
-   six varchar2(4) not null,
-   seven varchar2(4) not null,
-   eight varchar2(4) not null,
-   nine varchar2(4) not null,
-   ten varchar2(4) not null,
-   eleven varchar2(4) not null,
-   twelve varchar2(4) not null,
-   thirteen varchar2(4) not null,
-   fourteen varchar2(4) not null,
-   fifteen varchar2(4) not null,
-   sixteen varchar2(4) not null,
-   seventeen varchar2(4) not null,
-   eighteen varchar2(4) not null,
-   nineteen varchar2(4) not null,
-   twenty varchar2(4) not null,
-   twenty_one varchar2(4) not null,
-   twenty_two varchar2(4) not null,
-   twenty_three varchar2(4) not null,
-   twenty_four varchar2(4) not null,
-   twenty_five varchar2(4) not null,
-   twenty_six varchar2(4) not null,
-   twenty_seven varchar2(4) not null,
-   twenty_eight varchar2(4) not null,
-   twenty_nine varchar2(4) not null,
-   thirty varchar2(4) not null
-);
 
 -- 공지사항 --
 create sequence kangbank_notice_seq;
