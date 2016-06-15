@@ -58,10 +58,9 @@ public class TransferController {
       mv.addObject("name", name);
       mv.addObject("tvo",tvo);
       mv.setViewName("redirect:transfer_secure.bank");
-
-
 		return mv;
 	}
+   
 	//이체결과를 보여주는 곳(실제 수행)
 	@RequestMapping("transfer_ing.bank")
 	public ModelAndView transfer_result(HttpServletRequest request,TransferVO tvo, AccountVO avo) {
@@ -78,7 +77,7 @@ public class TransferController {
 		System.out.println("이체금액="+tvo2.getMoney());
 		AccountVO dv = accountService.accountAll(tvo2.getaccount());
 		System.out.println("출금계좌정보="+dv);
-		int m = dv.getBalance();
+		long m = dv.getBalance();
 		System.out.println("출금계좌의 잔액="+m); //여기까지나옴
 		// 임시 출금쪽 temp 를 만들어줘서 수행
 		AccountVO temp = new AccountVO(tvo2.getaccount(),tvo2.getMoney());
@@ -115,63 +114,7 @@ public class TransferController {
 		mv.setViewName("redirect:transfer_result.bank");
 		return mv;
 	}
-=======
-      return mv;
-   }
-   //이체결과를 보여주는 곳(실제 수행)
-   @RequestMapping("transfer_result.bank")
-   public ModelAndView transfer_result(HttpServletRequest request,TransferVO tvo, AccountVO avo) {
-      HttpSession session = request.getSession(false);
-      ModelAndView mv = new ModelAndView();
-      
-      CustomerVO vo = (CustomerVO) session.getAttribute("loginInfo");
-      System.out.println("result쪽cvo="+vo);
-      
-      TransferVO tvo2 = (TransferVO) session.getAttribute("tvo");
-      System.out.println("이체테이블="+tvo2);
-      System.out.println("출금계좌="+tvo2.getaccount());
-      System.out.println("입금계좌="+tvo2.getOtheraccountNo());
-      System.out.println("이체금액="+tvo2.getMoney());
-      AccountVO dv = accountService.accountAll(tvo2.getaccount());
-      System.out.println("출금계좌정보="+dv);
-      long m = dv.getBalance();
-      System.out.println("출금계좌의 잔액="+m); //여기까지나옴
-      // 임시 출금쪽 temp 를 만들어줘서 수행
-      AccountVO temp = new AccountVO(tvo2.getaccount(),tvo2.getMoney());
-      accountService.withdraw(temp);
-      AccountVO myavo = accountService.checkOtherAccount(tvo2.getaccount());
-      System.out.println("출금계좌에서 이체후 잔액="+myavo.getBalance());
-      
-      DealDetailVO ddvo = new DealDetailVO();
-      ddvo.setAccountNo(tvo2.getaccount()); //내계좌
-      ddvo.setOtherAccountNo(tvo2.getOtheraccountNo());//상대계좌
-      ddvo.setDealType("withdraw");//입금인지 출금인지
-      ddvo.setAmountOfMoney(tvo2.getMoney());//이체금액
-      System.out.println("ddvo="+ddvo);
-      dealDetailService.insertTransDetail(ddvo);
-      
-      
-      //임시 입금쪽 temp
-      AccountVO temp2 = new AccountVO(tvo2.getOtheraccountNo(),tvo2.getMoney());
-      accountService.deposit(temp2);
-      AccountVO youavo = accountService.checkOtherAccount(tvo2.getOtheraccountNo());
-      System.out.println("입금계좌에서 이체후 잔액="+youavo.getBalance());
-      
-      DealDetailVO ddvo2 = new DealDetailVO();
-      
-      ddvo2.setAccountNo(tvo2.getOtheraccountNo()); //내계좌
-      ddvo2.setOtherAccountNo(tvo2.getaccount());//상대계좌
-      ddvo2.setDealType("deposit");//입금인지 출금인지
-      ddvo2.setAmountOfMoney(tvo2.getMoney());//이체금액
-      System.out.println("ddvo2="+ddvo2);
-      dealDetailService.insertTransDetail(ddvo2);
-      
-      mv.addObject("afterMoney",myavo.getBalance());
-      mv.addObject("youName",youavo.getCustomerVO().getName());
-      mv.setViewName("redirect:transfer_result.bank");
-      return mv;
-   }
->>>>>>> branch 'master' of https://github.com/seokjk/kostabank.git
+
  
    @RequestMapping("checkBalance.bank")
    @ResponseBody
