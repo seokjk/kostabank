@@ -14,11 +14,11 @@ location.href="home.bank";
 <br><br>
 <table id="qnatable">
 <tr id="tr">
-<td align="center">번호</td>
-<td align="center">종류</td>
-<td align="center">제목</td>
-<td align="center">이름</td>
-<td align="center">시간</td>
+<td align="center" width = "10%">번호</td>
+<td align="center" width = "20%">종류</td>
+<td align="center" width = "60%">제목</td>
+<td align="center" width = "10%">이름</td>
+<td align="center" width = "10%">시간</td>
 </tr>
 
 <c:forEach items="${requestScope.lvo.qnaList}" var="c">
