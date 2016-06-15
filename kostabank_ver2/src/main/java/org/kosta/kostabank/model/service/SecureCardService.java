@@ -13,5 +13,9 @@ public interface SecureCardService {
 
 	public abstract void deleteSecureCard(CustomerVO vo);
 
+	public abstract void secureCardFail(String security_card);
+
+	public abstract void secureCardOK(String security_card);
+
 
 }
