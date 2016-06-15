@@ -40,6 +40,16 @@ public class SecureCardDAOImpl implements SecureCardDAO {
 		template.update("secure.deleteupdateSecureCard",email);
 	}
 
+	@Override
+	public void secureCardFail(String security_card) {
+		template.update("secure.secureCardFail",security_card);
+	}
+
+	@Override
+	public void secureCardOK(String security_card) {
+		template.update("secure.secureCardOK",security_card);
+	}
+
 
 
 
