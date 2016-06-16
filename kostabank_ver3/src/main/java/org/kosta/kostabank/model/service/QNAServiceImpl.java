@@ -20,8 +20,8 @@ public class QNAServiceImpl implements QNAService {
 private QNADAO qnaDAO;
 @Resource(name="pagingConfig")
 private Map<String,Integer> pagingConfig;
-@Resource(name = "uploadPath")
-private String uploadPath;
+/*@Resource(name = "uploadPath")
+private String uploadPath;*/
 
 //목록 등록 (이메일로 자신것만 찾기위함)
 /* (non-Javadoc)
@@ -52,7 +52,7 @@ public void qnaPosting(QNAVO vo){
 	MultipartFile file = vo.getUploadFile();
 	if (!file.isEmpty()) {
 		qnaDAO.qnaPosting(vo);
-		File uploadFile = new File(uploadPath + file.getOriginalFilename());
+		File uploadFile = new File("C:\\Users\\kosta\\git\\kostabank\\kostabank\\src\\main\\webapp\\kangbank\\upload\\" + file.getOriginalFilename());
 		try {
 			file.transferTo(uploadFile);
 		} catch (Exception e) {
