@@ -5,6 +5,9 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#accountName").change(function(){
+		$("#savingsBtn").click(function(){
+			alert("와아아아아");	
+		});
 		if($("#accountName").val()==""){
 			$("#accountDetail").html("");
 		}
@@ -22,8 +25,11 @@ $(document).ready(function(){
 				str+="<tr><td>최대계약기간</td><td>"+vo.term+"</td></tr>"
 				str+="<tr><td>금리</td><td>"+vo.rates+"</td></tr>"
 				str+="</table>"
-				str+="<input type =button value =가입 id = savingsBtn>";
+				str+="<input type =button value =가입 id = 'savingsBtn'>";
 				$("#accountDetail").html(str);
+				$("#savingsBtn").click(function(){
+					alert("와아아아아");
+				});
 					
 			}
 		});
