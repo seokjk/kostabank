@@ -19,6 +19,9 @@
 	              str+="<tr><td>추가이자</td><td>"+result.additionalRates+"</td></tr></table><br>";
 	              str+="<input type='button' id='loan' value='대출하기'>";
 	              $("#loanTable").html(str);
+	              $("#loan").click(function(){
+						location.href="loan_view.bank";
+					});
 	            }
 	         });
 		});

@@ -24,4 +24,17 @@ public class LoanDAOImpl implements LoanDAO{
 		System.out.println("loanDAO : " + template.selectOne("loan.loanList", accountName));
 		return template.selectOne("loan.loanList", accountName);
 	}
+	//대출 금액 체크
+		@Override
+		public int checkLoan(int maxMoney){
+			return template.selectOne("loan.checkLoan",maxMoney);
+		}
+		@Override
+		public LoanAccountVO loanData(String name) {
+			return template.selectOne("loan.loanData", name);
+		}
+		@Override
+		public LoanAccountVO checkPeriod(String period){
+			return template.selectOne("loan.checkPeriod", period);
+		}
 }

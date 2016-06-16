@@ -1,5 +1,7 @@
 package org.kosta.kostabank.model.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.kosta.kostabank.model.dao.AccountTypeDAO;
@@ -20,5 +22,9 @@ public void createAccountType(AccountTypeVO accountTypeVO, AccountRatesVO accoun
 	System.out.println(accountTypeVO.getAccountName());
 	accountRatesVO.setAccountTypeVO(new AccountTypeVO(accountTypeVO.getAccountName()));
 	accountTypeDAO.createAccountRates(accountRatesVO);
+}
+@Override
+public List<AccountTypeVO> selectLoan(){
+	return accountTypeDAO.selectLoan();
 }
 }

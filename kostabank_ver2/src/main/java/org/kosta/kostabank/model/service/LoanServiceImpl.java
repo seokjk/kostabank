@@ -22,4 +22,16 @@ public class LoanServiceImpl implements LoanService{
 	public LoanAccountVO loanList(String accountName) {
 		return loanDAO.loanList(accountName);
 	}
+	@Override
+	public int checkLoan(int maxMoney){
+		return loanDAO.checkLoan(maxMoney);
+	}
+	@Override
+	public LoanAccountVO loanData(String name) {
+		return loanDAO.loanData(name);
+	}
+	@Override
+	public LoanAccountVO checkPeriod(String period){
+		return loanDAO.checkPeriod(period);
+	}
 }

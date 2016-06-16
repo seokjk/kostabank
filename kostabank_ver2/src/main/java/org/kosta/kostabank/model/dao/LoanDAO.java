@@ -9,5 +9,11 @@ public interface LoanDAO {
 	List<String> loanNameList();
 
 	LoanAccountVO loanList(String accountName);
+	
+	int checkLoan(int maxMoney);
+
+	LoanAccountVO loanData(String name);
+
+	LoanAccountVO checkPeriod(String period);
 
 }
