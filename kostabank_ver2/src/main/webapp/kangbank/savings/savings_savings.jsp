@@ -5,6 +5,9 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#accountName").change(function(){
+		if($("#accountName").val()==""){
+			$("#accountDetail").html("");
+		}
 		$.ajax({
 			type:"post",
 			url:"accountNameFindAccountList.bank",
@@ -21,6 +24,7 @@ $(document).ready(function(){
 				str+="</table>"
 				str+="<input type =button value =가입 id = savingsBtn>";
 				$("#accountDetail").html(str);
+					
 			}
 		});
 	});
