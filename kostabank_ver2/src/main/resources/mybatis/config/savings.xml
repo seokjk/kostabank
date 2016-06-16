@@ -9,4 +9,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="savingsProductlist" resultType="accountTypeVO">
 	select accountName from kangbank_account_type where accountType=#{value}
 </select> 	
+
 </mapper>

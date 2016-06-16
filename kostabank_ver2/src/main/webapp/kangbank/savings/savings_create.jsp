@@ -43,20 +43,8 @@ $(document).ready(function(){
 			alert("환급 계좌를 선택해주세요");
 			return false;
 		}
-		$("#savingsTerm").change(function(){
-			$.ajax({
-				type:"post",
-				url:"rateByTerm.bank",
-				data:"savingsTerm="+$("#savingsTerm").val(),
-				dataType:"json",
-				success:function(rateData){
-					$("#savingsRate").html(rateData);
-					//$("#createForm :input[name=balance]").val(minMoney);
-				}
-			});
-		});//savingsTerm.change
 	});//conBtn.click
-	$()
+	
 });
 </script>
 <body>
@@ -109,7 +97,13 @@ location.href="home.bank";
  <td>패스워드<input type="password" name="savingsPass"></td>
  </tr>
  <tr>
- <td>자동이체 계좌번호<input type="text" name="automaticNo"></td>
+ <td>자동이체 계좌번호<select name="automaticNo">
+ <option value="">계좌선택</option>
+ <c:forEach items="" >
+ <option value=""></option>
+ </c:forEach>
+ </select>
+ </td>
  </tr>
  <tr>
  <td>적금이름<input type="text" name="savingsName"></td>
@@ -117,9 +111,10 @@ location.href="home.bank";
  <tr>
  <td>계약기간<select name="savingsTerm">
  <option value="">기간 선택</option>
- <c:forEach items="${savingsList }" var="c">
- <option value="${c.savingsAccountNo }">${c.savingsAccountNo }</option>
- </c:forEach>
+ <option value="sixMonth">6개월</option>
+ <option value="twelveMonth">12개월</option>
+ <option value="eighteenMonth">18개월</option>
+ <option value="twentyfourMonth">24개월</option>
  </select>
  </td></tr>
  <tr>
