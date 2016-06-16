@@ -5,9 +5,6 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#accountName").change(function(){
-		$("#savingsBtn").click(function(){
-			alert("와아아아아");	
-		});
 		if($("#accountName").val()==""){
 			$("#accountDetail").html("");
 		}
