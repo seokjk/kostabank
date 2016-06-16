@@ -116,19 +116,19 @@
 		<tr>
 			<td>대출금액</td>
 			<td colspan=3><input  class="no-border" type="text" name="overdue" id="overdue" size=25>원
-					<br>${lvo.maximumMoney}
+					<br>최고 대출금액은 ${lvo.maximumMoney} 원입니다.
 			</td>
 		</tr>
 		<tr>
 			<td>상환기간</td>
 			<td><input class="no-border" type="text" name="repayTerm" id="repayTerm" size=25 >개월
-					<br>${lvo.term}
+					<br>최대 상환기간은 ${lvo.term} 개월 입니다.
 			</td>
 		</tr>
 		<tr>
 			<td>거치기간</td>
 			<td><input class="no-border" type="text" name="stayTerm" id="stayTerm" size=25 >개월
-					<br><fmt:formatNumber value="${lvo.term/2}" pattern=""/>				
+					<br>최대 거치기간은 <fmt:formatNumber value="${lvo.term/2}" pattern=""/>개월 입니다.				
 			</td>
 		</tr>
 	</table>
