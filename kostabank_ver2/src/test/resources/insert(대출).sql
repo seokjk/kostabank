@@ -31,7 +31,6 @@ where at.accountName=ar.accountName and ar.accountSeq=lr.loanRateSeq
 -- kangbank_loan_rates
 -- loanRateSeq, additionalRates, accountSeq
 select * from kangbank_loan_rates;
-
 insert into kangbank_loan_rates(loanRateSeq, additionalRates, accountSeq)
 values(loanRateSeq.nextval,'0.7', '9');
 insert into kangbank_loan_rates(loanRateSeq, additionalRates, accountSeq)
