@@ -18,4 +18,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where A.accountName = B.accountName) C, kangbank_loan_rates D
 		where C.accountSeq = D.accountSeq and C.accountName=#{value}
 	</select>
+	<!-- 선택한 대출 상품 정보 -->
+	<select id="loanData" resultType="loanAccountVO">
+	select a.accountName, a.accountType, a.accountExplanation,a.minMoney as maximumMoney, b.rates, b.term, b.ratesMonth
+	from KANGBANK_ACCOUNT_TYPE a, kangbank_account_rates b
+	where a.accountName=b.accountName and a.accountName=#{value}
+	</select>
 </mapper>

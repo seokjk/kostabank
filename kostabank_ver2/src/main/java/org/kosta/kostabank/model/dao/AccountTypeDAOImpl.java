@@ -1,5 +1,7 @@
 package org.kosta.kostabank.model.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.kosta.kostabank.model.vo.AccountRatesVO;
@@ -24,5 +26,9 @@ public class AccountTypeDAOImpl implements AccountTypeDAO {
 	@Override
 	public void createAccountRates(AccountRatesVO accountRatesVO){
 		template.insert("accountType.createAccountRates",accountRatesVO);
+	}
+	@Override
+	public List<AccountTypeVO> selectLoan(){
+		return template.selectList("accountType.selectLoan");
 	}
 }
