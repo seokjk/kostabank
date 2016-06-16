@@ -9,6 +9,7 @@ import org.kosta.kostabank.model.service.SavingsService;
 import org.kosta.kostabank.model.vo.AccountTypeVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -22,5 +23,11 @@ public class SavingsController {
 		List<AccountTypeVO> slist = savingsService.savingsProductlist(accountType); 
 		System.out.println(slist);
 		return new ModelAndView("savings_savings","slist",slist);
+	}
+	@RequestMapping("rateByTerm.bank")
+	@ResponseBody
+	public int rateByTerm(String savingsTerm){
+		
+		return 0;
 	}
 }
