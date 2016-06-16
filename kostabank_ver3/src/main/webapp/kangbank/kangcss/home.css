@@ -1,0 +1,253 @@
+	#container{
+		width: 80%; /* container 경계선 1 , left  200 padding 5+5 ,
+		                           main 600 padding 5+5 ,  border-left: 1   */
+	
+		margin-left: auto;
+		margin-right: auto;/*  좌우 여백 동일하게 해서 중앙정렬 */
+	}
+	#header{
+		padding: 5px;
+		height: 100px;
+		/* border-bottom: 1px solid black; */
+	}
+	#left{
+		padding: 30px;
+		height:500px;
+		width:300px;
+		color: black;
+		font-size: 18px;
+		float: left; /* left로 부유위치를 지정해 left와 main이 수평 배치하도록 한다    */
+	}
+	#main{
+		padding-right: 50px;
+		width:1100px;
+		float: left; /* left로 부유위치를 지정해 left와 main이 수평 배치하도록 한다    */
+		/* border-left: 1px solid black; */
+	}
+	#footer{
+		padding: 5px;
+		height: 70px;
+		/* border-top: 1px solid black; */
+		clear:both; /* float 속성 요소 아래에 배치하기 위해 float 속성 초기화(clear)   */
+	}
+	.section{
+		float:right;
+		padding-right: 100px;
+		margin-top: 20px;
+	}
+	
+	a{
+		color:#A6A6A6;
+		/* font-weight: bold; */
+	}
+	
+	#myCarousel{
+		width:1200px;
+		height:400px;
+	}
+	
+	.item{
+		width:1200px;
+		height:400px;
+	}
+
+	#accountsearch{
+		width:1000px;
+		text-align:center;
+		float:center;
+		font-size: 20px;
+		border: 1px solid black;
+		color:#A6A6A6;
+		
+	}
+	tr,td{
+		border: 1px solid #D5D5D5;
+	}
+	
+	#tr{
+		background:#EAEAEA;
+		font-size:22px;
+		color:#8C8C8C;
+	}
+	#td{
+		height: 20px;
+	}
+	
+	h2{
+		font-family: sans-serif;
+	}
+	
+	#transfer{
+		width:700px;
+		text-align:center;
+		float:center;
+		font-size: 20px;
+		border: 1px solid black;
+		color:#A6A6A6;
+	}
+	
+	.no-border{
+		border:0px;
+	} 
+	
+	#questionsearch{
+		border : 3px solid gray;
+		font-size : 16px;
+	}
+	
+	#questioncategory{
+		width:1000px;
+		height:40px;
+		font-size: 20px;
+		text-align: center;
+		color:#808080;
+		background-color :#eaeaea;
+	}
+
+	
+	.td:hover { background-color: white; } 
+	
+	#questiontable{
+		width:1000px;
+		height:40px;
+		font-size: 20px;
+		text-align: center;
+		color:#black;
+	}
+	
+	#h2{
+		color:blue;
+		font-weight: bold;
+		font-size: 30px;
+	}
+	
+	#p{
+		font-size:20px;
+	}
+	
+	#button{
+		width: 250px;
+		height: 40px;
+		font-size:20px;
+		align:center;
+	}
+	
+	#a{
+		color: black;
+		font-size:15px;
+	}
+	.accountType{
+		width:1100px;
+		font-size: 20px;
+		color:#808080;
+	}
+	
+	#passwordcheck{
+		border: 2px solid black;
+		width: 200px;
+		height: 30px;
+	}
+	
+	#checkBtn, #createBtn, #conBtn, #loginBtn, #chekcBtn1 , #transferBtn, #cancle, #transfer_view, #home{
+		background-color: gray;
+		color:white;
+		height:30px;
+		width:70px;
+		border:1px solid gray;
+	}
+	
+	#textarea{
+		width:1000px;
+		background-color: #EAEAEA;
+		font-size:15px;
+	}
+	
+	#account_create{
+		font-size:18px;
+	}
+	
+	#createaccounttable{
+		width:700px;
+		font-size:20px;
+	}
+	
+	.transferinfo, #notice{
+		width:1000px;
+		font-size:20px;
+	}
+	
+	.securecheck{
+		width:350px;
+		font-size:16px;
+		height:200px;
+		
+	}
+	#securecheckinput{
+		font-size:18px;
+	}
+	
+	#blueborder{
+		border:1px solid blue;
+	}
+	
+	#securecheckBtn{
+		width:120px;
+		height:30px;
+		background-color: #8C8C8C;
+		color:white;
+		border: 1px solid #8C8C8C;
+	}
+	
+	#transferlist{
+		width:800px;
+		font-size: 20px;
+		align:center;
+	}
+	
+	#transferselect{
+		font-size:22px;
+		float:center;
+		color:#808080;
+	}
+	
+	#select{
+		width:100px;
+		height:30px;
+	}
+	
+	#sd,#ed{
+		width:200px;
+		height:30px;
+		background-color: #EAEAEA;
+	}
+	
+	#img{
+		width:80px;
+		height:25px;
+		float:right;
+	}
+	
+	#showcontents{
+		width:1000px;
+	}
+	
+	#noticetr{
+		font-size:20px;
+		font-family: sans-serif;
+		color:#8C8C8C;
+		height:30px;
+	}
+	
+	pre{
+		background-color: #F6F6F6;
+		height:400px;
+	}
+	
+	#listImg, #deleteImg, #updateImg{
+		width:60px;
+	}
+	
+	#qnatable, #resultTable{
+		width:1100px;
+		font-size:20px;
+	}

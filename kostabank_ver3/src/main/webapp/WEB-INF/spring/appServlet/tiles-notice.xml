@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+타일즈 설정파일
+-->
+ <!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+       <!--
+             컨트롤러에서 반환하는 ModelAndView의 setViewName(name)의 아래의 
+             definition name과 일치하면 include된 타일즈 화면이 응답된다
+        -->
+<tiles-definitions>
+	<!-- 계좌이체 -->
+	<definition name="notice_*" extends="home">
+		<put-attribute name="main" value="/kangbank/notice/notice_{1}.jsp"/>
+		<put-attribute name="left" value="/kangbank/templates/left_board.jsp"/>
+	</definition>
+</tiles-definitions>
+
+
+
+
+
+
+

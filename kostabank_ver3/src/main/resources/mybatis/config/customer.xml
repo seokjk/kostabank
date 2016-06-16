@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="customer">
+ 	<select id="customerLogin" parameterType="customerVO" resultType="customerVO">
+ 		select * from kangbank_customer where email = #{email} and password = #{password}
+ 	</select>
+ 	<select id="infoById" parameterType="customerVO" resultType="customerVO">
+ 		select * from kangbank_customer where email = #{email}
+ 	</select>
+ 	<insert id="customerRegister" parameterType="customerVO">
+ 		insert into kangbank_customer(email, password, name, birth, tel, address, security_card)
+		values(#{email}, #{password}, #{name}, #{birth}, #{tel}, #{address}, (select no from secure_card where no=0))
+ 	</insert>
+ 	<select id="checkEmail" parameterType="string" resultType="customerVO">
+ 		select * from kangbank_customer where email = #{email}
+ 	</select>
+ 	<select id="findId" parameterType="customerVO" resultType="customerVO">
+ 		select * from kangbank_customer where name = #{name} and birth = #{birth} and tel = #{tel}
+ 	</select>
+ 	<update id="tempPassword" parameterType="customerVO">
+ 		update kangbank_customer set password = #{password} where email = #{email}
+ 	</update>
+ 	<update id="updateCustomerResult" parameterType="customerVO">
+ 		update kangbank_customer set password=#{password}, address=#{address} 
+		where email=#{email}
+ 	</update>
+ 	<!-- 로그인 실패 횟수 업데이트-->
+ 	<update id="loginFailCount" parameterType="customerVO">
+ 		update kangbank_customer set loginFailCount=(loginFailCount+1) 
+ 		where email=#{email}
+ 	</update>
+ 	<!-- 로그인 실패 횟수 0으로 업데이트 -->
+	<update id="updateCount" parameterType="customerVO">
+		update kangbank_customer set loginFailCount=0
+ 		where email=#{email}
+	</update>
+ 	<!-- 로그인 실패 횟수 찾기 -->
+ 	<select id="failCountUpdate" resultType="int">
+ 		select loginFailCount from kangbank_customer where email=#{email}
+ 	</select>
+ 	<!-- 이메일 없을 경우 -->
+ 	<select id="emailFail" resultType="customerVO" parameterType="customerVO">
+ 		select email from kangbank_customer where email=#{email}
+ 	</select>
+</mapper>

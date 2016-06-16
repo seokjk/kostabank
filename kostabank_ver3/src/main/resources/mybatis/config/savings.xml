@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="savings">
+<select id="savingsProductlist" resultType="accountTypeVO">
+	select accountName from kangbank_account_type where accountType=#{value} order by accountName asc
+</select>
+	<resultMap type="accountRatesVO" id="accountTypeRM">
+		<result property="accountTypeVO.accountExplanation" column="accountExplanation" />
+		<result property="accountTypeVO.minMoney" column="minMoney" />
+		<result property="accountTypeVO.accountType" column="accountType" />
+		<result property="accountTypeVO.accountName" column="accountName" />
+	</resultMap>
+<select id = "accountNameFindAccountList" resultType="accountRatesVO" resultMap="accountTypeRM">
+select a.accountName,a.accountType,a.minMoney,a.accountExplanation,r.accountSeq,r.rates,r.term
+from (select accountName,rates,term,accountSeq 
+	  from kangbank_account_rates 
+	  order by ratesMonth desc ) r,
+	  		 kangbank_account_type a ,
+  	  (select max(rates) as rates
+ 	  from kangbank_account_rates 
+ 	  where accountName =#{value}) b
+where a.accountName=r.accountName and a.accountName=#{value} and r.rates = b.rates
+</select>
+</mapper>
+
