@@ -10,7 +10,6 @@ import org.kosta.kostabank.model.vo.AccountRatesVO;
 import org.kosta.kostabank.model.vo.AccountTypeVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,12 +25,11 @@ public class SavingsController {
 		System.out.println(slist);
 		return new ModelAndView("savings_savings","slist",slist);
 	}
-	@RequestMapping(value = "accountNameFindAccountList.bank",method=RequestMethod.POST)
+	@RequestMapping("rateByTerm.bank")
 	@ResponseBody
-	public AccountRatesVO accountNameFindAccountList(String accountName){
-		AccountRatesVO vo = savingsService.accountNameFindAccountList(accountName);
-		System.out.println(vo);
-		return vo;
+	public int rateByTerm(String savingsTerm){
+		
+		return 0;
 	}
 	
 }
