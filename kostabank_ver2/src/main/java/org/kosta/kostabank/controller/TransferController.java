@@ -62,7 +62,7 @@ public class TransferController {
 		return mv;
 	}
 	//이체결과를 보여주는 곳(실제 수행)
-	@RequestMapping("transfer_result.bank")
+	@RequestMapping("transfer_ing.bank")
 	public ModelAndView transfer_result(HttpServletRequest request,TransferVO tvo, AccountVO avo) {
 		HttpSession session = request.getSession(false);
 		ModelAndView mv = new ModelAndView();

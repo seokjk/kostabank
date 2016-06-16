@@ -45,7 +45,7 @@
 		              		location.href="${initParam.root}home.bank";
 		              	}else if(result.address=="transfer_ok"){	
 		              		alert("이체성공!");
-		              		location.href="${initParam.root}transfer_result.bank";
+		              		location.href="${initParam.root}transfer_ing.bank";
 		              		
 		              	}else if(result.address=="transfernum_fail"){
 		              		alert("오류횟수 5번 이체실패");

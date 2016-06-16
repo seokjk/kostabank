@@ -11,6 +11,7 @@ import net.sf.json.JSONArray;
 import org.kosta.kostabank.model.service.AccountService;
 import org.kosta.kostabank.model.service.AccountTypeService;
 import org.kosta.kostabank.model.service.LoanService;
+import org.kosta.kostabank.model.service.LoanTypeService;
 import org.kosta.kostabank.model.vo.AccountTypeVO;
 import org.kosta.kostabank.model.vo.AccountVO;
 import org.kosta.kostabank.model.vo.CustomerVO;
@@ -25,11 +26,13 @@ public class LoanController {
 	@Resource
 	private LoanService loanService;
 	@Resource
+	private LoanTypeService loanTypeService;
+	@Resource
 	private AccountService accountService;
 	@Resource
 	private AccountTypeService accountTypeService;
 	
-	@RequestMapping("loan_view.bank")
+	@RequestMapping("loan_viewpre.bank")
 	public ModelAndView loanView(HttpServletRequest request){
 		HttpSession session = request.getSession(false);
 		ModelAndView mv = new ModelAndView();
@@ -37,9 +40,11 @@ public class LoanController {
 		List<AccountVO> alist = accountService.accountList(vo.getEmail());
 		List<AccountTypeVO> atlist = accountService.findAccountByAccountName();
 		List<AccountTypeVO> atlist2 = accountTypeService.selectLoan();
+		String accountName=request.getParameter("temp");
+		LoanAccountVO lvo = loanService.loanList(accountName);
+		mv.addObject("lvo",lvo);
 		mv.addObject("alist",alist);
 		mv.addObject("atlist",atlist);
-		mv.addObject("atlist2",atlist2);
 		mv.setViewName("loan_view");
 		return mv;
 	}
