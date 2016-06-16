@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.kosta.kostabank.model.vo.AccountRatesVO;
 import org.kosta.kostabank.model.vo.AccountTypeVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,5 +18,8 @@ private SqlSessionTemplate template;
 	public List<AccountTypeVO> savingsProductlist(String accountType){
 		System.out.println(accountType);
 		return template.selectList("savings.savingsProductlist",accountType);
+	}
+	public AccountRatesVO accountNameFindAccountList(String accountName){
+		return template.selectOne("savings.accountNameFindAccountList",accountName);
 	}
 }

@@ -124,7 +124,13 @@ location.href="home.bank";
  <td>월당 이체 금액<input type="text" name="monthlyPayment"></td>
  </tr>
  <tr>
- <td>환급 계좌번호<input type="text" name="paybackNo"></td>
+ <td>환급 계좌번호<select name="paybackNo">
+ <option value="">계좌선택</option>
+ <c:forEach items="" >
+ <option value=""></option>
+ </c:forEach>
+ </select>
+ </td>
 </tr>
  </table>
  </form>
