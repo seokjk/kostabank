@@ -3,6 +3,7 @@ package org.kosta.kostabank.model.service;
 import javax.annotation.Resource;
 
 import org.kosta.kostabank.model.dao.AccountDAO;
+import org.kosta.kostabank.model.dao.LoanDAO;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -10,12 +11,22 @@ import org.springframework.stereotype.Component;
 public class ScheduledService {
 	@Resource
 	private AccountDAO accountDAO;
+	@Resource
+	private LoanDAO loanDAO;
 	
+	//대출 : 매달 15일 오전 10시 15분 balanceSum에 이자 업데이트
+	@Scheduled(cron="0 15 10 15 * ?")
+	public void balanceSumUpdate() {
+		System.out.println("balanceSumUpdate");
+		loanDAO.balanceSumUpdate();
+	}
+	//입출금 : 매일 12시에 일수와 잔액합계가 업데이트
 	@Scheduled(cron="0 0 12 * * ?")
 	public void scheduled() {
 		System.out.println("scheduled");
 		accountDAO.scheduled();
 	}
+	//입출금 : 각 금리달에 알맞은 달이 되면 업데이트
 	@Scheduled(cron="0 0 0 28 1 ?")
 	public void ratesMonth1() {
 		System.out.println("ratesMonth");
