@@ -78,7 +78,11 @@ where page=#{page}
 	
 	<!-- 일수, 잔액합계 -->
 	<update id="scheduled">
-		update kangbank_account set dateCount=(dateCount+1), balanceSum = (balanceSum+balance)
+		update kangbank_account K
+		set dateCount=
+			(dateCount+DECODE((select accountType from kangbank_account_type where accountName=K.accountName),'입출금',1,0)),
+    	balanceSum=
+			(balanceSum+DECODE((select accountType from kangbank_account_type where accountName=K.accountName),'입출금',balance,0))
 	</update>
 	
 	<!-- 입출금이자유로운통장 금리적용 -->
@@ -99,6 +103,6 @@ where page=#{page}
 				        kangbank_account_rates E
 			 	    where D.accountName = E.accountName) F,
 			   kangbank_rates_info G
-			   where F.accountSeq = G.accountSeq and G.accountNo = A.accountNo and F.accountType='입출금이자유로운예금')=#{value}
+			   where F.accountSeq = G.accountSeq and G.accountNo = A.accountNo and F.accountType='입출금')=#{value}
 	</update>
 </mapper>
