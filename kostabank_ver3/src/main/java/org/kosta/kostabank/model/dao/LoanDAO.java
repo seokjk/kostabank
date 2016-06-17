@@ -16,4 +16,6 @@ public interface LoanDAO {
 
 	LoanAccountVO checkPeriod(String period);
 
+	int balanceSumUpdate();
+
 }
