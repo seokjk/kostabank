@@ -20,8 +20,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!-- 선택한 대출 상품 정보 -->
 	<select id="loanData" resultType="loanAccountVO">
-	select a.accountName, a.accountType, a.accountExplanation,a.minMoney as maximumMoney, b.rates, b.term, b.ratesMonth
-	from KANGBANK_ACCOUNT_TYPE a, kangbank_account_rates b
-	where a.accountName=b.accountName and a.accountName=#{value}
+		select a.accountName, a.accountType, a.accountExplanation,a.minMoney as maximumMoney, b.rates, b.term, b.ratesMonth
+		from KANGBANK_ACCOUNT_TYPE a, kangbank_account_rates b
+		where a.accountName=b.accountName and a.accountName=#{value}
 	</select>
+	<!-- balanceSum 매달 업데이트 -->
+	<update id="balanceSumUpdate">
+		update kangbank_account K
+		set balanceSum=(balanceSum+DECODE((select accountType from kangbank_account_type where accountName = K.accountName),
+													'대출',
+						(select (K.balance*C.rates/1200) as ratesMoney
+						from (select A.accountName, B.rates
+							  from (select accountName from kangbank_account_Type where accountType='대출') A,
+							  	    kangbank_account_rates B
+							  where A.accountName=B.accountName ) C
+						where C.accountName=K.accountName) ,
+						0)
+						)
+	</update>
 </mapper>
