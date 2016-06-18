@@ -27,15 +27,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- balanceSum 매달 업데이트 -->
 	<update id="balanceSumUpdate">
 		update kangbank_account K
-		set balanceSum=(balanceSum+DECODE((select accountType from kangbank_account_type where accountName = K.accountName),
-													'대출',
-						(select (K.balance*C.rates/1200) as ratesMoney
-						from (select A.accountName, B.rates
-							  from (select accountName from kangbank_account_Type where accountType='대출') A,
-							  	    kangbank_account_rates B
-							  where A.accountName=B.accountName ) C
-						where C.accountName=K.accountName) ,
-						0)
-						)
+		set balanceSum=(balanceSum + 
+		                		DECODE(K.dateCount,
+		                		       0,
+										(select ROUND((K.balance*E.rates)/1200*(1+E.additionalRates/1200)) as money
+										from (select D.additionalRates, C.accountName, C.rates
+										      from (select B.accountSeq, A.accountName, B.rates
+											        from (select accountName from kangbank_account_Type where accountType='대출') A,
+											              kangbank_account_rates B
+										            where A.accountName=B.accountName) C,
+										            kangbank_loan_rates D
+										      where C.accountSeq=D.accountSeq) E
+										where E.accountName=K.accountName)
+										,
+										(select (K.balance*C.rates/1200) as money
+						                from (select A.accountName, B.rates
+							                  from (select accountName from kangbank_account_Type where accountType='대출') A,
+							  	                    kangbank_account_rates B
+							                  where A.accountName=B.accountName) C
+						                where C.accountName=K.accountName)
+										)
+		                )
+		where (select accountType from kangbank_account_type where accountName = K.accountName) = '대출'
 	</update>
 </mapper>
