@@ -113,6 +113,8 @@ CONSTRAINT FK_kangbank_customer FOREIGN KEY
 ( email, tel
 ) REFERENCES kangbank_customer (email,tel)
 
+ALTER TABLE kangbank_account
+ADD (balanceFlag number default 0);
 -- 금리 --
 create sequence kangbank_rates_seq;
 
