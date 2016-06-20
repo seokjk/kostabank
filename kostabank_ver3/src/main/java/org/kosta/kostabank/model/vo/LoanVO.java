@@ -8,7 +8,9 @@ public class LoanVO {
 	private int stayTerm;
 	private int overdue;
 	private int loanRateSeq;
-
+	private int balance;
+	private String accountName;
+	
 	public LoanVO() {
 		super();
 	}
@@ -25,7 +27,25 @@ public class LoanVO {
 		this.overdue = overdue;
 		this.loanRateSeq = loanRateSeq;
 	}
-
+	public LoanVO(String loanAccountNo, String inAccountNo,
+			String outAccountNo, int repayTerm, int stayTerm, int overdue,
+			int loanRateSeq, int balance, String accountName) {
+		super();
+		this.loanAccountNo = loanAccountNo;
+		this.inAccountNo = inAccountNo;
+		this.outAccountNo = outAccountNo;
+		this.repayTerm = repayTerm;
+		this.stayTerm = stayTerm;
+		this.overdue = overdue;
+		this.loanRateSeq = loanRateSeq;
+		this.balance = balance;
+		this.accountName = accountName;
+	}
+	public LoanVO(String loanAccountNo, String outAccountNo) {
+		this.loanAccountNo=loanAccountNo;
+		this.outAccountNo=outAccountNo;
+	}
+	
 	public String getLoanAccountNo() {
 		return loanAccountNo;
 	}
@@ -80,6 +100,22 @@ public class LoanVO {
 
 	public void setLoanRateSeq(int loanRateSeq) {
 		this.loanRateSeq = loanRateSeq;
+	}
+
+	public int getBalance() {
+		return balance;
+	}
+
+	public void setBalance(int balance) {
+		this.balance = balance;
+	}
+
+	public String getAccountName() {
+		return accountName;
+	}
+
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
 	}
 
 	@Override
