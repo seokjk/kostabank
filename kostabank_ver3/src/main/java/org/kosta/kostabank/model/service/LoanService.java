@@ -1,14 +1,12 @@
 package org.kosta.kostabank.model.service;
 
-import java.util.List;
-
+import org.kosta.kostabank.model.vo.AccountTypeVO;
+import org.kosta.kostabank.model.vo.AccountVO;
+import org.kosta.kostabank.model.vo.CustomerVO;
 import org.kosta.kostabank.model.vo.LoanAccountVO;
+import org.kosta.kostabank.model.vo.LoanVO;
 
 public interface LoanService {
-
-	List<String> loanNameList();
-
-	LoanAccountVO loanList(String accountName);
 	
 	int checkLoan(int maxMoney);
 
@@ -16,4 +14,7 @@ public interface LoanService {
 
 	LoanAccountVO checkPeriod(String period);
 
+	LoanVO loanSuccess(CustomerVO cvo, LoanVO vo, AccountTypeVO avo);
+
+	LoanVO selectLoan(String accountNo);
 }
