@@ -28,7 +28,6 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	public AccountVO findAccountByAccountNum(String accountNo) {
-		System.out.println("들어가냐?" + accountNo);
 		return template.selectOne("account.findAccountByAccountNum", accountNo);
 	}
 
@@ -97,6 +96,12 @@ public class AccountDAOImpl implements AccountDAO {
 		return template.update("account.deposit", dvo);
 	}
 	
+	// 입금
+	@Override
+	public int deposit(AccountVO avo) {
+		return template.update("account.deposit2", avo);
+	}
+	
 	//계좌 일수, 잔액 합계 
 	@Override
 	public int scheduled() {
@@ -107,6 +112,12 @@ public class AccountDAOImpl implements AccountDAO {
 	@Override
 	public int ratesMonth(int month) {
 		return template.update("account.ratesMonth", month);
+	}
+	
+	// 출금
+	@Override
+	public int withdraw(AccountVO avo) {
+		return template.update("account.withdraw", avo);
 	}
 
 }
