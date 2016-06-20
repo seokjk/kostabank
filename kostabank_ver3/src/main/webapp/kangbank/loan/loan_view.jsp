@@ -77,63 +77,64 @@
 		
 	});
 </script> 
-<form action="loan_insert.bank" method="post" id="loanForm" >
+<form action="loan_secure.bank" method="post" id="loanForm" >
 <br>
-	<h2>대출</h2>
-	<br><br>
-	<table id="transfer">
-		<tr id="tr">
-			<td colspan=2 align="center">대출정보</td>
-		</tr>
-		<tr>
-			<td>상품제목</td>
-			<td id="temp">
-					${param.temp}
-			</td>
-		</tr>
-		<tr>
-			<td>입금될 계좌</td>
-			<td>
-				<select  class="no-border" id="inAccountNo" name="inAccountNo" >
-					<option value="" >계좌선택</option>
-						<c:forEach items="${requestScope.alist }" var="ac">
-							<option value="${ac.accountNo}">${ac.accountNo}</option>
-						</c:forEach>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td>출금 계좌</td>
-			<td>
-				<select  class="no-border" id="outAccountNo" name="outAccountNo" >
-					<option value="" >계좌선택</option>
-						<c:forEach items="${requestScope.alist }" var="ac">
-							<option value="${ac.accountNo}">${ac.accountNo}</option>
-						</c:forEach>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td>대출금액</td>
-			<td colspan=3><input  class="no-border" type="text" name="overdue" id="overdue" size=25>원
-					<br>최고 대출금액은 ${lvo.maximumMoney} 원입니다.
-			</td>
-		</tr>
-		<tr>
-			<td>상환기간</td>
-			<td><input class="no-border" type="text" name="repayTerm" id="repayTerm" size=25 >개월
-					<br>최대 상환기간은 ${lvo.term} 개월 입니다.
-			</td>
-		</tr>
-		<tr>
-			<td>거치기간</td>
-			<td><input class="no-border" type="text" name="stayTerm" id="stayTerm" size=25 >개월
-					<br>최대 거치기간은 <fmt:formatNumber value="${lvo.term/2}" pattern=""/>개월 입니다.				
-			</td>
-		</tr>
-	</table>
-	<br> <br><br>
-	<input type="submit" id="securecheckBtn" value="보안카드확인">
+   <h2>대출</h2>
+   <br><br>
+   <table id="transfer">
+      <tr id="tr">
+         <td colspan=2 align="center">대출정보</td>
+      </tr>
+      <tr>
+         <td>상품제목</td>
+         <td id="temp">
+         		<input type="hidden" name="goods" value="${param.temp}">
+               ${param.temp}
+         </td>
+      </tr>
+      <tr>
+         <td>입금될 계좌</td>
+         <td>
+            <select  class="no-border" id="inAccountNo" name="inAccountNo" >
+               <option value="" >계좌선택</option>
+                  <c:forEach items="${requestScope.alist }" var="ac">
+                     <option value="${ac.accountNo}">${ac.accountNo}</option>
+                  </c:forEach>
+            </select>
+         </td>
+      </tr>
+      <tr>
+         <td>출금 계좌</td>
+         <td>
+            <select  class="no-border" id="outAccountNo" name="outAccountNo" >
+               <option value="" >계좌선택</option>
+                  <c:forEach items="${requestScope.alist }" var="ac">
+                     <option value="${ac.accountNo}">${ac.accountNo}</option>
+                  </c:forEach>
+            </select>
+         </td>
+      </tr>
+      <tr>
+         <td>대출금액</td>
+         <td colspan=3><input  class="no-border" type="text" name="overdue" id="overdue" size=25>원
+               <br>최고 대출금액은 ${lvo.maximumMoney} 원입니다.
+         </td>
+      </tr>
+      <tr>
+         <td>상환기간</td>
+         <td><input class="no-border" type="text" name="repayTerm" id="repayTerm" size=25 >개월
+               <br>최대 상환기간은 ${lvo.term} 개월 입니다.
+         </td>
+      </tr>
+      <tr>
+         <td>거치기간</td>
+         <td><input class="no-border" type="text" name="stayTerm" id="stayTerm" size=25 >개월
+               <br>최대 거치기간은 <fmt:formatNumber value="${lvo.term/2}" pattern=""/>개월 입니다.            
+         </td>
+      </tr>
+   </table>
+   <br> <br><br>
+   <input type="submit" id="securecheckBtn" value="보안카드확인">
 </form>
     
     
