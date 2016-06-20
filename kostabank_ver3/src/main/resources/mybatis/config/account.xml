@@ -72,6 +72,12 @@ where page=#{page}
 		where accountNo=#{accountNo}
 	</update>
 	
+	<update id="deposit2" parameterType="accountVO">
+		update kangbank_account 
+		set balance=balance+#{balance}
+		where accountNo=#{accountNo}
+	</update>
+	
 	<update id="withdraw" parameterType="dealDetailVO">
 		update kangbank_account 
 		set balance=balance-#{amountOfMoney}
