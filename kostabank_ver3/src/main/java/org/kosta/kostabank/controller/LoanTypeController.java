@@ -16,13 +16,20 @@ public class LoanTypeController {
 	@Resource
 	private LoanTypeService loanSerive;
 	
-	//대출 계좌 이름 리스트
+	///////////////////////////////////////////////////////////////
+	///////	title : laonNameList     						///////
+	/////// dec : 대출 계좌 이름 리스트							///////
+	///////////////////////////////////////////////////////////////
 	@RequestMapping("laonNameList.bank")
 	public ModelAndView loanNameList() {
 		List<String> list = loanSerive.loanNameList();
 		return new ModelAndView("loan_typeShow", "nameList", list);
 	}
-	//대출 계좌 전체 리스트
+	
+	///////////////////////////////////////////////////////////////
+	///////	title : loanList        						///////
+	/////// dec : 대출 계좌 중 해당 대출의 정보     				///////
+	///////////////////////////////////////////////////////////////
 	@RequestMapping("loanList.bank")
 	@ResponseBody
 	public LoanAccountVO loanList(String accountName) {
