@@ -8,7 +8,7 @@ public class AccountVO {
 	private long balance;
 	private long balanceAvg;
 	private CustomerVO customerVO;
-	
+	private LoanVO loanVO;
 	public AccountVO(long balance, CustomerVO customerVO) {
 		super();
 		this.balance = balance;
@@ -36,11 +36,17 @@ public class AccountVO {
 		this.balanceAvg = balanceAvg;
 		this.customerVO = customerVO;
 	}
-
+	public AccountVO(String accountNo, AccountTypeVO accountTypeVO,
+			 LoanVO loanVO, CustomerVO customerVO) {
+		super();
+		this.accountNo = accountNo;
+		this.accountTypeVO = accountTypeVO;
+		this.customerVO = customerVO;
+		this.loanVO = loanVO;
+	}
 	public AccountVO() {
 		super();
 	}
-	
 	public AccountVO(String accountNo, long balance) {
 		super();
 		this.accountNo = accountNo;
@@ -92,7 +98,12 @@ public class AccountVO {
 	public void setAccountTypeVO(AccountTypeVO accountTypeVO) {
 		this.accountTypeVO = accountTypeVO;
 	}
-	
+	public LoanVO getLoanVO() {
+		return loanVO;
+	}
+	public void setLoanVO(LoanVO loanVO) {
+		this.loanVO = loanVO;
+	}
 	@Override
 	public String toString() {
 		return "AccountVO [accountNo=" + accountNo + ", accountName="
