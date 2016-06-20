@@ -78,4 +78,12 @@ public class AccountServiceImpl implements AccountService {
 	public String checkOtherAccountName(String accountNo){
 		return accountDAO.checkOtherAccount(accountNo).getCustomerVO().getName();
 	}
+	@Override
+	public int withdraw(AccountVO avo){
+		return accountDAO.withdraw(avo);
+	}
+	@Override
+	public int deposit(AccountVO avo){
+		return accountDAO.deposit(avo);
+	}
 }
