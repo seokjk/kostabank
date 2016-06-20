@@ -18,4 +18,6 @@ public interface AccountService {
 	boolean checkAccount(AccountVO avo);
 	AccountVO checkOtherAccount(String accountNo);
 	String checkOtherAccountName(String accountNo);
+	public int deposit(AccountVO accountVO);
+	int withdraw(AccountVO avo);
 }
