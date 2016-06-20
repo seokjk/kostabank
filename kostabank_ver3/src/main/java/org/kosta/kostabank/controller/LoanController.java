@@ -141,13 +141,9 @@ public class LoanController {
 		CustomerVO cvo = (CustomerVO) session.getAttribute("loginInfo");
 		AccountTypeVO avo = new AccountTypeVO();
 		avo.setAccountName(vo.getAccountName());
-		LoanVO lvo = loanService.loanSuccess(cvo, vo, avo);// 대출계좌 생성되면서 잔액에 원금이
-															// 들어감
+		LoanVO lvo = loanService.loanSuccess(cvo, vo, avo);// 대출계좌 생성되면서 잔액에 원금이 들어감
 		accountService.deposit(new AccountVO(lvo.getInAccountNo(), lvo
-				.getBalance()));// 입금계좌에 대출금액들어가규
-		// scheduledService.inputValue(vo.getLoanAccountNo());
-		// scheduledService.withdraw(new
-		// LoanVO(vo.getLoanAccountNo(),vo.getOutAccountNo()));
+				.getBalance()));// 입금계좌에 대출금액들어감
 		return ("redirect:loanredirect.bank?accountNo=" + lvo
 				.getLoanAccountNo());
 	}
