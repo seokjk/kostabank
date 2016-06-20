@@ -1,10 +1,10 @@
 package org.kosta.kostabank.model.dao;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
+import org.kosta.kostabank.model.vo.AccountVO;
 import org.kosta.kostabank.model.vo.LoanAccountVO;
+import org.kosta.kostabank.model.vo.LoanVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -12,18 +12,7 @@ import org.springframework.stereotype.Repository;
 public class LoanDAOImpl implements LoanDAO{
 	@Resource
 	private SqlSessionTemplate template;
-	
-	//대출 계좌 이름 리스트
-	@Override
-	public List<String> loanNameList() {
-		return template.selectList("loan.loanNameList");
-	}
-	//대출 전체 리스트
-	@Override
-	public LoanAccountVO loanList(String accountName) {
-		System.out.println("loanDAO : " + template.selectOne("loan.loanList", accountName));
-		return template.selectOne("loan.loanList", accountName);
-	}
+
 	//대출 금액 체크
 	@Override
 	public int checkLoan(int maxMoney){
@@ -36,6 +25,27 @@ public class LoanDAOImpl implements LoanDAO{
 	@Override
 	public LoanAccountVO checkPeriod(String period){
 		return template.selectOne("loan.checkPeriod", period);
+	}
+	@Override
+	public void createAccount(AccountVO accountVO) {
+		template.insert("loan.createAccount",accountVO);
+	}
+	@Override
+	public void createLoan(LoanVO vo) {
+		template.insert("loan.createLoan",vo);
+	}
+	@Override
+	public LoanVO selectLoan(String accountNo) {
+		return template.selectOne("loan.selectLoan",accountNo);
+	}
+	
+	@Override
+	public void withdraw() {
+		template.update("loan.withdraw");
+	}
+	@Override
+	public void nowBalance() {
+		template.update("loan.nowBalance");
 	}
 	//balanceSum Update 구문
 	@Override
