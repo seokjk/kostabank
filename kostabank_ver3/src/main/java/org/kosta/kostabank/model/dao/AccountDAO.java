@@ -24,6 +24,8 @@ public interface AccountDAO {
 	int ratesMonth(int month);
 	AccountVO accountBAndN(String accountNo);
 	int deposit(DealDetailVO dvo);
+	int deposit(AccountVO avo);
 	int withdraw(DealDetailVO dvo);
+	int withdraw(AccountVO avo);
 
 }
