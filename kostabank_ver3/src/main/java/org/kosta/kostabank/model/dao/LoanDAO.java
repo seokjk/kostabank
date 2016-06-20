@@ -1,14 +1,10 @@
 package org.kosta.kostabank.model.dao;
 
-import java.util.List;
-
+import org.kosta.kostabank.model.vo.AccountVO;
 import org.kosta.kostabank.model.vo.LoanAccountVO;
+import org.kosta.kostabank.model.vo.LoanVO;
 
 public interface LoanDAO {
-	
-	List<String> loanNameList();
-
-	LoanAccountVO loanList(String accountName);
 	
 	int checkLoan(int maxMoney);
 
@@ -17,5 +13,15 @@ public interface LoanDAO {
 	LoanAccountVO checkPeriod(String period);
 
 	int balanceSumUpdate();
+
+	void createAccount(AccountVO accountVO);
+
+	void createLoan(LoanVO vo);
+
+	LoanVO selectLoan(String accountNo);
+
+	void withdraw();
+
+	void nowBalance();
 
 }
