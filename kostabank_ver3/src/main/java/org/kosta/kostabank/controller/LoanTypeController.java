@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoanTypeController {
 	@Resource
-	private LoanTypeService loanSerive;
+	private LoanTypeService loanTypeSerive;
 	
 	///////////////////////////////////////////////////////////////
 	///////	title : laonNameList     						///////
@@ -22,7 +22,7 @@ public class LoanTypeController {
 	///////////////////////////////////////////////////////////////
 	@RequestMapping("laonNameList.bank")
 	public ModelAndView loanNameList() {
-		List<String> list = loanSerive.loanNameList();
+		List<String> list = loanTypeSerive.loanNameList();
 		return new ModelAndView("loan_typeShow", "nameList", list);
 	}
 	
@@ -33,7 +33,7 @@ public class LoanTypeController {
 	@RequestMapping("loanList.bank")
 	@ResponseBody
 	public LoanAccountVO loanList(String accountName) {
-		LoanAccountVO vo = loanSerive.loanList(accountName);
+		LoanAccountVO vo = loanTypeSerive.loanList(accountName);
 		return vo;
 	}
 }
