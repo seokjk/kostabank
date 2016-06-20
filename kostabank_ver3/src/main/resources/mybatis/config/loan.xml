@@ -4,50 +4,464 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="loan">
-	<!-- 대출 계좌 이름 리스트 -->
-	<select id="loanNameList" resultType="String">
-		select accountName from kangbank_account_type where accountType='대출'
-	</select>
-	<!-- 대출 계좌 전체 리스트 -->
-	<select id="loanList" resultType="loanAccountVO">
-		select C.AccountName, C.accountExplanation, C.maximumMoney, C.rates, C.term, D.additionalRates
-		from (select A.accountName, A.accountExplanation, A.maximumMoney, B.rates, B.term, B.accountSeq
-			from (select accountName, accountExplanation, minMoney as maximumMoney 
-				from kangbank_account_type 
-				where accountType='대출') A, kangbank_account_rates B
-			where A.accountName = B.accountName) C, kangbank_loan_rates D
-		where C.accountSeq = D.accountSeq and C.accountName=#{value}
-	</select>
-	<!-- 선택한 대출 상품 정보 -->
-	<select id="loanData" resultType="loanAccountVO">
-		select a.accountName, a.accountType, a.accountExplanation,a.minMoney as maximumMoney, b.rates, b.term, b.ratesMonth
-		from KANGBANK_ACCOUNT_TYPE a, kangbank_account_rates b
-		where a.accountName=b.accountName and a.accountName=#{value}
-	</select>
-	<!-- balanceSum 매달 업데이트 -->
-	<update id="balanceSumUpdate">
+   <!-- 대출 계좌 이름 리스트 -->
+   <select id="loanNameList" resultType="String">
+      select accountName from kangbank_account_type where accountType='대출'
+   </select>
+   
+   <!-- 대출 계좌 전체 리스트 -->
+   <select id="loanList" resultType="loanAccountVO">
+      select C.AccountName, C.accountExplanation, C.maximumMoney, C.rates, C.term, D.additionalRates
+      from (select A.accountName, A.accountExplanation, A.maximumMoney, B.rates, B.term, B.accountSeq
+         from (select accountName, accountExplanation, minMoney as maximumMoney 
+            from kangbank_account_type 
+            where accountType='대출') A, kangbank_account_rates B
+         where A.accountName = B.accountName) C, kangbank_loan_rates D
+      where C.accountSeq = D.accountSeq and C.accountName=#{value}
+   </select>
+   
+   <!-- 선택한 대출 상품 정보 -->
+   <select id="loanData" resultType="loanAccountVO">
+	   select a.accountName, a.accountType, a.accountExplanation,a.minMoney as maximumMoney, b.rates, b.term, b.ratesMonth
+	   from KANGBANK_ACCOUNT_TYPE a, kangbank_account_rates b
+	   where a.accountName=b.accountName and a.accountName=#{value}
+   </select>
+   
+   <!-- 대출계좌생성 -->
+   <insert id="createAccount" parameterType="accountVO">
+      insert into kangbank_account(accountNo,accountName,issueDate,accountPass,balance,email,tel) 
+      values (#{accountNo},#{accountTypeVO.accountName},sysdate,0000,#{loanVO.balance},#{customerVO.email}
+    , (select tel from kangbank_customer where email =#{customerVO.email}))
+   </insert>
+   
+   <!-- 대출테이블 insert -->
+   <insert id="createLoan" parameterType="loanVO">
+      insert into kangbank_loan (loanAccountNo,inAccountNo,outAccountNo,repayTerm,stayTerm,loanRateSeq)
+		values (#{loanAccountNo},#{inAccountNo},#{outAccountNo},#{repayTerm},#{stayTerm},
+		(select loanRateSeq
+		from(
+			select at.accountName accountName, lr.loanRateSeq loanRateSeq
+			from kangbank_account_type at, kangbank_account_rates ar, kangbank_loan_rates lr
+			where at.accountName=ar.accountName and ar.accountSeq=lr.accountSeq and at.accountType='대출')
+			where accountName=#{accountName})
+		)
+   </insert>
+   
+   <!-- 대출성공테이블 -->
+   <select id="selectLoan" parameterType="string" resultType="loanVO">
+      select kl.loanAccountNo loanAccountNo, kl.inAccountNo inAccountNo, kl.outAccountNo outAccountNo, kl.repayTerm repayTerm, kl.stayTerm stayTerm, ka.balance balance, ka.accountName accountName
+		from kangbank_loan kl, kangbank_account ka
+		where kl.loanAccountNo=ka.accountNo and kl.loanAccountNo=#{value}
+   </select>  
+   
+   <!-- 대출계좌 balancesum update -->
+   <update id="balanceSumUpdate">
+   update kangbank_account K
+      set balanceSum=(balanceSum + 
+                            DECODE(K.dateCount,
+                                   0,
+                              (select ROUND((K.balance*E.rates)/1200*(1+E.additionalRates/1200)) as money
+                              from (select D.additionalRates, C.accountName, C.rates
+                                    from (select B.accountSeq, A.accountName, B.rates
+                                         from (select accountName from kangbank_account_Type where accountType='대출') A,
+                                               kangbank_account_rates B
+                                          where A.accountName=B.accountName) C,
+                                          kangbank_loan_rates D
+                                    where C.accountSeq=D.accountSeq) E
+                              where E.accountName=K.accountName)
+                              ,
+                              (select (K.balance*C.rates/1200) as money
+                                  from (select A.accountName, B.rates
+                                       from (select accountName from kangbank_account_Type where accountType='대출') A,
+                                              kangbank_account_rates B
+                                       where A.accountName=B.accountName) C
+                                  where C.accountName=K.accountName)
+                              )
+                      )
+      where (select accountType from kangbank_account_type where accountName = K.accountName) = '대출'
+   </update>
+   
+   <!-- 매달 출금 -->
+	<update id="withdraw">
 		update kangbank_account K
-		set balanceSum=(balanceSum + 
-		                		DECODE(K.dateCount,
-		                		       0,
-										(select ROUND((K.balance*E.rates)/1200*(1+E.additionalRates/1200)) as money
-										from (select D.additionalRates, C.accountName, C.rates
-										      from (select B.accountSeq, A.accountName, B.rates
-											        from (select accountName from kangbank_account_Type where accountType='대출') A,
-											              kangbank_account_rates B
-										            where A.accountName=B.accountName) C,
-										            kangbank_loan_rates D
-										      where C.accountSeq=D.accountSeq) E
-										where E.accountName=K.accountName)
-										,
-										(select (K.balance*C.rates/1200) as money
-						                from (select A.accountName, B.rates
-							                  from (select accountName from kangbank_account_Type where accountType='대출') A,
-							  	                    kangbank_account_rates B
-							                  where A.accountName=B.accountName) C
-						                where C.accountName=K.accountName)
-										)
-		                )
-		where (select accountType from kangbank_account_type where accountName = K.accountName) = '대출'
-	</update>
+		set K.balance = decode((select B.balanceFlag
+		                        from      (select outAccountNo, loanAccountNo from kangbank_loan) A,
+		                                 kangbank_account B
+		                        where B.accountNo = A.loanAccountNo
+		                                AND A.outAccountNo = K.accountNo),0,
+		(
+		      decode(   
+		               (select      sign(ceil(add_Months(A.issueDate, B.stayTerm)-sysdate)) as term
+		               from      kangbank_account A,
+		                  kangbank_loan B
+		               where   B.loanAccountNo = A.accountNo
+		                        AND A.accountNo = (select loanAccountNo from kangbank_loan where outAccountNo = K.accountNo)),
+		               1,      
+		               decode((select B.dateCount
+		                        from      (select outAccountNo, loanAccountNo from kangbank_loan) A,
+		                                 kangbank_account B
+		                        where B.accountNo = A.loanAccountNo
+		                                AND A.outAccountNo = K.accountNo),
+		                        0,
+		                        K.balance -   (select round((myBalance*rates)/1200)
+		                                    from      (select   loanAccountNo, A.outAccountNo, E.rates, B.additionalRates, C.balance as myBalance, D.balance as outBalance
+		                                             from      (select   loanAccountNo, outAccountNo, loanRateSeq 
+		                                                      from      kangbank_loan) A,
+		                                                      kangbank_loan_rates B,
+		                                                      kangbank_account C,
+		                                                      kangbank_account D,
+		                                                      kangbank_account_rates E
+		                                             where   A.loanRateSeq = B.loanRateSeq 
+		                                                      AND C.accountNo = A.loanAccountNo 
+		                                                      AND D.accountNo = A.outACcountNo
+		                                                      AND E.accountName = C.accountName)
+		                                    where loanAccountNo = (select loanAccountNo from kangbank_loan where outAccountNo = K.accountNo)),
+		                        K.balance - (select round(((myBalance*rates)/1200)*(1+(additionalRates/1200)))
+		                                    from      (select      A.loanAccountNo, A.outAccountNo, E.rates, B.additionalRates, C.balance as myBalance, D.balance as outBalance
+		                                             from      (select   loanAccountNo, outAccountNo, loanRateSeq 
+		                                                      from      kangbank_loan) A,
+		                                                      kangbank_loan_rates B,
+		                                                      kangbank_account C,
+		                                                      kangbank_account D,
+		                                                      kangbank_account_rates E
+		                                             where   A.loanRateSeq = B.loanRateSeq 
+		                                                      AND C.accountNo = A.loanAccountNo 
+		                                                      AND D.accountNo = A.outACcountNo
+		                                                      AND E.accountName = C.accountName)
+		                                    where loanAccountNo = (select loanAccountNo from kangbank_loan where outAccountNo = K.accountNo)))
+		         ,
+		         decode((select B.dateCount
+		                        from      (select outAccountNo, loanAccountNo from kangbank_loan) A,
+		                                 kangbank_account B
+		                        where B.accountNo = A.loanAccountNo
+		                                AND A.outAccountNo = K.accountNo),
+		                  0,
+		                  K.balance - (select round((myBalance/(repayTerm-stayTerm))+(myBalance*rates)/1200)
+		                              from      (select   loanAccountNo, A.outAccountNo, A.stayTerm, A.repayTerm, E.rates, B.additionalRates, C.balance as myBalance, D.balance as outBalance
+		                                       from      (select   loanAccountNo, outAccountNo, loanRateSeq, stayTerm, repayTerm
+		                                                from      kangbank_loan) A,
+		                                                         kangbank_loan_rates B,
+		                                                         kangbank_account C,
+		                                                         kangbank_account D,
+		                                                         kangbank_account_rates E
+		                                                where   A.loanRateSeq = B.loanRateSeq 
+		                                                         AND C.accountNo = A.loanAccountNo 
+		                                                         AND D.accountNo = A.outACcountNo
+		                                                         AND E.accountName = C.accountName)
+		                                       where loanAccountNo = (select loanAccountNo from kangbank_loan where outAccountNo = K.accountNo))),
+		                           K.balance - (select round((myBalance/(repayTerm-stayTerm))+((myBalance*rates)/1200)*(1+(additionalRates/1200)))
+		                           from      (select      A.loanAccountNo, A.outAccountNo, A.stayTerm, A.repayTerm, E.rates, B.additionalRates, C.balance as myBalance, D.balance as outBalance
+		                                    from      (select   loanAccountNo, outAccountNo, loanRateSeq , stayTerm, repayTerm
+		                                             from      kangbank_loan) A,
+		                                             kangbank_loan_rates B,
+		                                             kangbank_account C,
+		                                             kangbank_account D,
+		                                             kangbank_account_rates E
+		                                    where   A.loanRateSeq = B.loanRateSeq 
+		                                             AND C.accountNo = A.loanAccountNo 
+		                                             AND D.accountNo = A.outACcountNo
+		                                             AND E.accountName = C.accountName)
+		                           where loanAccountNo = (select loanAccountNo from kangbank_loan where outAccountNo = K.accountNo))
+		                     )
+		                     ),
+		0)
+		where (select B.accountType
+		      from      (select B.accountName, A.loanAccountNo, A.outAccountNo
+		               from      (select outAccountNo, loanAccountNo from kangbank_loan) A,
+		                        kangbank_account B
+		               where B.accountNo = A.loanAccountNo) A,
+		               kangbank_account_type B
+		      where    B.accountName = A.accountName AND outAccountNo = K.accountNo) = '대출'
+   </update>
+   
+   <update id="nowBalance">
+        update    kangbank_account K
+		set      K.balanceFlag = 
+		         DECODE(   (select   sign(ceil(add_Months(issueDate,stayTerm)-sysdate)) as BDATE
+		                     from      (select    A.loanAccountNo, A.outAccountNo, A.repayTerm, A.stayTerm, B.additionalRates, C.issueDate, E.rates, C.balance
+		                              from      (select    loanAccountNo, outAccountNo, repayTerm, stayTerm, loanRateSeq 
+		                                       from       kangbank_loan) A,
+		                                       kangbank_loan_rates B,
+		                                       kangbank_account C, --0-0
+		                                       kangbank_account_type D,
+		                                       kangbank_account_rates E
+		                              where   B.loanRateSeq = A.loanRateSeq
+		                                       AND C.accountNo = A.loanAccountNo
+		                                       AND D.accountName = C.accountName
+		                                       AND E.accountName = D.accountName)
+		                     where   loanAccountNo = K.accountNo), 
+		                     -1,
+		                     DECODE(   (select      sign(ceil(add_Months(issueDate,repayTerm)-sysdate)) as BDATE
+		                                 from      (select    A.loanAccountNo, A.outAccountNo, A.repayTerm, A.stayTerm, B.additionalRates, C.issueDate, E.rates, C.balance
+		                                          from      (select    loanAccountNo, outAccountNo, repayTerm, stayTerm, loanRateSeq 
+		                                                   from       kangbank_loan) A,
+		                                                   kangbank_loan_rates B,
+		                                                   kangbank_account C,
+		                                                   kangbank_account_type D,
+		                                                   kangbank_account_rates E
+		                                          where   B.loanRateSeq = A.loanRateSeq
+		                                                   AND C.accountNo = A.loanAccountNo
+		                                                   AND D.accountName = C.accountName
+		                                                   AND E.accountName = D.accountName)
+		                                 where   loanAccountNo = K.accountNo), 
+		                                 -1, 
+		                                   K.balanceFlag, 
+		                                 DECODE(   (select   B.dateCount
+		                                             from      (select loanAccountNo, outAccountNo
+		                                                      from kangbank_loan) A,
+		                                                      kangbank_account B
+		                                             where    B.accountNo = A.loanAccountNo
+		                                                      AND A.loanAccountNO = K.accountNo), 
+		                                             0,
+		                                             DECODE(   (select   sign((select balance from kangbank_account where accountNo = outAccountNo)-round(balance/(repayTerm-stayTerm)+balance*rates/1200)) as FLAG
+		                                             from      (select    A.loanAccountNo, A.outAccountNo, A.repayTerm, A.stayTerm, B.additionalRates, C.issueDate, E.rates, C.balance
+		                                                      from      (select    loanAccountNo, outAccountNo, repayTerm, stayTerm, loanRateSeq 
+		                                                               from       kangbank_loan) A,
+		                                                               kangbank_loan_rates B,
+		                                                               kangbank_account C,
+		                                                               kangbank_account_type D,
+		                                                               kangbank_account_rates E
+		                                                      where   B.loanRateSeq = A.loanRateSeq
+		                                                               AND C.accountNo = A.loanAccountNo
+		                                                               AND D.accountName = C.accountName
+		                                                               AND E.accountName = D.accountName)   
+		                                             where   loanAccountNo = K.accountNo), 
+		                                             -1,
+		                                             1,
+		                                             K.balanceFlag),
+		                        DECODE(   (select   sign((select balance from kangbank_account where accountNo = outAccountNo)-round(balance/(repayTerm-stayTerm)+balance*rates/1200*(1+additionalRates/1200))) as FLAG
+		                                    from      (select    A.loanAccountNo, A.outAccountNo, A.repayTerm, A.stayTerm, B.additionalRates, C.issueDate, E.rates, C.balance
+		                                             from      (select    loanAccountNo, outAccountNo, repayTerm, stayTerm, loanRateSeq 
+		                                                      from       kangbank_loan) A,
+		                                                      kangbank_loan_rates B,
+		                                                      kangbank_account C,
+		                                                      kangbank_account_type D,
+		                                                      kangbank_account_rates E
+		                                             where   B.loanRateSeq = A.loanRateSeq
+		                                                      AND C.accountNo = A.loanAccountNo
+		                                                      AND D.accountName = C.accountName
+		                                                      AND E.accountName = D.accountName) 
+		                                    where   loanAccountNo = K.accountNo), 
+		                                    -1,
+		                                    1,
+		                                    K.balanceFlag)
+		                                             )
+		                                 ),
+		                     DECODE(   (select   B.dateCount
+		                                 from      (select loanAccountNo, outAccountNo
+		                                          from kangbank_loan) A,
+		                                          kangbank_account B
+		                                 where    B.accountNo = A.loanAccountNo
+		                                          AND A.loanAccountNO = K.accountNo), 
+		                                 0,
+		                                    DECODE(   (select   sign((select balance from kangbank_account where accountNo = outAccountNo)-round(balance*rates/1200)) as FLAG
+		                                                         from      (select    A.loanAccountNo, A.outAccountNo, A.repayTerm, A.stayTerm, B.additionalRates, C.issueDate, E.rates, C.balance
+		                                                                  from      (select    loanAccountNo, outAccountNo, repayTerm, stayTerm, loanRateSeq 
+		                                                                           from       kangbank_loan) A,
+		                                                                           kangbank_loan_rates B,
+		                                                                           kangbank_account C,
+		                                                                           kangbank_account_type D,
+		                                                                           kangbank_account_rates E
+		                                                                  where   B.loanRateSeq = A.loanRateSeq
+		                                                                           AND C.accountNo = A.loanAccountNo
+		                                                                           AND D.accountName = C.accountName
+		                                                                           AND E.accountName = D.accountName)  
+		                                                         where   loanAccountNo = K.accountNo), 
+		                                                         -1,
+		                                                         1,
+		                                                         K.balanceFlag),
+		                                             DECODE(   (select   sign((select balance from kangbank_account where accountNo = outAccountNo)-round(balance*rates/1200*(1+additionalRates/1200))) as FLAG
+		                                                         from      (select    A.loanAccountNo, A.outAccountNo, A.repayTerm, A.stayTerm, B.additionalRates, C.issueDate, E.rates, C.balance
+		                                                                  from      (select    loanAccountNo, outAccountNo, repayTerm, stayTerm, loanRateSeq 
+		                                                                           from       kangbank_loan) A,
+		                                                                           kangbank_loan_rates B,
+		                                                                           kangbank_account C,
+		                                                                           kangbank_account_type D,
+		                                                                           kangbank_account_rates E
+		                                                                  where   B.loanRateSeq = A.loanRateSeq
+		                                                                           AND C.accountNo = A.loanAccountNo
+		                                                                           AND D.accountName = C.accountName
+		                                                                           AND E.accountName = D.accountName)
+		                                                         where   loanAccountNo = K.accountNo), 
+		                                                         -1,
+		                                                         1,
+		                                                         K.balanceFlag)
+		                              )
+		                     ),
+		         K.balanceSum = 
+		         DECODE(   (select   sign(ceil(add_Months(issueDate,stayTerm)-sysdate)) as BDATE
+		                     from      (select    A.loanAccountNo, A.outAccountNo, A.repayTerm, A.stayTerm, B.additionalRates, C.issueDate, E.rates, C.balance
+		                              from      (select    loanAccountNo, outAccountNo, repayTerm, stayTerm, loanRateSeq 
+		                                       from       kangbank_loan) A,
+		                                       kangbank_loan_rates B,
+		                                       kangbank_account C,
+		                                       kangbank_account_type D,
+		                                       kangbank_account_rates E
+		                              where   B.loanRateSeq = A.loanRateSeq
+		                                       AND C.accountNo = A.loanAccountNo
+		                                       AND D.accountName = C.accountName
+		                                       AND E.accountName = D.accountName)
+		                     where   loanAccountNo = K.accountNo),
+		                     -1,
+		                     DECODE(   (select      sign(ceil(add_Months(issueDate,repayTerm)-sysdate)) as BDATE
+		                                 from      (select    A.loanAccountNo, A.outAccountNo, A.repayTerm, A.stayTerm, B.additionalRates, C.issueDate, E.rates, C.balance
+		                                          from      (select    loanAccountNo, outAccountNo, repayTerm, stayTerm, loanRateSeq 
+		                                                   from       kangbank_loan) A,
+		                                                   kangbank_loan_rates B,
+		                                                   kangbank_account C,
+		                                                   kangbank_account_type D,
+		                                                   kangbank_account_rates E
+		                                          where   B.loanRateSeq = A.loanRateSeq
+		                                                   AND C.accountNo = A.loanAccountNo
+		                                                   AND D.accountName = C.accountName
+		                                                   AND E.accountName = D.accountName)
+		                                 where   loanAccountNo = K.accountNo), 
+		                                 -1, 
+		                                   K.balanceSum, 
+		                                 DECODE(   (select   B.dateCount
+		                                             from      (select loanAccountNo, outAccountNo
+		                                                      from kangbank_loan) A,
+		                                                      kangbank_account B
+		                                             where    B.accountNo = A.loanAccountNo
+		                                                      AND A.loanAccountNO = K.accountNo),
+		                                             0,
+		                                             DECODE(   (select   sign((select balance from kangbank_account where accountNo = outAccountNo)-round(balance/(repayTerm-stayTerm)+balance*rates/1200)) as FLAG
+		                                             from      (select    A.loanAccountNo, A.outAccountNo, A.repayTerm, A.stayTerm, B.additionalRates, C.issueDate, E.rates, C.balance
+		                                                      from      (select    loanAccountNo, outAccountNo, repayTerm, stayTerm, loanRateSeq 
+		                                                               from       kangbank_loan) A,
+		                                                               kangbank_loan_rates B,
+		                                                               kangbank_account C,
+		                                                               kangbank_account_type D,
+		                                                               kangbank_account_rates E
+		                                                      where   B.loanRateSeq = A.loanRateSeq
+		                                                               AND C.accountNo = A.loanAccountNo
+		                                                               AND D.accountName = C.accountName
+		                                                               AND E.accountName = D.accountName)   
+		                                             where   loanAccountNo = K.accountNo),
+		                                             -1,
+		                                             K.balanceSum+
+		                                             (select   round(balance/(repayTerm-stayTerm)+balance*rates/1200) as FLAG
+		                                                         from      (select    A.loanAccountNo, A.outAccountNo, A.repayTerm, A.stayTerm, B.additionalRates, C.issueDate, E.rates, C.balance
+		                                                                  from      (select    loanAccountNo, outAccountNo, repayTerm, stayTerm, loanRateSeq 
+		                                                                           from       kangbank_loan) A,
+		                                                                           kangbank_loan_rates B,
+		                                                                           kangbank_account C,
+		                                                                           kangbank_account_type D,
+		                                                                           kangbank_account_rates E
+		                                                                  where   B.loanRateSeq = A.loanRateSeq
+		                                                                           AND C.accountNo = A.loanAccountNo
+		                                                                           AND D.accountName = C.accountName
+		                                                                           AND E.accountName = D.accountName)   
+		                                                         where   loanAccountNo = K.accountNo),
+		                                                         K.balanceSum),
+		                        DECODE(   (select   sign((select balance from kangbank_account where accountNo = outAccountNo)-round(balance/(repayTerm-stayTerm)+balance*rates/1200*(1+additionalRates/1200))) as FLAG
+		                                    from      (select    A.loanAccountNo, A.outAccountNo, A.repayTerm, A.stayTerm, B.additionalRates, C.issueDate, E.rates, C.balance
+		                                             from      (select    loanAccountNo, outAccountNo, repayTerm, stayTerm, loanRateSeq 
+		                                                      from       kangbank_loan) A,
+		                                                      kangbank_loan_rates B,
+		                                                      kangbank_account C,
+		                                                      kangbank_account_type D,
+		                                                      kangbank_account_rates E
+		                                             where   B.loanRateSeq = A.loanRateSeq
+		                                                      AND C.accountNo = A.loanAccountNo
+		                                                      AND D.accountName = C.accountName
+		                                                      AND E.accountName = D.accountName) 
+		                                    where   loanAccountNo = K.accountNo),
+		                                    -1,
+		                                    K.balanceSum+
+		                                    (select   round(balance/(repayTerm-stayTerm)+balance*rates/1200*(1+additionalRates/1200)) as FLAG
+		                                    from      (select    A.loanAccountNo, A.outAccountNo, A.repayTerm, A.stayTerm, B.additionalRates, C.issueDate, E.rates, C.balance
+		                                             from      (select    loanAccountNo, outAccountNo, repayTerm, stayTerm, loanRateSeq 
+		                                                      from       kangbank_loan) A,
+		                                                      kangbank_loan_rates B,
+		                                                      kangbank_account C,
+		                                                      kangbank_account_type D,
+		                                                      kangbank_account_rates E
+		                                             where   B.loanRateSeq = A.loanRateSeq
+		                                                      AND C.accountNo = A.loanAccountNo
+		                                                      AND D.accountName = C.accountName
+		                                                      AND E.accountName = D.accountName) 
+		                                    where   loanAccountNo = K.accountNo),
+		                                    K.balanceSum)
+		                                             )
+		                                 ),
+		                     DECODE(   (select   B.dateCount
+		                                 from      (select loanAccountNo, outAccountNo
+		                                          from kangbank_loan) A,
+		                                          kangbank_account B
+		                                 where    B.accountNo = A.loanAccountNo
+		                                          AND A.loanAccountNO = K.accountNo), 
+		                                 0,
+		                                    DECODE(   (select   sign((select balance from kangbank_account where accountNo = outAccountNo)-round(balance*rates/1200)) as FLAG
+		                                                         from      (select    A.loanAccountNo, A.outAccountNo, A.repayTerm, A.stayTerm, B.additionalRates, C.issueDate, E.rates, C.balance
+		                                                                  from      (select    loanAccountNo, outAccountNo, repayTerm, stayTerm, loanRateSeq 
+		                                                                           from       kangbank_loan) A,
+		                                                                           kangbank_loan_rates B,
+		                                                                           kangbank_account C,
+		                                                                           kangbank_account_type D,
+		                                                                           kangbank_account_rates E
+		                                                                  where   B.loanRateSeq = A.loanRateSeq
+		                                                                           AND C.accountNo = A.loanAccountNo
+		                                                                           AND D.accountName = C.accountName
+		                                                                           AND E.accountName = D.accountName)  
+		                                                         where   loanAccountNo = K.accountNo), 
+		                                                         -1,
+		                                                         K.balanceSum+
+		                                                         (select   round(balance*rates/1200) as FLAG
+		                                                         from      (select    A.loanAccountNo, A.outAccountNo, A.repayTerm, A.stayTerm, B.additionalRates, C.issueDate, E.rates, C.balance
+		                                                                  from      (select    loanAccountNo, outAccountNo, repayTerm, stayTerm, loanRateSeq 
+		                                                                           from       kangbank_loan) A,
+		                                                                           kangbank_loan_rates B,
+		                                                                           kangbank_account C,
+		                                                                           kangbank_account_type D,
+		                                                                           kangbank_account_rates E
+		                                                                  where   B.loanRateSeq = A.loanRateSeq
+		                                                                           AND C.accountNo = A.loanAccountNo
+		                                                                           AND D.accountName = C.accountName
+		                                                                           AND E.accountName = D.accountName)  
+		                                                         where   loanAccountNo = K.accountNo),
+		                                                         K.balanceSum),
+		                                             DECODE(   (select   sign((select balance from kangbank_account where accountNo = outAccountNo)-round(balance*rates/1200*(1+additionalRates/1200))) as FLAG
+		                                                         from      (select    A.loanAccountNo, A.outAccountNo, A.repayTerm, A.stayTerm, B.additionalRates, C.issueDate, E.rates, C.balance
+		                                                                  from      (select    loanAccountNo, outAccountNo, repayTerm, stayTerm, loanRateSeq 
+		                                                                           from       kangbank_loan) A,
+		                                                                           kangbank_loan_rates B,
+		                                                                           kangbank_account C,
+		                                                                           kangbank_account_type D,
+		                                                                           kangbank_account_rates E
+		                                                                  where   B.loanRateSeq = A.loanRateSeq
+		                                                                           AND C.accountNo = A.loanAccountNo
+		                                                                           AND D.accountName = C.accountName
+		                                                                           AND E.accountName = D.accountName)
+		                                                         where   loanAccountNo = K.accountNo), 
+		                                                         -1,
+		                                                         K.balanceSum+
+		                                                         (select   round(balance*rates/1200*(1+additionalRates/1200)) as FLAG
+		                                                         from      (select    A.loanAccountNo, A.outAccountNo, A.repayTerm, A.stayTerm, B.additionalRates, C.issueDate, E.rates, C.balance
+		                                                                  from      (select    loanAccountNo, outAccountNo, repayTerm, stayTerm, loanRateSeq 
+		                                                                           from       kangbank_loan) A,
+		                                                                           kangbank_loan_rates B,
+		                                                                           kangbank_account C,
+		                                                                           kangbank_account_type D,
+		                                                                           kangbank_account_rates E
+		                                                                  where   B.loanRateSeq = A.loanRateSeq
+		                                                                           AND C.accountNo = A.loanAccountNo
+		                                                                           AND D.accountName = C.accountName
+		                                                                           AND E.accountName = D.accountName)
+		                                                         where   loanAccountNo = K.accountNo),
+		                                                         K.balanceSum)
+		                              )
+		                     )
+		               
+		where   (select   C.accountType
+		         from      (select loanAccountNo, outAccountNo from kangbank_loan) A,
+		                  kangbank_account B,
+		                  kangbank_account_type C
+		         where   C.accountName = B.AccountName
+		                  AND B.accountNo = A.loanAccountNo
+		                  AND A.loanAccountNo = K.accountNo) = '대출'
+   </update>
+   <update id="loanWithdraw">
+      
+   </update>
 </mapper>
