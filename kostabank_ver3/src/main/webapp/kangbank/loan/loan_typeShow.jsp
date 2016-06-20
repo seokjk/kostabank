@@ -6,7 +6,6 @@
 	$(document).ready(function(){
 		$("#loanName").change(function(){
 			var loanName = $("#loanName").val();
-			var temp;
 			$.ajax({
 	            type : "post",
 	            url : "loanList.bank",
@@ -21,9 +20,9 @@
 	              str+="<input type='button' id='loan' value='대출하기'>";
 	              $("#loanTable").html(str);
 	              $("#loan").click(function(){
-	            	  temp=result.accountName;
-						location.href="loan_viewpre.bank?temp="+temp;
-					});
+	                    temp=result.accountName;
+	                  location.href="loan_viewpre.bank?temp="+temp;
+	               });
 	            }
 	         });
 		});
