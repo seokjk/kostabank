@@ -3,13 +3,13 @@ package org.kosta.kostabank.model.vo;
 public class AccountRatesVO {
 	//accountSeq, rates, term, name
 	private int accountSeq;
-	private int rates;
+	private double rates;
 	private int term;
 	private AccountTypeVO accountTypeVO;
 	public AccountRatesVO() {
 		super();
 	}
-	public AccountRatesVO(int accountSeq, int rates, int term, AccountTypeVO accountTypeVO) {
+	public AccountRatesVO(int accountSeq, double rates, int term, AccountTypeVO accountTypeVO) {
 		super();
 		this.accountSeq = accountSeq;
 		this.rates = rates;
@@ -22,11 +22,11 @@ public class AccountRatesVO {
 	public void setAccountSeq(int accountSeq) {
 		this.accountSeq = accountSeq;
 	}
-	public int getRates() {
+	public double getRates() {
 		return rates;
 	}
-	public void setRates(int rates) {
-		this.rates = rates;
+	public void setRates(double d) {
+		this.rates = d;
 	}
 	public int getTerm() {
 		return term;

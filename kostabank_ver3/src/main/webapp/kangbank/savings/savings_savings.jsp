@@ -5,6 +5,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#accountName").change(function(){
+		
 		if($("#accountName").val()==""){
 			$("#accountDetail").html("");
 		}
@@ -15,7 +16,7 @@ $(document).ready(function(){
 			dataType:"json",
 			success:function(vo){
 				var str = "<br>";
-				str += "<table>";
+				str+="<table>";
 				str+= "<tr><td>적금상품이름</td><td>"+vo.accountTypeVO.accountName+"</td></tr>";
 				str+="<tr><td>설명</td><td>"+vo.accountTypeVO.accountExplanation+"</td></tr>"
 				str+="<tr><td>월당이체금액</td><td>"+vo.accountTypeVO.minMoney+"</td></tr>"
@@ -24,10 +25,12 @@ $(document).ready(function(){
 				str+="</table>"
 				str+="<input type =button value =가입 id = 'savingsBtn'>";
 				$("#accountDetail").html(str);
+				$("#minMoney").html(vo.accountTypeVO.minMoney);
 				$("#savingsBtn").click(function(){
-					alert("와아아아아");
+					if(confirm("적금 생성 하시겠습니까?")){
+					   location.href="savings_passCheck.bank?accountName="+$("#accountName").val()+"&minMoney="+vo.accountTypeVO.minMoney;  
+					}
 				});
-					
 			}
 		});
 	});

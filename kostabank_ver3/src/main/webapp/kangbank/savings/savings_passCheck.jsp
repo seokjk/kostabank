@@ -7,11 +7,11 @@ $(document).ready(function(){
 	$("#checkBtn").click(function(){
 		$.ajax({
 			type : "post",
-			url : "checkMemberPass.bank",
+			url : "checkMemberPassSavings.bank",
 			data : "checkPass="+$(":input[name=checkPass]").val(),
 			success : function(flag){
 				if(flag==true){
-					location.href="savings_savings_create.bank";
+					location.href="savingsCreate.bank?accountName=${param.accountName}&minMoney=${param.minMoney}"
 				}else{
 					alert("비밀번호가 일치하지 않습니다.");
 					$(":input[name=checkPass]").val("");
@@ -32,5 +32,5 @@ location.href="home.bank";
 <br>
 <h2>비밀번호 체크</h2>
 <br><br>
-<input id="passwordcheck"type = "password" name = "checkPass">&nbsp;&nbsp;&nbsp;&nbsp;
+<input id="passwordcheck" type = "password" name = "checkPass">&nbsp;&nbsp;&nbsp;&nbsp;
 <input type = "button" id = "checkBtn" value = "확  인">

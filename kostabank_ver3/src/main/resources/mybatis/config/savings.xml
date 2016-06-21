@@ -24,5 +24,29 @@ from (select accountName,rates,term,accountSeq
  	  where accountName =#{value}) b
 where a.accountName=r.accountName and a.accountName=#{value} and r.rates = b.rates
 </select>
+<select id="getRatesByTerm" resultType="double" >
+select rates from kangbank_account_rates
+where accountSeq=#{accountSeq}
+</select>   
+ <insert id="createSavings" parameterType="savingsVO">
+insert into kangbank_savings(accountNo, automaticNo, accountSeq, monthlyPayment, paybackNo)
+values (#{accountVO.accountNo},#{automaticNo},#{accountRatesVO.accountSeq},#{monthlyPayment},#{paybackNo})
+</insert> 
+
+<select id="findRatesSeq" parameterType="accountRatesVO" resultType="int">
+select accountSeq from kangbank_account_rates where rates=#{rates} and term=#{term}
+</select>
+
+<select id="accountSeqByName" resultType="accountRatesVO">
+select accountSeq, rates, term
+from
+(select accountSeq, rates, term, accountName, ratesMonth from KANGBANK_ACCOUNT_RATES) A,
+(select accountName, accountType, accountExplanation, minMoney from KANGBANK_ACCOUNT_TYPE) B
+where A.accountName=B.accountName and B.accountType='적금' and A.accountName=#{accountName}
+</select>
+<select id="getTermBySeq" resultType="int">
+select term from kangbank_account_rates
+where accountSeq=#{accountSeq}
+</select>
 </mapper>
 

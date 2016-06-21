@@ -19,12 +19,17 @@ $(document).ready(function(){
 			}
 		}
 	});
-	$("#conBtn").click(function(){
+	$("#createSavings").click(function(){
+		var minMoney="<%=Integer.parseInt(request.getParameter("minMoney"))%>";
 		if($("#createForm :input[name=savingsPass]").val()==""){
 			alert("패스워드를 입력해주세요");
 			return false;
 		}if($("#createForm :input[name=savingsPass]").val().length!=4){
 			alert("패스워드는 4자리여야 합니다");
+			$("#createForm :input[name=accountPass]").val("");
+			return false;
+		}if(isNaN($("#createForm :input[name=savingsPass]").val())){
+			alert("패스워드는 숫자로만 입력하세요");
 			$("#createForm :input[name=accountPass]").val("");
 			return false;
 		}if($("#createForm :input[name=automaticNo]").val()==""){
@@ -39,12 +44,35 @@ $(document).ready(function(){
 		}if($("#createForm :input[name=monthlyPayment]").val()==""){
 			alert("월당 이체금액을 입력해주세요");
 			return false;
+		}if(isNaN($("#createForm :input[name=monthlyPayment]").val())){
+			alert("월당 이체금액은 숫자로만 입력하세요");
+			$("#createForm :input[name=monthlyPayment]").val("");
+			return false;
+		}if(!isNaN($("#createForm :input[name=monthlyPayment]").val())){
+			if($("#createForm :input[name=monthlyPayment]").val()<minMoney){
+				alert("월당 이체금액은 "+minMoney+"원 보다 커야 합니다");
+				$("#createForm :input[name=monthlyPayment]").val("");
+				return false;
+			}
 		}if($("#createForm :input[name=paybackNo]").val()==""){
 			alert("환급 계좌를 선택해주세요");
 			return false;
 		}
 	});//conBtn.click
-	
+	$("#createForm :input[name=accountSeq]").change(function(){
+		var accountSeq = $("#createForm :input[name=accountSeq]").val();
+		$.ajax({
+			type:"post",
+			url:"getRatesByTerm.bank",
+			<%-- data: "accountSeq="+term+"&accountName=<%=request.getParameter("accountName")%>", --%>
+			data: "accountSeq="+accountSeq,
+			dataType: "json",
+			success: function(rates){
+				$("#savingsRate").html(rates);
+				$("#createForm :input[name=rates]").val(rates);
+			}
+		});
+	});//savingsTerm change
 });
 </script>
 <body>
@@ -55,11 +83,11 @@ $(document).ready(function(){
 <c:when test="${empty loginInfo}">
 <script type ="text/javascript">
 alert("로그인을 하셔야만 이용가능합니다");
-location.href="home.bank";
+location.href = "home.bank";
 </script>
 </c:when>
 </c:choose>
-  <form id = "consentForm">
+  <form id = "consentForm" action="savings_secure.bank	">
   <textarea id="textarea"cols = "100" rows = "20" readonly="readonly">
 ◎ 개인 정보 수집 동의
  코스타뱅크에서는 고객 관리, 계약서 작성 등 서비스 제공을 위해
@@ -91,7 +119,8 @@ location.href="home.bank";
   </p>
   <input type = "button" id = "createBtn" value="이  동">
   </form>
- <form>
+ <form id="createForm" action="endingSavingsForm.bank">
+<!-- <form id="createForm" action="savingsSecure.bank"> -->
  <table>
  <tr>
  <td>패스워드<input type="password" name="savingsPass"></td>
@@ -99,26 +128,27 @@ location.href="home.bank";
  <tr>
  <td>자동이체 계좌번호<select name="automaticNo">
  <option value="">계좌선택</option>
- <c:forEach items="" >
- <option value=""></option>
+ <c:forEach items="${requestScope.list }" var="list" >
+ <option value="${list.accountNo }">${list.accountNo }</option>
  </c:forEach>
  </select>
  </td>
  </tr>
  <tr>
- <td>적금이름<input type="text" name="savingsName"></td>
+ <td>적금이름<input type="text" name="savingsName" value="${requestScope.accountName}" readonly="readonly"></td>
  </tr>
  <tr>
- <td>계약기간<select name="savingsTerm">
+ <td>계약기간<select name="accountSeq">
  <option value="">기간 선택</option>
- <option value="sixMonth">6개월</option>
- <option value="twelveMonth">12개월</option>
- <option value="eighteenMonth">18개월</option>
- <option value="twentyfourMonth">24개월</option>
+ <c:forEach items="${requestScope.list2 }" var="list">
+<option value="${list.accountSeq}">${list.term}</option>
+</c:forEach>
  </select>
+ <%-- <input type="hidden" name="accountSeq" value="${requestScope.list2.accountSeq }"> --%>
  </td></tr>
  <tr>
- <td>금리<span id="savingsRate">%</span></td>
+ <td>금리<span id="savingsRate" name="savingsRate"></span>%
+ <input type="hidden" name="rates" value="${savingsRate }"></td>
  </tr>
  <tr>
  <td>월당 이체 금액<input type="text" name="monthlyPayment"></td>
@@ -126,11 +156,14 @@ location.href="home.bank";
  <tr>
  <td>환급 계좌번호<select name="paybackNo">
  <option value="">계좌선택</option>
- <c:forEach items="" >
- <option value=""></option>
+ <c:forEach items="${requestScope.list }" var="list" >
+ <option value="${list.accountNo }">${list.accountNo }</option>
  </c:forEach>
  </select>
  </td>
+</tr>
+<tr>
+<td><input type="submit" value="적금생성" id="createSavings"></td>
 </tr>
  </table>
  </form>
