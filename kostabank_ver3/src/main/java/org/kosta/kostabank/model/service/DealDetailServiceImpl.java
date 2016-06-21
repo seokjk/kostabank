@@ -218,8 +218,8 @@ public class DealDetailServiceImpl implements DealDetailService {
 				tvo.getaccount(), "deposit", tvo.getMoney());
 		accountDAO.deposit(dvo);
 		dealDetailDAO.insertTransDetail(dvo);
-		String name = accountDAO.accountBAndN(tvo.getaccount()).getCustomerVO().getName();
-		long balance = accountDAO.accountBAndN(tvo.getOtheraccountNo()).getBalance();
+		String name = accountDAO.accountBAndN(tvo.getOtheraccountNo()).getCustomerVO().getName();
+		long balance = accountDAO.accountBAndN(tvo.getaccount()).getBalance();
 		AccountVO vo = new AccountVO(balance, new CustomerVO(null, null, name, null, null, null, null, 0));
 		return vo;
 	}
