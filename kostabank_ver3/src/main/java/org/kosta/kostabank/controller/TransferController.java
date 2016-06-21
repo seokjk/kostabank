@@ -85,12 +85,12 @@ public class TransferController {
  
 	///////////////////////////////////////////////////////////////
 	///////	title : 선택한 계좌의 잔액 확인						///////
-	/////// dec : 선택한 계좌의 잔액 확인						///////
+	/////// dec : 선택한 계좌의 잔액 확인						    ///////
 	///////////////////////////////////////////////////////////////	
 	@RequestMapping("checkBalance.bank")
 	@ResponseBody
-	public long checkBal(HttpServletRequest request, String myaccountNo) {
-		return accountService.accountAll(myaccountNo).getBalance();
+	public long checkBal(HttpServletRequest request, String account) {
+		return accountService.accountAll(account).getBalance();
 	}
 
 	///////////////////////////////////////////////////////////////
