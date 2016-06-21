@@ -47,8 +47,8 @@ where page=#{page}
    </select>
 	
 	<select id="accountAll" resultMap="accountTypeRM">
-		select * from kangbank_account
-		where accountNo=#{value}
+		select * from kangbank_account A, KANGBANK_CUSTOMER B
+		where A.email=B.email and accountNo=#{value}
 	</select>
 	<select id="accountBAndN" resultMap="accountTypeRM">
 		select A.balance, B.name
