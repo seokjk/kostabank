@@ -29,8 +29,7 @@
 					dataType:"json",
 					success:function(jsonData){
 							$("#balanceView").html("현재 잔액은 "+jsonData);
-							bartemp = jsonData;
-							
+							bartemp = jsonData;	
 					}
 				}); 
 			}
@@ -53,7 +52,7 @@
 			var passCheck=false;
 			var otherAccountCheck=false;
 			var accountCheck=false;
-			
+
 			/*계좌확인*/
 			$.ajax({
 				type:"post",
@@ -70,6 +69,7 @@
 					}
 					if ($(":input[name='otheraccountNo']").val().trim()==$(":input[name='account']").val().trim()) {
 						alert("자기자신에게 이체를 할 수 없습니다.");
+						$(":input[name='otheraccountNo']").val("");
 						otherAccountCheck=true;
 						return false;
 					}else{
@@ -80,7 +80,7 @@
 			
 			/*비밀번호체크*/
 			if($("#myaccountPass").val()==""){
-				var myaccountPass="1";
+				var myaccountPass="ps check";
 			}else{
 				var myaccountPass=$("#myaccountPass").val();
 			} 
@@ -91,7 +91,6 @@
 				async:false,
 				success:function(flag){
 					if(!flag){
-						alert("비밀번호가 틀립니다.");
 						passCheck=true;
 						return false;
 					}	
@@ -100,10 +99,7 @@
 			
 			if ($(":input[name='account']").val().trim()=="") {
 				alert("출금계좌번호를 선택하세요");
-				account=true;
 				return false;
-			}else{
-				account=false;
 			}
 			if ($(":input[name='myaccountPass']").val().trim()=="") {
 				alert("계좌비밀번호를 입력하세요");
@@ -117,14 +113,7 @@
 				alert("이체금액을 입력하세요");
 				return false;
 			} 
-			if ($(":input[name='bank']").val()=="" && $(":input[name='bank']").val()==null ) {
-				alert("입금은행을 입력하세요");
-				return false;
-			}
-			if ($(":input[name='otheraccountNo']").val().trim()=="") {
-				alert("입금계좌번호를 입력하세요");
-				return false;
-			}
+			
 			if(passCheck){
 				return false;
 			}
@@ -180,10 +169,10 @@
 			<td>
 					<select class="no-border"  id="bank" name="bank">
 					<option value="">은행선택</option>
-					<option value="캉뱅">캉뱅으로 입금하기</option>
-					<option value="문뱅">문뱅으로 입금하기</option>
-					<option value="소뱅">소뱅으로 입금하기</option>
-					<option value="지뱅">지뱅으로 입금하기</option>
+					<option value="KANG">KANG BANK으로 입금하기</option>
+					<option value="SON">SON BANK으로 입금하기</option>
+					<option value="LA">LA BANK으로 입금하기</option>
+					<option value="YOO">YOO BANK으로 입금하기</option>
 					</select>
 			</td>
 			<td>입금계좌번호</td> 
