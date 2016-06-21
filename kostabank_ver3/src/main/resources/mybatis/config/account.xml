@@ -51,11 +51,11 @@ where page=#{page}
 		where A.email=B.email and accountNo=#{value}
 	</select>
 	<select id="accountBAndN" resultMap="accountTypeRM">
-		select A.balance, B.name
-		from  (select balance, email from KANGBANK_ACCOUNT where accountNo = '219-5754-202-26') A,
-    		  (select name, email from KANGBANK_CUSTOMER) B
-		where B.email = A.email
-	</select>
+      select A.balance, B.name
+      from  (select balance, email from KANGBANK_ACCOUNT where accountNo = #{value}) A,
+            (select name, email from KANGBANK_CUSTOMER) B
+      where B.email = A.email
+   </select>
 	<select id="checkAccount"  resultType="accountVO">
 		select balance, accountPass from kangbank_account
 		where accountNo=#{accountNo} and accountPass=#{accountPass}
