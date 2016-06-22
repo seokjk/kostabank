@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import net.sf.json.JSONArray;
 
 import org.kosta.kostabank.model.dao.CustomerDAO;
+import org.kosta.kostabank.model.vo.AccountVO;
 import org.kosta.kostabank.model.vo.CustomerVO;
 import org.springframework.stereotype.Service;
 @Service
@@ -28,21 +29,22 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		return flag;
 	}
-	@Override
-	public JSONArray findId(CustomerVO vo) {
-		JSONArray json = new JSONArray();
-		vo = customerDAO.findId(vo);
-		boolean flag = true;
-		if(vo == null){
-			flag = false;
-			json.add(flag);
-		} else {
-			String email = vo.getEmail();
-			json.add(flag);
-			json.add(email);
-		}
-		return json;
-	}
+	 @Override
+	   public JSONArray findId(AccountVO vo, String birth) {
+	      JSONArray json = new JSONArray();
+	      CustomerVO cvo = null;
+	      cvo = customerDAO.findId(vo);
+	      boolean flag = true;
+	      if(cvo == null || !cvo.getBirth().equals(birth)){
+	         flag = false;
+	         json.add(flag);
+	      } else {
+	         String email = cvo.getEmail();
+	         json.add(flag);
+	         json.add(email);
+	      }
+	      return json;
+	   }
 	@Override
 	public int tempPassword(CustomerVO vo) {
 		 return customerDAO.tempPassword(vo);
