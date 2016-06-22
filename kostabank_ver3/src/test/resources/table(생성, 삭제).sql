@@ -72,7 +72,6 @@ create table secure_card(
 insert into secure_card values(0,'0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000','0000');
 ALTER TABLE secure_card ADD (secure_card_fail number default 0); 
 
-select * from secure_card
 -- 계정 --
 create table kangbank_customer(
    email varchar2(100) not null,
@@ -85,7 +84,7 @@ create table kangbank_customer(
    loginFailCount number default 0,
    constraint pk_customer primary key(email,tel)
 );
-insert into KANGBANK_CUSTOMER(email,password,name,birth,tel,address) values('leekorea2k@hanmail.net','1234','아앙','111111','1111','판교')
+
 -- 계좌 종류 --
 create table kangbank_account_type(
 accountName varchar2(100) PRIMARY KEY,
@@ -108,13 +107,14 @@ create table kangbank_account(
    constraint fk_accountName foreign key (accountName) references kangbank_account_Type
 );
 
+ALTER TABLE kangbank_account
+ADD (balanceFlag number default 0);
+
 ALTER TABLE kangbank_account ADD
 CONSTRAINT FK_kangbank_customer FOREIGN KEY
 ( email, tel
 ) REFERENCES kangbank_customer (email,tel)
 
-ALTER TABLE kangbank_account
-ADD (balanceFlag number default 0);
 -- 금리 --
 create sequence kangbank_rates_seq;
 
@@ -213,6 +213,7 @@ create table kangbank_loan(
    constraint fk_kangbank_account2 foreign key(loanAccountNo) references kangbank_account(accountNo),
    constraint fk_kangbank_loan_rates foreign key(loanRateSeq) references kangbank_loan_rates(loanRateSeq)
 )
+alter table kangbank_loan drop(overdue);
 
 --적금
 drop table kangbank_savings;
@@ -226,4 +227,3 @@ create table kangbank_savings(
    constraint fk_savings_no foreign key(accountNo) references kangbank_account(accountNo),
    constraint fk_rates foreign key(accountSeq) references kangbank_account_rates(accountSeq)
 )
-
