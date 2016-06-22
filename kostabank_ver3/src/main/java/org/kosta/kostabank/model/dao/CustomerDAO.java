@@ -1,5 +1,6 @@
 package org.kosta.kostabank.model.dao;
 
+import org.kosta.kostabank.model.vo.AccountVO;
 import org.kosta.kostabank.model.vo.CustomerVO;
 
 public interface CustomerDAO {
@@ -10,7 +11,7 @@ public interface CustomerDAO {
 
 	CustomerVO checkEmail(String email);
 
-	CustomerVO findId(CustomerVO vo);
+	CustomerVO findId(AccountVO vo);
 
 	int tempPassword(CustomerVO vo);
 	//회원정보수정결과
