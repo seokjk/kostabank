@@ -2,7 +2,6 @@ package org.kosta.kostabank.controller;
 
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -36,16 +35,13 @@ public class SavingsController {
 	private SecureCardService securecardService;
 	@RequestMapping("savings.bank")
 	public ModelAndView savings(String accountType){
-		System.out.println(accountType);
 		List<AccountTypeVO> slist = savingsService.savingsProductlist(accountType); 
-		System.out.println(slist);
 		return new ModelAndView("savings_savings","slist",slist);
 	}
 	@RequestMapping(value = "accountNameFindAccountList.bank",method=RequestMethod.POST)
 	@ResponseBody
 	public AccountRatesVO accountNameFindAccountList(String accountName){
 		AccountRatesVO vo = savingsService.accountNameFindAccountList(accountName);
-		System.out.println(vo);
 		return vo;
 	}
 	// 적금 생성 전 패스워드 확인
@@ -156,7 +152,6 @@ public class SavingsController {
 		savingsVO.setPaybackNo(paybackNo);
 		savingsService.createSavings(accountVO, savingsVO);
 		
-		System.out.println("출력"+savingsVO);
 		mav.setViewName("savings_createResult");
 		return mav;
 	}
