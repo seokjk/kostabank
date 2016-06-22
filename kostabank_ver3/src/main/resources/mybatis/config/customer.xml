@@ -17,9 +17,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="checkEmail" parameterType="string" resultType="customerVO">
  		select * from kangbank_customer where email = #{email}
  	</select>
- 	<select id="findId" parameterType="customerVO" resultType="customerVO">
- 		select * from kangbank_customer where name = #{name} and birth = #{birth} and tel = #{tel}
- 	</select>
+    <select id="findId" parameterType="accountVO" resultType="customerVO">
+       	select 	*
+      	from    (select email, tel 
+            	from    KANGBANK_ACCOUNT 
+            	where    accountNo = #{accountNo}
+                 		 AND accountPass = #{accountPass}) A,
+           		kangbank_customer B
+     	 where	B.email = A.email
+           		AND B.tel = A.tel
+    </select>
  	<update id="tempPassword" parameterType="customerVO">
  		update kangbank_customer set password = #{password} where email = #{email}
  	</update>
