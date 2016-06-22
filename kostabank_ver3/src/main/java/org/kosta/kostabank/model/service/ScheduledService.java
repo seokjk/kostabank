@@ -1,9 +1,12 @@
 package org.kosta.kostabank.model.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.kosta.kostabank.model.dao.AccountDAO;
 import org.kosta.kostabank.model.dao.LoanDAO;
+import org.kosta.kostabank.model.vo.LoanVO;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -14,18 +17,23 @@ public class ScheduledService {
 	@Resource
 	private LoanDAO loanDAO;
 	
-	@Scheduled(cron="0 15 10 15 * ?")
+	/*   @Transactional */
+	@Scheduled(cron="0 0 0 28 * ?")
 	public void withdraw(){
-		loanDAO.nowBalance();
-		loanDAO.withdraw();
-		System.out.println("10초마다 출금");
+	   loanDAO.nowBalance();
+	   loanDAO.withdraw();
+	   List<LoanVO>list= loanDAO.selectDealDetail();
+	   loanDAO.transfer(list);
 	}
-	
-	//대출 : 매달 15일 오전 10시 15분 balanceSum에 이자 업데이트
-	@Scheduled(cron="0 15 10 15 * ?")
-	public void balanceSumUpdate() {
-		loanDAO.balanceSumUpdate();
-		System.out.println("balanceSumUpdate");
+	  
+	/*@Transactional*/
+	@Scheduled(cron="0 0 12 * * ?")
+	public void checkBalance(){   
+	   List<LoanVO> list = loanDAO.dailyCheckBalance();
+	   System.out.println(list);
+	   loanDAO.dailyCheckWithdraw(list);
+	   loanDAO.transfer(list);
+	   loanDAO.dailyCheckUpdate(list);
 	}
 	//입출금 : 매일 12시에 일수와 잔액합계가 업데이트
 	@Scheduled(cron="0 0 12 * * ?")
