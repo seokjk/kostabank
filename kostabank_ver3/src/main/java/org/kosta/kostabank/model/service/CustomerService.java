@@ -2,6 +2,7 @@ package org.kosta.kostabank.model.service;
 
 import net.sf.json.JSONArray;
 
+import org.kosta.kostabank.model.vo.AccountVO;
 import org.kosta.kostabank.model.vo.CustomerVO;
 
 public interface CustomerService {
@@ -12,7 +13,7 @@ public interface CustomerService {
 
 	boolean checkEmail(String email);
 
-	JSONArray findId(CustomerVO vo);
+	JSONArray findId(AccountVO vo, String birth);
 
 	int tempPassword(CustomerVO vo);
 	//회원정보수정결과
