@@ -5,8 +5,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#accountName").change(function(){
-		
-		if($("#accountName").val()==""){
+		if($("#accountName").val()=="적금상품선택"){
+			alert("적금상품을 선택하세요");
 			$("#accountDetail").html("");
 		}
 		$.ajax({
@@ -38,20 +38,26 @@ $(document).ready(function(){
 </script>
 <h1>적금 상품</h1>
 <c:choose>
-<c:when test="${empty loginInfo}">
-<script type="text/javascript">
-alert("로그인 하셔야 이용할 수 있습니다");
-location.href="home.bank";
-</script>
-</c:when>
+	<c:when test="${empty loginInfo}">
+		<script type="text/javascript">
+			alert("로그인 하셔야 이용할 수 있습니다");
+			location.href="home.bank";
+		</script>
+	</c:when>
 <c:otherwise>
-<select id = "accountName">
-<option value=""></option>
-<c:forEach items="${slist}" var = "s">
-<option value="${s.accountName}">${s.accountName}</option>
-</c:forEach>
-</select>
-<br>
-<span id = "accountDetail"></span>
+	<table>
+		<tr>
+			<td>적금상품이름</td>
+			<td>
+				<select id = "accountName">
+					<option value="적금상품선택">적금 상품 선택</option>
+					<c:forEach items="${slist}" var = "s">
+						<option value="${s.accountName}">${s.accountName}</option>
+					</c:forEach>
+				</select>
+			</td>
+		</tr>
+	</table>
+	<span id = "accountDetail"></span>
 </c:otherwise>
 </c:choose>

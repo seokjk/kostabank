@@ -20,7 +20,6 @@ public class SavingsServiceImpl implements SavingsService {
 	private AccountService accountService;
 	@Override
 	public List<AccountTypeVO> savingsProductlist(String accountType) {
-		System.out.println(accountType);
 		return savingsDAO.savingsProductlist(accountType);
 	}
 	@Override

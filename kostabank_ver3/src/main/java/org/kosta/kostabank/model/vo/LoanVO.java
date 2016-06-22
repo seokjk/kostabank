@@ -10,11 +10,21 @@ public class LoanVO {
 	private int loanRateSeq;
 	private int balance;
 	private String accountName;
-	
+	private int balanceSum;
+
 	public LoanVO() {
 		super();
 	}
-	
+
+	public LoanVO(String loanAccountNo, String outAccountNo, int balance,
+			int balanceSum) {
+		super();
+		this.loanAccountNo = loanAccountNo;
+		this.outAccountNo = outAccountNo;
+		this.balance = balance;
+		this.balanceSum = balanceSum;
+	}
+
 	public LoanVO(String loanAccountNo, String inAccountNo,
 			String outAccountNo, int repayTerm, int stayTerm, int overdue,
 			int loanRateSeq) {
@@ -27,6 +37,7 @@ public class LoanVO {
 		this.overdue = overdue;
 		this.loanRateSeq = loanRateSeq;
 	}
+
 	public LoanVO(String loanAccountNo, String inAccountNo,
 			String outAccountNo, int repayTerm, int stayTerm, int overdue,
 			int loanRateSeq, int balance, String accountName) {
@@ -41,11 +52,36 @@ public class LoanVO {
 		this.balance = balance;
 		this.accountName = accountName;
 	}
+
 	public LoanVO(String loanAccountNo, String outAccountNo) {
-		this.loanAccountNo=loanAccountNo;
-		this.outAccountNo=outAccountNo;
+		this.loanAccountNo = loanAccountNo;
+		this.outAccountNo = outAccountNo;
 	}
-	
+
+	public String getAccountName() {
+		return accountName;
+	}
+
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
+	}
+
+	public int getBalance() {
+		return balance;
+	}
+
+	public void setBalance(int balance) {
+		this.balance = balance;
+	}
+
+	public int getBalanceSum() {
+		return balanceSum;
+	}
+
+	public void setBalanceSum(int balanceSum) {
+		this.balanceSum = balanceSum;
+	}
+
 	public String getLoanAccountNo() {
 		return loanAccountNo;
 	}
@@ -102,29 +138,14 @@ public class LoanVO {
 		this.loanRateSeq = loanRateSeq;
 	}
 
-	public int getBalance() {
-		return balance;
-	}
-
-	public void setBalance(int balance) {
-		this.balance = balance;
-	}
-
-	public String getAccountName() {
-		return accountName;
-	}
-
-	public void setAccountName(String accountName) {
-		this.accountName = accountName;
-	}
-
 	@Override
 	public String toString() {
 		return "LoanVO [loanAccountNo=" + loanAccountNo + ", inAccountNo="
 				+ inAccountNo + ", outAccountNo=" + outAccountNo
 				+ ", repayTerm=" + repayTerm + ", stayTerm=" + stayTerm
-				+ ", overdue=" + overdue + ", loanRateSeq=" + loanRateSeq + "]";
+				+ ", overdue=" + overdue + ", loanRateSeq=" + loanRateSeq
+				+ ", balance=" + balance + ", accountName=" + accountName
+				+ ", balanceSum=" + balanceSum + "]";
 	}
-	
-	
+
 }

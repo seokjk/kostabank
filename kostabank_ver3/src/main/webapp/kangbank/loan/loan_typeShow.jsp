@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <script type="text/javascript" src="${initParam.root}resources/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#loanName").change(function(){
 			var loanName = $("#loanName").val();
+			if(loanName=="대출상품선택") {
+     	    	  alert("대출상품을 선택하세요");
+     	    	 $("#loanTable").html("");
+     	    	  return false;
+     	    }
 			$.ajax({
 	            type : "post",
 	            url : "loanList.bank",
@@ -27,17 +33,30 @@
 	         });
 		});
 	});
+	
 </script>
-<table border="1">
-	<tr>
-		<td>대출 상품 이름</td>
-		<td>
-			<select name="loanName" id="loanName"  class="no-border" >
-				<c:forEach items="${nameList}" var="name">
-					<option value="${name}">${name}</option>
-				</c:forEach>
-			</select>
-		</td>
-	</tr>
-</table><br>
-<div id="loanTable"></div>
+<c:choose>
+	<c:when test="${empty loginInfo}">
+		<script type="text/javascript">
+			alert("로그인 하셔야 이용할 수 있습니다");
+			location.href="home.bank";
+		</script>
+	</c:when>
+	<c:otherwise>
+		<h1>대출</h1>
+		<table border="1">
+			<tr>
+				<td>대출 상품 이름</td>
+				<td>
+					<select name="loanName" id="loanName"  class="no-border" >
+						<option value="대출상품선택">대출상품선택</option>
+						<c:forEach items="${nameList}" var="name">
+							<option value="${name}">${name}</option>
+						</c:forEach>
+					</select>
+				</td>
+			</tr>
+		</table><br>
+		<div id="loanTable"></div>
+	</c:otherwise>
+</c:choose>
