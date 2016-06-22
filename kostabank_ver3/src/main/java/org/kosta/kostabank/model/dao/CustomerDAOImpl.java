@@ -2,6 +2,7 @@ package org.kosta.kostabank.model.dao;
 
 import javax.annotation.Resource;
 
+import org.kosta.kostabank.model.vo.AccountVO;
 import org.kosta.kostabank.model.vo.CustomerVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -22,7 +23,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		return template.selectOne("customer.checkEmail", email);
 	}
 	@Override
-	public CustomerVO findId(CustomerVO vo) {
+	public CustomerVO findId(AccountVO vo) {
 		return template.selectOne("customer.findId", vo);
 	}
 	@Override
