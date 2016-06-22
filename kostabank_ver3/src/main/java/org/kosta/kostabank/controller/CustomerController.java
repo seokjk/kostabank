@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import net.sf.json.JSONArray;
 
 import org.kosta.kostabank.model.service.CustomerService;
+import org.kosta.kostabank.model.vo.AccountVO;
 import org.kosta.kostabank.model.vo.CustomerVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -104,17 +105,16 @@ public class CustomerController {
 		return customerService.checkEmail(email);
 	}
 	
-	///////////////////////////////////////////////////////////////
-	///////	title : findId									///////
-	/////// dec : 아이디 찾기 결과								///////
-	///////////////////////////////////////////////////////////////
-	@RequestMapping(value = "findId.bank")
-	@ResponseBody
-	public JSONArray findId(CustomerVO vo, HttpServletRequest request) {
-		JSONArray json = customerService.findId(vo);
-		return json;
-	}
-
+   ///////////////////////////////////////////////////////////////
+   ///////   title : findId                           ///////
+   /////// dec : 아이디 찾기 결과                        ///////
+   ///////////////////////////////////////////////////////////////
+   @RequestMapping(value = "findId.bank")
+   @ResponseBody
+   public JSONArray findId(AccountVO vo, String birth, HttpServletRequest request) {
+      JSONArray json = customerService.findId(vo, birth);
+      return json;
+   }
 	@RequestMapping("passwordCheck.bank")
 	public String passwordCheckRedirect() {
 		return "account_passCheck";
