@@ -1,27 +1,45 @@
 package org.kosta.kostabank.model.dao;
 
+import java.util.List;
+
 import org.kosta.kostabank.model.vo.AccountVO;
 import org.kosta.kostabank.model.vo.LoanAccountVO;
 import org.kosta.kostabank.model.vo.LoanVO;
 
 public interface LoanDAO {
-	
-	int checkLoan(int maxMoney);
+   
+   List<String> loanNameList();
 
-	LoanAccountVO loanData(String name);
+   LoanAccountVO loanList(String accountName);
+   
+   int checkLoan(int maxMoney);
 
-	LoanAccountVO checkPeriod(String period);
+   LoanAccountVO loanData(String name);
 
-	int balanceSumUpdate();
+   LoanAccountVO checkPeriod(String period);
 
-	void createAccount(AccountVO accountVO);
 
-	void createLoan(LoanVO vo);
+   void createAccount(AccountVO accountVO);
 
-	LoanVO selectLoan(String accountNo);
+   void createLoan(LoanVO vo);
 
-	void withdraw();
+   LoanVO selectLoan(String accountNo);
 
-	void nowBalance();
+
+
+   void withdraw();
+
+   void nowBalance();
+
+   void transfer(List<LoanVO> list);
+
+   List<LoanVO> selectDealDetail();
+
+   List<LoanVO> dailyCheckBalance();
+
+   void dailyCheckWithdraw(List<LoanVO> list);
+
+   void dailyCheckUpdate(List<LoanVO> list);
+
 
 }
