@@ -1,8 +1,6 @@
    #container{
       width: 100%; /* container 경계선 1 , left  200 padding 5+5 ,
-                                 main 600 padding 5+5 ,  border-left: 1   */
-   
-      
+                                 main 600 padding 5+5 ,  border-left: 1   */  
    }
    #left{
       padding: 30px;
