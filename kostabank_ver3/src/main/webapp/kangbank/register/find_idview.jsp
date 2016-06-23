@@ -3,7 +3,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-   $(":input[value='아이디찾기']").click(function(){
+   $("#btn").click(function(){
       var accountNo = $(":input[name='accountNo']").val();
       var accountPass = $(":input[name='accountPass']").val();
       var birth = $(":input[name='birth']").val();
@@ -39,24 +39,36 @@ $(document).ready(function() {
    });
 });
 </script>
+<div class="findId">
+<h2>email 찾기</h2><br>
 <form>
-<h1>email 찾기</h1><hr>
-<p style="color:blue; font-size:16px;">아이디를 잊으셨나요?<br>
+
+<p>아이디를 잊으셨나요?<br>
 가입자 유형을 선택하신 후, 아래의 개인정보를 입력하시면 아이디 확인이 가능합니다.</p>
-<hr>
-<table id="resultTable">
-      <tr>
-         <th align="center" width = "25%">계좌번호</th>
-         <td width = "75%"><input type = "text" name = "accountNo"></td>
-      </tr>
-      <tr>
-         <th align="center">계좌 비밀번호</th>
-         <td><input type = "password" name = "accountPass" size = 7> (4자리 입력)</td>
-      </tr>
-      <tr>
-         <th align="center">생년월일</th>
-         <td><input type = "text" name = "birth" size = 10> (예 : 1991년 1월 1일일 경우 910101)</td>
-      </tr>
+
+<div class="findIdTable">
+<table>
+   <tr>
+      <th>계좌번호</th>
+      <td><input type = "text" name = "accountNo"></td>
+   </tr>
+   <tr>
+      <th align="center">계좌 비밀번호</th>
+      <td>
+         <input type = "password" name = "accountPass" > (4자리 입력)
+      </td>
+   </tr>
+   <tr>
+      <th align="center">생년월일</th>
+      <td>
+         <input type = "text" name = "birth" > (예 : 1991년 1월 1일일 경우 910101)
+      </td>
+   </tr>
 </table>
-<h3 align = "center"><input type = "button" value = "아이디찾기"></h3>
+</div>
+<br>
+<div id="emailBtn">
+   <img src="${initParam.root}kangbank/img/emailBtn.png"  id="btn" style="cursor:pointer">
+</div>
 </form>
+</div>

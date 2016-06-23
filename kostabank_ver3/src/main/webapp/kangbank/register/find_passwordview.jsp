@@ -1,47 +1,69 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-
+<script type="text/javascript" src="${initParam.root}resources/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
-$(document).ready(function() {
-	$(":input[value='비밀번호찾기']").click(function(){
-		var email = $(":input[name='email']").val();
-		var birth = $(":input[name='birth']").val();
-		var tel = $(":input[name='tel']").val();
-		if(email == ""){
-			alert("이메일을 입력하세요");
-		} else if(birth == ""){
-			alert("생년월일을 입력하세요");
-		} else if(tel == ""){
-			alert("전화번호를 입력하세요");
-		}else {
-			$.ajax({
-				type : "post",
-				url : "findPassword.bank",
-				datatype : 'json',
-				data : {
-					email : email,
-					birth : birth,
-					tel : tel
-				},
-				success : function(result) {
-					if(result == 0){
-						alert("일치하는 정보가 없습니다.");
-					} else {
-						alert("입력하신 email로 임시비밀번호가 전송되었습니다");
-						location.href = "home.bank";
-					}
-				}
-			});
-		}
-	});
+$(document).ready(function(){
+   $("#findPasswordForm :input[name=findId]").click(function(){
+      location.href="find_idview.bank"
+   });
+   $("#findPasswordForm").submit(function(){
+      var id = $("#findPasswordForm :input[name=email]").val();
+      var accountNo = $("#findPasswordForm :input[name=accountNo]").val();
+      var accountPass = $("#findPasswordForm :input[name=accountPass]").val();
+      var password = $("#findPasswordForm :input[name=password]").val();
+      var passwordCheck = $("#findPasswordForm :input[name=passwordCheck]").val();
+      if(id==""){
+         alert("메일을 입력하세요");
+         return false;
+      }if(accountNo==""){
+         alert("계좌번호를 입력하세요");
+         return false;
+      }if(accountPass==""){
+         alert("계좌 비밀번호를 입력하세요");
+         return false;
+      }if(password==""){
+         alert("변경 비밀번호를 입력하세요");
+         return false;
+      }if(passwordCheck==""){
+         alert("변경 비밀번호 확인을 입력하세요");
+         return false;
+      }if(password!=passwordCheck){
+         alert("변경 비밀번호와 확인값이 일치하지 않습니다");
+         return false;
+      }
+   })
 });
-</script>
-
-<h3>password 찾기</h3><br>
-<form>
-email : <input type = "text" name = "email"><br>
-전화번호 : <input type = "text" name = "tel"><br>
-생년월일 : <input type = "text" name = "birth"><br>
-<input type = "button" value = "비밀번호찾기">
+</script> 
+<div class="findPassword">
+<h2>비밀번호 찾기</h2>
+<br>
+<p>비밀번호를 잊으셨나요?<br>
+아래의 개인정보를 입력하시면 비밀번호 확인이 가능합니다.</p>
+<form id="findPasswordForm" action="passwordChange.bank">
+<div class="findPass">
+<table>
+      <tr>
+         <th>아이디</th>
+         <td colspan="3"><input type ="email" name ="email">
+         <input type = "button" value = "아이디찾기" name="findId"></td>
+      </tr>
+      <tr>
+         <th>출금 계좌번호</th>
+         <td><input type ="text" name ="accountNo"></td>
+         <th>계좌 비밀번호</th>
+         <td><input type ="password" name ="accountPass" > (4자리 입력)</td>
+      </tr>
+      <tr>
+         <th>새 비밀번호</th>
+         <td><input type ="password" name ="password" ></td>
+         <th>새 비밀번호 확인</th>
+         <td><input type ="password" name ="passwordCheck" ></td>
+      </tr>
+</table>
+</div>
+<br>
+<div id="passBtn">
+<input type="image" src="${initParam.root}kangbank/img/passBtn.png">
+</div>
 </form>
+</div>

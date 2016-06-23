@@ -3,9 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
    $(document).ready(function(){
-	   <%HttpSession sessions = request.getSession(false);
-	   	if(sessions.getAttribute("loginInfo")!=null){
-	   %>
+      <%HttpSession sessions = request.getSession(false);
+         if(sessions.getAttribute("loginInfo")!=null){
+      %>
       $("a[href$='secure_register']").click(function(){
          var a = ${sessionScope.loginInfo.security_card};
          if(a !=0){
@@ -75,34 +75,27 @@
       });
       <%}%>
    });
+ 
 </script>
 <div class="section">
    <div class="container">
       <div class="row">
          <div class="col-md-12">
             <ul class="lead nav navbar-nav navbar-right">
-               <li class="active"><a href="home.bank">KANG BANK</a></li>
-  
-                <li class="상품정보"><a href="#" class="dropdown-toggle"
-                  data-toggle="dropdown" role="button" aria-expanded="false">상품정보
-                     <i class="fa fa-caret-down"></i>
-               </a>
-                  <ul class="dropdown-menu" role="menu">
-                      <li><a href = "accountTypeList.bank?page=1">상품 정보</a></li>
-                     <li><a href="#">입출금 상품</a></li>
-                     <li><a href="savings.bank?accountType=적금">적금 상품</a></li>
-                     <li><a href="laonNameList.bank">대출 상품</a></li>
-                  </ul></li>
-                     <li class="계좌"><a href="#" class="dropdown-toggle"
-                  data-toggle="dropdown" role="button" aria-expanded="false">계좌정보
+               <li class="active"><a href="home.bank" id="homeA">KANG BANK</a></li>
+                     <li class="계좌"><a href="#"   id="headerA"  class="dropdown-toggle"
+                  data-toggle="dropdown" role="button" aria-expanded="false">계좌
                      <i class="fa fa-caret-down"></i>
                </a>
                   <ul class="dropdown-menu" role="menu">
                      <li><a href="passwordCheck.bank">계좌 생성</a></li>
                       <li><a href="accountTotalList.bank">예금조회</a></li>
                   </ul></li>
-               <li><a href="transfer_view.bank">계좌이체</a></li>
-               <li class="보안센터"><a href="#" class="dropdown-toggle"
+               <li><a href="transfer_view.bank"  id="headerA" >계좌이체</a></li>
+              <li class="active"><a href="laonNameList.bank"  id="headerA" >대출</a></li>
+              <li class="active"><a href="savings.bank?accountType=적금"  id="headerA" >적금</a></li>
+              <li class="active"><a href="accountTypeList.bank?page=1"  id="headerA" >상품정보</a></li>
+               <li class="보안센터"><a href="#"   id="headerA"  class="dropdown-toggle"
                   data-toggle="dropdown" role="button" aria-expanded="false">보안센터
                      <i class="fa fa-caret-down"></i>
                </a>
@@ -111,10 +104,10 @@
                      <li><a href="secure_reissue">보안카드 재발급</a></li>
                      <li><a href="secure_delete">보안카드 폐기</a></li>
                   </ul></li>
-               <li class="게시판"><a href="#" class="dropdown-toggle"
+               <li class="게시판"><a href="#"  id="headerA"  class="dropdown-toggle"
                   data-toggle="dropdown" role="button" aria-expanded="false">게시판
                      <i class="fa fa-caret-down"></i>
-               </a>	
+               </a>   
                   <ul class="dropdown-menu" role="menu">
                      <li><a href="notice_list.bank">공지사항</a></li>
                      <li><a href="QNA.bank">Q & A</a></li>
