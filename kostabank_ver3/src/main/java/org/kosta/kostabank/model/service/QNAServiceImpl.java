@@ -18,65 +18,83 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class QNAServiceImpl implements QNAService {
-@Resource
-private QNADAO qnaDAO;
-@Resource(name="pagingConfig")
-private Map<String,Integer> pagingConfig;
-/*@Resource(name = "uploadPath")
-private String uploadPath;*/
+	@Resource
+	private QNADAO qnaDAO;
+	@Resource(name = "pagingConfig")
+	private Map<String, Integer> pagingConfig;
 
-//목록 등록 (이메일로 자신것만 찾기위함)
-/* (non-Javadoc)
- * @see org.kosta.kostabank.model.service.QNAService#qnaList(java.lang.String, int)
- */
-@Override
-public QNAListVO qnaList(int page,String email){
-   HashMap<String, String> paramMap = new HashMap<String, String>();
-   String numOfCont = String.valueOf(pagingConfig.get("numberOfContent"));
-   String pageValue = String.valueOf(page);
-   paramMap.put("page", pageValue);
-   paramMap.put("numOfCont", numOfCont);
-   paramMap.put("email", email);
-   List<QNAVO> list = qnaDAO.qnaList(paramMap);
-   int total=qnaDAO.totalContent(email);
-   PagingBean paging = new PagingBean(total,page,pagingConfig);
-   QNAListVO Qlvo = new QNAListVO(list,paging);   
-   return Qlvo;
-}
-// (현재시간별)파일 첨부가 가능한 질문 등록
-/* (non-Javadoc)
- * @see org.kosta.kostabank.model.service.QNAService#qnaPosting(org.kosta.kostabank.model.vo.QNAVO)
- */
-@Override
-public void qnaPosting(QNAVO vo){
-   
-   String now = new SimpleDateFormat("yyyyMMdd_Hms").format(new Date());  
-   vo.setQnaFileAddress("kangbank/upload/"+ now+"_"+ vo.getUploadFile().getOriginalFilename());
-   MultipartFile file = vo.getUploadFile();
+	/*
+	 * @Resource(name = "uploadPath") private String uploadPath;
+	 */
 
-   if (!file.isEmpty()) {
-      qnaDAO.qnaPosting(vo);
-      File uploadFile = new File("C:\\Users\\kosta11\\git\\kostabank\\kostabank_ver3\\src\\main\\webapp\\kangbank\\upload\\" + now+"_"+file.getOriginalFilename());
-      try {
-         /*file.transferTo(uploadFile);
-         uploadFile.renameTo(newFile);*/
-         file.transferTo(uploadFile);
-         
+	// 목록 등록 (이메일로 자신것만 찾기위함)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.kosta.kostabank.model.service.QNAService#qnaList(java.lang.String,
+	 * int)
+	 */
+	@Override
+	public QNAListVO qnaList(int page, String email) {
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		String numOfCont = String.valueOf(pagingConfig.get("numberOfContent"));
+		String pageValue = String.valueOf(page);
+		paramMap.put("page", pageValue);
+		paramMap.put("numOfCont", numOfCont);
+		paramMap.put("email", email);
+		List<QNAVO> list = qnaDAO.qnaList(paramMap);
+		int total = qnaDAO.totalContent(email);
+		PagingBean paging = new PagingBean(total, page, pagingConfig);
+		QNAListVO Qlvo = new QNAListVO(list, paging);
+		return Qlvo;
+	}
 
-      } catch (Exception e) {
-         e.printStackTrace();
-      }
-   } else {
-      qnaDAO.qnaPosting(vo);
-   }
-}
-public QNAVO showContent(int qnaNo){
-   return qnaDAO.showContent(qnaNo);
-}
-public void rePosting(QNAVO vo){
-   qnaDAO.rePosting(vo);
-}
-public void deleteRe(int qnaNo){
-   qnaDAO.deleteRe(qnaNo);
-}
+	// (현재시간별)파일 첨부가 가능한 질문 등록
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.kosta.kostabank.model.service.QNAService#qnaPosting(org.kosta.kostabank
+	 * .model.vo.QNAVO)
+	 */
+	@Override
+	public void qnaPosting(QNAVO vo) {
+		String now = new SimpleDateFormat("yyyyMMdd_Hms").format(new Date());
+		System.out.println(vo.getUploadFile().getOriginalFilename());
+		if (vo.getUploadFile().getOriginalFilename().isEmpty()) {
+			vo.setQnaFileAddress("");
+		} else {
+			vo.setQnaFileAddress("kangbank/upload/" + now + "_"
+					+ vo.getUploadFile().getOriginalFilename());
+		}
+		MultipartFile file = vo.getUploadFile();
+
+		if (!file.isEmpty()) {
+			qnaDAO.qnaPosting(vo);
+			File uploadFile = new File(
+					"C:\\Users\\kosta\\git\\kostabank\\kostabank_ver3\\src\\main\\webapp\\kangbank\\upload\\"
+							+ now + "_" + file.getOriginalFilename());
+			try {
+				file.transferTo(uploadFile);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			qnaDAO.qnaPosting(vo);
+		}
+	}
+
+	public QNAVO showContent(int qnaNo) {
+		return qnaDAO.showContent(qnaNo);
+	}
+
+	public void rePosting(QNAVO vo) {
+		qnaDAO.rePosting(vo);
+	}
+
+	public void deleteRe(int qnaNo) {
+		qnaDAO.deleteRe(qnaNo);
+	}
 }

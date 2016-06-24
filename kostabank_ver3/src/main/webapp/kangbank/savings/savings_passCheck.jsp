@@ -21,16 +21,18 @@ $(document).ready(function(){
 	});
 });
 </script>
-<c:choose>
-<c:when test="${empty loginInfo}">
-<script type ="text/javascript">
-alert("로그인을 하셔야만 이용가능합니다");
-location.href="home.bank";
-</script>
-</c:when>
-</c:choose>
-<br>
-<h2>비밀번호 체크</h2>
-<br><br>
-<input id="passwordcheck" type = "password" name = "checkPass">&nbsp;&nbsp;&nbsp;&nbsp;
-<input type = "button" id = "checkBtn" value = "확  인">
+<div class="account_pass_check">
+	<c:choose>
+	<c:when test="${empty loginInfo}">
+	<script type ="text/javascript">
+	alert("로그인을 하셔야만 이용가능합니다");
+	location.href="home.bank";
+	</script>
+	</c:when>
+	</c:choose>
+	<br>
+	<h2>비밀번호 체크</h2>
+	<br><br>
+	<input id="account_pass_check1" type = "password" name = "checkPass">&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type = "button" id = "checkBtn" value = "확  인">
+</div>

@@ -1,7 +1,5 @@
 package org.kosta.kostabank.controller;
 
-import java.io.File;
-
 import javax.annotation.Resource;
 
 import org.kosta.kostabank.model.service.QNAService;
@@ -10,7 +8,6 @@ import org.kosta.kostabank.model.vo.QNAVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller

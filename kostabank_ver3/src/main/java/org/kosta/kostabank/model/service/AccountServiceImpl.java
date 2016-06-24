@@ -86,4 +86,8 @@ public class AccountServiceImpl implements AccountService {
 	public int deposit(AccountVO avo){
 		return accountDAO.deposit(avo);
 	}
+	@Override
+	public List<AccountVO> accountList2(String email) {
+		return accountDAO.accountList2(email);
+	}
 }

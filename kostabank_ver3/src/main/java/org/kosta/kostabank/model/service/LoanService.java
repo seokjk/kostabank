@@ -1,7 +1,6 @@
 package org.kosta.kostabank.model.service;
 
 import org.kosta.kostabank.model.vo.AccountTypeVO;
-import org.kosta.kostabank.model.vo.AccountVO;
 import org.kosta.kostabank.model.vo.CustomerVO;
 import org.kosta.kostabank.model.vo.LoanAccountVO;
 import org.kosta.kostabank.model.vo.LoanVO;
@@ -17,4 +16,6 @@ public interface LoanService {
 	LoanVO loanSuccess(CustomerVO cvo, LoanVO vo, AccountTypeVO avo);
 
 	LoanVO selectLoan(String accountNo);
+
+	void loanDepositDealDetail(LoanVO lvo);
 }

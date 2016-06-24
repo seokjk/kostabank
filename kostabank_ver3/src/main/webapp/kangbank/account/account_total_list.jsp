@@ -14,7 +14,7 @@
 	</tr>
 	<c:forEach var="accountTotalList" items="${requestScope.accountTotalList }">
 		<tr>
-			<td>${accountTotalList.accountNo }<br>
+			<td><a href="transfer_view.bank?withdrawAccount=${accountTotalList.accountNo}">${accountTotalList.accountNo }</a><br>
 					<!-- <input type="button" value="상세내역" id="detailBtn"> -->
 					<a href="deal_dealDetailByDate.bank?accountNo=${accountTotalList.accountNo }">상세내역</a>
 			</td>		

@@ -16,4 +16,6 @@ public interface TransferDAO {
 
 	int checkPw(int accountPass);
 
+	List<TransferVO> recentAccountNo(String accountNo);
+
 }

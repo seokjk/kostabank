@@ -104,35 +104,41 @@ $(document).ready(function(){
 	  </p>
 	  <input type = "button" id = "createBtn" value="계좌생성">
 	  </form>
-	 <!-- method = "post"  -->
-	<form method = "post" action = "createAccount.bank" id = "createForm">
-	 <table  id="createaccounttable">
-	 <tr>
-	<td align="center" width="20%">E-Mail</td><td><input class="no-border"  size="55" type = "email" name="customerVO.email" id="customerVO.email" value = "${loginInfo.email}" readonly="readonly"></td></tr>
-	<tr>
-	<td align="center" width="20%">
-	계좌 비밀번호</td><td><input class="no-border"  type ="password" name="accountPass" size="55"></td></tr>
-	<tr>
-	<td align="center" width="20%">
-	계좌 종류</td><td><select name="accountName" id="accountName"  class="no-border" >
-	<option class="no-border" value=""></option>
-	<c:forEach items="${tlist}" var="c">
-	<option value="${c.accountName}">${c.accountName}</option>
-	</c:forEach>
-	</select>
-	</td>
-	</tr>
-	<tr>
-	<td align="center" width="20%">기본금</td><td><input class="no-border" type = "text" name = "balance" size="55"></td>
-	</tr>
-	<tr>
-	<td  align="center" >
-	<input class="no-border" type ="submit" id = "conBtn" value="가입">
-	</td>
-	<td>
-	최소금액:
-	<span id = "createView"></span>
-	</td>
-	</table>
-	</form>
-</div>
+	  </div>
+	 
+	<div class="account_create_table">
+		<form method = "post" action = "createAccount.bank" id = "createForm">
+			<table>
+				<tr>
+					<th>E-Mail</th>
+					<td><input type = "email" name="customerVO.email" id="customerVO.email" value = "${loginInfo.email}" readonly="readonly" class="email"></td>
+				</tr>
+				<tr>
+					<th>계좌 비밀번호</th>
+					<td><input type ="password" name="accountPass"></td>
+				</tr>
+				<tr>
+					<th>계좌 종류</th>
+					<td>
+						<select name="accountName" id="accountName">
+							<option class="no-border" value=""></option>
+							<c:forEach items="${tlist}" var="c">
+								<option value="${c.accountName}">${c.accountName}</option>
+							</c:forEach>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>기본금</th>
+					<td><input type = "text" name = "balance"></td>
+				</tr>
+				<tr>
+					<th>최소금액:</th>
+					<td><span id = "createView"></span></td>
+			</table>
+			<br>
+			<div id="button1">
+				<input type ="submit" id = "conBtn" value="가입">
+			</div>
+		</form>
+	</div>

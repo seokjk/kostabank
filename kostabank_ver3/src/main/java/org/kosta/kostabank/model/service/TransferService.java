@@ -16,4 +16,6 @@ public interface TransferService {
 
 	int checkBal(String myaccountNo);
 
+	List<TransferVO> recentAccountNo(String accountNo);
+
 }

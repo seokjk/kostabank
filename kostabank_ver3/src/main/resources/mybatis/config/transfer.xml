@@ -4,5 +4,20 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="transfer">
-	
+	<select id="recentAccountNo" parameterType="string" resultType="transferVO">
+		<![CDATA[
+			select otherAccountNo, name as otherAccountName    
+			from	(select otherAccountNo, name     
+					from	(select	A.otherAccountNo, C.name, A.dealDate
+							from	kangbank_deal_detail A,
+									kangbank_account B,
+									kangbank_customer C
+							where C.email = B.email
+									AND B.accountNo = A.accountNo
+									AND A.accountNo=#{value}
+									and a.dealType='withdraw'
+							ORDER by A.dealDate desc)
+					GROUP by otherAccountNo, name)
+			where rownum<=10
+	]]></select>
 </mapper>

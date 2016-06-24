@@ -56,7 +56,6 @@ $(document).ready(function(){
 			alert("계좌조회 시작일은 마감일보다 늦을수 없습니다");
 			return false;
 		}
-		
 	});//form click1
 	
 	$("#dateForm :input[name=termInfo]").click(function(){
@@ -68,59 +67,67 @@ $(document).ready(function(){
 	});//form click2
 });//document
 </script>
+<div class="dealDetailByDate_result">
 <br>
-<h2>거래 내역</h2>
-<br>
-<p id="transferselect">
-${param.accountNo} 거래 내역
-<hr>
-</p>
-<h4>조회설정</h4><br>
+<h2>${param.accountNo} 거래 내역</h2>
+<h1>조회설정</h1><br>
 <form action="dealDetailByDate_result.bank" id="dateForm">
 <input type="hidden" name="accountNo" value="${param.accountNo}">
-<select id="select" name="dealType">
-   <option value="both" selected="selected">입/출금</option>
-    <option value="deposit">입금</option>
-    <option value="withdraw">출금</option>
-</select><hr>
-<input type="date" name="startDay" id="sd"> ~  <input type="date" name="endDay" id="ed">&nbsp;&nbsp;
-<input type="submit" value="조회" id = "chekcBtn1"><br><hr>
-<input type="hidden" name="page" value="1">
-  <p id="account_create">
-<input type="radio" name="termInfo" value="today">당일&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="radio" name="termInfo" value="oneMonth">1개월&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="radio" name="termInfo" value="threeMonth">3개월&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="radio" name="termInfo" value="sixMonth">6개월&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="radio" name="termInfo" value="oneYear">1년
-</p>
+<div class="dealDetailByDate_select">
+	<select id="select" name="dealType">
+		<option value="both" selected="selected">입/출금</option>
+	    <option value="deposit">입금</option>
+	    <option value="withdraw">출금</option>
+	</select>
+</div>
+<div class="dealDetailByDate_show">
+	<input type="date" name="startDay" id="sd"> ~  <input type="date" name="endDay" id="ed">&nbsp;&nbsp;
+	<input type="submit" value="조회" id = "chekcBtn1"><br>
+	<input type="hidden" name="page" value="1">
+</div>
+<div class="dealDetailByDate_radio">
+	<input type="radio" name="termInfo" value="today">당일&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="termInfo" value="oneMonth">1개월&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="termInfo" value="threeMonth">3개월&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="termInfo" value="sixMonth">6개월&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="termInfo" value="oneYear">1년
+</div>
 <span id="viewDetail"></span>
 </form>
-<hr><br>
-<table id="transferlist">
-<tr id="tr"><td align="center">No</td>
-<td align="center">이체 계좌명</td>
-<td align="center">입금</td>
-<td align="center">출금</td>
-<td align="center">거래일</td></tr>
-<c:forEach items="${requestScope.dvo.dealList}" var="list">
-<tr><td align="center">${list.dealNo}</td>
-<td align="center">${list.name}</td>
-<c:choose>
-<c:when test="${list.dealType=='deposit'}">
-<td align="center">${list.amountOfMoney}</td>
-<td></td>
-</c:when>
-<c:otherwise>
-<td></td>
-<td align="center">${list.amountOfMoney}</td>
-</c:otherwise>
-</c:choose>
-<td align="center">${list.dealDate}</td></tr>
-</c:forEach>
-</table>
+<br>
+<div class="dealDetailByDate_table">
+	<table>
+	<tr>
+		<th id="dealDetailByDate_th1">No</th>
+		<th id="dealDetailByDate_th1">이체 계좌명</th>
+		<th>입금</th>
+		<th>출금</th>
+		<th>거래일</th>
+	</tr>
+	<c:forEach items="${requestScope.dvo.dealList}" var="list">
+	<tr>
+		<td id="dealDetailByDate_td1">${list.dealNo}</td>
+		<td id="dealDetailByDate_td1">
+			<a href="transfer_view.bank?depositAccount=${list.accountNo }">${list.name}</a>
+		</td>
+		<c:choose>
+			<c:when test="${list.dealType=='deposit'}">
+				<td align="center">${list.amountOfMoney}</td>
+				<td></td>
+			</c:when>
+			<c:otherwise>
+				<td></td>
+				<td align="center">${list.amountOfMoney}</td>
+			</c:otherwise>
+		</c:choose>
+		<td align="center">${list.dealDate}</td>
+	</tr>
+	</c:forEach>
+	</table>
+</div>
 <%-- 코드를 줄이기 위해 pb 변수에 pagingBean을 담는다. --%>
 <br><br>
-   
+   <div id="paging">
    <c:set var="pb" value="${requestScope.dvo.pagingBean}"></c:set>
    <!-- 
          step2 1) 이전 페이지 그룹이 있으면 이미지 보여준다. (img/left_arrow_btn.gif)
@@ -164,3 +171,5 @@ ${param.accountNo} 거래 내역
    <a href="dealDetailByDate_result.bank?page=${pb.endPageOfPageGroup+1}&accountNo=<%=request.getParameter("accountNo")%>&dealType=<%=request.getParameter("dealType")%>&startDay=<%=request.getParameter("startDay")%>&endDay=<%=request.getParameter("endDay")%>">
    ▶<!-- <img src="img/right_arrow_btn.gif"> --></a>
    </c:if>
+   </div>
+</div>

@@ -40,6 +40,7 @@ public class CustomerController {
 			if (failCount <= 3) {
 				HttpSession session = request.getSession();
 				session.setAttribute("loginInfo", loginInfo);
+				customerService.failCountUpdate(loginInfo);
 				mv.setViewName("redirect:home.bank");
 			} else {
 				mv.setViewName("redirect:loginFailCount.bank?email=" + email1);

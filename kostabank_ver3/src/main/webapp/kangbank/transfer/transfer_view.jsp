@@ -8,13 +8,24 @@
 		location.href = "home.bank";
 	</script>
 </c:if>
-
 <script type="text/javascript">
 	$(document).ready(function(){ 
 		/*잔액표시*/
 		var balanceView;
 		var bartemp;
 		balanceView = document.getElementById("balanceView");
+		if($("#account").val()!=""){
+			$.ajax({
+				type:"post",
+				url:"checkBalance.bank",
+				data:"account="+$("#account").val(),
+				dataType:"json",
+				success:function(jsonData){
+						$("#balanceView").html("현재 잔액은 "+jsonData);
+						bartemp = jsonData;	
+				}
+			}); 
+		}
 		$("#account").change(function(){
 			var a= $("#account").val();
 			if(a==""){
@@ -124,11 +135,17 @@
 			}
 	
 		});
-		
+		$(":input[value=최근계좌]").click(function(){
+			if($("#account").val() == ""){
+				alert("출금 계좌번호를 선택하세요");
+				return false;
+			}
+			window.open("recentAccountNo.bank?accountNo="+$("#account").val(), "최근계좌", "width = 450, height = 450");
+		});
 	});
 </script>
 <div class="transfer_view">
-<form action="transfer_transfer.bank" method="post" id="transferForm" >
+<form name = "transferForm" action="transfer_transfer.bank" method="post" id="transferForm" >
 <br>
 	<h2>계좌이체</h2>
 	<br>
@@ -140,7 +157,14 @@
 			<td><select id="account" name="account" >
 					<option value="">계좌선택</option>
 						<c:forEach items="${requestScope.accountList }" var="ac">
+						<c:choose>
+						<c:when test="${withdrawAccount == ac.accountNo}">
+							<option value="${ac.accountNo}" selected="selected">${ac.accountNo}</option>
+						</c:when>
+						<c:otherwise>
 							<option value="${ac.accountNo}">${ac.accountNo}</option>
+						</c:otherwise>
+						</c:choose>
 						</c:forEach>
 				</select><br>
 				<span id="balanceView"></span>
@@ -166,20 +190,33 @@
 		<tr>
 			<th>입금은행</th>
 			<td>
-					<select id="bank" name="bank">
+				<select id="bank" name="bank">
 					<option value="">은행선택</option>
 					<option value="KANG">KANG BANK으로 입금하기</option>
 					<option value="SON">SON BANK으로 입금하기</option>
 					<option value="LA">LA BANK으로 입금하기</option>
 					<option value="YOO">YOO BANK으로 입금하기</option>
-					</select>
+				</select>
 			</td>
 			<th>입금계좌번호</th> 
-			<td><input type="text" name="otheraccountNo" id="otheraccountNo"></td>
+			<c:choose>
+			<c:when test="${requestScope.depositAccount!=null}">
+			<td><input type="text" name="otheraccountNo" id="otheraccountNo" value="${requestScope.depositAccount }"></td>
+			</c:when>
+			<c:otherwise>
+			<td>
+				<input type="text" name="otheraccountNo" id="otheraccountNo">&nbsp;&nbsp;
+				<input id="buttonAccount" type="button" value="최근계좌">
+			</td>
+			</c:otherwise>
+			</c:choose>
+			
 		</tr>
 	</table>
 	</div>
 	<br> 
+	<div class="transfer_view_button">
 	<input type="submit" id="securecheckBtn" value="보안카드확인">
+	</div>
 </form>
 </div>

@@ -20,4 +20,5 @@ public interface AccountService {
 	String checkOtherAccountName(String accountNo);
 	public int deposit(AccountVO accountVO);
 	int withdraw(AccountVO avo);
+	List<AccountVO> accountList2(String email);
 }

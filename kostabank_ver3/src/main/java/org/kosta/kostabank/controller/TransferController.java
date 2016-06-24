@@ -38,13 +38,20 @@ public class TransferController {
 	/////// dec : 계좌이체 페이지로 이동							///////
 	///////////////////////////////////////////////////////////////	
 	@RequestMapping("transfer_view.bank")
-	public ModelAndView transferview(HttpServletRequest request) {
+	public ModelAndView transferview(HttpServletRequest request,String depositAccount,String withdrawAccount) {
+		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession(false);
 		if (session == null || session.getAttribute("loginInfo") == null) {
-			return new ModelAndView("redirect:kangbank/templates/needLogin.jsp");
+			mav.setViewName("redirect:kangbank/templates/needLogin.jsp");
+			//return new ModelAndView("redirect:kangbank/templates/needLogin.jsp");
 		}
 		List<AccountVO> list = accountService.accountList(((CustomerVO) session.getAttribute("loginInfo")).getEmail());
-		return new ModelAndView("transfer_view", "accountList", list);
+		mav.setViewName("transfer_view");
+		mav.addObject("accountList",list);
+		mav.addObject("depositAccount", depositAccount);
+		mav.addObject("withdrawAccount",withdrawAccount);
+		//return new ModelAndView("transfer_view", "accountList", list);
+		return mav;
 	}
 
 	///////////////////////////////////////////////////////////////
@@ -116,6 +123,17 @@ public class TransferController {
 	@ResponseBody
 	public boolean checkPassword(AccountVO avo) {
 		return accountService.checkAccount(avo);
+	}
+	
+	///////////////////////////////////////////////////////////////
+	///////	title : recentAccountNo							///////
+	/////// dec : 최근입금계좌 리스트 출력						///////
+	///////////////////////////////////////////////////////////////	
+	@RequestMapping("recentAccountNo.bank")
+	public ModelAndView recentAccountNo(String accountNo) {
+		List<TransferVO> list = transferService.recentAccountNo(accountNo);
+		System.out.println(list);
+		return new ModelAndView("kangbank/transfer/transferBestList","blist", list);
 	}
 
 	@RequestMapping(value = "transferSecureCardCheck.bank", method = RequestMethod.POST)

@@ -21,21 +21,21 @@ location.href="home.bank";
  <div class="container">
 <table>
 <tr>
-<td>질문타입</td><td><input type = "text" name = "qnaType" value ="${qnaType}" readonly="readonly"></td>
+<td>질문타입</td><td><input type = "text" name = "qnaType" value ="${qvo.qnaType}" readonly="readonly"></td>
 </tr>
 <tr>
-<td>번호</td><td><input type = "text" name = "qnaNo" value="${qnaNo}" size="3" readonly="readonly"></td>
+<td>번호</td><td><input type = "text" name = "qnaNo" value="${qvo.qnaNo}" size="3" readonly="readonly"></td>
 </tr>
 <tr>
 <td>
-이름</td><td><input type = "text" name = "customerVO.name" value="관리자" readonly="readonly"></td>
+이름</td><td><input type = "text" name = "customerVO.name" value="${qvo.customerVO.name }" readonly="readonly"></td>
 </tr>
 <tr>                                
-<td>메일</td><td><input type ="text" name = "customerVO.email" value = "sungyounet@naver.com" readonly="readonly">
+<td>메일</td><td><input type ="text" name = "customerVO.email" value = "${qvo.customerVO.email }" readonly="readonly">
 </td>
 </tr>
 <tr>
-<td>번호</td><td><input type="text" name = "customerVO.tel" size="12" value = "01041982978" readonly="readonly"></td>
+<td>번호</td><td><input type="text" name = "customerVO.tel" size="12" value = "${qvo.customerVO.tel }" readonly="readonly"></td>
 </tr>
 <tr>
 <td>

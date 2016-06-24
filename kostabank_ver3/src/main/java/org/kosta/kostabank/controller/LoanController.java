@@ -46,12 +46,14 @@ public class LoanController {
 		ModelAndView mv = new ModelAndView();
 		CustomerVO vo = (CustomerVO) session.getAttribute("loginInfo");
 		List<AccountVO> alist = accountService.accountList(vo.getEmail());
+		List<AccountVO> alist2 = accountService.accountList2(vo.getEmail());
 		List<AccountTypeVO> atlist = accountService.findAccountByAccountName();
 		List<AccountTypeVO> atlist2 = accountTypeService.selectLoan();
 		String accountName = request.getParameter("temp");
 		LoanAccountVO lvo = loanTypeService.loanList(accountName);
 		mv.addObject("lvo", lvo);
 		mv.addObject("alist", alist);
+		mv.addObject("alist2", alist2);
 		mv.addObject("atlist", atlist);
 		mv.setViewName("loan_view");
 		return mv;
@@ -133,9 +135,9 @@ public class LoanController {
 		CustomerVO cvo = (CustomerVO) session.getAttribute("loginInfo");
 		AccountTypeVO avo = new AccountTypeVO();
 		avo.setAccountName(vo.getAccountName());
-		LoanVO lvo = loanService.loanSuccess(cvo, vo, avo);// 대출계좌 생성되면서 잔액에 원금이 들어감
-		accountService.deposit(new AccountVO(lvo.getInAccountNo(), lvo
-				.getBalance()));// 입금계좌에 대출금액들어감
+		LoanVO lvo = loanService.loanSuccess(cvo, vo, avo);// 대출계좌 생성되면서 잔액에 원금이
+															// 들어감
+		loanService.loanDepositDealDetail(lvo);
 		return ("redirect:loanredirect.bank?accountNo=" + lvo
 				.getLoanAccountNo());
 	}
@@ -145,5 +147,5 @@ public class LoanController {
 		LoanVO lvo = loanService.selectLoan(accountNo);
 		return new ModelAndView("loan_result", "lvo", lvo);
 	}
-	
+
 }

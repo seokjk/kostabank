@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <script type="text/javascript" src="${initParam.root}resources/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -69,36 +64,31 @@ $(document).ready(function(){
 	});//form click2
 });//document
 </script>
-</head>
-<body>
+<div class="dealDetailByDate_result">
 <br>
-<h2>거래 내역</h2>
-<br>
-<p id="transferselect">
-${param.accountNo} 거래 내역
-<hr>
-</p>
-
-<h4>조회설정</h4><br>
+<h2>${param.accountNo} 거래 내역</h2>
+<h1>조회설정</h1><br>
 <form action="dealDetailByDate_result.bank" id="dateForm">
 <input type="hidden" name="accountNo" value="${param.accountNo}">
-<select id="select" name="dealType">
-   <option value="both" selected="selected">입/출금</option>
-    <option value="deposit">입금</option>
-    <option value="withdraw">출금</option>
-</select><hr>
-<input type="date" name="startDay" id="sd"> ~  <input type="date" name="endDay" id="ed">&nbsp;&nbsp;
-<input type="submit" value="조회" id = "chekcBtn1"><br><hr>
+<div class="dealDetailByDate_select">
+	<select id="select" name="dealType">
+	   <option value="both" selected="selected">입/출금</option>
+	    <option value="deposit">입금</option>
+	    <option value="withdraw">출금</option>
+	</select>
+</div>
+<div class="dealDetailByDate_show">
+	<input type="date" name="startDay" id="sd"> ~  <input type="date" name="endDay" id="ed">&nbsp;&nbsp;
+	<input type="submit" value="조회" id = "chekcBtn1"><br>
+</div>
 <input type="hidden" name="page" value="1">
-  <p id="account_create">
-<input type="radio" name="termInfo" value="today">당일&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="radio" name="termInfo" value="oneMonth">1개월&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="radio" name="termInfo" value="threeMonth">3개월&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="radio" name="termInfo" value="sixMonth">6개월&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="radio" name="termInfo" value="oneYear">1년
-</p>
+<div class="dealDetailByDate_radio">
+	<input type="radio" name="termInfo" value="today">당일&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="termInfo" value="oneMonth">1개월&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="termInfo" value="threeMonth">3개월&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="termInfo" value="sixMonth">6개월&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="termInfo" value="oneYear">1년
 <span id="viewDetail"></span>
+</div>
 </form>
-<hr>
-</body>
-</html>
+</div>

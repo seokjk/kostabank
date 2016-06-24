@@ -49,6 +49,13 @@ public class TransferDAOImpl implements TransferDAO {
 	public int checkPw(int accountPass){
 		return template.selectOne("transfer.checkPw",accountPass);
 	}
+
+
+	@Override
+	public List<TransferVO> recentAccountNo(String accountNo) {
+		System.out.println(accountNo);
+		return template.selectList("transfer.recentAccountNo", accountNo);
+	}
 	
 
 }

@@ -35,39 +35,45 @@ location.href="home.bank";
 </script>
 </c:when>
 </c:choose>
+
+<div class="qnaInsert">
 <br>
 <h2>Q & A</h2>
 <br><br>
 <form action ="QNAPosting.bank" method = "post" enctype="multipart/form-data" id = "qnaForm">
-
+<div class="qnatable">
 <table id="qnatable">
+<thead>
 <tr>
-<td align="center" width="25%">
-이름</td><td><input type = "text" class="no-border" name ="customerVO.name" value = "${loginInfo.name}" readonly="readonly"></td></tr>
-<tr><td align="center" width="30%">email</td><td><input class="no-border" type = "text" name = "customerVO.email" value = "${loginInfo.email}" readonly="readonly"></td></tr>
-<tr><td align="center" width="30%">연락처</td><td><input class="no-border" type = "text" name = "customerVO.tel" value = "${loginInfo.tel}" readonly="readonly"></td></tr>
+<th align="center" >
+이름</th><td><input type = "text" class="no-border" name ="customerVO.name" value = "${loginInfo.name}"  readonly="readonly"></td></tr>
+<tr><th align="center" >email</th><td><input class="no-border" type = "text" name = "customerVO.email" value = "${loginInfo.email}" readonly="readonly"></td></tr>
+<tr><th align="center" >연락처</th><td><input class="no-border" type = "text" name = "customerVO.tel" value = "${loginInfo.tel}"  readonly="readonly"></td></tr>
 <tr>
-<td align="center" width="30%">
-질문 내용</td><td><select class="no-border"name = "qnaType" id="qnaType">
+<th align="center" >
+질문 내용</th><td><select class="no-border"name = "qnaType" id="qnaType">
 <option value = ""></option>
 <option value = "계좌이체 오류">계좌이체 오류</option>
 <option value = "계좌조회 오류">계좌조회 오류</option>
 <option value = "거래내역 오류">거래내역 오류</option>
 <option value = "상품문의">상품 문의</option>
 </select></td></tr>
+</thead>
+<tbody>
 <tr>
-<td align="center" width="30%">
+<td align="center" >
 제목</td><td><input  class="no-border"type = "text" name = "qnaTitle" size="93"></td></tr>
 <tr>
-<td align="center" width="30%">
-내용</td><td><textarea  class="no-border" cols="92" rows="15" name="qnaContent"></textarea></td></tr>
+<td align="center" >
+내용</td><td><textarea  class="content" style="resize: none;" cols="70" rows="13" name="qnaContent"></textarea></td></tr>
 <tr>
 <td></td>
 <td><input type = "file" name = "uploadFile"></td></tr>
+</tbody>
 <tr>
-<td class="no-border" align="center" width="30%">
+<td class="no-border" align="center" >
 개인정보 수집/<br>
-이용에 대한 동의</td><td><input type ="checkbox" id = "assent">동의합니다<br><textarea cols="92" rows="5" readonly="readonly">
+이용에 대한 동의</td><td><input type ="checkbox" id = "assent">동의합니다<br><textarea style="resize: none;" cols="70" rows="5" readonly="readonly">
 * 수집 항목 : 아이디, 이메일, 연락처
 * 수집 목적 : 서비스 이용에 따른 고객 문의, 불만처리, 오류해결 등 민원 처리 및 결과 회신
 * 보유 및 이용 기간 : 문의처리 후 5년간 보관
@@ -77,5 +83,6 @@ location.href="home.bank";
 <input type ="button" id = "qnaBtn" value = "목록">
 </td></tr>
 </table>
-
+</div>
 </form>
+</div>

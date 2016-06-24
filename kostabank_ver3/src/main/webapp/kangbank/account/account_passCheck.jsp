@@ -33,6 +33,6 @@ $(document).ready(function(){
 	<br>
 	<h2>비밀번호 체크</h2>
 	<br><br>
-	<input id="passwordcheck" type = "password" name = "checkPass">&nbsp;&nbsp;&nbsp;&nbsp;
+	<input id="account_pass_check1" type = "password" name = "checkPass">&nbsp;&nbsp;&nbsp;&nbsp;
 	<input type = "button" id = "checkBtn" value = "확  인">
 </div>

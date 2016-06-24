@@ -119,5 +119,10 @@ public class AccountDAOImpl implements AccountDAO {
 	public int withdraw(AccountVO avo) {
 		return template.update("account.withdraw", avo);
 	}
+	
+	@Override
+	public List<AccountVO> accountList2(String email) {
+		return template.selectList("account.accountList2", email);
+	}
 
 }

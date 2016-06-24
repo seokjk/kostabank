@@ -1,20 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+   <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#listBtn").click(function(){
-		location.href="qnaListRoad.bank?page=1&email=${qvo.customerVO.email}";
-	});
-	$("#subBoardBtn").click(function(){
-		location.href="qnaRePostingRoad.bank?qnaNo=${qvo.qnaNo}&qnaType=${qvo.qnaType}";
-	});
-	$("#deleteBoardBtn").click(function(){
-		if(confirm("삭제하시겠습니까?")){
-			location.href="deleteRe.bank?qnaNo=${qvo.qnaNo}&email=${qvo.customerVO.email}";
-		}
-	});
+   $("#listBtn").click(function(){
+      location.href="qnaListRoad.bank?page=1&email=${qvo.customerVO.email}";
+   });
+   $("#subBoardBtn").click(function(){
+      location.href="qnaRePostingRoad.bank?qnaNo=${qvo.qnaNo}&qnaType=${qvo.qnaType}";
+   });
+   $("#deleteBoardBtn").click(function(){
+      if(confirm("삭제하시겠습니까?")){
+         location.href="deleteRe.bank?qnaNo=${qvo.qnaNo}&email=${qvo.customerVO.email}";
+      }
+   });
 });
 
 </script>
@@ -35,15 +35,18 @@ $(document).ready(function(){
 <tr>
 <td colspan="2">${qvo.qnaTitle}</td>
 </tr>
-<c:if test="${qvo.qnaFileAddress != 'kangbank/upload/'}">
 <tr>
-<td colspan="3"><pre>${qvo.qnaContent}</pre><br><img src="${initParam.root}${qvo.qnaFileAddress}"></td>
+<td colspan="3"><pre>${qvo.qnaContent}</pre><br></td>
+</tr>
+<c:if test="${!empty qvo.qnaFileAddress}">
+<tr>
+<td>
+<img src="${initParam.root}${qvo.qnaFileAddress}"></td>
 </tr>
 </c:if>
 <tr>
 <td colspan="3" align="center">
 <input type = "button" id= "listBtn" value = "목록" >
-<input type = "button" id= "subBoardBtn" value = "답글">
 <input type = "button" id = "deleteBoardBtn" value ="삭제">
 </td>
 </tr>

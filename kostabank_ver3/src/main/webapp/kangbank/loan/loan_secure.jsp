@@ -83,81 +83,86 @@
 		});
 	});
 </script>
-
-<br>
-<h2>대출 정보</h2>
-<br><br>
-<form id="loanForm" action="loansuccess.bank" method="post">
-<table class="transferinfo" >
-	<thead>
-		<tr id="tr">
-			<td>선택상품</td>
-			<td>입금계좌</td>
-			<td>출금계좌</td>
-			<td>대출금액</td>
-			<td>상환기간</td>
-			<td>거치기간</td>
-		</tr>
-	</thead>
-	<tbody>
+<div class="secure_css">
+	<form id="loanForm" action="loansuccess.bank" method="post">
+	<br>
+	<h2>대출 정보</h2>
+	<br><br>
+	<table>
+		<thead>
+			<tr>
+				<th>선택상품</th>
+				<th>입금계좌</th>
+				<th>출금계좌</th>
+				<th id="balance_th">대출금액</th>
+				<th id="term_th">상환기간</th>
+				<th id="term_th">거치기간</th>
+			</tr>
+		</thead>
+		<tbody>
 			<tr>
 				<td><input type="hidden" name="accountName" value="${param.goods}">${param.goods}</td>
 				<td><input type="hidden" name="inAccountNo" value="${param.inAccountNo}">${param.inAccountNo}</td>
 				<td><input type="hidden" name="outAccountNo" value="${param.outAccountNo}">${param.outAccountNo}</td>
-				<td><input type="hidden" name="balance" value="${param.overdue}">${param.overdue}</td>
-				<td><input type="hidden" name="repayTerm" value="${param.repayTerm}">${param.repayTerm}</td>
-				<td><input type="hidden" name="stayTerm" value="${param.stayTerm}">${param.stayTerm}</td>
+				<td id="balance_td"><input type="hidden" name="balance" value="${param.overdue}">${param.overdue}</td>
+				<td id="term_td"><input type="hidden" name="repayTerm" value="${param.repayTerm}">${param.repayTerm}</td>
+				<td id="term_td"><input type="hidden" name="stayTerm" value="${param.stayTerm}">${param.stayTerm}</td>
 			</tr>
-	</tbody>
-</table>
-</form>
-<br>
-<p style="color:red;,font-weight: bold;">
-※고객님이 입력하신 대출정보입니다.<br>
-    최종거래 전에 입금 은행 계좌번호와 이체금액, 받는분 성함을 다시 확인하여 주시기 바랍니다. 
-</p>
-
-<hr>
-<br>
-<table class="securecheck">
-	<tr id="tr"><td colspan="10">KANGBANK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO.123456789</td></tr>
-	<c:forEach begin="1" end="6" step="1">
-		<tr>
-			<c:forEach begin="1" end="5" step="1">
-				<td><%=num%></td>
-					<%if(f+1==num){ %>
-						<td bgcolor="yellow">□□**</td>
-					<%}else if(s+1==num){ %>
-						<td  bgcolor="yellow">**□□</td>
-					<%}else{%>
-						<td>* * * *</td>
-					<%} %>
-						<%num=num+1; %>
+		</tbody>
+	</table>
+	</form>
+	<br>
+	<p style="color:red;,font-weight: bold;">
+	※고객님이 입력하신 대출정보입니다.<br>
+	    최종거래 전에 입금 은행 계좌번호와 이체금액, 받는분 성함을 다시 확인하여 주시기 바랍니다. 
+	</p>
+	<br>
+	<div>
+		<table class="secureTable">
+			<tr><th colspan="10">KANGBANK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO.123456789</th></tr>
+			<c:forEach begin="1" end="6" step="1">
+				<tr>
+					<c:forEach begin="1" end="5" step="1">
+						<td><%=num%></td>
+							<%if(f+1==num){ %>
+								<td bgcolor="yellow">□□**</td>
+							<%}else if(s+1==num){ %>
+								<td  bgcolor="yellow">**□□</td>
+							<%}else{%>
+								<td>* * * *</td>
+							<%} %>
+								<%num=num+1; %>
+					</c:forEach>
+				</tr>
 			</c:forEach>
-		</tr>
-	</c:forEach>
-</table>
-<br><br>
-<form id="loansecurecheck" method="post">
-<input type="hidden" name="f" value="<%=f+1%>">
-<input type="hidden" name="s" value="<%=s+1%>">
-<table id="securecheckinput">
+		</table>
+	</div>
+	<br><br>
+	<form id="loansecurecheck" method="post">
+	<input type="hidden" name="f" value="<%=f+1%>">
+	<input type="hidden" name="s" value="<%=s+1%>">
+	<div id="secureTable2">
+	<table>
 	<tr>
-		<td><%=f+1%>번째 암호 중 앞 두자리</td>
+		<th><%=f+1%>번째 암호 중 앞 두자리</th>
 		<td ><input  class="blueborder" type="text" id="dlf" name="dlf" size="1"></td>
 		<td ><input  class="blueborder"  type="text" id="dl" name="dl" size="1"></td>
 		<td><input class="no-border" type="text" size="1"  value="    *" readonly></td>
 		<td><input class="no-border" type="text" size="1" value="    *" readonly></td>
 	</tr>
 	<tr>
-		<td><%=s+1%>번째 암호 중 뒤 두자리</td>
+		<th><%=s+1%>번째 암호 중 뒤 두자리</th>
 		<td><input class="no-border" type="text" size="1" value="    *" readonly></td>
 		<td><input class="no-border" type="text" size="1" value="    *" readonly></td>
 		<td><input class="blueborder"  type="text" id="tka" name="tka" size="1"></td>
 		<td><input class="blueborder"  type="text" id="tk" name="tk" size="1"></td>
 	</tr>
 </table>
+</div>
 <br><br>
-<input type="button" id="loanBtn" value="대출하기">&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" id="cancle" value="대출취소">
+<div class="button_location">
+	<input type="button" id="loanBtn" value="대출하기">&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="button" id="cancle" value="대출취소">
+</div>
 </form>
-    
+</div>

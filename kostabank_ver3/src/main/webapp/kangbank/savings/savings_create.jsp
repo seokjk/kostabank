@@ -49,7 +49,7 @@ $(document).ready(function(){
 			$("#createForm :input[name=monthlyPayment]").val("");
 			return false;
 		}if(!isNaN($("#createForm :input[name=monthlyPayment]").val())){
-			if($("#createForm :input[name=monthlyPayment]").val()<minMoney){
+			if($("#createForm :input[name=monthlyPayment]").val()>=minMoney){
 				alert("월당 이체금액은 "+minMoney+"원 보다 커야 합니다");
 				$("#createForm :input[name=monthlyPayment]").val("");
 				return false;
@@ -75,7 +75,7 @@ $(document).ready(function(){
 	});//savingsTerm change
 });
 </script>
-<body>
+<div class="savings_create">
 <br>
 <h2>계좌생성</h2>
 <br><br>
@@ -117,55 +117,71 @@ location.href = "home.bank";
   동의&nbsp;&nbsp;<input type = "radio" name = "consent" value="assent">&nbsp;&nbsp;&nbsp;&nbsp;
   미동의&nbsp;&nbsp;<input type = "radio" name = "consent" value = "unassent"><br><br>
   </p>
-  <input type = "button" id = "createBtn" value="이  동">
+  <input type = "button" id = "createBtn" value="적금생성">
   </form>
- <form id="createForm" action="endingSavingsForm.bank">
-<!-- <form id="createForm" action="savingsSecure.bank"> -->
- <table>
- <tr>
- <td>패스워드<input type="password" name="savingsPass"></td>
- </tr>
- <tr>
- <td>자동이체 계좌번호<select name="automaticNo">
- <option value="">계좌선택</option>
- <c:forEach items="${requestScope.list }" var="list" >
- <option value="${list.accountNo }">${list.accountNo }</option>
- </c:forEach>
- </select>
- </td>
- </tr>
- <tr>
- <td>적금이름<input type="text" name="savingsName" value="${requestScope.accountName}" readonly="readonly"></td>
- </tr>
- <tr>
- <td>계약기간<select name="accountSeq">
- <option value="">기간 선택</option>
- <c:forEach items="${requestScope.list2 }" var="list">
-<option value="${list.accountSeq}">${list.term}</option>
-</c:forEach>
- </select>
- <%-- <input type="hidden" name="accountSeq" value="${requestScope.list2.accountSeq }"> --%>
- </td></tr>
- <tr>
- <td>금리<span id="savingsRate" name="savingsRate"></span>%
- <input type="hidden" name="rates" value="${savingsRate }"></td>
- </tr>
- <tr>
- <td>월당 이체 금액<input type="text" name="monthlyPayment"></td>
- </tr>
- <tr>
- <td>환급 계좌번호<select name="paybackNo">
- <option value="">계좌선택</option>
- <c:forEach items="${requestScope.list }" var="list" >
- <option value="${list.accountNo }">${list.accountNo }</option>
- </c:forEach>
- </select>
- </td>
-</tr>
-<tr>
-<td><input type="submit" value="적금생성" id="createSavings"></td>
-</tr>
- </table>
- </form>
-</body>
-</html>
+  </div>
+  
+<div class="savings_create_table">
+	<form id="createForm" action="endingSavingsForm.bank">
+	<table>
+		<tr>
+			<th>패스워드</th>
+			<td><input type="password" name="savingsPass"></td>
+ 	    </tr>
+ 		<tr>
+ 			<th>자동이체 계좌번호</th>
+ 			<td>
+ 				<select name="automaticNo">
+	 				<option value="">계좌선택</option>
+	 				<c:forEach items="${requestScope.list }" var="list" >
+	 					<option value="${list.accountNo }">${list.accountNo }</option>
+	 				</c:forEach>
+ 				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>적금이름</th>
+			<td>
+				<input type="text" name="savingsName" value="${requestScope.accountName}" readonly="readonly">
+			</td>
+ 		</tr>
+ 		<tr>
+ 			<th>계약기간</th>
+ 			<td>
+ 				<select name="accountSeq">
+	 				<option value="">기간 선택</option>
+	 				<c:forEach items="${requestScope.list2 }" var="list">
+						<option value="${list.accountSeq}">${list.term}</option>
+					</c:forEach>
+ 				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>금리</th>
+			<td>
+				<span id="savingsRate" name="savingsRate"></span>%
+ 				<input type="hidden" name="rates" value="${savingsRate }">
+ 			</td>
+ 		</tr>
+ 		<tr>
+ 			<th>월당 이체 금액</th>
+ 			<td>
+ 				<input type="text" name="monthlyPayment">
+ 			</td>
+ 		</tr>
+ 		<tr>
+ 			<th>환급 계좌번호</th>
+ 			<td>
+ 				<select name="paybackNo">
+ 					<option value="">계좌선택</option>
+ 					<c:forEach items="${requestScope.list }" var="list" >
+ 						<option value="${list.accountNo }">${list.accountNo }</option>
+ 					</c:forEach>
+ 				</select>
+ 			</td>
+		</tr>
+	</table>
+	<br>
+ 	<input type="submit" value="적금생성" id="createSavings">
+	</form>
+</div>

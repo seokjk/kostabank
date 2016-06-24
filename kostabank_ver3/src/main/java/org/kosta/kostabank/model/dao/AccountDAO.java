@@ -27,5 +27,5 @@ public interface AccountDAO {
 	int deposit(AccountVO avo);
 	int withdraw(DealDetailVO dvo);
 	int withdraw(AccountVO avo);
-
+	List<AccountVO> accountList2(String email);
 }

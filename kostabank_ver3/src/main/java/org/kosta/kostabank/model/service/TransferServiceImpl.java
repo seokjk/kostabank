@@ -40,6 +40,11 @@ public class TransferServiceImpl implements TransferService {
 		return transferDAO.checkBal(myaccountNo);
 	}
 
+	@Override
+	public List<TransferVO> recentAccountNo(String accountNo) {
+		return transferDAO.recentAccountNo(accountNo);
+	}
+
 	
 
 }

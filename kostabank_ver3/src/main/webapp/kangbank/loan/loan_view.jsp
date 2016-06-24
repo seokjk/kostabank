@@ -41,36 +41,34 @@
                return false;
             }
          });
-         
-      });
-      
-      /*form 입력란*/
-      $("#loanForm").submit(function(){
-         if ($(":input[name='goods']").val().trim()=="") {
-            alert("상품을 선택하세요");
-            return false;
-         }
-         if ($(":input[name='inAccountNo']").val().trim()=="") {
-            alert("입금될 계좌를 선택하세요");
-            return false;
-         }
-         if ($(":input[name='outAccountNo']").val().trim()=="") {
-            alert("지출될 계좌를 선택하세요");
-            return false;
-         }
-         if ($(":input[name='overdue']").val().trim()=="") {
-            alert("대출금액을 선택하세요");
-            return false;
-         }
-         if ($(":input[name='repayTerm']").val().trim()=="") {
-            alert("상환기간을 제대로 적어주세요");
-            return false;
-         }
-         if ($(":input[name='stayTerm']").val().trim()=="") {
-            alert("거치기간을 제대로 적어주세요");
-            return false;
-         }
-      
+         /*form 입력란*/
+         $("#securecheckBtn").click(function(){
+            if ($(":input[name='goods']").val().trim()=="") {
+               alert("상품을 선택하세요");
+               return false;
+            }
+            if ($(":input[name='inAccountNo']").val().trim()=="") {
+               alert("입금될 계좌를 선택하세요");
+               return false;
+            }
+            if ($(":input[name='outAccountNo']").val().trim()=="") {
+               alert("지출될 계좌를 선택하세요");
+               return false;
+            }
+            if ($(":input[name='overdue']").val().trim()=="") {
+               alert("대출금액을 선택하세요");
+               return false;
+            }
+            if ($(":input[name='repayTerm']").val().trim()=="") {
+               alert("상환기간을 제대로 적어주세요");
+               return false;
+            }
+            if ($(":input[name='stayTerm']").val().trim()=="") {
+               alert("거치기간을 제대로 적어주세요");
+               return false;
+            }
+            $("#loanForm").submit();
+         });
    });
 </script> 
 <div class="loanView">
@@ -102,7 +100,7 @@
          <td>
             <select  class="no-border" id="outAccountNo" name="outAccountNo" >
                <option value="" >계좌선택</option>
-                  <c:forEach items="${requestScope.alist }" var="ac">
+                  <c:forEach items="${requestScope.alist2 }" var="ac">
                      <option value="${ac.accountNo}">${ac.accountNo}</option>
                   </c:forEach>
             </select>
@@ -129,7 +127,9 @@
    </table>
    </div>
    <br>
-   <input type="submit" id="securecheckBtn" value="보안카드확인">
+   <div id="passBtn">
+   <input type="button" id="securecheckBtn" value="보안카드확인">
+   </div>
 </form>
 </div>
     
