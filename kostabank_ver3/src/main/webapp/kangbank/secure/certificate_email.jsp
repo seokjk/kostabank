@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link rel="stylesheet" type="text/css"
+	href="${initParam.root}kangbank/kangcss/home.css">
 <script type="text/javascript" src="${initParam.root}resources/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -41,5 +43,8 @@ $(document).ready(function() {
 });
 </script>
 <form>
-<input type = "text" name = "certificate"><input type = "button" value = "인증확인">
+<div class="certificate_btn">
+	<input type = "text" name = "certificate">
+	<input type = "button" value = "인증확인">
+</div>
 </form>

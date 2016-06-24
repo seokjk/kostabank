@@ -20,7 +20,8 @@ $(document).ready(function(){
 	});
 });
 </script>
-
-	<h2>비밀번호 체크</h2>
-	<input type = "password" name = "checkPass"><br>
+<div class="account_pass_check">
+	<h2>비밀번호 체크</h2><br>
+	<input type = "password" name = "checkPass" id="account_pass_check1">
 	<input type = "button" id = "checkBtn" value = "확인">
+</div>

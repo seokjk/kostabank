@@ -77,7 +77,7 @@ $(document).ready(function(){
 </script>
 <div class="savings_create">
 <br>
-<h2>계좌생성</h2>
+<h2>적금생성</h2>
 <br><br>
 <c:choose>
 <c:when test="${empty loginInfo}">

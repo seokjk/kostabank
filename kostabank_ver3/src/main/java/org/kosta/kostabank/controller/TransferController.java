@@ -42,7 +42,7 @@ public class TransferController {
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession(false);
 		if (session == null || session.getAttribute("loginInfo") == null) {
-			mav.setViewName("redirect:kangbank/templates/needLogin.jsp");
+			return new ModelAndView("redirect:kangbank/templates/needLogin.jsp");
 			//return new ModelAndView("redirect:kangbank/templates/needLogin.jsp");
 		}
 		List<AccountVO> list = accountService.accountList(((CustomerVO) session.getAttribute("loginInfo")).getEmail());

@@ -43,9 +43,9 @@ $(document).ready(function(){
 <div class="findPass">
 <table>
       <tr>
-         <th>아이디</th>
+         <th>이메일</th>
          <td colspan="3"><input type ="email" name ="email">
-         <input type = "button" value = "아이디찾기" name="findId"></td>
+         <input type = "button" value = "이메일찾기" name="findId" id="emailBtn"></td>
       </tr>
       <tr>
          <th>출금 계좌번호</th>

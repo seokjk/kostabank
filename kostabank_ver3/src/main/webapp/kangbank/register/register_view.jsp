@@ -101,7 +101,7 @@ $(document).ready(function() {
          <th>email</th>
          <td>
             <input type = "email" name = "email">
-            <input type = "button" value = "인증하기"><br>
+            <input type = "button" value = "인증하기" id="emailBtn"><br>
             <span id="emailCheck"></span>
          </td>
       </tr>
