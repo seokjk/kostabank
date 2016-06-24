@@ -21,34 +21,39 @@
     		}
     	});
     	$("#resetBtn").click(function(){    		
-    		$("#write_form")[0].reset();
+    		if(confirm("취소하시겠습니까?"))
+          	location.href="notice_list.bank"; 
     	});
     });	
 </script>
 
-
+<div class="noticeWrite">
+<br>
+<h2>글쓰기</h2>
+<br><br>
   <form action="${initParam.root}notice_write.bank" method="post" id="write_form">
    <table class="inputForm" >
-    <caption>글쓰기</caption>
-    <tbody>
+    <thead>
     <tr>
-     <td>제목</td>
-     <td colspan="3">
-     <input type="text" id="title" name="title" size="48">
+     <td width="20%">제목</td>
+     <td width="80%">
+     <input type="text" id="title" name="title" size="80">
      </td>
     </tr>
     <tr>
      <td>이름</td>
      <td>${sessionScope.loginInfo.name}</td>     
     </tr>
+	</thead>
+    <tbody>
     <tr>
-     <td colspan="4" align="left">
+     <td colspan="2" align="left">
      &nbsp;&nbsp;
-     <textarea cols="53" rows="15" id="content" name="content"></textarea>
+     <textarea cols="105" rows="13" id="content" name="content"></textarea>
      </td>
     </tr> 
     <tr>
-     <td colspan="4" align="center" >
+     <td colspan="2" align="center" >
       <img id="writeBtn" class="action" src="${initParam.root}img/write_btn.jpg" alt="글입력"  onclick="content_submit()">
       <img id="resetBtn" class="action" src="${initParam.root}img/cancel.gif" onclick="cancel()">      
      </td>  
@@ -56,4 +61,4 @@
     </tbody>
    </table>
   </form>
-  
+  </div>

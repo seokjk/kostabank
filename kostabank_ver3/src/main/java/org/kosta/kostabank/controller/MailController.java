@@ -21,6 +21,7 @@ public class MailController {
 	private JavaMailSender mailSender;
 	@Resource
 	private CustomerService customerService;
+	
 	@RequestMapping(value = "certificateEmail.bank", method = RequestMethod.POST)
 	@ResponseBody
 	public String certificateEmail(String email, HttpServletRequest request) {

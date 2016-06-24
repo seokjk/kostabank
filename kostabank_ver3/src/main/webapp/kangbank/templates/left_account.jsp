@@ -85,9 +85,6 @@ $(document).ready(function() {
    <td>&nbsp;&nbsp;&nbsp;
          <a href= "customer_updatePassCheck.bank">회원정보수정</a>&nbsp;&nbsp;&nbsp;
    </td>
-   <td>&nbsp;&nbsp;&nbsp;
-         <a href = "accountType_reday.bank">상품 만들기</a>&nbsp;&nbsp;&nbsp;
-   </td>
 </tr>
 </table>
 </c:otherwise>

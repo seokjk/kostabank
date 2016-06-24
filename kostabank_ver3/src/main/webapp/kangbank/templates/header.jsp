@@ -100,9 +100,18 @@
                      <i class="fa fa-caret-down"></i>
                </a>
                   <ul class="dropdown-menu" role="menu">
-                     <li><a href="secure_register"">보안카드 발급</a></li>
+                  <c:choose>
+                  <c:when test="${empty sessionScope.loginInfo}">
+                     <li><a href="${initParam.root}kangbank/templates/needLogin.jsp">보안카드 발급</a></li>
+                     <li><a href="${initParam.root}kangbank/templates/needLogin.jsp">보안카드 재발급</a></li>
+                     <li><a href="${initParam.root}kangbank/templates/needLogin.jsp">보안카드 폐기</a></li>
+                  </c:when>
+                  <c:otherwise>
+                     <li><a href="secure_register">보안카드 발급</a></li>
                      <li><a href="secure_reissue">보안카드 재발급</a></li>
                      <li><a href="secure_delete">보안카드 폐기</a></li>
+                  </c:otherwise>
+                  </c:choose>
                   </ul></li>
                <li class="게시판"><a href="#"  id="headerA"  class="dropdown-toggle"
                   data-toggle="dropdown" role="button" aria-expanded="false">게시판

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<link rel="stylesheet" href="${initParam.root}kangbank/kangcss/notice.css" type="text/css"> 
 <script src="${initParam.root}resources/jquery-1.12.4.min.js"></script>
 
     
@@ -23,33 +22,34 @@
 </head>
 <body>
 <br>
+<div class="noticeShowContents">
 <h2>공지사항</h2><br><br>
 	<table id="showcontents">
+		<thead>
 		<tr id="noticetr">
-			<td>NO : ${requestScope.nvo.no } </td>
-			<td colspan="2">${requestScope.nvo.title} </td>
+			<td width="20%">NO : ${requestScope.nvo.no } </td>
+			<td rowspan="2">${requestScope.nvo.title} </td>
+			<td width="20%">조회수 : ${requestScope.nvo.hits }</td>
 		</tr>
 		<tr id="noticetr">
 			<td>작성자 :  ${requestScope.nvo.customerVO.name }</td>
-			<td> ${requestScope.nvo.timePosted }</td>
-			<td>조회수 : ${requestScope.nvo.hits }</td>
+			<td>${requestScope.nvo.timePosted }</td>
 		</tr>
+		</thead>
+		<tbody>
 		<tr>
-		
-			<td colspan="3">
+			<td colspan="3" >
 			<pre>${requestScope.nvo.content}</pre>
 			</td>
 		</tr>
-		
+		</tbody>
 	</table>
 	<br>
-
-
-			 <img id="listImg" class="action" src="${initParam.root}img/list_btn.jpg" onclick="sendList()" >&nbsp;&nbsp;
+		<div class="select">
+			 <img id="listImg" class="action" src="${initParam.root}img/list_btn.jpg" onclick="sendList()" style="cursor:pointer">&nbsp;&nbsp;
 			 <c:if test="${requestScope.nvo.customerVO.email==sessionScope.loginInfo.email}">
-			 <img id="deleteImg" class="action"  src="${initParam.root}img/delete_btn.jpg" >&nbsp;&nbsp;
-			 <img id="updateImg" class="action"  src="${initParam.root}img/modify_btn.jpg" >&nbsp;&nbsp;
-			 
-
+			 <img id="deleteImg" class="action"  src="${initParam.root}img/delete_btn.jpg" style="cursor:pointer">&nbsp;&nbsp;
+			 <img id="updateImg" class="action"  src="${initParam.root}img/modify_btn.jpg" style="cursor:pointer">&nbsp;&nbsp;
 			 </c:if>	
-		
+		 </div>
+</div>		

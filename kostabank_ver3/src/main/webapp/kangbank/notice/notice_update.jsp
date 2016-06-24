@@ -32,29 +32,34 @@
     
     
     
-
+<div class="noticeUpdate">
+<br>
+<h2>공지사항</h2>
+<br><br>
 <form method="post" id="updateForm" action="${initParam.root}notice_updateNotice.bank">
 	<table class="content">
-	<tr>
-		<td>
-			<table>
-				<tr>
+				<tr id="contr">
 					<td>
-					글번호: <input type=text name=no value=${nvo.no } readonly></input>
-					| 타이틀:<input type=text id=title name=title value=${nvo.title }></input>					
+						글번호
+					</td>
+					<td>
+						<input type=text name=no value=${nvo.no } size=48 readonly ></input>			
+					</td>
+					<td>
+						타이틀
+					</td>
+					<td>
+						<input type=text id=title name=title value=${nvo.title } size=48></input>	
 					</td>
 				<tr>
-					<td>						
-	<textarea rows="15" cols="75" id="content" name="content">${nvo.content }</textarea>
+					<td colspan=4>						
+						<textarea rows="19" cols="129" id="content" name="content">${nvo.content }</textarea>
 					</td>
 				</tr>
-				<tr>
-				<td valign="middle">						
-					<input type="submit" value="수정하기" class="action"></input>			
-					</td>				
-				</tr>
+
+				<caption align="bottom">
+				<input type="submit" value="수정하기" class="action"></input>
+				</caption>
 			</table>
-		</td>
-	</tr>
-</table>
 </form>	    
+</div>

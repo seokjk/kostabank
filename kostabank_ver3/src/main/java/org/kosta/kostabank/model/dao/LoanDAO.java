@@ -8,10 +8,6 @@ import org.kosta.kostabank.model.vo.LoanVO;
 
 public interface LoanDAO {
    
-   List<String> loanNameList();
-
-   LoanAccountVO loanList(String accountName);
-   
    int checkLoan(int maxMoney);
 
    LoanAccountVO loanData(String name);

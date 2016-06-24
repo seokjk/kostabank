@@ -5,23 +5,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="savings">
 <select id="savingsProductlist" resultType="accountTypeVO">
-	select accountName from kangbank_account_type where accountType=#{value} order by accountName asc
+   select accountName from kangbank_account_type where accountType=#{value} order by accountName asc
 </select>
-	<resultMap type="accountRatesVO" id="accountTypeRM">
-		<result property="accountTypeVO.accountExplanation" column="accountExplanation" />
-		<result property="accountTypeVO.minMoney" column="minMoney" />
-		<result property="accountTypeVO.accountType" column="accountType" />
-		<result property="accountTypeVO.accountName" column="accountName" />
-	</resultMap>
+   <resultMap type="accountRatesVO" id="accountTypeRM">
+      <result property="accountTypeVO.accountExplanation" column="accountExplanation" />
+      <result property="accountTypeVO.minMoney" column="minMoney" />
+      <result property="accountTypeVO.accountType" column="accountType" />
+      <result property="accountTypeVO.accountName" column="accountName" />
+   </resultMap>
 <select id = "accountNameFindAccountList" resultType="accountRatesVO" resultMap="accountTypeRM">
 select a.accountName,a.accountType,a.minMoney,a.accountExplanation,r.accountSeq,r.rates,r.term
 from (select accountName,rates,term,accountSeq 
-	  from kangbank_account_rates 
-	  order by ratesMonth desc ) r,
-	  		 kangbank_account_type a ,
-  	  (select max(rates) as rates
- 	  from kangbank_account_rates 
- 	  where accountName =#{value}) b
+     from kangbank_account_rates 
+     order by ratesMonth desc ) r,
+            kangbank_account_type a ,
+       (select max(rates) as rates
+      from kangbank_account_rates 
+      where accountName =#{value}) b
 where a.accountName=r.accountName and a.accountName=#{value} and r.rates = b.rates
 </select>
 <select id="getRatesByTerm" resultType="double" >
@@ -48,5 +48,119 @@ where A.accountName=B.accountName and B.accountType='적금' and A.accountName=#
 select term from kangbank_account_rates
 where accountSeq=#{accountSeq}
 </select>
+<update id="deposit">
+update kangbank_account K
+set K.balance = DECODE(   (select   sign(add_Months(A.issueDate, B.term)-sysdate)
+                        from   kangbank_account A,
+                              kangbank_account_rates B,
+                              kangbank_savings C
+                        where C.accountNo = A.accountNo
+                              AND B.accountSeq = C.accountSeq
+                              AND A.accountNo = K.accountNo),
+                        -1,
+                        K.balance,
+                        DECODE(   (select sign(B.balance-A.monthlyPayment)
+                                 from   kangbank_savings A,
+                                       kangbank_account B
+                                 where   B.accountNo = A.automaticNo
+                                       AND A.accountNo = K.accountNo),
+                                 -1,
+                                 K.balance,
+                                 K.balance+(select monthlyPayment
+                                          from   kangbank_savings
+                                          where   accountNo = K.accountNo)
+                        )
+               ),
+   K.balanceSum = DECODE((select   sign(add_Months(A.issueDate, B.term)-sysdate)
+                        from   kangbank_account A,
+                              kangbank_account_rates B,
+                              kangbank_savings C
+                        where C.accountNo = A.accountNo
+                              AND B.accountSeq = C.accountSeq
+                              AND A.accountNo = K.accountNo),
+                        -1,
+                        0,
+                        DECODE(   (select sign(B.balance-A.monthlyPayment)
+                                 from   kangbank_savings A,
+                                       kangbank_account B
+                                 where   B.accountNo = A.automaticNo
+                                       AND A.accountNo = K.accountNo),
+                                 -1,
+                                 K.balance+(select monthlyPayment
+                                          from   kangbank_savings
+                                          where   accountNo = K.accountNo),
+                                 K.balanceSum
+                        )
+               ),
+   K.balanceFlag = DECODE((select   sign(add_Months(A.issueDate, B.term)-sysdate)
+                        from   kangbank_account A,
+                              kangbank_account_rates B,
+                              kangbank_savings C
+                        where C.accountNo = A.accountNo
+                              AND B.accountSeq = C.accountSeq
+                              AND A.accountNo = K.accountNo),
+                        -1,
+                        -1,
+                        DECODE(   (select sign(B.balance-A.monthlyPayment)
+                                 from   kangbank_savings A,
+                                       kangbank_account B
+                                 where   B.accountNo = A.automaticNo
+                                       AND A.accountNo = K.accountNo),
+                                 -1,
+                                 1,
+                                 0
+                        )
+               )
+where (select    B.accountType
+      from   kangbank_account A,
+            kangbank_account_type B
+      where   B.accountName = A.accountName
+            AND A.accountNo = K.accountNo) = '적금'
+      AND K.balanceFlag != -1
+      
+</update>
+<resultMap type="savingsVO" id="savingsRM">
+<result property="accountVO.accountNo" column="accountNo" />
+      <result property="accountVO.balance" column="balance" />
+      <result property="accountVO.balanceSum" column="balanceSum" />
+</resultMap>
+<select id = "savingsList" resultMap="savingsRM">
+select a.accountNo,b.automaticNo,b.monthlyPayment      
+from  kangbank_account a,
+       kangbank_savings b
+where b.accountNo=a.accountNo
+and a.balanceFlag=0
+</select>
+<update id="withdraw">
+update kangbank_account
+set balance = balance - #{monthlyPayment}
+where accountNo=#{automaticNo}
+</update>
+ <insert id="transferWithdraw">
+         insert into kangbank_deal_detail (dealNo, accountNo, otherAccountNo, dealType, amountOfMoney, dealDate)
+         values (dealNo_seq.nextval, #{automaticNo}, #{accountVO.accountNo}, 'withdraw', #{monthlyPayment}, sysdate) 
+   </insert>
+   
+   <insert id="transferDeposit">
+         insert into kangbank_deal_detail (dealNo, accountNo, otherAccountNo, dealType, amountOfMoney, dealDate)
+         values (dealNo_seq.nextval,  #{accountVO.accountNo},#{automaticNo}, 'deposit', #{monthlyPayment}, sysdate)
+   </insert>
+   <select id = "salvation" resultMap="savingsRM">
+select a.accountNo,b.automaticNo,b.monthlyPayment      
+from  kangbank_account a,
+       kangbank_savings b
+where b.automaticNo=a.accountNo
+       and a.balanceSum!=0
+       and a.balance>=a.balanceSum
+   </select>
+   <update id="reset">
+   update kangbank_account k
+   set k.balanceSum=0,k.balanceFlag=0
+  where (select    B.accountType
+      from   kangbank_account A,
+            kangbank_account_type B
+      where   B.accountName = A.accountName
+            AND A.accountNo = K.accountNo) = '적금'
+      AND K.balanceFlag != -1      
+   </update>
 </mapper>
-

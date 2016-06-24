@@ -1,3 +1,5 @@
+
+select * from kangbank_account_type
 ----------테이블 삭제 ----------
 -- 계좌 금리 --
 drop table kangbank_rates_info;

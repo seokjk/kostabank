@@ -6,7 +6,9 @@ import javax.annotation.Resource;
 
 import org.kosta.kostabank.model.dao.AccountDAO;
 import org.kosta.kostabank.model.dao.LoanDAO;
+import org.kosta.kostabank.model.dao.SavingsDAO;
 import org.kosta.kostabank.model.vo.LoanVO;
+import org.kosta.kostabank.model.vo.SavingsVO;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -15,8 +17,25 @@ public class ScheduledService {
 	@Resource
 	private AccountDAO accountDAO;
 	@Resource
+	private SavingsDAO savingsDAO;
+	@Resource
 	private LoanDAO loanDAO;
 	
+	   @Scheduled(cron = "0 0 0 27 * ?")
+	   public void savingsTransfer(){
+	      savingsDAO.deposit();
+	      List<SavingsVO> list = savingsDAO.savingsList();
+	      savingsDAO.withdraw(list);
+	      savingsDAO.transfer(list);
+	   }
+	   @Scheduled(cron = "0 0 13 * * ?")
+	   public void savingsUpdate(){
+	      List<SavingsVO> list = savingsDAO.salvation();
+	      savingsDAO.withdraw(list);
+	      savingsDAO.reset(list);
+	      savingsDAO.transfer(list);
+	   }
+	   
 	/*   @Transactional */
 	@Scheduled(cron="0 0 0 28 * ?")
 	public void withdraw(){

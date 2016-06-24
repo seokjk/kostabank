@@ -10,8 +10,7 @@
 </c:if>
 
 <script type="text/javascript">
-	$(document).ready(function() { 
-
+	$(document).ready(function(){ 
 		/*잔액표시*/
 		var balanceView;
 		var bartemp;
@@ -42,17 +41,17 @@
 					alert("이체 가능한 금액을 넣어주세요.");
 					$("#transferForm :input[name='money']").val("");
 					return false;
-				}
+					}
+				});
+	 			
 			});
- 			
-		});
-		
-		/*form 입력란*/
-		$("#transferForm").submit(function(){
-			var passCheck=false;
-			var otherAccountCheck=false;
-			var accountCheck=false;
-
+			
+			/*form 입력란*/
+			$("#transferForm").submit(function(){
+				var passCheck=false;
+				var otherAccountCheck=false;
+				var accountCheck=false;
+	
 			/*계좌확인*/
 			$.ajax({
 				type:"post",
@@ -77,7 +76,7 @@
 					}			
 				}
 			});
-			
+				
 			/*비밀번호체크*/
 			if($("#myaccountPass").val()==""){
 				var myaccountPass="ps check";
@@ -105,7 +104,7 @@
 				alert("계좌비밀번호를 입력하세요");
 				return false;
 			}
- 			if ($(":input[name='myaccountPass']").val().trim().length!=4) {
+	 		if ($(":input[name='myaccountPass']").val().trim().length!=4) {
 				alert("계좌비밀번호는 4자리입니다.");
 				return false;
 			} 
@@ -113,7 +112,7 @@
 				alert("이체금액을 입력하세요");
 				return false;
 			} 
-			
+				
 			if(passCheck){
 				return false;
 			}
@@ -123,51 +122,51 @@
 			if(accountCheck){
 				return false;
 			}
-
+	
 		});
 		
 	});
 </script>
-
+<div class="transfer_view">
 <form action="transfer_transfer.bank" method="post" id="transferForm" >
 <br>
 	<h2>계좌이체</h2>
-	<br><br>
-	<table id="transfer">
-		<tr id="tr">
-			<td colspan=4 align="center">출금정보</td>
-		</tr>
+	<br>
+	<h1>출금정보</h1><br>
+	<div class="transfer_view_table">
+	<table>
 		<tr>
-			<td>출금계좌번호</td>
-			<td>
-				<select  class="no-border" id="account" name="account" >
+			<th>출금계좌번호</th>
+			<td><select id="account" name="account" >
 					<option value="">계좌선택</option>
 						<c:forEach items="${requestScope.accountList }" var="ac">
 							<option value="${ac.accountNo}">${ac.accountNo}</option>
 						</c:forEach>
-				</select>
-				<br>
+				</select><br>
 				<span id="balanceView"></span>
 			</td>
-			<td>계좌비밀번호</td>
-			<td><input class="no-border" type="password" name="myaccountPass" id="myaccountPass" size=25>
-					<span id="passwordView"></span>
+			<th>계좌비밀번호</th>
+				<td><input type="password" name="myaccountPass" id="myaccountPass">
+				<span id="passwordView"></span>
 			</td>
 		</tr>
 		
 		<tr>
-			<td>이체금액</td>
-			<td colspan=3><input  class="no-border" type="text" name="money" id="money" size=55>
-					<br><span id="moneyView"></span>
+			<th>이체금액</th>
+			<td colspan="3">
+				<input type="text" name="money" id="money" size="40%">
+				<span id="moneyView"></span>
 			</td>
 		</tr>
-		<tr id="tr">
-			<td colspan=4 align="center">입금정보</td>
-		</tr>
+		</table>
+		
+		<h1>입금정보</h1><br>
+		
+		<table>
 		<tr>
-			<td>입금은행</td>
+			<th>입금은행</th>
 			<td>
-					<select class="no-border"  id="bank" name="bank">
+					<select id="bank" name="bank">
 					<option value="">은행선택</option>
 					<option value="KANG">KANG BANK으로 입금하기</option>
 					<option value="SON">SON BANK으로 입금하기</option>
@@ -175,10 +174,12 @@
 					<option value="YOO">YOO BANK으로 입금하기</option>
 					</select>
 			</td>
-			<td>입금계좌번호</td> 
-			<td><input class="no-border" type="text" name="otheraccountNo" id="otheraccountNo" size=25></td>
+			<th>입금계좌번호</th> 
+			<td><input type="text" name="otheraccountNo" id="otheraccountNo"></td>
 		</tr>
 	</table>
-	<br> <br><br>
+	</div>
+	<br> 
 	<input type="submit" id="securecheckBtn" value="보안카드확인">
 </form>
+</div>

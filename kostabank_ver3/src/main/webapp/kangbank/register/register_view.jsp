@@ -34,7 +34,7 @@ $(document).ready(function() {
          });
       }
    });
-   $('#submit').click(function() {
+   $('#kangbank').click(function() {
       var email = $(":input[name='email']").val();
       var password = $(":input[name='password']").val();
       var password2 = $(":input[name='password2']").val();
@@ -83,6 +83,7 @@ $(document).ready(function() {
          alert("email을 확인해주세요");
          return false;
       }
+      $("#registerForm").submit();
    });
    $(":input[name='home']").click(function() {
      location.href="home.bank";
@@ -106,11 +107,11 @@ $(document).ready(function() {
       </tr>
       <tr>
          <th>password</th>
-         <td><input type = "text" name = "password" id = "password"></td>
+         <td><input type = "password" name = "password" id = "password"></td>
       </tr>
       <tr>
          <th>check password</th>
-         <td><input type = "text" name = "password2" id = "password2"></td>
+         <td><input type = "password" name = "password2" id = "password2"></td>
       </tr>
       <tr>
          <th>name</th>
@@ -132,7 +133,7 @@ $(document).ready(function() {
       </table>
       <br>
       <div id="btn">
-      <img src="${initParam.root}kangbank/img/signupbtn1.png" id="submit" style="cursor:pointer">
+      <img src="${initParam.root}kangbank/img/signupbtn1.png" id="kangbank" style="cursor:pointer">
       <a href="home.bank"><img src="${initParam.root}kangbank/img/signupbtn2.png" ></a>
      </div>
    </form>

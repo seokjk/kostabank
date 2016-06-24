@@ -23,6 +23,6 @@ $(document).ready(function(){
 
 
 
-<h1>비밀번호 체크</h1>
-<input type = "password" name = "checkPass"><br>
-<input type = "button" id = "checkBtn" value = "확인">
+	<h2>비밀번호 체크</h2>
+	<input type = "password" name = "checkPass"><br>
+	<input type = "button" id = "checkBtn" value = "확인">

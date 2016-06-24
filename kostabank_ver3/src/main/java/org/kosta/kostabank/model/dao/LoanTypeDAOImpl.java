@@ -21,7 +21,6 @@ public class LoanTypeDAOImpl implements LoanTypeDAO{
 	//대출 전체 리스트
 	@Override
 	public LoanAccountVO loanList(String accountName) {
-		System.out.println("loanDAO : " + template.selectOne("loan.loanList", accountName));
 		return template.selectOne("loan.loanList", accountName);
 	}
 }

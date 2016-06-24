@@ -63,20 +63,13 @@ public class LoanController {
 		HttpSession session = request.getSession(false);
 		JSONArray obj = new JSONArray();
 		String name = request.getParameter("goods");
-		System.out.println("name=" + name);
 		LoanAccountVO select = loanService.loanData(name);
-		System.out.println("s=" + select);
 		long overdue = select.getMaximumMoney();
 		int repay = select.getTerm();
 		int stay = repay / 2;
-
 		obj.add(0, overdue);
 		obj.add(1, repay);
 		obj.add(2, stay);
-
-		System.out.println("overdue=" + overdue);
-		System.out.println("period=" + repay);
-		System.out.println("stay=" + stay);
 		return obj;
 	}
 
@@ -87,7 +80,6 @@ public class LoanController {
 		System.out.println("period=" + period);
 		LoanAccountVO select = loanService.loanData(period);
 		int p = select.getTerm();
-		System.out.println(p);
 		return p;
 	}
 

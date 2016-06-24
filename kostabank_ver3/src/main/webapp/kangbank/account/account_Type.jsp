@@ -1,35 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
- <br>
- <h2>상품정보</h2>
- <br><br>
-<table class="accountType">
-<tr id="tr">
-<td width="16%" id="td">계좌 이름</td>
-<td width="19%" id="td">계좌 방식</td>
-<td id="td">상품 설명</td>
-<td id="td">최저액</td>
-</tr>
-<c:forEach items="${requestScope.lvo.accountTypeList}" var="c">
-<tr>
-<td id="td">${c.accountName}</td>
-<td id="td">${c.accountType}</td>
-<td id="td">${c.accountExplanation}</td>
-<td id="td">${c.minMoney}</td>
-<tr>
-</c:forEach>
-</table>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<div class="accountTypeDiv">
+<br>
+<h2>상품정보</h2>
 <br><br>
-
+<div class="accountTable">
+<table>
+	<tr>
+		<th>계좌 이름</th>
+		<th>계좌 방식</th>
+		<th>상품 설명</th>
+		<th>최저액</th>
+	</tr>
+	<c:forEach items="${requestScope.lvo.accountTypeList}" var="c">
+		<tr>
+			<td>${c.accountName}</td>
+			<td>${c.accountType}</td>
+			<td id="td">${c.accountExplanation}</td>
+			<td>${c.minMoney}</td>
+		<tr>
+	</c:forEach>
+</table>
+</div>
+<br><br>
+<div id="paging">
 <%-- 코드를 줄이기 위해 pb 변수에 pagingBean을 담는다. --%>
 	<c:set var="pb" value="${requestScope.lvo.pagingBean}"></c:set>
 	<!-- 
@@ -72,5 +67,5 @@
 	<a href="accountTypeList.bank?page=${pb.endPageOfPageGroup+1}">
 	▶<!-- <img src="img/right_arrow_btn.gif"> --></a>
 	</c:if>
-</body>
-</html>
+	</div>
+</div>
