@@ -22,4 +22,5 @@ public interface SavingsDAO {
    public void transfer(List<SavingsVO> list);
    public List<SavingsVO> salvation();
    public void reset(List<SavingsVO> list);
+   public abstract int selectRatesBySeq(String seq);
 }

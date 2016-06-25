@@ -15,5 +15,5 @@ public interface SavingsService {
 	void createSavings(AccountVO accountVO, SavingsVO savingsVO);
 	List<AccountRatesVO> accountSeqByName(String accountName);
 	int getTermBySeq(int accountSeq);
-	
+	public abstract int selectRatesBySeq(String seq);
 }

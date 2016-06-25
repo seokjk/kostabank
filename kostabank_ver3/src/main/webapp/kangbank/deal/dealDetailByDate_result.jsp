@@ -108,7 +108,7 @@ $(document).ready(function(){
 	<tr>
 		<td id="dealDetailByDate_td1">${list.dealNo}</td>
 		<td id="dealDetailByDate_td1">
-			<a href="transfer_view.bank?depositAccount=${list.accountNo }">${list.name}</a>
+			<a href="transfer_view.bank?withdrawAccount=${param.accountNo}&depositAccount=${list.otherAccountNo}">${list.name}</a>
 		</td>
 		<c:choose>
 			<c:when test="${list.dealType=='deposit'}">

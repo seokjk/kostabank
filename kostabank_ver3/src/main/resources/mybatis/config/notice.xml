@@ -20,12 +20,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property ="customerVO.name" column="name" />
 	</resultMap>
 	<select id="getNoticeList" resultMap="noticeRM" parameterType="map">
-		select b.no,b.title,b.timePosted,b.hits,b.email,m.name from (
-		select no,title,timePosted,hits,ceil(rownum/#{numberOfContent}) as page,email from (
-		select no,title,to_char(timePosted,'YYYY.MM.DD') as timePosted,
-			hits,email from kangbank_notice  order by no desc
-		 )) b,kangbank_customer m where b.email=m.email and page=#{pageNo}
-	</select>
+      select b.no,b.title,b.timePosted,b.hits,b.email,m.name 
+      	from (
+      select no,title,timePosted,hits,ceil(rownum/#{numberOfContent}) as page,email from (
+      select no,title,to_char(timePosted,'YYYY.MM.DD') as timePosted,
+         hits,email from kangbank_notice  order by no desc
+       )) b,kangbank_customer m  where b.email=m.email and page=#{pageNo} order by no desc
+   </select>
 	<select id="showContent" resultMap="noticeRM">
 		select b.no,b.title,to_char(b.timePosted,'YYYY.MM.DD HH:mm:ss') as timePosted,b.content,
 		b.hits,m.email,m.name from kangbank_notice b,kangbank_customer m where

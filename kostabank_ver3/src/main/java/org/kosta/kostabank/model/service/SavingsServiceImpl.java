@@ -53,4 +53,8 @@ public class SavingsServiceImpl implements SavingsService {
 	public int getTermBySeq(int accountSeq){
 		return savingsDAO.getTermBySeq(accountSeq);
 	}
+	@Override
+   public int selectRatesBySeq(String seq) {
+      return savingsDAO.selectRatesBySeq(seq);
+   }
 }

@@ -51,10 +51,25 @@ $(document).ready(function() {
          alert("password를 입력하세요");
          return false;
       }
+      if(isNaN(password)==true){
+          alert("숫자만 입력가능합니다.");
+          $(":input[name='password']").val("");
+          return false;
+       }
+      if($(":input[name='password']").val().length < 8){
+          alert("비밀번호는 8자리 이상입니다.");
+          $(":input[name='password']").val("");
+          return false;
+       }
       if(password2 == ""){
          alert("check password를 입력하세요");
          return false;
       }
+      if(isNaN(password2)==true){
+          alert("숫자만 입력가능합니다.");
+          $(":input[name='password2']").val("");
+          return false;
+       }
       if(password!=password2){
          alert("password가 다릅니다 확인해주세요");
          return false;
@@ -101,7 +116,7 @@ $(document).ready(function() {
          <th>email</th>
          <td>
             <input type = "email" name = "email">
-            <input type = "button" value = "인증하기" id="emailBtn"><br>
+            <input type = "button" value = "인증하기"><br>
             <span id="emailCheck"></span>
          </td>
       </tr>

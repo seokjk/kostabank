@@ -3,6 +3,27 @@
 <script type="text/javascript" src="${initParam.root}resources/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+   var str="";
+   $(":input[name='email']").keyup(function(){
+         var email = $(":input[name='email']").val();
+         $.ajax({
+            type : "post",
+            url : "checkEmail.bank",
+            datatype : 'json',
+            data : {
+               email : email
+            },
+            success : function(result) {
+               if(!result){
+                  $("#idcheck").text("존재하지 않는 email입니다").css("color", "red");
+                  str="fail";
+               }else{
+                  $("#idcheck").text("사용가능한 email입니다").css("color","blue");
+                  str="";
+               }
+            }
+         });
+      });
    $("#findPasswordForm :input[name=findId]").click(function(){
       location.href="find_idview.bank"
    });
@@ -21,6 +42,10 @@ $(document).ready(function(){
       }if(accountPass==""){
          alert("계좌 비밀번호를 입력하세요");
          return false;
+      }if(isNaN(accountPass)==true){
+			alert("숫자만 입력가능합니다.");
+			$("#findPasswordForm :input[name=accountPass]").val("");
+			return false;
       }if(password==""){
          alert("변경 비밀번호를 입력하세요");
          return false;
@@ -29,6 +54,9 @@ $(document).ready(function(){
          return false;
       }if(password!=passwordCheck){
          alert("변경 비밀번호와 확인값이 일치하지 않습니다");
+         return false;
+      }if(str!=""){
+         alert("존재하지 않는 아이디입니다. 아이디를 확인해주세요");
          return false;
       }
    })
@@ -39,13 +67,14 @@ $(document).ready(function(){
 <br>
 <p>비밀번호를 잊으셨나요?<br>
 아래의 개인정보를 입력하시면 비밀번호 확인이 가능합니다.</p>
-<form id="findPasswordForm" action="passwordChange.bank">
+<form id="findPasswordForm" action="passwordModifyCheck.bank">
 <div class="findPass">
 <table>
       <tr>
-         <th>이메일</th>
+         <th>아이디</th>
          <td colspan="3"><input type ="email" name ="email">
-         <input type = "button" value = "이메일찾기" name="findId" id="emailBtn"></td>
+         <input type = "button" value = "아이디찾기" name="findId">
+         <span id="idcheck"></span></td>
       </tr>
       <tr>
          <th>출금 계좌번호</th>

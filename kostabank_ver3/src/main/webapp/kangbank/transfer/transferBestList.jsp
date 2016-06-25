@@ -20,4 +20,5 @@
 		</c:forEach>
 	</table>
 	</form>
+	<input type = "button" value = "닫기" onclick = "javascript:self.close()">
 </div>

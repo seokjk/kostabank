@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="recentAccountNo" parameterType="string" resultType="transferVO">
 		<![CDATA[
 			select otherAccountNo, name as otherAccountName    
-			from	(select otherAccountNo, name     
+			from	(select otherAccountNo, name, C.accountType    
 					from	(select	A.otherAccountNo, C.name, A.dealDate
 							from	kangbank_deal_detail A,
 									kangbank_account B,
@@ -16,8 +16,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 									AND B.accountNo = A.accountNo
 									AND A.accountNo=#{value}
 									and a.dealType='withdraw'
-							ORDER by A.dealDate desc)
-					GROUP by otherAccountNo, name)
-			where rownum<=10
+							ORDER by A.dealDate desc) A,
+							kangbank_account B,
+							kangbank_account_type C
+					where 	B.accountNo = A.otherAccountNo
+							AND C.accountName = B.accountName
+					GROUP by otherAccountNo, name, C.accountType)
+			where 	rownum<=10
+					AND accountType = '입출금'
 	]]></select>
 </mapper>

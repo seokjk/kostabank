@@ -8,27 +8,29 @@
    });
 </script>
 <br>
-<h2>대출완료</h2>
-<br><br>
-<table class="transferinfo" >
-      <tr id="tr">
-         <td>선택상품</td>
-         <td>대출계좌</td>
-         <td>입금계좌</td>
-         <td>출금계좌</td>
-         <td>대출금액</td>
-         <td>상환기간</td>
-         <td>거치기간</td>
-      </tr>
-         <tr>
-            <td>${requestScope.lvo.accountName}</td>
-            <td>${requestScope.lvo.loanAccountNo}</td>
-            <td>${requestScope.lvo.inAccountNo}</td>
-            <td>${requestScope.lvo.outAccountNo}</td>
-            <td>${requestScope.lvo.balance}</td>
-            <td>${requestScope.lvo.repayTerm}</td>
-            <td>${requestScope.lvo.stayTerm}</td>
-         </tr>
-</table>
-<br><br>
-<input type="button" value="흠으로" id="home">
+<div class="result_view">
+	<h2>대출완료</h2>
+	<br><br>
+	<table>
+		<tr>
+			<th>선택상품</th>
+			<th>대출계좌</th>
+			<th>입금계좌</th>
+	        <th>출금계좌</th>
+	        <th>대출금액</th>
+	        <th>상환기간</th>
+	        <th>거치기간</th>
+		</tr>
+		<tr>
+			<td>${requestScope.lvo.accountName}</td>
+	        <td>${requestScope.lvo.loanAccountNo}</td>
+	        <td>${requestScope.lvo.inAccountNo}</td>
+	        <td>${requestScope.lvo.outAccountNo}</td>
+	        <td>${requestScope.lvo.balance}</td>
+	        <td>${requestScope.lvo.repayTerm}</td>
+	        <td>${requestScope.lvo.stayTerm}</td>
+		</tr>
+	</table>
+	<br><br>
+	<input type="button" value="흠으로" id="home">
+</div>

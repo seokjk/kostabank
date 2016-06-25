@@ -20,7 +20,7 @@ public class ScheduledService {
 	private SavingsDAO savingsDAO;
 	@Resource
 	private LoanDAO loanDAO;
-	
+	   //fixedDelay=20000
 	   @Scheduled(cron = "0 0 0 27 * ?")
 	   public void savingsTransfer(){
 	      savingsDAO.deposit();
@@ -28,6 +28,7 @@ public class ScheduledService {
 	      savingsDAO.withdraw(list);
 	      savingsDAO.transfer(list);
 	   }
+	 //fixedDelay=20000
 	   @Scheduled(cron = "0 0 13 * * ?")
 	   public void savingsUpdate(){
 	      List<SavingsVO> list = savingsDAO.salvation();
@@ -37,6 +38,7 @@ public class ScheduledService {
 	   }
 	   
 	/*   @Transactional */
+	 //fixedDelay=20000
 	@Scheduled(cron="0 0 0 28 * ?")
 	public void withdraw(){
 	   loanDAO.nowBalance();
@@ -46,6 +48,7 @@ public class ScheduledService {
 	}
 	  
 	/*@Transactional*/
+	//fixedDelay=20000
 	@Scheduled(cron="0 0 12 * * ?")
 	public void checkBalance(){   
 	   List<LoanVO> list = loanDAO.dailyCheckBalance();

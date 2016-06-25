@@ -76,4 +76,25 @@ public class CustomerServiceImpl implements CustomerService {
 	public CustomerVO emailFail(CustomerVO vo) {
 		return customerDAO.emailFail(vo);
 	}
+	@Override
+	public int updatePass(String email, String password){
+	   CustomerVO customerVO = new CustomerVO(email,password);
+	   customerDAO.updatePass(customerVO);
+	   return 1;
+	      
+	 }
+    //email로 회원정보받아오기
+   @Override
+   public CustomerVO infoByEmail(String email) {
+      return customerDAO.infoByEmail(email);
+   }
+   //출금계좌가 존재하는지 확인
+   @Override
+   public boolean accountNoCheck(String email, String accountNo) {
+      return customerDAO.accountNoCheck(email, accountNo);
+   }
+   @Override
+   public boolean accountPassCheck(String accountNo, String accountPass) {
+      return customerDAO.accountPassCheck(accountNo, accountPass);
+   }	
 }

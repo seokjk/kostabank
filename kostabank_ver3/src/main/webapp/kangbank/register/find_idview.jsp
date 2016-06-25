@@ -7,6 +7,18 @@ $(document).ready(function() {
       var accountNo = $(":input[name='accountNo']").val();
       var accountPass = $(":input[name='accountPass']").val();
       var birth = $(":input[name='birth']").val();
+      
+      if(isNaN(accountPass)){
+    	  alert("숫자만 입력하세요");
+    	  $(":input[name='accountPass']").val("");
+    	  return false;
+      }
+      if(isNaN(birth)){
+    	  alert("숫자만 입력하세요");
+    	  $(":input[name='birth']").val("");
+    	  return false;
+      }
+      
       if(accountNo == ""){
          alert("계좌번호를 입력하세요");
       } else if(accountPass == ""){
@@ -40,7 +52,7 @@ $(document).ready(function() {
 });
 </script>
 <div class="findId">
-<h2>email 찾기</h2><br>
+<h2>Email 찾기</h2><br>
 <form>
 
 <p>아이디를 잊으셨나요?<br>

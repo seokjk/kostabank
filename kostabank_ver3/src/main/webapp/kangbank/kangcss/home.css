@@ -184,7 +184,9 @@ background-color: silver;
       height:35px;
       width:100px;
    }
-   #checkBtn, #createBtn, #conBtn, #transferBtn, #transfer_view, #home, #createSavings, #transfer, #loanBtn, #certificateBtn{
+   #checkBtn, #createBtn, #conBtn, #transferBtn, #transfer_view, 
+   #home, #createSavings, #transfer, #loanBtn, #certificateBtn, 
+   #sub_Btn, #qnaBtn{
       background-color: #6A5B50;
       color:white;
       height:40px;
@@ -296,12 +298,13 @@ background-color: silver;
  
  
  /*QnA 글 insert*/
-.qnaInsert h2{text-align:center; margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
-.qnaInsert .qnatable table{width:1000px;margin:0 auto; border:2px solid #6A5B50; font-family:nanumgothic, NanumGothic;}
-.qnaInsert .qnatable thead{text-align:center; border:2px solid #6A5B50; font-size:20px; font-family:nanumgothic, NanumGothic;}
-.qnaInsert .qnatable th{width:200px;text-align:center; border:2px solid #6A5B50; font-size:20px; font-weight:normal;}
-.qnaInsert .qnatable td{ border:2px solid #6A5B50; font-size:20px;}
+.qnaInsert{margin-left:23%; }
+.qnaInsert h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
+.qnaInsert .qnatable table{table-layout:fixed;}
+.qnaInsert .qnatable th{width:200px; padding:23px 0 18px 22px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%;}
+.qnaInsert .qnatable td{width:800px; padding:20px 0 18px 20px; border-top:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px;}
 .qnaInsert .qnatable .no-border{text-align:center; width:100%;}
+.qnaInsert .qna_insert_btn{margin-left: 25%}
 
 /*QnA list*/
 .qnaList h2{text-align:center; margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
@@ -388,7 +391,7 @@ background-color: silver;
 .loanTypeShow  .loanType table{table-layout:fixed; }
 .loanTypeShow  .loanType th { width:200px; padding:20px 0 18px 20px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px;text-align:left; line-height:140%; }
 .loanTypeShow  .loanType td { width:800px; padding:20px 0 18px 20px; border-top:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; }
-.loanTypeShow  table{table-layout:fixed; border:2px solid #6A5B50; }
+.loanTypeShow  table{table-layout:fixed; }
 .loanTypeShow  th { width:200px; padding:20px 0 18px 20px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px;text-align:left; line-height:140%; }
 .loanTypeShow  td { width:800px; padding:20px 0 18px 20px; border-top:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; }
 .loanTypeShow  #loanBtn { overflow:hidden; margin:5px 430px 10px; font-size:1%; line-height:1%; }
@@ -537,6 +540,7 @@ background-color: silver;
 .certificate_btn h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
 
 
+/*대출, 적금 결과*/
 
 
 

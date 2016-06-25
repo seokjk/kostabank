@@ -59,8 +59,8 @@ $(document).ready(function(){
 			return false;
 		}
 	});//conBtn.click
-	$("#createForm :input[name=accountSeq]").change(function(){
-		var accountSeq = $("#createForm :input[name=accountSeq]").val();
+	$("#createForm :input[name=savingsTerm]").change(function(){
+		var accountSeq = $("#createForm :input[name=savingsTerm]").val();
 		$.ajax({
 			type:"post",
 			url:"getRatesByTerm.bank",
@@ -75,9 +75,9 @@ $(document).ready(function(){
 	});//savingsTerm change
 });
 </script>
-<div class="savings_create">
+<div class="savingsView">
 <br>
-<h2>적금생성</h2>
+<h2>계좌생성</h2>
 <br><br>
 <c:choose>
 <c:when test="${empty loginInfo}">
@@ -117,71 +117,61 @@ location.href = "home.bank";
   동의&nbsp;&nbsp;<input type = "radio" name = "consent" value="assent">&nbsp;&nbsp;&nbsp;&nbsp;
   미동의&nbsp;&nbsp;<input type = "radio" name = "consent" value = "unassent"><br><br>
   </p>
-  <input type = "button" id = "createBtn" value="적금생성">
+  <input type = "button" id = "createBtn" value="이  동">
   </form>
-  </div>
-  
-<div class="savings_create_table">
-	<form id="createForm" action="endingSavingsForm.bank">
-	<table>
-		<tr>
-			<th>패스워드</th>
-			<td><input type="password" name="savingsPass"></td>
- 	    </tr>
- 		<tr>
- 			<th>자동이체 계좌번호</th>
- 			<td>
- 				<select name="automaticNo">
-	 				<option value="">계좌선택</option>
-	 				<c:forEach items="${requestScope.list }" var="list" >
-	 					<option value="${list.accountNo }">${list.accountNo }</option>
-	 				</c:forEach>
- 				</select>
-			</td>
-		</tr>
-		<tr>
-			<th>적금이름</th>
-			<td>
-				<input type="text" name="savingsName" value="${requestScope.accountName}" readonly="readonly">
-			</td>
- 		</tr>
- 		<tr>
- 			<th>계약기간</th>
- 			<td>
- 				<select name="accountSeq">
-	 				<option value="">기간 선택</option>
-	 				<c:forEach items="${requestScope.list2 }" var="list">
-						<option value="${list.accountSeq}">${list.term}</option>
-					</c:forEach>
- 				</select>
-			</td>
-		</tr>
-		<tr>
-			<th>금리</th>
-			<td>
-				<span id="savingsRate" name="savingsRate"></span>%
- 				<input type="hidden" name="rates" value="${savingsRate }">
- 			</td>
- 		</tr>
- 		<tr>
- 			<th>월당 이체 금액</th>
- 			<td>
- 				<input type="text" name="monthlyPayment">
- 			</td>
- 		</tr>
- 		<tr>
- 			<th>환급 계좌번호</th>
- 			<td>
- 				<select name="paybackNo">
- 					<option value="">계좌선택</option>
- 					<c:forEach items="${requestScope.list }" var="list" >
- 						<option value="${list.accountNo }">${list.accountNo }</option>
- 					</c:forEach>
- 				</select>
- 			</td>
-		</tr>
-	</table>
-	<br>
- 	<input type="submit" value="적금생성" id="createSavings">
-	</form>
+ <form id="createForm" action="savings_secure.bank">
+<!-- <form id="createForm" action="savingsSecure.bank"> -->
+<div class="savingsTable">
+ <table>
+ <tr>
+ <th>패스워드</th>
+ <td><input type="password" name="savingsPass"></td>
+ </tr>
+ <tr>
+ <th>자동이체 계좌번호</th>
+ <td><select name="automaticNo">
+ <option value="">계좌선택</option>
+ <c:forEach items="${requestScope.list }" var="list" >
+ <option value="${list.accountNo }">${list.accountNo }</option>
+ </c:forEach>
+ </select>
+ </td>
+ </tr>
+ <tr>
+ <th>적금이름</th>
+ <td><input type="text" name="savingsName" value="${requestScope.accountName}" readonly="readonly"></td>
+ </tr>
+ <tr>
+ <th>계약기간</th>
+ <td><select name="savingsTerm">
+ <option value="">기간 선택</option>
+ <c:forEach items="${requestScope.list2 }" var="list">
+<option value="${list.accountSeq}">${list.term}</option>
+</c:forEach>
+ </select>
+ <%-- <input type="hidden" name="accountSeq" value="${requestScope.list2.accountSeq }"> --%>
+ </td></tr>
+ <tr>
+ <th>금리</th>
+ <td><span id="savingsRate" name="savingsRate"></span>%
+ <input type="hidden" name="rates" value="${savingsRate }"></td>
+ </tr>
+ <tr>
+ <th>월당 이체 금액</th>
+ <td><input type="text" name="monthlyPayment"></td>
+ </tr>
+ <tr>
+ <th>환급 계좌번호</th>
+ <td><select name="paybackNo">
+ <option value="">계좌선택</option>
+ <c:forEach items="${requestScope.list }" var="list" >
+ <option value="${list.accountNo }">${list.accountNo }</option>
+ </c:forEach>
+ </select>
+ </td>
+</tr>
+ </table>
+ <input type="submit" value="적금생성" id="createSavings">
+ </div>
+ </form>
 </div>

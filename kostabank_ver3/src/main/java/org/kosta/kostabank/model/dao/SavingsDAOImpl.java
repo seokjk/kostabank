@@ -73,4 +73,8 @@ private SqlSessionTemplate template;
          template.update("savings.reset",list.get(i));
       }
    }
+   @Override
+   public int selectRatesBySeq(String seq) {
+      return template.selectOne("savings.selectRatesBySeq",seq);
+   }
 }

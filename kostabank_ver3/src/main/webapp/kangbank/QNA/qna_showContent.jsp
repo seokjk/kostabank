@@ -24,7 +24,7 @@ $(document).ready(function(){
 <form method = "post" action = "rePosting.bank" id = "rePostingForm">
 <table id="qnatable">
 <tr>
-<td>글번호 : ${qvo.qnaNo}</td><td>이름 : ${qvo.customerVO.name} </td>
+<td>글번호 : ${qvo.no}</td><td>이름 : ${qvo.customerVO.name} </td>
 </tr>
 <tr>
 <td> 이메일 : ${qvo.customerVO.email}</td> <td>번호 : ${qvo.customerVO.tel}</td>

@@ -26,4 +26,11 @@ public interface CustomerService {
 	int failCountUpdate(CustomerVO vo);
 	//로그인시 이메일 없을 경우
 	CustomerVO emailFail(CustomerVO vo);
+	//비밀번호 변경
+	int updatePass(String email, String password);
+	CustomerVO infoByEmail(String email);
+
+	boolean accountNoCheck(String email, String accountNo);
+
+	boolean accountPassCheck(String accountNo, String accountPass);	
 }

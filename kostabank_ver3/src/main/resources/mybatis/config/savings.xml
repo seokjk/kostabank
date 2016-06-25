@@ -163,4 +163,7 @@ where b.automaticNo=a.accountNo
             AND A.accountNo = K.accountNo) = '적금'
       AND K.balanceFlag != -1      
    </update>
+   <select id="selectRatesBySeq" parameterType="string" resultType="int">
+         select term from kangbank_account_rates where accountSeq=#{value}
+   </select>
 </mapper>

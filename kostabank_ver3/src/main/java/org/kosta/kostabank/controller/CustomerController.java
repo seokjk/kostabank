@@ -1,14 +1,19 @@
 package org.kosta.kostabank.controller;
 
+import java.io.IOException;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.kosta.kostabank.model.service.CustomerService;
+import org.kosta.kostabank.model.service.SecureCardService;
 import org.kosta.kostabank.model.vo.AccountVO;
 import org.kosta.kostabank.model.vo.CustomerVO;
+import org.kosta.kostabank.model.vo.SecureCardVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +25,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class CustomerController {
 	@Resource
 	private CustomerService customerService;
+	@Resource
+	private SecureCardService securecardService;
 
 	@RequestMapping("{viewId}.bank")
 	public String showView(@PathVariable String viewId) {
@@ -151,4 +158,81 @@ public class CustomerController {
 					customerService.updateCustomerResult(vo));
 			return "customer_updateCustomerResult";
 	}
+	   @RequestMapping("passwordChange.bank")
+	   public ModelAndView passwordChange(String email,  String password){
+	      ModelAndView mav = new ModelAndView();
+	      int a = customerService.updatePass(email, password);
+	      mav.setViewName("find_checkpasswordview_result");   
+	      if(a==1){ //update가 되었으면
+	         mav.addObject("a", "1");
+	         System.out.println("update");
+	      }else{
+	         mav.addObject("a","0");
+	      }
+	      return mav;
+	   }
+	   
+	   ///////////////////////////////////////////////////////////////
+	   ///////   title : passwordSecureCardCheck            ///////
+	   /////// dec : 비밀번호수정관련 보안카드 확인            ///////
+	   ///////////////////////////////////////////////////////////////
+	   @RequestMapping(value="passwordsecurecheck.bank", method = RequestMethod.POST)
+	   @ResponseBody
+	   public JSONObject passwordSecureCardCheck(String f, String s, String dlf,
+	         String dl, String tka, String tk, String email)
+	         throws IOException {
+	      CustomerVO cvo = customerService.infoByEmail(email);
+	      JSONObject obj = new JSONObject();
+	      if (cvo.getSecurity_card().equals("0")) {
+	         obj.put("address", "noexistsecurecard");
+	      } else {
+	         SecureCardVO scvo = securecardService.selectSecureCard(cvo
+	               .getSecurity_card());
+	         String[] array = { scvo.getOne(), scvo.getTwo(), scvo.getThree(),
+	               scvo.getFour(), scvo.getFive(), scvo.getSix(),
+	               scvo.getSeven(), scvo.getEight(), scvo.getNine(),
+	               scvo.getTen(), scvo.getEleven(), scvo.getTwelve(),
+	               scvo.getThirteen(), scvo.getFourteen(), scvo.getFifteen(),
+	               scvo.getSixteen(), scvo.getSeventeen(), scvo.getEighteen(),
+	               scvo.getNineteen(), scvo.getTwenty(), scvo.getTwenty_one(),
+	               scvo.getTwenty_three(), scvo.getTwenty_three(),
+	               scvo.getTwenty_four(), scvo.getTwenty_five(),
+	               scvo.getTwenty_six(), scvo.getTwenty_seven(),
+	               scvo.getTwenty_eight(), scvo.getTwenty_nine(),
+	               scvo.getThirty() };
+	         String first_check = array[Integer.parseInt(f) - 1];
+	         String second_check = array[Integer.parseInt(s) - 1];
+	         if (first_check.substring(0, 2).equals(dlf + dl)
+	               && second_check.substring(2, 4).equals(tka + tk)) {
+	            securecardService.secureCardOK(cvo.getSecurity_card());
+	            obj.put("address", "loan_ok");
+	         } else if (scvo.getSecure_card_fail() == 4) {
+	            obj.put("address", "loannum_fail");
+	         } else {
+	            securecardService.secureCardFail(cvo.getSecurity_card());
+	            SecureCardVO scvo2 = securecardService.selectSecureCard(cvo
+	                  .getSecurity_card());
+	            obj.put("cnt", scvo2.getSecure_card_fail());
+	            obj.put("address", "loan_fail");
+	         }
+	      }
+	      return obj;
+	   }
+
+	   ///////////////////////////////////////////////////////////////
+	   ///////   title : passwordSecureCardCheck            ///////
+	   /////// dec : 비밀번호수정관련 보안카드 확인            ///////
+	   ///////////////////////////////////////////////////////////////
+	   @RequestMapping("passwordModifyCheck.bank")
+	   public String passwordModifyCheck(String email, String accountNo, String accountPass, String password){
+	      boolean accountNoCheck = customerService.accountNoCheck(email,accountNo);
+	      boolean accountPassCheck = customerService.accountPassCheck(accountNo,accountPass);
+	      if(accountNoCheck==false){
+	         return("kangbank/register/noAccountNo");
+	      }if(accountPassCheck==false){
+	         return("kangbank/register/wrongAccountPass");
+	      }else{
+	         return("find_secure");
+	      }
+	   }
 }

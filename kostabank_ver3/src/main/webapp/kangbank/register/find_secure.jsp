@@ -1,8 +1,8 @@
 <%@page import="java.util.Random"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%	    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%	
 		int num=1;
 		Random random = new Random();
 		int f = random.nextInt(30);
@@ -14,49 +14,42 @@
 			}
 		}
 %>	
+	
 <script type="text/javascript" src="${initParam.root}resources/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$.ajax({
-            type : "post",
-            url : "selectRatesBySeq.bank",
-            data : "seq="+<%=request.getParameter("savingsTerm") %>,
-            dataType : "json",
-            success : function(result){
-              	$("#term").text(result);
-            }
-         });
-		$("#cancel").click(function(){
-			var c = confirm("적금생성을 취소하시겠습니까?");
+		$("#cancle").click(function(){
+			var c = confirm("비밀번호 변경을 취소하시겠습니까?");
 			if(c){
 				location.href="${initParam.root}home.bank";
 			}else{
 				return false;
 			}
 		});
-		$("#createBtn").click(function(){
-			var c = confirm("적금 생성하시겠습니까?");
+		$("#loanBtn").click(function(){
+			var c = confirm("비밀번호를 변경하시겠습니까?");
 			if(c){
 				$.ajax({
 		            type : "post",
-		            url : "creatingSavingsSecureCardCheck.bank",
-		            data : $("#securecheckForm").serialize(),
+		            url : "passwordsecurecheck.bank",
+		            data : $("#passwordsecurecheck").serialize(),
 		            dataType : "json",
 		            success : function(result){
 		              	if(result.address=="noexistsecurecard"){
 		              		alert("보안카드가 존재하지 않습니다");
 		              		location.href="${initParam.root}home.bank";
-		              	}else if(result.address=="creating_ok"){	
-		              		alert("생성 성공!");
-		              		$("#endingSavingsForm").submit();
-		              	}else if(result.address=="creating_fail"){
+		              	}else if(result.address=="loan_ok"){	
+		              		$("#passwordChange").submit();
+		              	}else if(result.address=="loannum_fail"){
 		              		alert("오류횟수 5번 이체실패");
 		              		alert("보안카드가 해지됩니다");
 		              		location.href="deleteSecureCard.bank";
-		              	}else{
+		              	}
+		              	else{
 		              		alert("보안카드가 일치하지 않습니다 [오류횟수 : "+result.cnt+"]");
 		              		window.location.reload();
-		              	}}
+		              	}
+		            }
 		         });
 			}else{
 				return false;
@@ -64,7 +57,8 @@
 		});
 		$("#dlf").keyup(function(){
 			if($("#dlf").val().length==1){
-				$("#dl").focus();}
+				$("#dl").focus();
+			}
 		});
 		$("#dl").keyup(function(){
 			if($("#dl").val().length==1){
@@ -83,35 +77,11 @@
 		});
 	});
 </script>
-<br><br>
-<p style="color:red;,font-weight: bold;">
-※고객님이 입력하신 적금 상품 생성정보입니다.<br>
-    최종생성 전에 자동이체계좌와 금리달에 환급 받을 계좌, 선택한 상품 이름, 월마다 빠져 나오는 금액, 계약기간, 금리를
-    확인해주세요. 
-</p>
+
 <br>
-<form id="endingSavingsForm" action="endingSavingsForm.bank" method="post">
-<table>
-<tr>
-<td>계좌비밀번호</td>
-<td>자동이체계좌</td>
-<td>환급 계좌</td>
-<td>상품 이름</td>
-<td>월당이체금액</td>
-<td>계약기간</td>
-<td>금리(%)</td>
-</tr>
-<tr>
-<td><input type="hidden" name="savingsPass" value="<%=request.getParameter("savingsPass") %>"><%=request.getParameter("savingsPass") %></td>
-<td><input type="hidden" name="automaticNo" value="<%=request.getParameter("automaticNo") %>"><%=request.getParameter("automaticNo") %></td>
-<td><input type="hidden" name="paybackNo" value="<%=request.getParameter("paybackNo") %>"><%=request.getParameter("paybackNo") %></td>
-<td><input type="hidden" name="savingsName" value="<%=request.getParameter("savingsName") %>"><%=request.getParameter("savingsName") %></td>
-<td><input type="hidden" name="monthlyPayment" value="<%=request.getParameter("monthlyPayment") %>"><%=request.getParameter("monthlyPayment") %></td>
-<td><input type="hidden" name="accountSeq" value="<%=request.getParameter("savingsTerm") %>"><span id="term"></span></td>
-<td><input type="hidden" name="rates" value="<%=request.getParameter("rates") %>"><%=request.getParameter("rates") %></td>
-</tr>
-</table>
-</form>
+<h2>보안카드 확인</h2>
+<br><br>
+
 <hr>
 <br>
 <table class="securecheck">
@@ -133,7 +103,12 @@
 	</c:forEach>
 </table>
 <br><br>
-<form id="securecheckForm" action="creatingSavingsSecureCardCheck.bank" method="post">
+<form action="passwordChange.bank" id="passwordChange" method="post">
+	<input type="hidden" name="email" value="${param.email}">
+	<input type="hidden" name="password" value="${param.password}">
+</form>
+<form id="passwordsecurecheck" method="post">
+<input type="hidden" name="email" value="${param.email}">
 <input type="hidden" name="f" value="<%=f+1%>">
 <input type="hidden" name="s" value="<%=s+1%>">
 <table id="securecheckinput">
@@ -153,7 +128,6 @@
 	</tr>
 </table>
 <br><br>
-<input type="button" id="createBtn" value="적금생성">&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="button" id="cancel" value="적금생성취소">
+<input type="button" id="loanBtn" value="비밀번호 변경하기">&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" id="cancle" value="대출취소">
 </form>
-</html>
+    

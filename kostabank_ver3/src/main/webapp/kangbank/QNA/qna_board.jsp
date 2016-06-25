@@ -25,7 +25,7 @@ location.href="home.bank";
 
 <c:forEach items="${requestScope.lvo.qnaList}" var="c">
 <tr>
-<td align="center">${c.qnaNo}</td>
+<td align="center">${c.no}</td>
 <td align="center">${c.qnaType}</td>
 <td align="center"><a href="showContent.bank?fileName=${c.qnaFileAddress}&qnaNo=${c.qnaNo}">${c.qnaTitle}</a></td>
 <td align="center">${c.customerVO.name}</td>
@@ -37,29 +37,29 @@ location.href="home.bank";
 <br><br>
 
 <p class="paging">
-	<c:set var="pb" value="${requestScope.lvo.pagingBean}"></c:set>
+   <c:set var="pb" value="${requestScope.lvo.pagingBean}"></c:set>
 
-	<c:if test="${pb.previousPageGroup}">
-	<a href="qnaListRoad.bank?page=${pb.startPageOfPageGroup-1}&email=${loginInfo.email}">
-	◀&nbsp; </a>	
-	</c:if>
-	<c:forEach var="i" begin="${pb.startPageOfPageGroup}" 
-	end="${pb.endPageOfPageGroup}">
-	<c:choose>
-	<c:when test="${pb.nowPage!=i}">
-	<a href="qnaListRoad.bank?page=${i}&email=${loginInfo.email}">${i}</a> 
-	</c:when>
-	<c:otherwise>
-	${i}
-	</c:otherwise>
-	</c:choose>
-	&nbsp;
-	</c:forEach>	 
+   <c:if test="${pb.previousPageGroup}">
+   <a href="qnaListRoad.bank?page=${pb.startPageOfPageGroup-1}&email=${loginInfo.email}">
+   ◀&nbsp; </a>   
+   </c:if>
+   <c:forEach var="i" begin="${pb.startPageOfPageGroup}" 
+   end="${pb.endPageOfPageGroup}">
+   <c:choose>
+   <c:when test="${pb.nowPage!=i}">
+   <a href="qnaListRoad.bank?page=${i}&email=${loginInfo.email}">${i}</a> 
+   </c:when>
+   <c:otherwise>
+   ${i}
+   </c:otherwise>
+   </c:choose>
+   &nbsp;
+   </c:forEach>    
 
-	<c:if test="${pb.nextPageGroup}">
-	<a href="qnaListRoad.bank?page=${pb.endPageOfPageGroup+1}&email=${loginInfo.email}">
-	▶</a>
-	</c:if>
-   </p>	
+   <c:if test="${pb.nextPageGroup}">
+   <a href="qnaListRoad.bank?page=${pb.endPageOfPageGroup+1}&email=${loginInfo.email}">
+   ▶</a>
+   </c:if>
+   </p>   
    
 </div>   

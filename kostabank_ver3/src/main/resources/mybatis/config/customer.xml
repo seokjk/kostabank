@@ -7,6 +7,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="customerLogin" parameterType="customerVO" resultType="customerVO">
  		select * from kangbank_customer where email = #{email} and password = #{password}
  	</select>
+ 	<select id="infoByEmail" parameterType="customerVO" resultType="customerVO">
+ 		select * from kangbank_customer where email = #{email}
+ 	</select>
  	<select id="infoById" parameterType="customerVO" resultType="customerVO">
  		select * from kangbank_customer where email = #{email}
  	</select>
@@ -52,4 +55,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="emailFail" resultType="customerVO" parameterType="customerVO">
  		select email from kangbank_customer where email=#{email}
  	</select>
+	<select id="updatePassCheck" parameterType="accountVO" resultType="accountVO">
+      select accountNo, A.email, accountPass, A.tel, B.password, B.name, B.birth
+      from
+      (select accountNo, email, accountPass,tel from KANGBANK_ACCOUNT
+      where email=#{customerVO.email} and accountNo=#{accountNo} and
+      accountPass=#{accountPass}) A,
+      (select email,password,name,birth,tel,address,security_card,loginFailCount
+      from KANGBANK_CUSTOMER) B
+      where A.email=B.email and A.tel=B.tel
+   </select>
+   <select id="updatePass" parameterType="customerVO">
+      update kangbank_customer
+      set password=#{password}
+      where email=#{email}
+   </select>
+   <select id="accountNoCheck" parameterType="accountVO" resultType="string">
+      select A.accountNo from kangbank_account A, kangbank_account_type B where A.accountName=B.accountName and A.accountNo=#{accountNo} and A.email=#{customerVO.email} and B.accountType='입출금'
+   </select>
+   <select id="accountPassCheck" parameterType="accountVO" resultType="string">
+      select accountNo from kangbank_account where accountNo=#{accountNo} and accountPass=#{accountPass}
+   </select>
 </mapper>

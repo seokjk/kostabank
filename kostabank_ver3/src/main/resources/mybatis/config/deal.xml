@@ -28,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                         select dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate from
                         kangbank_deal_detail 
                         where dealDate between #{startDay} and #{endDay} and accountNo=#{accountNo}
-                        order by dealNo asc)) E,
+                        order by dealNo desc)) E,
                         kangbank_account F
                where F.accountNo = E.otherAccountNo) G,
                kangbank_customer H
@@ -46,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                         kangbank_deal_detail 
                         where dealDate between #{startDay} and #{endDay} and accountNo=#{accountNo}
                         and dealType=#{dealType}
-                        order by dealNo asc)) E,
+                        order by dealNo desc)) E,
                         kangbank_account F
                where F.accountNo = E.otherAccountNo) G,
                kangbank_customer H

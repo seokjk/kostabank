@@ -11,36 +11,51 @@
       var overdueTemp=${lvo.maximumMoney};
       var repayTermTemp=${lvo.term};
       var stayTermTemp=${lvo.term/2};
-         /*최대한도vs입력금액*/
-         $("#loanForm :input[name='overdue']").keyup(function(){
-            var overdue="";
-            overdue=$(this).val().trim();
-            if(overdue>overdueTemp){
-               alert("대출 가능한 금액을 넣어주세요.");
-               $("#loanForm :input[name='overdue']").val("");
-               return false;
-            }
-         });
-         /*상환기간한도vs입력기간*/
-         $("#loanForm :input[name='repayTerm']").keyup(function(){
-            var repayTerm="";
-            repayTerm=$(this).val().trim();
-            if(repayTerm>repayTermTemp){
-               alert("가능한 상환기간을 넣어주세요.");
-               $("#loanForm :input[name='repayTerm']").val("");
-               return false;
-            }
-         });
-         /*거치기간한도vs입력기간*/
-         $("#loanForm :input[name='stayTerm']").keyup(function(){
-            var stayTerm="";
-            stayTerm=$(this).val().trim();
-            if(stayTerm>stayTermTemp){
-               alert("가능한 거치기간을 넣어주세요.");
-               $("#loanForm :input[name='stayTerm']").val("");
-               return false;
-            }
-         });
+      /*최대한도vs입력금액*/
+      $("#loanForm :input[name='overdue']").keyup(function(){
+         var overdue="";
+         overdue=$(this).val().trim();
+         if(isNaN(overdue)==true){
+    			alert("숫자만 입력가능합니다.");
+    			$("#loanForm :input[name='overdue']").val("");
+    			return false;
+    			}
+         if(overdue>overdueTemp){
+            alert("대출 가능한 금액을 넣어주세요.");
+            $("#loanForm :input[name='overdue']").val("");
+            return false;
+         }
+      });
+      /*상환기간한도vs입력기간*/
+      $("#loanForm :input[name='repayTerm']").keyup(function(){
+         var repayTerm="";
+         repayTerm=$(this).val().trim();
+  	   if(isNaN(repayTerm)==true){
+			alert("숫자만 입력가능합니다.");
+			$("#loanForm :input[name='repayTerm']").val("");
+			return false;
+			}
+         if(repayTerm>repayTermTemp){
+            alert("가능한 상환기간을 넣어주세요.");
+            $("#loanForm :input[name='repayTerm']").val("");
+            return false;
+         }
+      });
+      /*거치기간한도vs입력기간*/
+      $("#loanForm :input[name='stayTerm']").keyup(function(){
+         var stayTerm="";
+         stayTerm=$(this).val().trim();
+         if(isNaN(stayTerm)==true){
+    			alert("숫자만 입력가능합니다.");
+    			$("#loanForm :input[name='stayTerm']").val("");
+    			return false;
+    			}
+         if(stayTerm>stayTermTemp){
+            alert("가능한 거치기간을 넣어주세요.");
+            $("#loanForm :input[name='stayTerm']").val("");
+            return false;
+         }
+      });
          /*form 입력란*/
          $("#securecheckBtn").click(function(){
             if ($(":input[name='goods']").val().trim()=="") {

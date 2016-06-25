@@ -14,6 +14,19 @@ insert into question(no,title,contents,section) values(question_seq.nextval, 'ë³
 
 
 
-
+  select no, qna_no,qna_refNo,qna_replyNo,qna_level,qna_title,qna_type,email,tel,name,qna_time,qna_fileAddress
+from(select rownum as no, q.qna_no,q.qna_refNo,q.qna_replyNo,q.qna_level,q.qna_title,qna_type,c.email,c.tel,c.name,q.qna_time,q.qna_fileAddress from(
+select qna_no,qna_refNo,qna_replyNo,qna_level,qna_title,qna_time,qna_type,ceil(rownum/10) as page,email,tel,qna_fileAddress from(
+select qna_no,qna_refNo,qna_replyNo,qna_level,qna_title,to_char(qna_time,'YYYY.MM.DD')as qna_time,qna_type,email,tel,qna_fileAddress from(
+SELECT qna_no, qna_refno, qna_replyno, qna_level,qna_title,qna_type,email,tel,qna_content,qna_fileAddress,qna_time FROM kangbank_qna
+start with qna_refno=0
+connect BY PRIOR qna_no=qna_refno
+OrDER siblings BY qna_refno desc, qna_no desc
+)
+)
+)q,kangbank_customer c 
+where q.email=c.email and q.email = 'seokjk2308@naver.com'
+)
+where qna_no = 5
 
 

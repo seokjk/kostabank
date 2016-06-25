@@ -59,4 +59,34 @@ public class CustomerDAOImpl implements CustomerDAO {
 	public CustomerVO infoByEmail(String email) {
 		return template.selectOne("customer.infoByEmail", email);
 	}
+	
+	@Override
+   public AccountVO updatePassCheck(AccountVO accountVO){
+      return template.selectOne("customer.updatePassCheck",accountVO);
+   }
+   @Override
+   public void updatePass(CustomerVO customerVO){
+      template.update("customer.updatePass", customerVO);
+   }
+   //계좌가 존재하는지 검사
+   public boolean accountNoCheck(String email, String accountNo) {
+      AccountVO vo = new AccountVO(new CustomerVO(email),accountNo);
+      String check = template.selectOne("customer.accountNoCheck",vo);
+      if(check==null){
+         return false;
+      }else{
+         return true;
+      }
+   }
+   //계좌비밀번호가 맞는지 검사
+   public boolean accountPassCheck(String accountNo, String accountPass) {
+      AccountVO vo = new AccountVO(accountNo, Integer.parseInt(accountPass));
+      String check = template.selectOne("customer.accountPassCheck",vo);
+      if(check==null){
+         return false;
+      }else{
+         return true;
+      }
+   }	
 }
+

@@ -26,4 +26,15 @@ public interface CustomerDAO {
 	CustomerVO emailFail(CustomerVO vo);
 
 	CustomerVO infoByEmail(String email);
+	//비밀번호 변경전 확인
+    AccountVO updatePassCheck(AccountVO accountVO);
+    //비밀번호 변경
+    void updatePass(CustomerVO customerVO);
+    
+    //계좌가 존재하는지 검사
+    boolean accountNoCheck(String email, String accountNo);
+    
+    //계좌의 비밀번호가 맞는지 검사
+    boolean accountPassCheck(String accountNo, String accountPass);
+	
 }
