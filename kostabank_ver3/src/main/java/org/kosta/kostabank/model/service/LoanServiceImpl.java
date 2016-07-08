@@ -43,6 +43,7 @@ public class LoanServiceImpl implements LoanService {
 		int randomValSe = (int) (Math.random() * 899) + 100;
 		String accountNo = "219-" + randomVal + "-" + randomValSe + "-28";
 		AccountVO accountVO = new AccountVO(accountNo, avo, vo, cvo);
+		//accountVO.setBalance(vo.getBalance());
 		loanDAO.createAccount(accountVO);
 		vo.setLoanAccountNo(accountVO.getAccountNo());
 		vo.setAccountName(avo.getAccountName());
@@ -57,13 +58,18 @@ public class LoanServiceImpl implements LoanService {
 
 	@Override
 	public void loanDepositDealDetail(LoanVO lvo) {
-		DealDetailVO dvo = new DealDetailVO("219-1111-111-25",
-				lvo.getInAccountNo(), "withdraw", lvo.getBalance());
+		DealDetailVO dvo = new DealDetailVO(lvo.getLoanAccountNo(),
+		lvo.getInAccountNo(), "withdraw", lvo.getBalance());
 		accountDAO.withdraw(dvo);
 		dealDetailDAO.insertTransDetail(dvo);
-		dvo = new DealDetailVO(lvo.getInAccountNo(), "219-1111-111-25",
+		dvo = new DealDetailVO(lvo.getInAccountNo(),lvo.getLoanAccountNo(),
 				"deposit", lvo.getBalance());
 		accountDAO.deposit(dvo);
 		dealDetailDAO.insertTransDetail(dvo);
+	}
+	
+	@Override
+	public int outAccountNoCount() {
+		return loanDAO.outAccountNoCount();
 	}
 }

@@ -27,28 +27,30 @@
 		});
 	});
 </script>
-<c:if test="${sessionScope.loginInfo != null }">
-	${sessionScope.loginInfo.name }님 회원정보수정
-	<form id="updateForm" name="updateForm" action="customer_updateCustomerResult.bank">
-		<input type="hidden" name="email" value="${sessionScope.loginInfo.email }">
-		<table border="1">
-			<tr>
-				<td>비밀번호</td>
-				<td><input type="password" name="password" id="password"></td>
-			</tr>
-			<tr>
-				<td>비밀번호확인</td>
-				<td><input type="password" name="passCheck" id="passCheck"></td>
-			</tr>
-			<tr>
-				<td>주소</td>
-				<td><input type="text" name="address" id="address" value="${sessionScope.loginInfo.address}"></td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center">
-					<input type="submit" value="수정">
-				</td>
-			</tr>
-		</table>
-	</form>
-</c:if>
+<div class="customerUpdate">
+	<c:if test="${sessionScope.loginInfo != null }">
+		<br><br>
+		<h2>${sessionScope.loginInfo.name }님 회원정보수정</h2><br>
+		<form id="updateForm" name="updateForm" action="customer_updateCustomerResult.bank">
+			<input type="hidden" name="email" value="${sessionScope.loginInfo.email }">
+			<table>
+				<tr>
+					<th>비밀번호</th>
+					<td><input type="password" name="password" id="password"></td>
+				</tr>
+				<tr>
+					<th>비밀번호확인</th>
+					<td><input type="password" name="passCheck" id="passCheck"></td>
+				</tr>
+				<tr>
+					<th>주소</th>
+					<td><input type="text" name="address" id="address" value="${sessionScope.loginInfo.address}"></td>
+				</tr>
+			</table>
+			<br><br>
+			<div id="button_location">
+				<input type="submit" value="수정" id="updateCustomer_Btn">
+			</div>
+		</form>
+	</c:if>
+</div>

@@ -38,7 +38,7 @@
 	<div class="carousel-inner">
 		<!--슬라이드1-->
 		<div class="item active"> 
-			<img src="${initParam.root}/kangbank/img/carhappy.png" style="width:500px" alt="First slide">
+			<img src="${initParam.root}/kangbank/img/carhappy.png" style="width:460px" alt="First slide">
 			<div class="container">
 				<div class="carousel-caption">
 				</div>

@@ -53,9 +53,14 @@ public class LoanController {
 		LoanAccountVO lvo = loanTypeService.loanList(accountName);
 		mv.addObject("lvo", lvo);
 		mv.addObject("alist", alist);
-		mv.addObject("alist2", alist2);
 		mv.addObject("atlist", atlist);
 		mv.setViewName("loan_view");
+		int count = loanService.outAccountNoCount();
+		if(count == 0) {
+			mv.addObject("alist2", alist);
+		} else {
+			mv.addObject("alist2", alist2);
+		}
 		return mv;
 	}
 
@@ -135,8 +140,8 @@ public class LoanController {
 		CustomerVO cvo = (CustomerVO) session.getAttribute("loginInfo");
 		AccountTypeVO avo = new AccountTypeVO();
 		avo.setAccountName(vo.getAccountName());
-		LoanVO lvo = loanService.loanSuccess(cvo, vo, avo);// 대출계좌 생성되면서 잔액에 원금이
-															// 들어감
+		LoanVO lvo = loanService.loanSuccess(cvo, vo, avo);// 대출계좌 생성되면서 잔액에 원금이 들어감
+		accountService.deposit(new AccountVO(lvo.getInAccountNo(), lvo.getBalance()));// 입금계좌에 대출금액들어감
 		loanService.loanDepositDealDetail(lvo);
 		return ("redirect:loanredirect.bank?accountNo=" + lvo
 				.getLoanAccountNo());
@@ -146,6 +151,19 @@ public class LoanController {
 	public ModelAndView loanResult(String accountNo) {
 		LoanVO lvo = loanService.selectLoan(accountNo);
 		return new ModelAndView("loan_result", "lvo", lvo);
+	}
+	
+	//대출 생성 전 패스워드 확인
+	@RequestMapping("checkMemberPassLoan.bank")
+	@ResponseBody
+	public boolean passwordCheck(HttpServletRequest request, String checkPass){
+		boolean flag = false;
+		HttpSession session = request.getSession(false);
+		CustomerVO loginInfo = (CustomerVO)session.getAttribute("loginInfo");
+		if(loginInfo.getPassword().equals(checkPass)){
+			flag=true;
+		}
+		return flag;
 	}
 
 }

@@ -22,7 +22,7 @@ $(document).ready(function(){
             str+="<tr><th>월당이체금액</th><td>"+vo.accountTypeVO.minMoney+"</td></tr>"
             str+="<tr><th>최대계약기간</th><td>"+vo.term+"</td></tr>"
             str+="<tr><th>금리</th><td>"+vo.rates+"</td></tr>"
-            str+="</table>"
+            str+="</table><br><br>"
             str+="<div id='savingsBtn'><input type ='image' src='${initParam.root}kangbank/img/savingsBtn.png'></div>";
             $("#accountDetail").html(str);
             $("#minMoney").html(vo.accountTypeVO.minMoney);

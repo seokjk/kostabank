@@ -30,12 +30,11 @@
 	}); 
 </script>
 <br>
-<h2>무엇이든 물어보세요</h2><h5>고객님의 궁금증을 해결해드립니다</h5>
-<hr>
-<br>
+<h2>무엇이든 물어보세요</h2>
+<h5>고객님의 궁금증을 해결해드립니다</h5>
+<br><br>
 <input id="questionsearch" type="text" name="questionsearch" size=50>&nbsp;&nbsp;&nbsp;&nbsp;
 <input type="button" value="검색" id="search">
-<br><br>
 <br><br>
 <h4>CATEGORY</h4>
 <table id="questioncategory">
@@ -65,15 +64,17 @@
 			</tr>
 			<%num++; %>
 		</c:forEach>
-	</table>
+		</table>
 	</c:otherwise>
 </c:choose>
 <br><br>
 <c:if test="${listVO.pagingBean.previousPageGroup}">
-		<img src="${initParam.root}kangbank/img/left_arrow_btn.gif" id="before"></c:if>
-	<c:forEach begin="${listVO.pagingBean.startPageOfPageGroup}" end="${listVO.pagingBean.endPageOfPageGroup}" var="i" >
-		<a  id="a" href="questionsearch.bank?questionsearch=${param.questionsearch}&page=${i }">${i }</a> 
-	</c:forEach>
-	<c:if test="${listVO.pagingBean.nextPageGroup}">
-		<img src="${initParam.root}kangbank/img/right_arrow_btn.gif" id="next"></c:if>
+	<img src="${initParam.root}kangbank/img/left_arrow_btn.gif" id="before">
+</c:if>
+<c:forEach begin="${listVO.pagingBean.startPageOfPageGroup}" end="${listVO.pagingBean.endPageOfPageGroup}" var="i" >
+	<a  id="a" href="questionsearch.bank?questionsearch=${param.questionsearch}&page=${i }">${i }</a> 
+</c:forEach>
+<c:if test="${listVO.pagingBean.nextPageGroup}">
+	<img src="${initParam.root}kangbank/img/right_arrow_btn.gif" id="next">
+</c:if>
 	

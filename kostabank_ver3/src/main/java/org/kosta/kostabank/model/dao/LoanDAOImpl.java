@@ -33,6 +33,7 @@ public class LoanDAOImpl implements LoanDAO {
 
 	@Override
 	public void createAccount(AccountVO accountVO) {
+		System.out.println(accountVO);
 		template.insert("loan.createAccount", accountVO);
 	}
 
@@ -86,6 +87,11 @@ public class LoanDAOImpl implements LoanDAO {
 		for (int i = 0; i < list.size(); i++) {
 			template.update("loan.dailyCheckUpdate", list.get(i));
 		}
+	}
+	
+	@Override
+	public int outAccountNoCount() {
+		return template.selectOne("loan.outAccountNoCount");
 	}
 
 }

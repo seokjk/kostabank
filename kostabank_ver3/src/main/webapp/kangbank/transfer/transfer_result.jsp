@@ -16,30 +16,46 @@
 			location.href="transfer_view.bank";
 		});
 	});
+    function noEvent(){
+        if (event.keyCode == 116) {
+            event.keyCode = 2;
+            return false;  
+        }  
+        else if(event.ctrlKey && (event.keyCode == 78 || event.keyCode ==82))
+        {
+            return false; 
+        }   
+    }  
+   document.onkeydown = noEvent;
 </script>
 <br>
-<h2>계좌 이체</h2>
-<br><br>
-<p style="color:red; font-size:16px;">아래와 같은 내용으로 이체가 정상적으로 처리되었습니다.!</p><br>
-<hr>
-<table id="resultTable">
-
-		<tr id="tr">
-			<td align="center">출금계좌</td><td align="center">입금은행</td><td align="center">입금계좌</td><td align="center">받는분</td><td align="center">이체금액</td><td align="center">이체 후 잔액</td>
+<div class="transfer_view">
+	<h2>계좌 이체</h2>
+	<br><br>
+	<p style="color:red; font-size:16px;">아래와 같은 내용으로 이체가 정상적으로 처리되었습니다.!</p><br>
+	<table class="transfer_result">
+		<tr>
+			<th>출금계좌</th>
+			<th id="bank">입금은행</th>
+			<th>입금계좌</th>
+			<th id="youName">받는분</th>
+			<th>이체금액</th>
+			<th>이체 후 잔액</th>
 		</tr>
 		<tr>
-			<td align="center">${tvo.account}</td>
-			<td align="center">${tvo.bank}</td>
-			<td align="center">${tvo.otheraccountNo}</td>
-			<td align="center">${youName}</td>
-			<td align="center">${tvo.money}</td>
-			 <td align="center">${afterMoney}</td>
+			<td>${tvo.account}</td>
+			<td id="bank">${tvo.bank}</td>
+			<td>${tvo.otheraccountNo}</td>
+			<td id="youName">${youName}</td>
+			<td>${tvo.money}</td>
+			<td>${afterMoney}</td>
 		</tr>
-
-</table><br><br>
-<input type="button"  value="홈"  id="home">
-<input type="button"  value="추가이체" id="transfer_view">
-
+	</table><br><br>
+<div id="transfer_button">
+	<input type="button"  value="홈"  id="home">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="button"  value="추가이체" id="transfer_view">
+</div>
+</div>
 
 
 

@@ -16,6 +16,10 @@
 <link
 	href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css"
 	rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="${initParam.root}kangbank_admin_css/w2ui-1.4.3.css"/>
+<link rel="stylesheet" href="${initParam.root}kangbank_admin_css/w2ui-1.4.3.min.css"/>
+<script type="text/javascript" src="${initParam.root}kangbank_admin_js/w2ui-1.4.3.js"></script>
+<script type="text/javascript" src="${initParam.root}kangbank_admin_js/w2ui-1.4.3.min.js"></script>
 <script type="text/javascript"
 	src="${initParam.root}resources/jquery-1.12.4.min.js"></script>
 <link rel="stylesheet" type="text/css"

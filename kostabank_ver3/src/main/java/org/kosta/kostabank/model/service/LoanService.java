@@ -18,4 +18,6 @@ public interface LoanService {
 	LoanVO selectLoan(String accountNo);
 
 	void loanDepositDealDetail(LoanVO lvo);
+
+	int outAccountNoCount();
 }

@@ -3,5 +3,6 @@
 
 <script type="text/javascript">
 alert("회원가입 성공!");
-location.href = "home.bank";
+opener.location.href = "${initParam.root}home.bank";
+window.close();
 </script>

@@ -63,7 +63,7 @@ location.href="home.bank";
 				</td>
 			</tr>
 			<tr>
-				<th align="center" >질문 내용</th>
+				<th align="center" >질문 종류</th>
 				<td>
 					<select class="no-border"name = "qnaType" id="qnaType">
 						<option value = ""></option>

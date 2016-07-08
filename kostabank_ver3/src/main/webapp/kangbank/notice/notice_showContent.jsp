@@ -2,12 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="${initParam.root}resources/jquery-1.12.4.min.js"></script>
-
-    
-   <script type="text/javascript">
-    $(document).ready(function(){
-    	$("#listImg").click(function(){    		
-    		location.href="notice_list.bank";
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#listImg").click(function(){    		
+			location.href="notice_list.bank";
     	});
     	$("#deleteImg").click(function(){ 
     		if(confirm("게시물을 삭제하시겠습니까?"))
@@ -19,30 +17,32 @@
     	});
     });	
 </script>
-</head>
-<body>
-<br>
 <div class="noticeShowContents">
-<h2>공지사항</h2><br><br>
+	<h2>공지사항</h2><br><br>
 	<table id="showcontents">
-		<thead>
-		<tr id="noticetr">
-			<td width="20%">NO : ${requestScope.nvo.no } </td>
+		<%-- <tr>
+			<td>NO : ${requestScope.nvo.no }</td>
 			<td rowspan="2">${requestScope.nvo.title} </td>
 			<td width="20%">조회수 : ${requestScope.nvo.hits }</td>
 		</tr>
 		<tr id="noticetr">
 			<td>작성자 :  ${requestScope.nvo.customerVO.name }</td>
 			<td>${requestScope.nvo.timePosted }</td>
+		</tr> --%>
+		<tr>
+			<th>NO.${requestScope.nvo.no }</th>
+			<th colspan="2">${requestScope.nvo.title }</th>
 		</tr>
-		</thead>
-		<tbody>
+		<tr>
+			<th>작성자 : ${requestScope.nvo.customerVO.name } </th>
+			<th>작성일 : ${requestScope.nvo.timePosted }</th>
+			<th>조회수 : ${requestScope.nvo.hits }</th>
+		</tr>
 		<tr>
 			<td colspan="3" >
 			<pre>${requestScope.nvo.content}</pre>
 			</td>
 		</tr>
-		</tbody>
 	</table>
 	<br>
 		<div class="select">

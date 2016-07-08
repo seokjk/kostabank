@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.kosta.kostabank.model.dao.AccountDAO;
 import org.kosta.kostabank.model.dao.SavingsDAO;
 import org.kosta.kostabank.model.vo.AccountRatesVO;
 import org.kosta.kostabank.model.vo.AccountTypeVO;
@@ -17,7 +18,7 @@ public class SavingsServiceImpl implements SavingsService {
 	@Resource
 	private SavingsDAO savingsDAO;
 	@Resource
-	private AccountService accountService;
+	private AccountDAO accountDAO;
 	@Override
 	public List<AccountTypeVO> savingsProductlist(String accountType) {
 		return savingsDAO.savingsProductlist(accountType);
@@ -34,15 +35,13 @@ public class SavingsServiceImpl implements SavingsService {
 	public void createSavings(AccountVO accountVO, SavingsVO savingsVO){
 		int randomVal=(int)(Math.random()* 8999)+1000;
 		int randomValSe=(int)(Math.random() * 899)+100;
-		String accountNo = "219-"+randomVal+"-"+randomValSe+"-26";
+		String accountNo = "219-"+randomVal+"-"+randomValSe+"-27";
 		accountVO.setAccountNo(accountNo);
 		savingsVO.setAccountVO(accountVO);
 		Date d = new Date();
-	    String issueDate = d.toString();
+		String issueDate = d.toString();
 		accountVO.setIssueDate(issueDate);
-		accountService.createAccount(accountVO);
-		System.out.println("createAccount 수행");
-		System.out.println(savingsVO);
+		accountDAO.createAccount(accountVO);
 		savingsDAO.createSavings(savingsVO);
 	}
 	@Override
@@ -54,7 +53,7 @@ public class SavingsServiceImpl implements SavingsService {
 		return savingsDAO.getTermBySeq(accountSeq);
 	}
 	@Override
-   public int selectRatesBySeq(String seq) {
-      return savingsDAO.selectRatesBySeq(seq);
-   }
+	public int selectRatesBySeq(String seq) {
+		return savingsDAO.selectRatesBySeq(seq);
+	}
 }

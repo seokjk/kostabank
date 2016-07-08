@@ -83,77 +83,102 @@
 		});
 	});
 </script>
-<br><br>
-<p style="color:red;,font-weight: bold;">
-※고객님이 입력하신 적금 상품 생성정보입니다.<br>
-    최종생성 전에 자동이체계좌와 금리달에 환급 받을 계좌, 선택한 상품 이름, 월마다 빠져 나오는 금액, 계약기간, 금리를
-    확인해주세요. 
-</p>
-<br>
-<form id="endingSavingsForm" action="endingSavingsForm.bank" method="post">
-<table>
-<tr>
-<td>계좌비밀번호</td>
-<td>자동이체계좌</td>
-<td>환급 계좌</td>
-<td>상품 이름</td>
-<td>월당이체금액</td>
-<td>계약기간</td>
-<td>금리(%)</td>
-</tr>
-<tr>
-<td><input type="hidden" name="savingsPass" value="<%=request.getParameter("savingsPass") %>"><%=request.getParameter("savingsPass") %></td>
-<td><input type="hidden" name="automaticNo" value="<%=request.getParameter("automaticNo") %>"><%=request.getParameter("automaticNo") %></td>
-<td><input type="hidden" name="paybackNo" value="<%=request.getParameter("paybackNo") %>"><%=request.getParameter("paybackNo") %></td>
-<td><input type="hidden" name="savingsName" value="<%=request.getParameter("savingsName") %>"><%=request.getParameter("savingsName") %></td>
-<td><input type="hidden" name="monthlyPayment" value="<%=request.getParameter("monthlyPayment") %>"><%=request.getParameter("monthlyPayment") %></td>
-<td><input type="hidden" name="accountSeq" value="<%=request.getParameter("savingsTerm") %>"><span id="term"></span></td>
-<td><input type="hidden" name="rates" value="<%=request.getParameter("rates") %>"><%=request.getParameter("rates") %></td>
-</tr>
-</table>
-</form>
-<hr>
-<br>
-<table class="securecheck">
-	<tr id="tr"><td colspan="10">KANGBANK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO.123456789</td></tr>
-	<c:forEach begin="1" end="6" step="1">
+<div class="account_secure">
+<div class="secure">
+	<br><br>
+	<p style="color:red;,font-weight: bold;">
+		※고객님이 입력하신 적금 상품 생성정보입니다.<br>
+		최종생성 전에 자동이체계좌와 금리달에 환급 받을 계좌, 선택한 상품 이름, 월마다 빠져 나오는 금액, 계약기간, 금리를
+		확인해주세요. 
+	</p>
+	<br>
+	<form id="endingSavingsForm" action="endingSavingsForm.bank" method="post">
+	<table>
 		<tr>
-			<c:forEach begin="1" end="5" step="1">
-				<td><%=num%></td>
+			<th>자동이체계좌</th>
+			<th>환급 계좌</th>
+			<th>상품 이름</th>
+			<th>월당이체금액</th>
+			<th id="saving_term_th">계약기간</th>
+			<th id="saving_term_th">금리(%)</th>
+		</tr>
+		<tr>
+			<td>
+				<input type="hidden" name="savingsPass" value="<%=request.getParameter("savingsPass") %>">
+				<input type="hidden" name="automaticNo" value="<%=request.getParameter("automaticNo") %>">
+				<%=request.getParameter("automaticNo") %>
+			</td>
+			<td>
+				<input type="hidden" name="paybackNo" value="<%=request.getParameter("paybackNo") %>">
+				<%=request.getParameter("paybackNo") %>
+			</td>
+			<td>
+				<input type="hidden" name="savingsName" value="<%=request.getParameter("savingsName") %>">
+				<%=request.getParameter("savingsName") %>
+			</td>
+			<td>
+				<input type="hidden" name="monthlyPayment" value="<%=request.getParameter("monthlyPayment") %>">
+				<%=request.getParameter("monthlyPayment") %>
+			</td>
+			<td id="saving_term_td">
+				<input type="hidden" name="accountSeq" value="<%=request.getParameter("savingsTerm") %>">
+				<span id="term"></span>
+			</td>
+			<td id="saving_term_td">
+				<input type="hidden" name="rates" value="<%=request.getParameter("rates") %>">
+				<%=request.getParameter("rates") %>
+			</td>
+		</tr>
+	</table>
+	</form>
+	<br>
+	<table class="secure_table1">
+		<tr>
+			<th colspan="10">
+				KANGBANK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO.123456789
+			</th>
+		</tr>
+		<c:forEach begin="1" end="6" step="1">
+			<tr>
+				<c:forEach begin="1" end="5" step="1">
+					<td><%=num%></td>
 					<%if(f+1==num){ %>
-						<td bgcolor="yellow">□□**</td>
+					<td bgcolor="yellow">□□**</td>
 					<%}else if(s+1==num){ %>
-						<td  bgcolor="yellow">**□□</td>
+					<td  bgcolor="yellow">**□□</td>
 					<%}else{%>
-						<td>* * * *</td>
+					<td>* * * *</td>
 					<%} %>
 						<%num=num+1; %>
-			</c:forEach>
-		</tr>
-	</c:forEach>
-</table>
-<br><br>
-<form id="securecheckForm" action="creatingSavingsSecureCardCheck.bank" method="post">
-<input type="hidden" name="f" value="<%=f+1%>">
-<input type="hidden" name="s" value="<%=s+1%>">
-<table id="securecheckinput">
-	<tr>
-		<td><%=f+1%>번째 암호 중 앞 두자리</td>
-		<td ><input  class="blueborder" type="text" id="dlf" name="dlf" size="1"></td>
-		<td ><input  class="blueborder"  type="text" id="dl" name="dl" size="1"></td>
-		<td><input class="no-border" type="text" size="1"  value="    *" readonly></td>
-		<td><input class="no-border" type="text" size="1" value="    *" readonly></td>
-	</tr>
-	<tr>
-		<td><%=s+1%>번째 암호 중 뒤 두자리</td>
-		<td><input class="no-border" type="text" size="1" value="    *" readonly></td>
-		<td><input class="no-border" type="text" size="1" value="    *" readonly></td>
-		<td><input class="blueborder"  type="text" id="tka" name="tka" size="1"></td>
-		<td><input class="blueborder"  type="text" id="tk" name="tk" size="1"></td>
-	</tr>
-</table>
-<br><br>
-<input type="button" id="createBtn" value="적금생성">&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="button" id="cancel" value="적금생성취소">
-</form>
-</html>
+				</c:forEach>
+			</tr>
+		</c:forEach>
+	</table>
+	<br><br>
+	<form id="securecheckForm" action="creatingSavingsSecureCardCheck.bank" method="post">
+		<input type="hidden" name="f" value="<%=f+1%>">
+		<input type="hidden" name="s" value="<%=s+1%>">
+		<table class="secure_table2">
+			<tr>
+				<th><%=f+1%>번째 암호 중 앞 두자리</th>
+				<td><input  class="blueborder" type="text" id="dlf" name="dlf" size="1"></td>
+				<td><input  class="blueborder"  type="text" id="dl" name="dl" size="1"></td>
+				<td><input class="no-border" type="text" size="1"  value="    *" readonly></td>
+				<td><input class="no-border" type="text" size="1" value="    *" readonly></td>
+			</tr>
+			<tr>
+				<th><%=s+1%>번째 암호 중 뒤 두자리</th>
+				<td><input class="no-border" type="text" size="1" value="    *" readonly></td>
+				<td><input class="no-border" type="text" size="1" value="    *" readonly></td>
+				<td><input class="blueborder"  type="text" id="tka" name="tka" size="1"></td>
+				<td><input class="blueborder"  type="text" id="tk" name="tk" size="1"></td>
+			</tr>
+		</table>
+		<br><br>
+		<div class="button_location">
+			<input type="button" id="createBtn" value="적금생성">&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="button" id="cancle" value="적금생성취소">
+		</div>
+	</form>
+</div>
+</div>

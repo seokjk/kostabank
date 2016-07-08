@@ -37,5 +37,7 @@ public interface LoanDAO {
 
    void dailyCheckUpdate(List<LoanVO> list);
 
+int outAccountNoCount();
+
 
 }

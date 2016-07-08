@@ -17,18 +17,30 @@
 	});
 
 </script>
-<br>
-<h2>적금생성 완료</h2>
-<br><br>
-<table>
-<tbody>
-<tr><th>계좌비밀번호</th><td>${accountVO.accountPass}</td></tr>
-<tr><th>자동이체계좌</th><td>${accountVO.accountNo}</td></tr>
-<tr><th>환급 계좌</th><td>${savingsVO.paybackNo}</td></tr>
-<tr><th>상품</th><td>${accountVO.accountTypeVO.accountName}</td></tr>
-<tr><th>월당이체금액</th><td>${savingsVO.monthlyPayment}</td></tr>
-<tr><th>계약기간</th><td><span id="term"></span></td></tr>
-<tr><th>금리(%)</th><td>${savingsVO.accountRatesVO.rates }</td></tr>
-</tbody>
-</table><br>
-<input type="button" value="흠으로" id="home">
+<div class="result_css">
+	<h2>적금생성 완료</h2>
+	<br><br>
+	<table>
+		<tr>
+			<th>적금 계좌</th>
+			<th>자동 이체 계좌</th>
+			<th>환급 계좌</th>
+			<th>상품</th>
+			<th>월당이체금액</th>
+			<th id="term_th">계약기간</th>
+			<th id="term_th">금리(%)</th>
+		</tr>
+		<tr>
+			<td>${accountVO.accountNo}</td>
+			<td>${savingsVO.automaticNo }</td>
+			<td>${savingsVO.paybackNo}</td>
+			<td>${accountVO.accountTypeVO.accountName}</td>
+			<td>${savingsVO.monthlyPayment}</td>
+			<td id="term_td"><span id="term"></span></td>
+			<td id="term_td">${savingsVO.accountRatesVO.rates }</td>
+		</tr>
+	</table><br><br>
+	<div id="result_button">
+		<input type="button" value="흠으로" id="home">
+	</div>
+</div>

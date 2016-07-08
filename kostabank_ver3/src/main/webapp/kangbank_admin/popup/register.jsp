@@ -1,5 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <script type="text/javascript"
+   src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript"
+   src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<link
+   href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"
+   rel="stylesheet" type="text/css">
+<link
+   href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css"
+   rel="stylesheet" type="text/css">
+<script type="text/javascript"
+   src="${initParam.root}resources/jquery-1.12.4.min.js"></script>
+<link rel="stylesheet" type="text/css"
+   href="${initParam.root}kangbank/kangcss/home.css">
 <script type="text/javascript">
 $(document).ready(function() {
    $(":input[name='email']").keyup(function(){
@@ -21,6 +35,10 @@ $(document).ready(function() {
       });
    });
    $(":input[value='인증하기']").click(function(){
+	  if($(":input[name='email']").val()==""){
+		  alert("email을 입력해주세요");
+		  return false;
+	  }
       if($("#emailCheck").text() == "사용 불가능한 email입니다"){
          alert("email을 확인해주세요");
       } else {
@@ -100,17 +118,15 @@ $(document).ready(function() {
       }
       $("#registerForm").submit();
    });
-   $(":input[name='home']").click(function() {
-     location.href="home.bank";
-   });
 });
 </script>
-<div class="register">
+<div class="registertwo">
    <h2>회원가입</h2><br>
    <div class="boardWrite">
-   <form action="customerRegister.bank" method="post" id = "registerForm" name = "registerForm" >
+   <form action="${initParam.root}customerRegister.bank" method="post" id = "registerForm" name = "registerForm" >
       <input type = "hidden" name = "checking">
-      <table>
+      <table border="1">
+      <tbody>
       <tr>
          <th>email</th>
          <td>
@@ -133,7 +149,7 @@ $(document).ready(function() {
       </tr>
       <tr>
          <th>birth</th>
-         <td><input type = "text" name = "birth" id = "birth">&nbsp;&nbsp;ex) 911211</td>
+         <td><input type = "text" name = "birth" id = "birth">&nbsp;&nbsp;ex) 911211-1111111</td>
       </tr>
       <tr>
          <th>tel</th>
@@ -143,11 +159,12 @@ $(document).ready(function() {
          <th>address</th>
          <td><input type = "text" name = "address" id = "address"></td>
       </tr>
+      </tbody>
       </table>
       <br>
       <div id="btn">
       <img src="${initParam.root}kangbank/img/signupbtn1.png" id="kangbank" style="cursor:pointer">
-      <a href="home.bank"><img src="${initParam.root}kangbank/img/signupbtn2.png" ></a>
+      <a href="${initParam.root}kangbank_admin/popup/closeWindow.jsp"><img src="${initParam.root}kangbank/img/signupbtn2.png" ></a>
      </div>
    </form>
    </div>

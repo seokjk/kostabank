@@ -186,7 +186,8 @@ background-color: silver;
    }
    #checkBtn, #createBtn, #conBtn, #transferBtn, #transfer_view, 
    #home, #createSavings, #transfer, #loanBtn, #certificateBtn, 
-   #sub_Btn, #qnaBtn{
+   #sub_Btn, #qnaBtn, #transferSecure, #update_button, #listBtn,
+   #updateCustomer_Btn{
       background-color: #6A5B50;
       color:white;
       height:40px;
@@ -297,35 +298,8 @@ background-color: silver;
    }
  
  
- /*QnA 글 insert*/
-.qnaInsert{margin-left:23%; }
-.qnaInsert h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
-.qnaInsert .qnatable table{table-layout:fixed;}
-.qnaInsert .qnatable th{width:200px; padding:23px 0 18px 22px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%;}
-.qnaInsert .qnatable td{width:800px; padding:20px 0 18px 20px; border-top:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px;}
-.qnaInsert .qnatable .no-border{text-align:center; width:100%;}
-.qnaInsert .qna_insert_btn{margin-left: 25%}
 
-/*QnA list*/
-.qnaList h2{text-align:center; margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
-.qnaList .qnaListIn {width:1000px; table-layout:fixed; border:2px solid #6A5B50; margin: 0 auto; font-size:20px; font-family: "맑은고딕";}
-.qnaList p.paging{width:100%; text-align: center;}
-.qnaList .qnaListIn #tr{background:#6A5B50;font-family: "HY강B";color:#F3E4C7; }
-.qnaList .qnaListIn tr:hover{background:#F3F5BB;}
-.qnaList .qnaListIn tr{font-size:20px;}
 
-/*Qna ShowContent*/
-.qnaShow h2{text-align:center; margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
-.qnaShow table{width:1000px; margin:0 auto; border:2px solid #6A5B50; font-family:nanumgothic, NanumGothic;}
-.qnaShow .qnaShowContents tr td{border:2px solid #6A5B50;font-size:20px;}
-.qnaShow caption{text-align:center;}	
-
-/*공지사항list 테이블*/
-.noticePage h2{text-align:center; margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
-.noticePage .notice{table-layout:fixed; border:2px solid #6A5B50; margin: 0 auto; font-family: "맑은고딕";}
-.noticePage p.paging{width:100%; text-align: center;}
-.noticePage .notice #tr{background:#6A5B50;font-family: "HY강B";color:#F3E4C7; }
-.noticePage .notice tr:hover{background:#F3F5BB; }
 
 /*공지사항 글쓰기*/
 .noticeWrite table {margin:0 auto; text-align:center;border:2px solid #6A5B50; font-family:nanumgothic, NanumGothic; font-size:18px; }
@@ -333,26 +307,6 @@ background-color: silver;
 .inputForm thead td{border:1px solid #6A5B50;text-align:center; font-size:18px; font-family:순수블랙;}
 .inputForm content{font-size:16px;}
 
-/*공지사항 내용보기*/
-.noticeShowContents h2{text-align:center; margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
-.noticeShowContents table{margin:0 auto; border:2px solid #6A5B50; font-family:nanumgothic, NanumGothic;}
-.noticeShowContents #noticetr{text-align:center; font-size:20px; font-family:순수블랙;}
-.noticeShowContents tr td {border:1px solid #6A5B50;}
-.noticeShowContents pre{font-size:16px;font-family:순수블랙;}
-.noticeShowContents .select{text-align:center;}
-
-/*공지사항 글 수정*/
-
-.noticeUpdate h2{text-align:center; margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
-.noticeUpdate table{margin:0 auto; border:2px solid #6A5B50; font-family:nanumgothic, NanumGothic;}
-.noticeUpdate tr td {border:1px solid #6A5B50;}
-.noticeUpdate thead{text-align:center;}
-.noticeUpdate .content{back-ground:#F6F6F6; width:1000px;}
-.noticeUpdate #contr{width:15%;height:60px; text-align:center; font-size:18px;}
-.noticeUpdate caption{text-align:right; font-size:16px;}	
-   
-
-   
 /*회원가입*/
 .register{margin-left:35%; }
 .register h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
@@ -362,7 +316,6 @@ background-color: silver;
 .register .boardWrite td p { padding:3px 0 0; line-height:16px; }
 .register .boardWrite #btn { overflow:hidden; margin:5px 140px 10px; font-size:1%; line-height:1%; }
 .register .boardWrite #emailBtn {background-color: gray; color:white; height:30px; width:80px; border:1px solid gray;}
-
 
 /*이메일 찾기*/
 .findId{margin-left:24%; }
@@ -384,39 +337,14 @@ background-color: silver;
 .findPassword  #passBtn { overflow:hidden; margin:5px 430px 10px; font-size:1%; line-height:1%; }
 .findPassword  #emailBtn {background-color: gray; color:white; height:30px; width:100px; border:1px solid gray;}
 
-/*대출*/
-.loanTypeShow{margin-left:24%; margin-top: 30px;}
-.loanTypeShow p{color: blue; border: 2px;}
-.loanTypeShow h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
-.loanTypeShow  .loanType table{table-layout:fixed; }
-.loanTypeShow  .loanType th { width:200px; padding:20px 0 18px 20px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px;text-align:left; line-height:140%; }
-.loanTypeShow  .loanType td { width:800px; padding:20px 0 18px 20px; border-top:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; }
-.loanTypeShow  table{table-layout:fixed; }
-.loanTypeShow  th { width:200px; padding:20px 0 18px 20px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px;text-align:left; line-height:140%; }
-.loanTypeShow  td { width:800px; padding:20px 0 18px 20px; border-top:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; }
-.loanTypeShow  #loanBtn { overflow:hidden; margin:5px 430px 10px; font-size:1%; line-height:1%; }
-
-/*적금*/
-.savingsView {margin-left:24%; margin-top: 30px;}
-.savingsView p{color: blue; border: 2px;}
-.savingsView h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
-.savingsView  .savingsTable table{table-layout:fixed;}
-.savingsView  .savingsTable th { width:200px; padding:20px 0 18px 20px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px;text-align:left; line-height:140%; }
-.savingsView  .savingsTable td { width:800px; padding:20px 0 18px 20px; border-top:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; }
-.savingsView  table{table-layout:fixed; border:2px solid #6A5B50; }
-.savingsView  th { width:200px; padding:20px 0 18px 20px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px;text-align:left; line-height:140%; }
-.savingsView  td { width:800px; padding:20px 0 18px 20px; border-top:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; }
-.savingsView  #savingsBtn { overflow:hidden; margin:5px 430px 10px; font-size:1%; line-height:1%; }
-
-
 /*loan_result.jsp*/
-.loanView{margin-left:24%; margin-top: 30px;}
+/* .loanView{margin-left:23.5%; margin-top: 30px;}
 .loanView p{color: blue; border: 2px;}
 .loanView h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
 .loanView  .loanView2 table{table-layout:fixed;  }
 .loanView  .loanView2 th { width:200px; padding:20px 0 18px 20px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px;text-align:left; line-height:140%; }
 .loanView  .loanView2 td { width:800px; padding:20px 0 18px 20px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; }
-.loanView  #passBtn { overflow:hidden; margin:5px 430px 10px; line-height:1%; }
+.loanView  #passBtn { overflow:hidden; margin:5px 480px 10px; line-height:1%; } */
 
 /*비밀번호 체크*/
 .passwordCheck{margin-left:100%; margin-top: 30px;}
@@ -428,18 +356,6 @@ background-color: silver;
 .accountTotalList .accountTotal table { table-layout:fixed; }
 .accountTotalList .accountTotal th { width:180px; padding:23px 0 18px 22px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%; }
 .accountTotalList .accountTotal td { width:350px; padding:23px 0 18px 22px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center;}
-
-/*계좌이체*/
-.transfer_view{margin-left:24%; }
-.transfer_view h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
-.transfer_view h1{margin:30px 0 0px; font-weight:bold; font-size:18px; color:#400040; font-family:nanumgothic, NanumGothic;}
-.transfer_view .transfer_view_table table { table-layout:fixed;}
-.transfer_view .transfer_view_table th { width:200px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px;text-align:center; line-height:140%; }
-.transfer_view .transfer_view_table #transfer_th{ width:260px; padding:23px 0 18px 22px; border-top:1px solid #e9e9e9; background:#f6f6f6; color:#414141; font-size:20px;text-align:center; line-height:140%; }
-.transfer_view .transfer_view_table td { width:310px; padding:23px 0 18px 22px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; }
-.transfer_view .transfer_view_button{margin-left: 30%}
-.transfer_view .transfer_view_table #buttonAccount{background-color: gray; color:white; height:30px; width:80px; border:1px solid gray;}
-
 
 /*상품정보*/
 .accountTypeDiv{margin-left:24%; }
@@ -456,30 +372,6 @@ background-color: silver;
 .account_pass_check #account_pass_check1{border:1px solid #5f5f5f;  height:40px;  width:200px;}
 .account_pass_check h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
 
-
-/*계좌 생성*/
-.account_create{margin-left:24%;}
-.account_create h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
-.account_create p{margin-left: 30%;}
-.account_create #createBtn {margin-left: 30%;}
-.account_create_table{margin-left:24%; table-layout:fixed;}
-.account_create_table th { width:200px; padding:22px 0 18px 22px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%; }
-.account_create_table .email {font-size:16px; border: 0px;}
-.account_create_table td { width:80%; padding:23px 0 18px 22px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; }
-.account_create_table #button1 {margin-left: 35%; }
-
-/*이체정보*/
-.transfer_transfer{margin-left:24%;}
-.transfer_transfer h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
-.transfer_transfer table {table-layout:fixed; }
-.transfer_transfer th { width:210px; padding:23px 0 18px 22px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%; }
-.transfer_transfer td { width:210px; padding:23px 0 18px 22px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center;}
-.transfer_transfer .secureTable{table-layout:fixed; }
-.transfer_transfer .secureTable th {width:65px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:120%; }
-.transfer_transfer .secureTable td {width:65px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:12%; font-size:16px; text-align:center;}
-.transfer_transfer #secureTable2 th {width:300px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:16px; text-align:center; line-height:120%; }
-.transfer_transfer #secureTable2 td {width:65px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:12%; font-size:16px; text-align:center;}
-.transfer_transfer #secureTable2 .inputText {border:0px;}
 
 /*거래내역*/
 .dealDetailByDate_result{margin-left:23.5%;}
@@ -515,35 +407,195 @@ background-color: silver;
 .transferBestList #transferBestList_td1 { width:100px; padding:10px 0 10px 10px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center;}
 .transferBestList #transferBestList_td2 { width:300px; padding:10px 0 10px 10px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center;}
 
-
-
-/*보안카드 css*/
-.secure_css{margin-left:24%;}
-.secure_css h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
-.secure_css table {table-layout:fixed; }
-.secure_css th { width:210px; padding:23px 0 18px 22px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%; }
-.secure_css #term_th { width:150px; padding:23px 0 18px 22px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%; }
-.secure_css #balance_th { width:150px; padding:23px 0 18px 22px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%; }
-.secure_css td { width:210px; padding:23px 0 18px 22px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center;}
-.secure_css #balance_td { width:150px; padding:23px 0 18px 22px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center;}
-.secure_css #term_td { width:150px; padding:23px 0 18px 22px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center;}
-.secure_css .secureTable{table-layout:fixed; }
-.secure_css .secureTable th {width:65px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:120%; }
-.secure_css .secureTable td {width:65px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:12%; font-size:16px; text-align:center;}
-.secure_css #secureTable2 th {width:300px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:16px; text-align:center; line-height:120%; }
-.secure_css #secureTable2 td {width:65px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:12%; font-size:16px; text-align:center;}
-.secure_css #secureTable2 .inputText {border:0px;}
-.secure_css .button_location{margin-left:25%;}
-
 /*인증번호 페이지*/
 .certificate_btn #certificate_input{border:1px solid #5f5f5f;  height:40px;  width:200px;}
 .certificate_btn h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
 
+/******************************************************************************************/
+/******************************************************************************************/
+/*******수정완료**********/
+/*관리자 페이지css*/
+/*admin 회원가입*/
+.registertwo{margin-left:1%; }
+.registertwo h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
+.registertwo .boardWrite table { table-layout:fixed; border:0px;}
+.registertwo .boardWrite th { width:180px; padding:23px 0 18px 22px; border-right:0px; border-left:0px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px;text-align:left; line-height:140%; }
+.registertwo .boardWrite td { width:400px; padding:23px 0 18px 22px; border-right:0px; border-left:0px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; }
+.registertwo .boardWrite td p { padding:3px 0 0; line-height:16px; }
+.registertwo .boardWrite #btn { overflow:hidden; margin:5px 140px 10px; font-size:1%; line-height:1%; }
+.registertwo .boardWrite #emailBtn {background-color: gray; color:white; height:30px; width:80px; border:1px solid gray;}
+/*admin계정 popup 예금조회*/
+.accountTotalListtwo{margin-left:1%; }
+.accountTotalListtwo h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
+.accountTotalListtwo .accountTotal table { table-layout:fixed; }
+.accountTotalListtwo .accountTotal th { width:180px; padding:23px 0 18px 22px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%; }
+.accountTotalListtwo .accountTotal td { width:350px; padding:23px 0 18px 22px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center;} 
+/*관리자 페이지 css 끝*/
 
-/*대출, 적금 결과*/
 
+/*계좌 생성*/
+.account_create{margin-left:24%;}
+.account_create h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
+.account_create p{margin-left: 30%;}
+.account_create #createBtn {margin-left: 30%;}
 
+.account_create_table{margin-left:24%; table-layout:fixed;}
+.account_create_table th { width:200px; padding:20px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%; }
+.account_create_table .email {font-size:16px; border: 0px;}
+.account_create_table td { width:80%; padding:20px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; }
+.account_create_table #button1 {margin-left: 35%; }
+.account_create_table td input{width:100%; border:0px;}
+.account_create_table td select{width:100%; border:0px;}
 
+/*계좌이체*/
+.transfer_view{margin-left:23.5%;}
+.transfer_transfer{margin-left:23.5%;}
+.transfer_view h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
+.transfer_view h1{font-weight:bold; font-size:18px; color:#400040; font-family:nanumgothic, NanumGothic;}
+.transfer_view .transfer_view_table table {table-layout:fixed;}
+.transfer_view .transfer_view_table th {width:200px; padding:20px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px;text-align:center; line-height:140%; }
+.transfer_view .transfer_view_table td {width:310px; padding:20px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; }
+.transfer_view .transfer_view_table td select{width:100%; border:0px;}
+.transfer_view .transfer_view_table #transfer_th{ width:260px; padding:20px; border-top:1px solid #e9e9e9; background:#f6f6f6; color:#414141; font-size:20px;text-align:center; line-height:140%; }
+.transfer_view .transfer_view_table #buttonAccount{background-color: gray; color:white; height:30px; width:80px; border:1px solid gray;}
+.transfer_view .transfer_view_button{margin-left: 30%}
+
+.transfer_view .transfer_result table {table-layout:fixed; }
+.transfer_view .transfer_result th {width:180px; padding:23px 0 18px 22px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%;}
+.transfer_view .transfer_result td {width:180px; padding:23px 0 18px 22px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center;}
+.transfer_view #transfer_button{margin-left: 25%;}
+
+/*대출*/
+.loanTypeShow{margin-left:24%; margin-top: 30px;}
+.loanTypeShow p{color: blue; border: 2px;}
+.loanTypeShow h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
+.loanTypeShow  .loanType table{table-layout:fixed; }
+.loanTypeShow  .loanType th { width:200px; padding:20px 0 18px 20px; border-bottom:1px solid #e7e7e7; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px;text-align:left; line-height:140%; }
+.loanTypeShow  .loanType td { width:800px; padding:20px 0 18px 20px; border-bottom:1px solid #e7e7e7; border-top:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; }
+.loanTypeShow  table{table-layout:fixed; }
+.loanTypeShow  th { width:200px; padding:20px 0 18px 20px; border-bottom:1px solid #e7e7e7; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px;text-align:left; line-height:140%; }
+.loanTypeShow  td { width:800px; padding:20px 0 18px 20px; border-bottom:1px solid #e7e7e7; border-top:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; }
+.loanTypeShow  #loanBtn { overflow:hidden; margin:5px 430px 10px; line-height:1%; }
+
+/*적금*/
+.savingsView {margin-left:24%; margin-top: 30px;}
+.savingsView #account_create{margin-left: 30%;}
+.savingsView h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
+.savingsView  .savingsTable table{table-layout:fixed;}
+.savingsView  .savingsTable th { width:200px; padding:20px 0 18px 20px; border-bottom:1px solid #e7e7e7; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px;text-align:left; line-height:140%; }
+.savingsView  .savingsTable td { width:800px; padding:20px 0 18px 20px; border-bottom:1px solid #e7e7e7; border-top:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; }
+.savingsView  table{table-layout:fixed;}
+.savingsView  th { width:200px; padding:20px 0 18px 20px; border-bottom:1px solid #e7e7e7; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px;text-align:left; line-height:140%; }
+.savingsView  td { width:800px; padding:20px 0 18px 20px; border-bottom:1px solid #e7e7e7; border-top:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; }
+.savingsView  #savingsBtn { overflow:hidden; margin:5px 430px 10px; font-size:1%; line-height:1%; }
+
+/*보안카드 관련 페이지 css*/
+.account_secure{margin-left:24%;}
+.pass_secure{margin-left:35%;}
+.secure{table-layout:fixed;}
+.secure h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
+.secure th {width:210px; padding:20px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%; }
+.secure td {width:210px; padding:20px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center;}
+.secure .secure_table1{table-layout:fixed;}
+.secure .secure_table1 th{width:50px; padding:5px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; background:#e7e7e7; color:#414141; font-size:18px; text-align:center; line-height:140%; }
+.secure .secure_table1 td{width:50px; padding:5px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center;}
+.secure .secure_table2 th{width:250px; padding:10px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%; }
+.secure .secure_table2 td{width:50px; padding:10px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; text-align:center; font-size:16px; }
+.secure .button_location{margin-left:25%;}
+.secure .button_location2{margin-left:10%;}
+
+.secure #loan_term_th{width:120px; padding:20px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%;}
+.secure #loan_balance_th{width:150px; padding:20px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%;}
+.secure #loan_term_td{width:120px; padding:20px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center;}
+.secure #loan_balance_td{width:150px; padding:20px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center;}
+
+.secure #saving_term_th{width:120px; padding:20px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%;}
+.secure #saving_term_td{width:120px; padding:20px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center;}
+
+/*결과 페이지 css*/
+.result_css{margin-left:23.5%;}
+.result_css h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
+.result_css table{table-layout:fixed;}
+.result_css th{width:180px; padding:10px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%;}
+.result_css td{width:180px; padding:10px; border-top:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center; border-bottom:1px solid #e7e7e7; }
+.result_css #term_th{width:120px; padding:10px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%;}
+.result_css #term_td{width:120px; padding:10px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center;}
+.result_css #result_button{margin-left: 30%}
+
+/*공지사항*/
+.noticePage{margin-left:23.5%;}
+.noticePage h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
+.noticePage th{width:180px; padding:10px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%;}
+.noticePage td{width:180px; padding:10px; border-top:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center; border-bottom:1px solid #e7e7e7; }
+.noticePage #notice_th{width:350px; padding:10px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%;}
+.noticePage #notice_td{width:350px; padding:10px; border-top:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center; border-bottom:1px solid #e7e7e7; }
+.noticePage #paging_location{margin-left:35%;}
+
+/*공지사항 내용보기*/
+.noticeShowContents h2{text-align:center; margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
+.noticeShowContents table{margin:0 auto; border:1px solid #e7e7e7; font-family:nanumgothic, NanumGothic;}
+.noticeShowContents th{width:180px; padding:10px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%;}
+.noticeShowContents td {width:350px; padding:10px; border-top:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; border-bottom:1px solid #e7e7e7;}
+.noticeShowContents #noticetr{text-align:center; font-size:20px; font-family:순수블랙;}
+.noticeShowContents pre{font-size:16px;font-family:순수블랙;}
+.noticeShowContents .select{text-align:center;}
+
+/*공지사항 글 수정*/
+.noticeUpdate h2{text-align:center; margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
+.noticeUpdate table{margin:0 auto; border:2px solid  #e7e7e7; font-family:nanumgothic, NanumGothic;}
+.noticeUpdate th{width:250px; padding:10px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%;}
+.noticeUpdate #noticeUpdate_th{width:20px; padding:10px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%;}
+.noticeUpdate td {width:350px; padding:10px; border:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px;}
+.noticeUpdate .content{back-ground:#F6F6F6; width:1000px;}
+.noticeUpdate #contr{width:15%;height:60px; text-align:center; font-size:18px;}
+.noticeUpdate caption{text-align:right; font-size:16px;}	
+.noticeUpdate #update_location{margin-left: 45%;}
+
+ /*QnA 글 insert*/
+.qnaInsert{margin-left:23%; }
+.qnaInsert h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
+.qnaInsert .qnatable table{table-layout:fixed;}
+.qnaInsert .qnatable th{width:200px; padding:20px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%;}
+.qnaInsert .qnatable td{width:800px; padding:20px; border-top:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center; }
+.qnaInsert .qnatable .no-border{text-align:center; width:100%;}
+.qnaInsert .qna_insert_btn{margin-left: 30%}
+
+/*QnA list*/
+.qnaList{margin-left:23.5%; }
+.qnaList h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
+.qnaList table{table-layout:fixed;}
+.qnaList th{width:450px; padding:20px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%;}
+.qnaList td{width:450px; padding:20px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center; }
+.qnaList #QnAList_th{width:150px; padding:20px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%;}
+.qnaList #QnAList_td{width:150px; padding:20px; border-top:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center; }
+.qnaList #paging_location{margin-left:35%;}
+
+/*Qna ShowContent*/
+.qna_showContent{margin-left: 23.5%;}
+.qna_showContent h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
+.qna_showContent table{table-layout:fixed;}
+.qna_showContent th{width:510px; padding:20px; border:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%;}
+.qna_showContent td{width:510px; padding:20px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center; }
+.qna_showContent #qna_content_text{font-size: 16px; text-align: left;}
+.qna_showContent #qna_button{margin-left: 25.5%}
+
+/*question*/
+.question_list{margin-left: 23.5%}
+.question_list h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
+.question_list th{width:100px; padding:10px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%;}
+.question_list td{width:100px; padding:10px; border-top:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center; border-bottom:1px solid #e7e7e7; }
+.question_list #question_list_th{width:800px; padding:10px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%;}
+.question_list #question_list_td{width:800px; padding:10px; border-top:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center; border-bottom:1px solid #e7e7e7; }
+.question_list .question_paging{margin-left: 35%;}
+
+.questionShow{margin-left: 23.5%;}
+
+/*회원정보수정*/
+.customerUpdate{margin-left: 35%;}
+.customerUpdate h2{margin:30px 0 0px; font-weight:bold; font-size:20px; color:#5f5f5f; font-family:nanumgothic, NanumGothic;}
+.customerUpdate th{width:300px; padding:10px; border-top:1px solid #e7e7e7; background:#f6f6f6; color:#414141; font-size:18px; text-align:center; line-height:140%;}
+.customerUpdate td{width:400px; padding:10px; border-top:1px solid #e7e7e7; color:#8f8f8f; line-height:140%; font-size:16px; text-align:center; border-bottom:1px solid #e7e7e7; }
+.customerUpdate #button_location{margin-left: 20%;}
 
 
 

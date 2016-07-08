@@ -8,6 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <select id="loanNameList" resultType="String">
       select accountName from kangbank_account_type where accountType='대출'
    </select>
+   
    <!-- 대출 계좌 전체 리스트 -->
    <select id="loanList" resultType="loanAccountVO">
       select C.AccountName, C.accountExplanation, C.maximumMoney, C.rates, C.term, D.additionalRates
@@ -18,32 +19,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          where A.accountName = B.accountName) C, kangbank_loan_rates D
       where C.accountSeq = D.accountSeq and C.accountName=#{value}
    </select>
+   
    <!-- 선택한 대출 상품 정보 -->
    <select id="loanData" resultType="loanAccountVO">
-   select a.accountName, a.accountType, a.accountExplanation,a.minMoney as maximumMoney, b.rates, b.term, b.ratesMonth
-   from KANGBANK_ACCOUNT_TYPE a, kangbank_account_rates b
-   where a.accountName=b.accountName and a.accountName=#{value}
+	   select a.accountName, a.accountType, a.accountExplanation,a.minMoney as maximumMoney, b.rates, b.term, b.ratesMonth
+	   from KANGBANK_ACCOUNT_TYPE a, kangbank_account_rates b
+	   where a.accountName=b.accountName and a.accountName=#{value}
    </select>
+   
+	<!-- 대출계좌에 outAccountNo가 있는지 -->
+	<select id="outAccountNoCount" resultType="int">
+		select count(outAccountNo) from kangbank_loan
+	</select>
    
    <!-- 대출계좌생성 -->
    <insert id="createAccount" parameterType="accountVO">
       insert into kangbank_account(accountNo,accountName,issueDate,accountPass,balance,email,tel) 
-      values (#{accountNo},#{accountTypeVO.accountName},sysdate,0000,#{loanVO.balance},#{customerVO.email}
+      values (#{accountNo},#{accountTypeVO.accountName},sysdate,0000,#{balance},#{customerVO.email}
     , (select tel from kangbank_customer where email =#{customerVO.email}))
    </insert>
    
-   <!-- 대출테이블 insert -->
-   <insert id="createLoan" parameterType="loanVO">
-      insert into kangbank_loan (loanAccountNo,inAccountNo,outAccountNo,repayTerm,stayTerm,loanRateSeq)
-      values (#{loanAccountNo},#{inAccountNo},#{outAccountNo},#{repayTerm},#{stayTerm},
-      (select loanRateSeq
-      from(
-         select at.accountName accountName, lr.loanRateSeq loanRateSeq
-         from kangbank_account_type at, kangbank_account_rates ar, kangbank_loan_rates lr
-         where at.accountName=ar.accountName and ar.accountSeq=lr.accountSeq and at.accountType='대출')
-         where accountName=#{accountName})
-      )
-   </insert>
+	<!-- 대출테이블 insert -->
+	<insert id="createLoan" parameterType="loanVO">
+		insert into kangbank_loan (loanAccountNo,inAccountNo,outAccountNo,repayTerm,stayTerm,loanRateSeq)
+        values (#{loanAccountNo},#{inAccountNo},#{outAccountNo},#{repayTerm},#{stayTerm},
+        (select loanRateSeq
+        from(
+           select at.accountName accountName, lr.loanRateSeq loanRateSeq
+           from kangbank_account_type at, kangbank_account_rates ar, kangbank_loan_rates lr
+           where at.accountName=ar.accountName and ar.accountSeq=lr.accountSeq and at.accountType='대출')
+           where accountName=#{accountName})
+        )
+	</insert>
    
    <!-- 대출성공테이블 -->
    <select id="selectLoan" parameterType="string" resultType="loanVO">

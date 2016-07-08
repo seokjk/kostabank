@@ -54,16 +54,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             (select * from KANGBANK_ACCOUNT_TYPE where accountType = '입출금') B
        where email=#{value} and A.accountName = B.accountName
    </select>
-         
+   
    <!-- 대출계좌와 연결 안 된 계좌조회 -->
    <select id="accountList2" resultMap="accountTypeRM">
-      select D.accountNo,D.accountName, D.balance, E.accountType
-       from 
+    select D.accountNo,D.accountName, D.balance, E.accountType
+     from 
          (   select C.accountNo,C.accountName, C.balance, C.email from kangbank_account C
             MINUS
             select A.accountNo, A.accountName, A.balance, A.email
-               from kangbank_account A, kangbank_savings B
-                  where A.accountNo=B.automaticNo ) D,    
+               from kangbank_account A, kangbank_loan B
+                  where A.accountNo=B.outaccountNo ) D, 
+                  
          (select * from KANGBANK_ACCOUNT_TYPE where accountType = '입출금') E
                   where D.accountName=E.accountName and D.email=#{value}
    </select>

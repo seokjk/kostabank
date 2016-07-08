@@ -83,43 +83,43 @@
 		});
 	});
 </script>
-<div class="secure_css">
+<div class="account_secure">
+<div class="secure">
 	<form id="loanForm" action="loansuccess.bank" method="post">
-	<br>
-	<h2>대출 정보</h2>
-	<br><br>
-	<table>
-		<thead>
+		<h2>대출 정보</h2>
+		<br>
+		<table>
 			<tr>
 				<th>선택상품</th>
 				<th>입금계좌</th>
 				<th>출금계좌</th>
-				<th id="balance_th">대출금액</th>
-				<th id="term_th">상환기간</th>
-				<th id="term_th">거치기간</th>
+				<th id="loan_balance_th">대출금액</th>
+				<th id="loan_term_th">상환기간</th>
+				<th id="loan_term_th">거치기간</th>
 			</tr>
-		</thead>
-		<tbody>
 			<tr>
 				<td><input type="hidden" name="accountName" value="${param.goods}">${param.goods}</td>
 				<td><input type="hidden" name="inAccountNo" value="${param.inAccountNo}">${param.inAccountNo}</td>
 				<td><input type="hidden" name="outAccountNo" value="${param.outAccountNo}">${param.outAccountNo}</td>
-				<td id="balance_td"><input type="hidden" name="balance" value="${param.overdue}">${param.overdue}</td>
-				<td id="term_td"><input type="hidden" name="repayTerm" value="${param.repayTerm}">${param.repayTerm}</td>
-				<td id="term_td"><input type="hidden" name="stayTerm" value="${param.stayTerm}">${param.stayTerm}</td>
+				<td id="loan_balance_td"><input type="hidden" name="balance" value="${param.overdue}">${param.overdue}</td>
+				<td id="loan_term_td"><input type="hidden" name="repayTerm" value="${param.repayTerm}">${param.repayTerm}</td>
+				<td id="loan_term_td"><input type="hidden" name="stayTerm" value="${param.stayTerm}">${param.stayTerm}</td>
 			</tr>
-		</tbody>
-	</table>
+		</table>
 	</form>
 	<br>
 	<p style="color:red;,font-weight: bold;">
-	※고객님이 입력하신 대출정보입니다.<br>
+		※고객님이 입력하신 대출정보입니다.<br>
 	    최종거래 전에 입금 은행 계좌번호와 이체금액, 받는분 성함을 다시 확인하여 주시기 바랍니다. 
 	</p>
 	<br>
 	<div>
-		<table class="secureTable">
-			<tr><th colspan="10">KANGBANK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO.123456789</th></tr>
+		<table class="secure_table1">
+			<tr>
+				<th colspan="10">
+					KANGBANK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO.123456789
+				</th>
+			</tr>
 			<c:forEach begin="1" end="6" step="1">
 				<tr>
 					<c:forEach begin="1" end="5" step="1">
@@ -139,30 +139,31 @@
 	</div>
 	<br><br>
 	<form id="loansecurecheck" method="post">
-	<input type="hidden" name="f" value="<%=f+1%>">
-	<input type="hidden" name="s" value="<%=s+1%>">
-	<div id="secureTable2">
-	<table>
-	<tr>
-		<th><%=f+1%>번째 암호 중 앞 두자리</th>
-		<td ><input  class="blueborder" type="text" id="dlf" name="dlf" size="1"></td>
-		<td ><input  class="blueborder"  type="text" id="dl" name="dl" size="1"></td>
-		<td><input class="no-border" type="text" size="1"  value="    *" readonly></td>
-		<td><input class="no-border" type="text" size="1" value="    *" readonly></td>
-	</tr>
-	<tr>
-		<th><%=s+1%>번째 암호 중 뒤 두자리</th>
-		<td><input class="no-border" type="text" size="1" value="    *" readonly></td>
-		<td><input class="no-border" type="text" size="1" value="    *" readonly></td>
-		<td><input class="blueborder"  type="text" id="tka" name="tka" size="1"></td>
-		<td><input class="blueborder"  type="text" id="tk" name="tk" size="1"></td>
-	</tr>
-</table>
+		<input type="hidden" name="f" value="<%=f+1%>">
+		<input type="hidden" name="s" value="<%=s+1%>">
+		<div class="secure_table2">
+			<table>
+				<tr>
+				<th><%=f+1%>번째 암호 중 앞 두자리</th>
+				<td ><input  class="blueborder" type="text" id="dlf" name="dlf" size="1"></td>
+				<td ><input  class="blueborder"  type="text" id="dl" name="dl" size="1"></td>
+				<td><input class="no-border" type="text" size="1"  value="    *" readonly></td>
+				<td><input class="no-border" type="text" size="1" value="    *" readonly></td>
+				</tr>
+				<tr>
+					<th><%=s+1%>번째 암호 중 뒤 두자리</th>
+					<td><input class="no-border" type="text" size="1" value="    *" readonly></td>
+					<td><input class="no-border" type="text" size="1" value="    *" readonly></td>
+					<td><input class="blueborder"  type="text" id="tka" name="tka" size="1"></td>
+					<td><input class="blueborder"  type="text" id="tk" name="tk" size="1"></td>
+				</tr>
+			</table>
+		</div>
+		<br><br>
+		<div class="button_location">
+			<input type="button" id="loanBtn" value="대출하기">&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="button" id="cancle" value="대출취소">
+		</div>
+	</form>
 </div>
-<br><br>
-<div class="button_location">
-	<input type="button" id="loanBtn" value="대출하기">&nbsp;&nbsp;&nbsp;&nbsp;
-	<input type="button" id="cancle" value="대출취소">
-</div>
-</form>
 </div>

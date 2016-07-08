@@ -7,8 +7,7 @@
 	<script type="text/javascript">
 		location.href = "home.bank";
 	</script>
-</c:if>
-    
+</c:if>  
 <script type="text/javascript">
     $(document).ready(function(){
     	$("#updateForm").submit(function(){ 
@@ -26,40 +25,31 @@
     	});
     });	
 </script>    
-    
-    
-    
-    
-    
-    
+ 
 <div class="noticeUpdate">
-<br>
-<h2>공지사항</h2>
-<br><br>
-<form method="post" id="updateForm" action="${initParam.root}notice_updateNotice.bank">
-	<table class="content">
-				<tr id="contr">
-					<td>
-						글번호
-					</td>
-					<td>
-						<input type=text name=no value=${nvo.no } size=48 readonly ></input>			
-					</td>
-					<td>
-						타이틀
-					</td>
-					<td>
-						<input type=text id=title name=title value=${nvo.title } size=48></input>	
-					</td>
-				<tr>
-					<td colspan=4>						
-						<textarea rows="19" cols="129" id="content" name="content">${nvo.content }</textarea>
-					</td>
-				</tr>
-
-				<caption align="bottom">
-				<input type="submit" value="수정하기" class="action"></input>
-				</caption>
-			</table>
-</form>	    
+	<br>
+	<h2>공지사항</h2>
+	<br><br>
+	<form method="post" id="updateForm" action="${initParam.root}notice_updateNotice.bank">
+		<table class="content">
+			<tr>
+				<th id="noticeUpdate_th">
+					NO.${nvo.no }
+					<input type=hidden name=no value=${nvo.no } readonly></input>
+				</th>
+				<th>
+					제목 <input type=text id=title name=title value=${nvo.title } size=48></input>
+				</th>
+			</tr>
+			<tr>
+				<td colspan="2">						
+					<textarea rows="19" cols="129" id="content" name="content">${nvo.content }</textarea>
+				</td>
+			</tr>
+		</table>
+		<br><br>
+		<div id="update_location">
+			<input type="submit" id="update_button" value="수정하기" class="action"></input>
+		</div>
+	</form>	    
 </div>

@@ -86,6 +86,7 @@
          });
    });
 </script> 
+<div class="loanTypeShow">
 <div class="loanView">
    <h2>대출</h2>
    <br>
@@ -123,28 +124,28 @@
       </tr>
       <tr>
          <th>대출금액</th>
-         <td colspan=3><input  class="no-border" type="text" name="overdue" id="overdue" size=25>원
+         <td colspan=3><input  class="no-border" type="text" name="overdue" id="overdue" size=20>원
                <br>최고 대출금액은 ${lvo.maximumMoney} 원입니다.
          </td>
       </tr>
       <tr>
          <th>상환기간</th>
-         <td><input class="no-border" type="text" name="repayTerm" id="repayTerm" size=25 >개월
+         <td><input class="no-border" type="text" name="repayTerm" id="repayTerm" size=10 >개월
                <br>최대 상환기간은 ${lvo.term} 개월 입니다.
          </td>
       </tr>
       <tr>
          <th>거치기간</th>
-         <td><input class="no-border" type="text" name="stayTerm" id="stayTerm" size=25 >개월
+         <td><input class="no-border" type="text" name="stayTerm" id="stayTerm" size=10 >개월
                <br>최대 거치기간은 <fmt:formatNumber value="${lvo.term/2}" pattern=""/>개월 입니다.            
          </td>
       </tr>
    </table>
    </div>
    <br>
-   <div id="passBtn">
+   <div id="loanBtn">
    <input type="button" id="securecheckBtn" value="보안카드확인">
    </div>
 </form>
 </div>
-    
+</div>
