@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="customer">
+    <select id="customerLogin" parameterType="customerVO" resultType="customerVO">
+       select * from kangbank_customer where email = #{email} and password = #{password}
+    </select>
+    <select id="infoByEmail" parameterType="customerVO" resultType="customerVO">
+       select * from kangbank_customer where email = #{email}
+    </select>
+    <select id="infoById" parameterType="customerVO" resultType="customerVO">
+       select * from kangbank_customer where email = #{email}
+    </select>
+    <insert id="customerRegister" parameterType="customerVO">
+       insert into kangbank_customer(email, password, name, birth, tel, address, security_card)
+      values(#{email}, #{password}, #{name}, #{birth}, #{tel}, #{address}, (select no from secure_card where no=0))
+    </insert>
+    <select id="checkEmail" parameterType="string" resultType="customerVO">
+       select * from kangbank_customer where email = #{email}
+    </select>
+    <select id="findId" parameterType="accountVO" resultType="customerVO">
+          select    *
+         from    (select email, tel 
+               from    KANGBANK_ACCOUNT 
+               where    accountNo = #{accountNo}
+                        AND accountPass = #{accountPass}) A,
+                 kangbank_customer B
+         where   B.email = A.email
+                 AND B.tel = A.tel
+    </select>
+    <update id="tempPassword" parameterType="customerVO">
+       update kangbank_customer set password = #{password} where email = #{email}
+    </update>
+    <update id="updateCustomerResult" parameterType="customerVO">
+       update kangbank_customer set password=#{password}, address=#{address} 
+      where email=#{email}
+    </update>
+    <!-- 로그인 실패 횟수 업데이트-->
+    <update id="loginFailCount" parameterType="customerVO">
+       update kangbank_customer set loginFailCount=(loginFailCount+1) 
+       where email=#{email}
+    </update>
+    <!-- 로그인 실패 횟수 0으로 업데이트 -->
+   <update id="updateCount" parameterType="customerVO">
+      update kangbank_customer set loginFailCount=0
+       where email=#{email}
+   </update>
+    <!-- 로그인 실패 횟수 찾기 -->
+    <select id="failCountUpdate" resultType="int">
+       select loginFailCount from kangbank_customer where email=#{email}
+    </select>
+    <!-- 이메일 없을 경우 -->
+    <select id="emailFail" resultType="customerVO" parameterType="customerVO">
+       select email from kangbank_customer where email=#{email}
+    </select>
+   <select id="updatePassCheck" parameterType="accountVO" resultType="accountVO">
+      select accountNo, A.email, accountPass, A.tel, B.password, B.name, B.birth
+      from
+      (select accountNo, email, accountPass,tel from KANGBANK_ACCOUNT
+      where email=#{customerVO.email} and accountNo=#{accountNo} and
+      accountPass=#{accountPass}) A,
+      (select email,password,name,birth,tel,address,security_card,loginFailCount
+      from KANGBANK_CUSTOMER) B
+      where A.email=B.email and A.tel=B.tel
+   </select>
+   <select id="updatePass" parameterType="customerVO">
+      update kangbank_customer
+      set password=#{password}
+      where email=#{email}
+   </select>
+   <select id="accountNoCheck" parameterType="accountVO" resultType="string">
+      select A.accountNo from kangbank_account A, kangbank_account_type B where A.accountName=B.accountName and A.accountNo=#{accountNo} and A.email=#{customerVO.email} and B.accountType='입출금'
+   </select>
+   <select id="accountPassCheck" parameterType="accountVO" resultType="string">
+      select accountNo from kangbank_account where accountNo=#{accountNo} and accountPass=#{accountPass}
+   </select>
+   <select id="searchCustomer" resultType="customerVO">
+      select email, name, birth, tel, address from kangbank_customer
+   </select>
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+타일즈 설정파일
+-->
+ <!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+       <!--
+             컨트롤러에서 반환하는 ModelAndView의 setViewName(name)의 아래의 
+             definition name과 일치하면 include된 타일즈 화면이 응답된다
+        -->
+<tiles-definitions>
+   <definition name="admin" template="/kangbank_admin/templates/layout.jsp">
+      <put-attribute name="header" value="/kangbank_admin/templates/header.jsp"></put-attribute>
+      <put-attribute name="left" value="/kangbank_admin/templates/left.jsp"></put-attribute>
+      <put-attribute name="footer" value="/kangbank_admin/templates/footer.jsp"></put-attribute>
+      <put-attribute name="main" value="/kangbank_admin/home.jsp"></put-attribute>
+   </definition>
+
+</tiles-definitions>
+
+
+
+
+
+
+

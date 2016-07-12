@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="deal">
+ 
+ 	<select id="getDetail" parameterType="dealDetailVO" resultType="dealDetailVO">
+ 		select *
+ 		from kangbank_deal_detail
+ 		where dealDate between #{startDay} and #{endDay} and accountNo=#{accountNo}
+ 	</select>
+ 	
+ 	  <select id="getDetailByType" parameterType="dealDetailVO" resultType="dealDetailVO">
+ 		select *
+ 		from kangbank_deal_detail
+ 		where dealDate between #{startDay} and #{endDay} and accountNo=#{accountNo}
+ 		and dealType=#{dealType}
+ 	</select>
+
+	<select id="getDetailPaging" parameterType="hashmap"
+		resultType="dealDetailVO">
+		select rownum as dealNo,G.accountNo,G.otherAccountNo,G.dealType,G.amountOfMoney,G.dealDate,G.page, H.name
+      from      (select E.dealNo,E.accountNo,E.otherAccountNo,E.dealType,E.amountOfMoney,E.dealDate,E.page, F.email
+               from      (select
+                        dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate,ceil(rownum/10)
+                        as page from(
+                        select dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate from
+                        kangbank_deal_detail 
+                        where dealDate between #{startDay} and #{endDay} and accountNo=#{accountNo}
+                        order by dealNo desc)) E,
+                        kangbank_account F
+               where F.accountNo = E.otherAccountNo) G,
+               kangbank_customer H
+      where   H.email = G.email and G.page=#{page}
+	</select>
+
+	<select id="getDetailByTypePaging" parameterType="hashmap"
+		resultType="dealDetailVO">
+		select  rownum as dealNo,G.accountNo,G.otherAccountNo,G.dealType,G.amountOfMoney,G.dealDate,G.page, H.name
+      from   (select E.dealNo,E.accountNo,E.otherAccountNo,E.dealType,E.amountOfMoney,E.dealDate,E.page, F.email
+               from      (select
+                        dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate,ceil(rownum/10)
+                        as page from(
+                        select dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate from
+                        kangbank_deal_detail 
+                        where dealDate between #{startDay} and #{endDay} and accountNo=#{accountNo}
+                        and dealType=#{dealType}
+                        order by dealNo desc)) E,
+                        kangbank_account F
+               where F.accountNo = E.otherAccountNo) G,
+               kangbank_customer H
+      where   H.email = G.email and G.page=#{page}
+	</select>
+ 	
+ 	<select id="numberOfContent" parameterType="dealDetailVO" resultType="int">
+ 		select count(*)
+ 		from kangbank_deal_detail
+ 		where dealDate between #{startDay} and #{endDay} and accountNo=#{accountNo}
+ 	</select>
+ 	
+ 	 	<select id="numberOfContentByType" parameterType="dealDetailVO" resultType="int">
+ 		select count(*)
+ 		from kangbank_deal_detail
+ 		where dealDate between #{startDay} and #{endDay} and accountNo=#{accountNo}
+ 		and dealType=#{dealType}
+ 	</select>
+ 	
+ 	<insert id="insertTransDetail" parameterType="dealDetailVO">
+      insert into kangbank_deal_detail(dealNo,accountNo,otherAccountNo,dealType,amountOfMoney,dealDate)
+      values(dealNo_seq.nextval,#{accountNo},#{otherAccountNo},#{dealType},#{amountOfMoney},sysdate)
+   </insert>
+</mapper>

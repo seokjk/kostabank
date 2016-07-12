@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qna">
+   <resultMap type="qNAVO" id="qnaRM">
+      <result property="customerVO.name" column="name" />
+      <result property="customerVO.email" column="email" />
+      <result property="customerVO.tel" column="tel" />
+      <result property="qnaNo" column="qna_no"/>
+      <result property="qnaTitle" column="qna_title"/>
+      <result property="qnaType" column="qna_type"/>
+      <result property="qnaContent" column="qna_content"/>
+      <result property="qnaFileAddress" column="qna_FileAddress"/>
+      <result property="qnaTime" column="qna_time"/>
+   </resultMap>
+   <select id="qnaList" resultMap="qnaRM">
+select no,qna_no,qna_refNo,qna_replyNo,qna_level,qna_title,qna_type,email,tel,name,qna_time,page
+from      (select no,qna_no,qna_refNo,qna_replyNo,qna_level,qna_title,qna_type,email,tel,name,qna_time,ceil(rownum/10) as page
+         from      (select no, q.qna_no,qna_refNo,qna_replyNo,qna_level,q.qna_title,c.email,c.tel,c.name,q.qna_type,to_char(qna_time,'YYYY.MM.DD') as qna_time
+                  from  (select rownum as no, qna_no,qna_refNo,qna_replyNo,qna_level,qna_title,qna_type,email,tel,qna_time
+                        from kangbank_qna order by qna_no asc)q, kangbank_customer c
+                  where q.email=c.email 
+                        start with qna_refno=0
+                        connect BY PRIOR qna_no=qna_refno
+                        order siblings by qna_refno asc, qna_no desc)
+         )
+where page=#{page} and email=#{email}
+   </select>
+   <select id="qnaNoList" resultMap="qnaRM">
+   select no,qna_no,qna_refNo,qna_replyNo,qna_level,qna_title,qna_type,email,tel,name,qna_time,page
+	from      (select no,qna_no,qna_refNo,qna_replyNo,qna_level,qna_title,qna_type,email,tel,name,qna_time,ceil(rownum/10) as page
+	         from      (select no, q.qna_no,qna_refNo,qna_replyNo,qna_level,q.qna_title,c.email,c.tel,c.name,q.qna_type,to_char(qna_time,'YYYY.MM.DD') as qna_time
+	                  from  (select rownum as no, qna_no,qna_refNo,qna_replyNo,qna_level,qna_title,qna_type,email,tel,qna_time
+	                        from kangbank_qna order by qna_no asc)q, kangbank_customer c
+	                  where q.email=c.email 
+	                        start with qna_refno=0
+	                        connect BY PRIOR qna_no=qna_refno
+	                        order siblings by qna_refno asc, qna_no desc)
+	         )
+	where qna_refNo =0
+   </select>
+   <insert id ="qnaPosting" parameterType="qNAVO">
+   <selectKey keyProperty="qnaNo" resultType="int" order="BEFORE">
+      select kangbank_qna_seq.nextval from dual 
+   </selectKey>
+   insert into kangbank_qna(qna_no,qna_refNo,qna_replyNo,qna_level,qna_title,qna_type,email,tel,qna_content,qna_fileAddress,qna_time)
+values(#{qnaNo},0,0,0,#{qnaTitle},#{qnaType},#{customerVO.email},#{customerVO.tel},#{qnaContent},#{qnaFileAddress},sysdate)
+   </insert>
+   <select id="totalContent" resultType="int">
+   select count(*) from kangbank_qna
+   </select>
+   <select id="selectNoContent" resultType="int">
+   select count(*) from kangbank_qna where qna_refNo =0
+   </select>
+   <select id="tempList" resultMap="qnaRM">
+   select qna_refNo as qna_no from kangbank_qna where qna_refNo != 0
+   </select>
+   <select id ="selectContent" resultType="int">
+   select count(*) from kangbank_qna where email=#{value}
+   </select>
+   
+   <select id ="showContent" resultMap="qnaRM">
+ 
+select no,qna_no,qna_title,email,tel,name,qna_content,qna_time,qna_fileAddress,qna_type
+from   (select rownum as no ,q.qna_no,q.qna_title,qna_content,c.email,c.tel,c.name,to_char(qna_time,'YYYY.MM.DD') as qna_time,q.qna_type,q.qna_fileAddress
+      from  (select qna_no,qna_title,qna_content,
+                  qna_time,qna_type,email,tel,
+                  qna_fileAddress
+              from kangbank_qna order by qna_no desc)q, kangbank_customer c
+      where q.email=c.email order by no desc)
+where qna_no = #{qnaNo}
+   </select>
+      <insert id ="rePosting" parameterType="qNAVO">
+   insert into kangbank_qna(qna_no,qna_refNo,qna_replyNo,qna_level,qna_title,qna_type,email,tel,qna_content,qna_fileAddress,qna_time)
+values(kangbank_qna_seq.nextval,#{qnaNo},#{qnaNo},1,#{qnaTitle},#{qnaType},#{customerVO.email},#{customerVO.tel},#{qnaContent},'null',sysdate)
+   </insert>
+   <delete id="deleteRe">
+   delete from kangbank_qna where qna_no=#{value}
+   </delete>
+</mapper>
