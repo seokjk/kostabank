@@ -6,51 +6,6 @@
       <%HttpSession sessions = request.getSession(false);
          if(sessions.getAttribute("loginInfo")!=null){
       %>
-      $("a[href$='secure_register']").click(function(){
-         var a = ${sessionScope.loginInfo.security_card};
-         if(a !=0){
-            alert("이미 보안카드가 존재합니다");
-            return false;
-         }else{
-            var c = confirm("보안카드를 신청하시겠습니까?");
-            if(c==false){
-               return false;
-            }else {
-               $.ajax({
-                  type : "post",
-                  url : "certificateEmail.bank?email=${sessionScope.loginInfo.email}",
-                  datatype : 'json',
-                  success : function(result) {
-                     window.open("kangbank/secure/certificate_email.jsp?email=${sessionScope.loginInfo.email}&flag=register", "email 인증", "width = 400, height = 200");
-                  }
-               });
-               return false;
-            }
-         }
-         
-      });
-      $("a[href$='secure_reissue']").click(function(){      
-         var a = ${sessionScope.loginInfo.security_card};
-         if(a ==0){
-            alert("소지하고 계신 보안카드가 없습니다 보안카드를 생성해주세요");
-            return false;
-         }else{
-            var c = confirm("보안카드를 재발급 받으시겠습니까?");
-            if(c==false){
-               return false;
-            }else {
-               $.ajax({
-                  type : "post",
-                  url : "certificateEmail.bank?email=${sessionScope.loginInfo.email}",
-                  datatype : 'json',
-                  success : function(result) {
-                     window.open("kangbank/secure/certificate_email.jsp?email=${sessionScope.loginInfo.email}&flag=reissue", "email 인증", "width = 400, height = 200");
-                  }
-               });
-               return false;
-            }
-         }
-      });
       $("a[href$='secure_delete']").click(function(){
          var a = ${sessionScope.loginInfo.security_card};
          if(a ==0){
@@ -88,7 +43,6 @@
                      <i class="fa fa-caret-down"></i>
                </a>
                   <ul class="dropdown-menu" role="menu">
-                     <li><a href="passwordCheck.bank">계좌 생성</a></li>
                       <li><a href="accountTotalList.bank">예금조회</a></li>
                   </ul></li>
                <li><a href="transfer_view.bank"  id="headerA" >계좌이체</a></li>
@@ -102,13 +56,9 @@
                   <ul class="dropdown-menu" role="menu">
                   <c:choose>
                   <c:when test="${empty sessionScope.loginInfo}">
-                     <li><a href="${initParam.root}kangbank/templates/needLogin.jsp">보안카드 발급</a></li>
-                     <li><a href="${initParam.root}kangbank/templates/needLogin.jsp">보안카드 재발급</a></li>
                      <li><a href="${initParam.root}kangbank/templates/needLogin.jsp">보안카드 폐기</a></li>
                   </c:when>
                   <c:otherwise>
-                     <li><a href="secure_register">보안카드 발급</a></li>
-                     <li><a href="secure_reissue">보안카드 재발급</a></li>
                      <li><a href="secure_delete">보안카드 폐기</a></li>
                   </c:otherwise>
                   </c:choose>
