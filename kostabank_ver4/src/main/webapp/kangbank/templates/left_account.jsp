@@ -54,9 +54,6 @@ $(document).ready(function() {
          <td>
             <input type = "submit" value = "로그인" id="loginBtn">
          </td>
-         <td>&nbsp;&nbsp;&nbsp;
-            <a href = "register_view.bank">회원가입</a>&nbsp;&nbsp;&nbsp;
-         </td>
          <td>&nbsp;&nbsp;
             <a href = "find_idview.bank">아이디찾기</a>&nbsp;&nbsp;
          </td>
