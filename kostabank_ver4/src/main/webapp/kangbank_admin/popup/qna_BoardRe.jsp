@@ -41,45 +41,56 @@
 	});
 				
 </script>
-	<h1>답글</h1>
+<div class="KqnaRe">
+<h2>답글</h2><br><br>
 	<form method = "post" action = "rePosting.bank" id = "rePostingForm">
-		<div class="container">
-		<table>
+		<table class="re">
 			<tr>
-				<td>질문타입</td>
+				<th>질문타입</th>
 				<td>
 					<input type = "text" name = "qnaType" value ="${qvo.qnaType}" readonly="readonly">
 				</td>
 			</tr>
 			<tr>
-				<td>번호</td>
+				<th>번호</th>
 				<td>
 					<input type = "text" name = "qnaNo" value="${qvo.qnaNo}" size="3" readonly="readonly">
 				</td>
 			</tr>
 			<tr>
-				<td>이름</td>
-				<td><input type = "text" name = "customerVO.name" value="${qvo.customerVO.name }" readonly="readonly"></td>
+				<th>이름</th>
+				<td>
+					<input type = "text" name = "customerVO.name" value="${qvo.customerVO.name }" readonly="readonly">
+				</td>
 			</tr>
 			<tr>                                
-				<td>메일</td>
-				<td><input type ="text" name = "customerVO.email" value = "${qvo.customerVO.email }" readonly="readonly"></td>
+				<th>이메일</th>
+				<td>
+					<input type ="text" name = "customerVO.email" value = "${qvo.customerVO.email }" readonly="readonly">
+				</td>
 			</tr>
 			<tr>
-				<td>번호</td>
-				<td><input type="text" name = "customerVO.tel" size="12" value = "${qvo.customerVO.tel }" readonly="readonly"></td>
+				<th>번호</th>
+				<td>
+					<input type="text" name = "customerVO.tel" size="12" value = "${qvo.customerVO.tel }" readonly="readonly">
+				</td>
 			</tr>
 			<tr>
-				<td>제목</td>
-				<td><input type = "text" name = "qnaTitle" value = "└Re:" size="95"></td>
+				<th>제목</th>
+				<td>
+					<input type = "text" name = "qnaTitle" value = "└Re:" size="95">
+				</td>
 			</tr>
 			<tr>
-				<td>내용</td>
-				<td><textarea cols="100" rows="15" name="qnaContent"></textarea></td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center"><input type = "button" id = "subBtn" value = "전송"></td>
+				<th>내용</th>
+				<td>
+					<textarea cols="70" rows="15" name="qnaContent"></textarea>
+				</td>
 			</tr>
 		</table>
+		<br><br>
+		<div id="location">
+			<input type = "button" id = "subBtn" value = "전송">
 		</div>
 	</form>
+</div>
